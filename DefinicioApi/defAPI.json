@@ -13,5 +13,27 @@
     ],
     "paths": {
         
+    },
+    "components": {
+        "schemas": {
+            "user": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "ndi_nif": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "carreg": {
+                        "type": "string"
+                    }
+
+                }
+            }
+        }
     }
 }
