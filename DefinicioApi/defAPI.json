@@ -1,0 +1,17 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Hospital",
+        "description": "Aquesta API permet la comuncicació entre BDD i el front del projecte",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "_comentario1": "afegir url de la Api",
+            "url": ""
+        }
+    ],
+    "paths": {
+        
+    }
+}
