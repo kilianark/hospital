@@ -12,6 +12,26 @@
         }
     ],
     "paths": {
+        "/habitacions": {
+            "get": {
+                "summary": "Obte una llista de totes les habitacions del hospital",
+                "responses": {
+                    "200": {
+                        "description": "Llista d'habitacions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Habitacio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
     },
     "components": {
