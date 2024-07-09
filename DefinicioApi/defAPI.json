@@ -32,8 +32,6 @@
                 }
             }
         },
-
-
         "/beds": {
             "get": {
                 "summary": "Obté una llista de tots els llits",
