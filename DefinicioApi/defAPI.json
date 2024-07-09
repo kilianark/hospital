@@ -31,8 +31,143 @@
                     }
                 }
             }
+        },
+
+
+        "/beds": {
+            "get": {
+                "summary": "Obté una llista de tots els llits",
+                "responses": {
+                    "200": {
+                        "description": "Llista de llits",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Bed"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crea un llit nou",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Bed"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Llit creat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bed"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "beds/{bedId}": {
+            "get": {
+                "summary": "Obté un llit per ID",
+                "parameters": [
+                    {
+                        "name": "bedId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalls del llit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bed"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Llit no trobat"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualitza un llit per ID",
+                "parameters": [
+                    {
+                        "name": "bedId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Bed"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Llit actualitzat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bed"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Llit no trobat"
+                    }
+                }    
+            },
+            "delete": {
+                "summary": "Borra un llit per ID",
+                "parameters": [
+                    {
+                        "name": "bedId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Llit eliminat"
+                    },
+                    "404": {
+                        "description": "Llit no trobat"
+                    }
+                }
+            }
         }
-        
     },
     "components": {
         "schemas": {
