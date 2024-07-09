@@ -165,6 +165,121 @@
                     }
                 }
             }
+        },
+        "/patients": {
+            "get": {
+                "summary": "Obté una llista de tots els pacients",
+                "responses": {
+                    "200": {
+                        "description": "Llista de pacients",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Patients"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crea un pacient nou",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Patients"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pacient creat",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patients"
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
+        },
+        "/patients/{id}": {
+            "get": {
+                "summary": "Obté un pacient per ID",
+                "parameters": [
+                    {
+                        "name": "patientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalls del pacient",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patients"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pacient no trobat"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Actualitza un pacient per ID",
+                "paramenters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "dni_nif": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "surname": {
+                                        "type": "string"
+                                    },
+                                    "llitID": {
+                                        "type": "integer"
+                                    },
+                                    "estat": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -175,7 +290,7 @@
                     "id": {
                         "type": "integer"
                     },
-                    "ndi_nif": {
+                    "dni_nif": {
                         "type": "string"
                     },
                     "name": {
