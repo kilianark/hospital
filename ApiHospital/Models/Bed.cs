@@ -1,4 +1,4 @@
-namespace HospitalFaroAPI.Models
+namespace ApiHospital.Models
 {
     public class Bed
     {
