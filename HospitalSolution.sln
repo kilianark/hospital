@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hospital", "hospital", "{EA7D528C-DD5B-4A03-A19D-6E0C5744F7B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiHospital", "hospital\ApiHospital\ApiHospital.csproj", "{680B822A-435A-4B77-8809-66EAF6FB4068}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiHospital", "ApiHospital\ApiHospital.csproj", "{680B822A-435A-4B77-8809-66EAF6FB4068}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
