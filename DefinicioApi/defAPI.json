@@ -299,7 +299,22 @@
                     "carreg": {
                         "type": "string"
                     }
-
+                }
+            },
+            "Bed": {
+                "type": "object",
+                "propieties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "habId": {
+                        "type": "string"
+                    },
+                    "pacientId": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                    
                 }
             }
         }
