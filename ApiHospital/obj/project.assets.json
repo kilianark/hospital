@@ -428,23 +428,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\victor.casares.ext\\.nuget\\packages\\": {},
+    "C:\\Users\\maria.manzano.ext\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\ApiHospital.csproj",
+      "projectUniqueName": "C:\\char2024\\hospital\\ApiHospital\\ApiHospital.csproj",
       "projectName": "ApiHospital",
-      "projectPath": "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\ApiHospital.csproj",
-      "packagesPath": "C:\\Users\\victor.casares.ext\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\obj\\",
+      "projectPath": "C:\\char2024\\hospital\\ApiHospital\\ApiHospital.csproj",
+      "packagesPath": "C:\\Users\\maria.manzano.ext\\.nuget\\packages\\",
+      "outputPath": "C:\\char2024\\hospital\\ApiHospital\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\victor.casares.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\maria.manzano.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
