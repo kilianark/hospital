@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\li.ji.ext\\dual24\\hospital\\hospital\\ApiHospital\\ApiHospital.csproj": {}
   },
   "projects": {
@@ -12,12 +13,29 @@
         "projectPath": "C:\\Users\\li.ji.ext\\dual24\\hospital\\hospital\\ApiHospital\\ApiHospital.csproj",
         "packagesPath": "C:\\Users\\li.ji.ext\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\li.ji.ext\\dual24\\hospital\\hospital\\ApiHospital\\obj\\",
+=======
+    "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\ApiHospital.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\ApiHospital.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\ApiHospital.csproj",
+        "projectName": "ApiHospital",
+        "projectPath": "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\ApiHospital.csproj",
+        "packagesPath": "C:\\Users\\victor.casares.ext\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\victor.casares.ext\\Documents\\ProjecteHospital\\hospital\\ApiHospital\\obj\\",
+>>>>>>> 080805643db5458023a0012e04270b7c2480f396
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\li.ji.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\victor.casares.ext\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 080805643db5458023a0012e04270b7c2480f396
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -50,10 +68,32 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+<<<<<<< HEAD
+=======
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+>>>>>>> 080805643db5458023a0012e04270b7c2480f396
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.6, )"
             },
+<<<<<<< HEAD
+=======
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+>>>>>>> 080805643db5458023a0012e04270b7c2480f396
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
