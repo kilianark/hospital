@@ -68,7 +68,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int32"
                         }
                     }
                 ],
@@ -96,7 +97,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int32"
                         }
                     }
                 ],
@@ -134,7 +136,8 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int32"
                         }
                     }
                 ],
@@ -437,7 +440,8 @@
                 "type": "object",
                 "propieties": {
                     "id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "format": "int32"
                     }
                 }
             }
