@@ -1,5 +1,6 @@
 is_global = true
 build_property.TargetFramework = net8.0
+<<<<<<< HEAD
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
@@ -10,10 +11,34 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ApiHospital
 build_property.RootNamespace = ApiHospital
 build_property.ProjectDir = C:\char2024\hospital\ApiHospital\
+=======
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ApiHospital
+build_property.RootNamespace = ApiHospital
+build_property.ProjectDir = C:\Users\victor.casares.ext\Documents\ProjecteHospital\hospital\ApiHospital\
+>>>>>>> 4f75c183d17e7aa80b3aaea239fd1c466a3f900b
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+<<<<<<< HEAD
 build_property.MSBuildProjectDirectory = C:\char2024\hospital\ApiHospital
+=======
+build_property.MSBuildProjectDirectory = C:\Users\victor.casares.ext\Documents\ProjecteHospital\hospital\ApiHospital
+>>>>>>> 4f75c183d17e7aa80b3aaea239fd1c466a3f900b
 build_property._RazorSourceGeneratorDebug = 
