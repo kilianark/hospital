@@ -12,7 +12,7 @@
         }
     ],
     "paths": {
-        "/habitacions": {
+        "/rooms": {
             "get": {
                 "summary": "Obte una llista de totes les habitacions del hospital",
                 "responses": {
@@ -23,11 +23,127 @@
                                 "schema": {
                                     "type":"array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Habitacio"
+                                        "$ref": "#/components/schemas/Rooms"
                                     }
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crea una habitació nova",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rooms"
+                            }
+                    }
+                }
+
+            }, 
+            "responses": {
+                    "201": {
+                        "description": "Habitació creada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rooms"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "rooms/{roomId}": {
+            "get": {
+                "summary": "Obté una habitació per ID",
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalls de la habitació",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rooms"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Habitació no trobada"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualitza una habitació per ID",
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rooms"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Habitació actualitzada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rooms"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Habitació no trobada"
+                    }
+                }    
+            },
+            "delete": {
+                "summary": "Borra una habitació per ID",
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Habitació eliminada"
+                    },
+                    "404": {
+                        "description": "Habitació no trobada"
                     }
                 }
             }
