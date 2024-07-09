@@ -432,6 +432,14 @@
                     }
                     
                 }
+            },
+            "Rooms": {
+                "type": "object",
+                "propieties": {
+                    "id": {
+                        "type": "integer"
+                    }
+                }
             }
         }
     }
