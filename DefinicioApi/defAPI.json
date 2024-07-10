@@ -2,22 +2,22 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Api Hospital",
-        "description": "Aquesta API permet la comuncicació entre BDD i el front del projecte",
+        "description": "This API allows the communication between the data base and the front-end",
         "version": "1.0.0"
     },
     "servers": [
         {
-            "_comentario1": "afegir url de la Api",
+            "_comentario1": "Afegir url de la Api",
             "url": ""
         }
     ],
     "paths": {
         "/rooms": {
             "get": {
-                "summary": "Obté una llista de totes les habitacions del hospital",
+                "summary": "Lists all the hospital rooms",
                 "responses": {
                     "200": {
-                        "description": "Llista d'habitacions",
+                        "description": "Room list",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -32,7 +32,7 @@
                 }
             },
             "post": {
-                "summary": "Crea una habitació nova",
+                "summary": "Create new room",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -46,7 +46,7 @@
             }, 
             "responses": {
                     "201": {
-                        "description": "Habitació creada",
+                        "description": "Room created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -54,6 +54,9 @@
                                 }
                             }
                         }
+                    },
+                    "400":{
+                        "description": "Room already exists"
                     }
                 }
 
@@ -61,7 +64,7 @@
         },
         "rooms/{roomId}": {
             "get": {
-                "summary": "Obté una habitació per ID",
+                "summary": "Get room by Id",
                 "parameters": [
                     {
                         "name": "roomId",
@@ -75,7 +78,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Detalls de la habitació",
+                        "description": "Room details",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -85,12 +88,12 @@
                         }
                     },
                     "404": {
-                        "description": "Habitació no trobada"
+                        "description": "Room not found"
                     }
                 }
             },
             "put": {
-                "summary": "Actualitza una habitació per ID",
+                "summary": "Update room by Id",
                 "parameters": [
                     {
                         "name": "roomId",
@@ -114,7 +117,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Habitació actualitzada",
+                        "description": "Updated room",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -124,12 +127,12 @@
                         }
                     },
                     "404": {
-                        "description": "Habitació no trobada"
+                        "description": "Room not found"
                     }
                 }    
             },
             "delete": {
-                "summary": "Borra una habitació per ID",
+                "summary": "Delete room by Id",
                 "parameters": [
                     {
                         "name": "roomId",
@@ -143,20 +146,20 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Habitació eliminada"
+                        "description": "Room deleted"
                     },
                     "404": {
-                        "description": "Habitació no trobada"
+                        "description": "Room not found"
                     }
                 }
             }
         },
         "/beds": {
             "get": {
-                "summary": "Obté una llista de tots els llits",
+                "summary": "Lists beds",
                 "responses": {
                     "200": {
-                        "description": "Llista de llits",
+                        "description": "Bed list",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -171,7 +174,7 @@
                 }
             },
             "post": {
-                "summary": "Crea un llit nou",
+                "summary": "Create new bed",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -184,7 +187,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Llit creat",
+                        "description": "Bed created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -192,13 +195,16 @@
                                 }
                             }
                         }
+                    },
+                    "400":{
+                        "description": "Bed already exists"
                     }
                 }
             }
         },
         "beds/{bedId}": {
             "get": {
-                "summary": "Obté un llit per ID",
+                "summary": "Get bed by Id",
                 "parameters": [
                     {
                         "name": "bedId",
@@ -211,7 +217,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Detalls del llit",
+                        "description": "Bed details",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -221,12 +227,12 @@
                         }
                     },
                     "404": {
-                        "description": "Llit no trobat"
+                        "description": "Bed not found"
                     }
                 }
             },
             "put": {
-                "summary": "Actualitza un llit per ID",
+                "summary": "Update bed by Id",
                 "parameters": [
                     {
                         "name": "bedId",
@@ -249,7 +255,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Llit actualitzat",
+                        "description": "Updated bed",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -259,12 +265,12 @@
                         }
                     },
                     "404": {
-                        "description": "Llit no trobat"
+                        "description": "Bed not found"
                     }
                 }    
             },
             "delete": {
-                "summary": "Borra un llit per ID",
+                "summary": "Delete bed by Id",
                 "parameters": [
                     {
                         "name": "bedId",
@@ -277,20 +283,20 @@
                 ],
                 "responses": {
                     "204": {
-                        "description": "Llit eliminat"
+                        "description": "Bed deleted"
                     },
                     "404": {
-                        "description": "Llit no trobat"
+                        "description": "Bed not found"
                     }
                 }
             }
         },
         "/patients": {
             "get": {
-                "summary": "Obté una llista de tots els pacients",
+                "summary": "Get list of patients",
                 "responses": {
                     "200": {
-                        "description": "Llista de pacients",
+                        "description": "Patient list",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -305,7 +311,7 @@
                 }
             },
             "post": {
-                "summary": "Crea un pacient nou",
+                "summary": "Create new patient",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -318,7 +324,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Pacient creat",
+                        "description": "Patient created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -326,13 +332,16 @@
                                 }
                             }
                         }
+                    },
+                    "400":{
+                        "description": "Patient already exists"
                     }
                 } 
             }
         },
         "/patients/{id}": {
             "get": {
-                "summary": "Obté un pacient per ID",
+                "summary": "Get patient by Id",
                 "parameters": [
                     {
                         "name": "patientId",
@@ -345,7 +354,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Detalls del pacient",
+                        "description": "Patient details",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -355,12 +364,12 @@
                         }
                     },
                     "404": {
-                        "description": "Pacient no trobat"
+                        "description": "Patient not found"
                     }
                 }
             },
             "patch": {
-                "summary": "Actualitza un pacient per ID",
+                "summary": "Update patient by Id",
                 "paramenters": [
                     {
                         "name": "id",
@@ -397,8 +406,24 @@
                             }
                         }
                     }
+                },
+                "responses": 
+                {
+                    "200": {
+                        "description": "Updated patient",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patients"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Patient not found"
+                    }
                 }
-            }
+            }   
         }
     },
     "components": {
@@ -464,8 +489,8 @@
                         "type": "string",
                         "nullable": true
                     },
-                    "Status": {
-                        "type": "string"
+                    "Discharge": {
+                        "type": "boolean"
                     }
                 }
             }
