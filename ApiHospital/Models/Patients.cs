@@ -1,15 +1,15 @@
-namespace HospitalFaroAPI.Models
+namespace ApiHospital.Models
 {
-    public class Patient
+    public class Patients
     {
         public int Id { get; set; }
-        public string dni_nif { get; set; }
-        public string name { get; set; }
+        public string Nif { get; set; }
+        public string Name { get; set; }
 
-        public string surname { get; set; }
+        public string Surname { get; set; }
 
-        public string? bedID { get; set; }
+        public string? BedId { get; set; }
 
-        public string condition { get; set; }
+        public string Status { get; set; }
     }
 }

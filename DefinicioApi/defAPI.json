@@ -14,7 +14,7 @@
     "paths": {
         "/rooms": {
             "get": {
-                "summary": "Obte una llista de totes les habitacions del hospital",
+                "summary": "Obté una llista de totes les habitacions del hospital",
                 "responses": {
                     "200": {
                         "description": "Llista d'habitacions",
@@ -378,19 +378,19 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "dni_nif": {
+                                    "Nif": {
                                         "type": "string"
                                     },
-                                    "name": {
+                                    "Name": {
                                         "type": "string"
                                     },
-                                    "surname": {
+                                    "Surname": {
                                         "type": "string"
                                     },
-                                    "llitID": {
+                                    "BedId": {
                                         "type": "integer"
                                     },
-                                    "estat": {
+                                    "Status": {
                                         "type": "string"
                                     }
                                 }
@@ -406,16 +406,16 @@
             "user": {
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "Id": {
                         "type": "integer"
                     },
-                    "dni_nif": {
+                    "Nif": {
                         "type": "string"
                     },
-                    "name": {
+                    "Name": {
                         "type": "string"
                     },
-                    "carreg": {
+                    "JobPosition": {
                         "type": "string"
                     }
                 }
@@ -423,14 +423,14 @@
             "Bed": {
                 "type": "object",
                 "propieties": {
-                    "id": {
+                    "Id": {
                         "type": "string"
                     },
-                    "habId": {
-                        "type": "string"
+                    "RoomId": {
+                        "type": "integer"
                     },
-                    "pacientId": {
-                        "type": "string",
+                    "PatientId": {
+                        "type": "integer",
                         "nullable": true
                     }
                     
@@ -439,7 +439,7 @@
             "Rooms": {
                 "type": "object",
                 "propieties": {
-                    "id": {
+                    "Id": {
                         "type": "integer",
                         "format": "int32"
                     }
@@ -448,22 +448,23 @@
             "Patients": {
                 "type": "object",
                 "properties": {
-                    "id": {
+                    "Id": {
                         "type": "integer"
                     },
-                    "dni_nif": {
+                    "Nif": {
                         "type": "string"
                     },
-                    "name": {
+                    "Name": {
                         "type": "string"
                     },
-                    "surname": {
+                    "Surname": {
                         "type": "string"
                     },
-                    "bedID": {
-                        "type": "string"
+                    "BedId": {
+                        "type": "string",
+                        "nullable": true
                     },
-                    "condition": {
+                    "Status": {
                         "type": "string"
                     }
                 }
