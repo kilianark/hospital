@@ -449,7 +449,7 @@
                 "type": "object",
                 "propieties": {
                     "Id": {
-                        "type": "string"
+                        "type": "integer"
                     },
                     "RoomId": {
                         "type": "integer"
