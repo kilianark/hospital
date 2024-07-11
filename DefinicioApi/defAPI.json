@@ -14,7 +14,7 @@
     "paths": {
         "/rooms": {
             "get": {
-                "summary": "Lists all the hospital rooms",
+                "summary": "Lists of all the hospital rooms",
                 "responses": {
                     "200": {
                         "description": "Room list",
@@ -40,11 +40,10 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Rooms"
                             }
+                        }
                     }
-                }
-
-            }, 
-            "responses": {
+                }, 
+                "responses": {
                     "201": {
                         "description": "Room created",
                         "content": {
@@ -59,7 +58,6 @@
                         "description": "Room already exists"
                     }
                 }
-
             }
         },
         "rooms/{roomId}": {
@@ -156,7 +154,7 @@
         },
         "/beds": {
             "get": {
-                "summary": "Lists beds",
+                "summary": "Lists of beds",
                 "responses": {
                     "200": {
                         "description": "Bed list",
@@ -211,7 +209,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -239,7 +237,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -277,7 +275,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -339,7 +337,7 @@
                 } 
             }
         },
-        "/patients/{id}": {
+        "/patients/{patientId}": {
             "get": {
                 "summary": "Get patient by Id",
                 "parameters": [
@@ -348,7 +346,7 @@
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -372,7 +370,7 @@
                 "summary": "Update patient by Id",
                 "paramenters": [
                     {
-                        "name": "id",
+                        "name": "patientId",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -399,7 +397,7 @@
                                     "BedId": {
                                         "type": "integer"
                                     },
-                                    "Status": {
+                                    "Discharge": {
                                         "type": "string"
                                     }
                                 }
@@ -428,7 +426,7 @@
     },
     "components": {
         "schemas": {
-            "user": {
+            "User": {
                 "type": "object",
                 "properties": {
                     "Id": {

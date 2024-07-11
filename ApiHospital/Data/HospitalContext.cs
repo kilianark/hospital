@@ -4,7 +4,7 @@ using ApiHospital.Models;
 // millor situar el context en la carpeta Data
 // Models sol contenir definicions de les ENTITATs de dades
 // si es decideix en la carpeta Models, simplement el NS, serà el model.Models
-// i s'actualitza l'startup.cs en el using...Models;
+// i s'actualitza l'startup.cs en el using...Models
 // Data es una carpeta nova que es troba en l'arrel del projecte API
 
 // fitxer del context
