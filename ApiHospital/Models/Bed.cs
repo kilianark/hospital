@@ -2,8 +2,8 @@ namespace ApiHospital.Models
 {
     public class Bed
     {
-        public string Id { get; set; }
-        public string RoomId { get; set; }
-        public string? PatientId { get; set; }
+        public int Id { get; set; }
+        public int RoomId { get; set; }
+        public int? PatientId { get; set; }
     }
 }
