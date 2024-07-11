@@ -9,9 +9,9 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy =>
     .AllowAnyMethod()
     .AllowAnyOrigin()));
 builder.Services.AddControllers();
+builder.Services.AddDbContext<HospitalContext>(opt => opt.UseInMemoryDatabase("Hospital"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<HospitalContext>(opt => opt.UseInMemoryDatabase("Hospital"));
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
