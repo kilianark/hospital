@@ -10,7 +10,7 @@ using ApiHospital.Models;
 
 namespace ApiHospital.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Patients")]
     [ApiController]
     public class PatientController : ControllerBase
     {
