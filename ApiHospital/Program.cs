@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using Microsoft.EntityFrameworkCore;
 

@@ -8,7 +8,7 @@ namespace ApiHospital.Models
 
         public string Surname { get; set; }
 
-        public string? BedId { get; set; }
+        public int? BedId { get; set; }
 
         public bool Discharge { get; set; }
     }
