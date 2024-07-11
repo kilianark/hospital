@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
+// Descomentar el següent using NOMES si implementem el context NO amb "Mysql", sinó OracleDatabase
+// Caldrà canviar al Oracle DataBase
+// using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
