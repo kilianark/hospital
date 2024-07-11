@@ -1,4 +1,5 @@
 using ApiHospital.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
