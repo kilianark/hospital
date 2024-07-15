@@ -26,7 +26,7 @@
       Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol";
   }
-  
+
   .content {
     display: flex;
     justify-content: space-around;
@@ -49,6 +49,7 @@
     margin-inline: 0.5rem;
   }
 
+  
   @media screen and (max-width: 650px) {
     .content {
       flex-direction: column;
@@ -61,14 +62,19 @@
       background: var(--red-to-pink-to-purple-horizontal-gradient);
       margin-block: 1.5rem;
     }
+
+
   }
 </style>
 
 <main class="main">
   <div class="content">
     <div class="left-side">
-      <img src="assets/LogoMedicaPlus.png" />
-      <h1>Bienvenido a {{ title }}</h1>
+      <div class="header">
+        <img src="assets/LogoMedicaPlus.png" />
+        <h1>Bienvenido a {{ title }}</h1>
+      </div>
+
       <p>Introduce tus credenciales</p>
       <br />
       <br />
