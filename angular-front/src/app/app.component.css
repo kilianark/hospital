@@ -22,7 +22,7 @@ main {
   
   .credentials {
     text-align: center;
-    margin: 10px 0; /* Margen entre campos de credenciales */
+    margin: 10px;
   }
   
   .submit {
