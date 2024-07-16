@@ -1,0 +1,38 @@
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Para organizar el header y el content en columnas */
+    align-items: center;
+    position: relative;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  
+  .header {
+    background-color: aquamarine;
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    text-align: center; /* Centra el contenido horizontalmente */
+  
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center; /* Cambiado a center para centrar el formulario */
+    width: 100%;
+  }
+  
+  .credentials {
+    text-align: center;
+    margin: 10px 0; /* Margen entre campos de credenciales */
+  }
+  
+  .submit {
+    border-radius: 15px;
+    background: #44ad21;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    display: flex; /* Usar flex para centrar el texto */
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto; /* Centra el botón y añade margen superior e inferior */
+  }
