@@ -7,7 +7,6 @@ namespace ApiHospital.Models
         public required string Name { get; set; }
         public required string Surname { get; set; }
         public int? BedId { get; set; }
-
         public bool Discharge { get; set; }
     }
 }
