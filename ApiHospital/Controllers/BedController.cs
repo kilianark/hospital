@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
+using hospitalDTO.APIdto;
+using AutoMapper;
 
 namespace ApiHospital.Controllers
 {
@@ -15,24 +17,26 @@ namespace ApiHospital.Controllers
     public class BedController : ControllerBase
     {
         private readonly HospitalContext _context;
+        private readonly IMapper _mapper;
 
-        public BedController(HospitalContext context)
-        {
+        public BedController(HospitalContext context, IMapper mapper)
+        { 
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Bed
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
         {
-            return await _context.Beds.ToListAsync();
+            return await _context.Beds.Include(x => x.Patient).ToListAsync();
         }
 
         // GET: api/Bed/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bed>> GetBed(int id)
         {
-            var bed = await _context.Beds.FindAsync(id);
+            var bed = await _context.Beds.Include(x => x.Patient).Where(x => x.Id == id).FindAsync(id);
 
             if (bed == null)
             {
@@ -76,9 +80,9 @@ namespace ApiHospital.Controllers
         // POST: api/Bed
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Bed>> PostBed(Bed bed)
+        public async Task<ActionResult<Bed>> PostBed(BedDTO bedDTO)
         {
-            _context.Beds.Add(bed);
+            _context.Beds.Add(_mapper.Map<Bed>(bedDTO));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBed", new { id = bed.Id }, bed);

@@ -21,5 +21,20 @@ namespace ApiHospital.Data
         public DbSet<Bed> Beds { get; set; } = null!;
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<Patient> Patients { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        {
+            modelBuilder.Entity<Patient>()
+                .HasOne(e => e.Bed)
+                .WithOne(e => e.Patient)
+                .HasForeignKey<Bed>(e => e.PatientId)
+                .IsRequired(false);
+
+            /*modelBuilder.Entity<Room>()
+                .HasMany(e => e.Beds)
+                .WithOne(e => e.Room)
+                .HasForeignKey(e => e.RoomId)
+                .IsRequired();*/
+        }
     }
 }
