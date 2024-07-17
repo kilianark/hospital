@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
-using hospitalDTO.APIdto;
+using hospitalDTO.DTOapi;
 using AutoMapper;
 
 namespace ApiHospital.Controllers
@@ -29,14 +29,14 @@ namespace ApiHospital.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
         {
-            return await _context.Beds.Include(x => x.Patient).ToListAsync();
+            return await _context.Beds.Include(Bed => Bed.Patient).ToListAsync();
         }
 
         // GET: api/Bed/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bed>> GetBed(int id)
         {
-            var bed = await _context.Beds.Include(x => x.Patient).Where(x => x.Id == id).FindAsync(id);
+            var bed = await _context.Beds.Include(Bed => Bed.Patient).Where(Bed => Bed.Id == id).FirstOrDefaultAsync();
 
             if (bed == null)
             {
@@ -49,14 +49,18 @@ namespace ApiHospital.Controllers
         // PUT: api/Bed/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBed(int id, Bed bed)
+        public async Task<IActionResult> PutBed(int id, BedDTO bedDTO)
         {
-            if (id != bed.Id)
+            if (id != bedDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(bed).State = EntityState.Modified;
+            var bed = await _context.Beds.FindAsync(id);
+            if (bed == null) return NotFound();
+
+
+            _mapper.Map(bedDTO, bed);
 
             try
             {
@@ -82,10 +86,11 @@ namespace ApiHospital.Controllers
         [HttpPost]
         public async Task<ActionResult<Bed>> PostBed(BedDTO bedDTO)
         {
-            _context.Beds.Add(_mapper.Map<Bed>(bedDTO));
+            var bed = _mapper.Map<Bed>(bedDTO);
+            _context.Beds.Add(bed);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBed", new { id = bed.Id }, bed);
+            return Created($"/beds/{bed.Id}", bed);
         }
 
         // DELETE: api/Bed/5

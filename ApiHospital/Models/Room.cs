@@ -3,6 +3,6 @@ namespace ApiHospital.Models {
     {
         public int Id {get; set;}
 
-        /*public ICollection<Bed> Beds { get; } = new List<Bed>();*/
+        public ICollection<Bed> Beds { get; } = new List<Bed>();
     }
 }

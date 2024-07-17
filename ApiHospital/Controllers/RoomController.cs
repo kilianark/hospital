@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
+using hospitalDTO.DTOapi;
+using AutoMapper;
 
 namespace ApiHospital.Controllers
 {
@@ -16,23 +18,26 @@ namespace ApiHospital.Controllers
     {
         private readonly HospitalContext _context;
 
-        public RoomController(HospitalContext context)
+        private readonly IMapper _mapper;
+
+        public RoomController(HospitalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Room
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            return await _context.Rooms.Include(Room => Room.Beds).ToListAsync();
         }
 
         // GET: api/Room/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _context.Rooms.Include(Room => Room.Beds).Where(Room => Room.Id == id).FirstOrDefaultAsync();
 
             if (room == null)
             {
@@ -45,14 +50,18 @@ namespace ApiHospital.Controllers
         // PUT: api/Room/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutRoom(int id, RoomDTO roomDTO)
         {
-            if (id != room.Id)
+            if (id != roomDTO.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(room).State = EntityState.Modified;
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null) return NotFound();
+
+
+            _mapper.Map(roomDTO, room);
 
             try
             {
@@ -76,12 +85,13 @@ namespace ApiHospital.Controllers
         // POST: api/Room
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<Room>> PostRoom(RoomDTO roomDTO)
         {
+            var room = _mapper.Map<Room>(roomDTO);
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRoom", new { id = room.Id }, room);
+            return Created($"/rooms/{room.Id}", room);
         }
 
         // DELETE: api/Room/5

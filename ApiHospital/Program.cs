@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
+using hospitalDTO.DTOapi;
+using ApiHospital.Models;
 // Descomentar el següent using NOMES si implementem el context NO amb "Mysql", sinó OracleDatabase
 // Caldrà canviar al Oracle DataBase
 // using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
@@ -19,6 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(cfg => {
     cfg.CreateMap<Bed, BedDTO>().ReverseMap();
     cfg.CreateMap<Patient, PatientDTO>().ReverseMap();
+    cfg.CreateMap<Room, RoomDTO>().ReverseMap();
 });
 
 var app = builder.Build();
