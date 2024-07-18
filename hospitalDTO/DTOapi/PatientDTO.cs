@@ -7,5 +7,7 @@ namespace hospitalDTO.DTOapi {
         public string Surname { get; set; }
         public bool Discharge { get; set; }
 
+        public int? BedId { get; set; }
+
     }
 }

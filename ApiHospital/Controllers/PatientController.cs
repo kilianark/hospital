@@ -38,7 +38,7 @@ namespace ApiHospital.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatient(int id)
         {
-            var patient = await _context.Patients.FirstOrDefaultAsync();
+            var patient = await _context.Patients.FindAsync(id);
 
             if (patient == null)
             {

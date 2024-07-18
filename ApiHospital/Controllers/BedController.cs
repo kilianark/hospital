@@ -29,14 +29,14 @@ namespace ApiHospital.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
         {
-            return await _context.Beds.Include(Bed => Bed.Patient).ToListAsync();
+            return await _context.Beds.Include(bed => bed.Patient).ToListAsync();
         }
 
         // GET: api/Bed/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bed>> GetBed(int id)
         {
-            var bed = await _context.Beds.Include(Bed => Bed.Patient).Where(Bed => Bed.Id == id).FirstOrDefaultAsync();
+            var bed = await _context.Beds.Include(bed => bed.Patient).Where(bed => bed.Id == id).FirstOrDefaultAsync();
 
             if (bed == null)
             {
@@ -87,6 +87,11 @@ namespace ApiHospital.Controllers
         public async Task<ActionResult<Bed>> PostBed(BedDTO bedDTO)
         {
             var bed = _mapper.Map<Bed>(bedDTO);
+            if (!RoomExists(bed.RoomId)) {
+                var Room = new Room{Id = bed.RoomId};
+                _context.Rooms.Add(Room);
+                await _context.SaveChangesAsync();
+            }
             _context.Beds.Add(bed);
             await _context.SaveChangesAsync();
 
@@ -112,6 +117,11 @@ namespace ApiHospital.Controllers
         private bool BedExists(int id)
         {
             return _context.Beds.Any(e => e.Id == id);
+        }
+
+        private bool RoomExists(int id)
+        {
+            return _context.Rooms.Any(e => e.Id == id);
         }
     }
 }
