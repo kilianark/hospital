@@ -1,0 +1,497 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Hospital",
+        "description": "This API allows the communication between the data base and the front-end",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "_comentario1": "Afegir url de la Api",
+            "url": ""
+        }
+    ],
+    "paths": {
+        "/rooms": {
+            "get": {
+                "summary": "Lists of all the hospital rooms",
+                "responses": {
+                    "200": {
+                        "description": "Room list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Rooms"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new room",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rooms"
+                            }
+                        }
+                    }
+                }, 
+                "responses": {
+                    "201": {
+                        "description": "Room created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rooms"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Room already exists"
+                    }
+                }
+            }
+        },
+        "rooms/{roomId}": {
+            "get": {
+                "summary": "Get room by Id",
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Room details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rooms"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update room by Id",
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rooms"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated room",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rooms"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    }
+                }    
+            },
+            "delete": {
+                "summary": "Delete room by Id",
+                "parameters": [
+                    {
+                        "name": "roomId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Room deleted"
+                    },
+                    "404": {
+                        "description": "Room not found"
+                    }
+                }
+            }
+        },
+        "/beds": {
+            "get": {
+                "summary": "Lists of beds",
+                "responses": {
+                    "200": {
+                        "description": "Bed list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Bed"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new bed",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Bed"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Bed created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bed"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Bed already exists"
+                    }
+                }
+            }
+        },
+        "beds/{bedId}": {
+            "get": {
+                "summary": "Get bed by Id",
+                "parameters": [
+                    {
+                        "name": "bedId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bed details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bed"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Bed not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update bed by Id",
+                "parameters": [
+                    {
+                        "name": "bedId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Bed"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated bed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bed"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Bed not found"
+                    }
+                }    
+            },
+            "delete": {
+                "summary": "Delete bed by Id",
+                "parameters": [
+                    {
+                        "name": "bedId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Bed deleted"
+                    },
+                    "404": {
+                        "description": "Bed not found"
+                    }
+                }
+            }
+        },
+        "/patients": {
+            "get": {
+                "summary": "Get list of patients",
+                "responses": {
+                    "200": {
+                        "description": "Patient list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Patients"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new patient",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Patients"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Patient created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patients"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Patient already exists"
+                    }
+                } 
+            }
+        },
+        "/patients/{patientId}": {
+            "get": {
+                "summary": "Get patient by Id",
+                "parameters": [
+                    {
+                        "name": "patientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Patient details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patients"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Patient not found"
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Update patient by Id",
+                "paramenters": [
+                    {
+                        "name": "patientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Nif": {
+                                        "type": "string"
+                                    },
+                                    "Name": {
+                                        "type": "string"
+                                    },
+                                    "Surname": {
+                                        "type": "string"
+                                    },
+                                    "BedId": {
+                                        "type": "integer"
+                                    },
+                                    "Discharge": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": 
+                {
+                    "200": {
+                        "description": "Updated patient",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patients"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Patient not found"
+                    }
+                }
+            }   
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "Id": {
+                        "type": "integer"
+                    },
+                    "Nif": {
+                        "type": "string"
+                    },
+                    "Name": {
+                        "type": "string"
+                    },
+                    "JobPosition": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Bed": {
+                "type": "object",
+                "propieties": {
+                    "Id": {
+                        "type": "integer"
+                    },
+                    "RoomId": {
+                        "type": "integer"
+                    },
+                    "PatientId": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                    
+                }
+            },
+            "Rooms": {
+                "type": "object",
+                "propieties": {
+                    "Id": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "Patients": {
+                "type": "object",
+                "properties": {
+                    "Id": {
+                        "type": "integer"
+                    },
+                    "Nif": {
+                        "type": "string"
+                    },
+                    "Name": {
+                        "type": "string"
+                    },
+                    "Surname": {
+                        "type": "string"
+                    },
+                    "BedId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "Discharge": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}

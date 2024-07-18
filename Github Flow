@@ -1,0 +1,9 @@
+With the GitHub flow, you only ever have 2 branches:
+  - main (or master) - similar to GitFlow the main branch contains all the deployable code for the project.
+  - feature - developers branch directly off of main to work on new features.
+
+For GitHub flow, the general process is as follows:
+  - As with Git Flow, an empty main branch is created at the start of a new project.
+  - Every change that is worked on is branched directly off of main into a feature branch.
+  - Once a feature is ready it is tested on the feature branch and the code is reviewed before being merged to main.
+  - Once the feature has been merged to main it should be released to production immediately.
