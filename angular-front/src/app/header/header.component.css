@@ -1,0 +1,55 @@
+header {
+    background-color: lightblue;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: solid;
+    border-color:  rgba(1,47,70,255);
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+button {
+    background-color: lightblue;
+    width: 150px;
+    height: 60px;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1e90ff;
+}
+
+.DashboardButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.DashboardButton img {
+    margin-right: 10px;
+}
+
+.DashboardButton span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.Worker,
+.Management {
+    display: flex;
+    align-items: center;
+}
+
+.LeftButtons {
+    justify-content: flex-start;
+}
+
+.RightButtons {
+    justify-content: flex-end;
+}
+
+.WorkerSettings{
+    width: 50%;
+}
