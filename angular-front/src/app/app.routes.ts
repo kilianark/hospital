@@ -11,11 +11,9 @@ import { LoginComponent } from './login/login.component'
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
-    { path: 'app-root', component: LoginComponent },
-    { path: 'login', component: AppComponent },
+    { path: 'approutelogin', component: AppComponent },
     { path: 'home', component: HomeComponent},
     { path: '', redirectTo: '/login', pathMatch: 'full' }
-    
 
 ];
 
