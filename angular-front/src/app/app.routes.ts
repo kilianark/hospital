@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component'
 import { BrowserModule } from '@angular/platform-browser';
+import { MainComponent } from './main/main.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -15,8 +16,7 @@ export const routes: Routes = [
    
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent},
-   // { path: '', redirectTo: '/login', pathMatch: 'full' }
-    //{ path: 'approutelogin', component: AppComponent },
+    { path: '', redirectTo: '/login', pathMatch: 'full' }
 
 ];
 
