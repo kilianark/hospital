@@ -92,6 +92,11 @@ namespace ApiHospital.Controllers
         {
 
             var patient = _mapper.Map<Patient>(patientDTO);
+            if (patient.BedId != null) {
+                if (!BedExists(patient.BedId)) {
+                    patient.BedId = null;
+                }
+            }
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
 
@@ -137,6 +142,11 @@ namespace ApiHospital.Controllers
         private bool PatientExists(int id)
         {
             return _context.Patients.Any(e => e.Id == id);
+        }
+
+        private bool BedExists(int id)
+        {
+            return _context.Beds.Any(e => e.Id == id);
         }
     }
 }
