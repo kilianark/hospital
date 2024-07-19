@@ -87,6 +87,7 @@ namespace ApiHospital.Controllers
         [HttpPost]
         public async Task<ActionResult<Bed>> PostBed(BedDTO bedDTO)
         {
+            if (bedDTO.RoomId == null) return BadRequest("Needs a room assigned");
             var bed = _mapper.Map<Bed>(bedDTO);
             if (!RoomExists(bed.RoomId)) {
                 var Room = new Room{Id = bed.RoomId};
