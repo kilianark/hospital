@@ -13,7 +13,7 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy =>
     policy.AllowAnyHeader()
     .AllowAnyMethod()
     .AllowAnyOrigin()));
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddDbContext<HospitalContext>(opt => opt.UseInMemoryDatabase("Hospital"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

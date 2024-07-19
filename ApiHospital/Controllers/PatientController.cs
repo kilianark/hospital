@@ -11,6 +11,8 @@ using System.IO.Compression;
 using System.Security.Cryptography.Xml;
 using hospitalDTO.DTOapi;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ApiHospital.Controllers
 {
@@ -111,7 +113,27 @@ namespace ApiHospital.Controllers
 
             return NoContent();
         }
+        // PATCH: api/Patient/5
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchPatient(int id, [FromBody] JsonPatchDocument<Patient> patchDocument)
+        {
+            if (patchDocument == null) return BadRequest();
 
+            var patient = await _context.Patients.FindAsync(id);
+
+            if (patient == null) return NotFound();
+
+            patchDocument.ApplyTo(patient, ModelState);
+
+            bool isValidPatch = TryValidateModel(patient);
+
+            if (!isValidPatch) return BadRequest(ModelState);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+    
+        }
         private bool PatientExists(int id)
         {
             return _context.Patients.Any(e => e.Id == id);

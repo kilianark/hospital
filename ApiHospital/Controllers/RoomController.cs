@@ -9,6 +9,7 @@ using ApiHospital.Data;
 using ApiHospital.Models;
 using hospitalDTO.DTOapi;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ApiHospital.Controllers
 {
@@ -108,6 +109,28 @@ namespace ApiHospital.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // PATCH: api/Rooms/5
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchRoom(int id, [FromBody] JsonPatchDocument<Room> patchDocument)
+        {
+            if (patchDocument == null) return BadRequest();
+
+            var room = await _context.Rooms.FindAsync(id);
+
+            if (room == null) return NotFound();
+
+            patchDocument.ApplyTo(room, ModelState);
+
+            bool isValidPatch = TryValidateModel(room);
+
+            if (!isValidPatch) return BadRequest(ModelState);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+    
         }
 
         private bool RoomExists(int id)
