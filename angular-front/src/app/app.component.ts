@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent],
   templateUrl: './login/login.component.html',
   styleUrl: './login/login.component.css'
 
