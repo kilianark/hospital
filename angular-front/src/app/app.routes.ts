@@ -12,10 +12,11 @@ import { BrowserModule } from '@angular/platform-browser';
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
-    { path: 'approutelogin', component: AppComponent },
+   
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent},
-    { path: '', redirectTo: '/login', pathMatch: 'full' }
+   // { path: '', redirectTo: '/login', pathMatch: 'full' }
+    //{ path: 'approutelogin', component: AppComponent },
 
 ];
 
