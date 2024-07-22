@@ -9,5 +9,5 @@ import { HeaderComponent } from "../../header/header.component";
   styleUrl: './search.component.css'
 })
 export class SearchPatientComponent {
-
+  title = 'Busqueda Paciente:'
 }
