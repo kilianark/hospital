@@ -1,7 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { SearchPatientComponent } from './patient/search/search.component';
+import { CreatePatientComponent } from './patient/create/create.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -10,7 +12,8 @@ import { LoginComponent } from './login/login.component'
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
-   
+    { path: 'search-patient', component: SearchPatientComponent},
+    { path: 'create-patient', component: CreatePatientComponent},
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent},
     { path: '', redirectTo: '/login', pathMatch: 'full' }
