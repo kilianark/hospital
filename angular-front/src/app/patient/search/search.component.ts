@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-search-patient',
   standalone: true,
   imports: [HeaderComponent],
   templateUrl: './search.component.html',
