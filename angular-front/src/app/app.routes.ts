@@ -7,6 +7,7 @@ import { CreatePatientComponent } from './patient/create/create.component';
 import { SearchRoomComponent } from './room/search/search.component';
 import { CreateRoomComponent } from './room/create/create.component';
 import { DischargeComponent } from './patient/discharge/discharge.component';
+import { RecordComponent } from './patient/record/record.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -14,7 +15,7 @@ import { DischargeComponent } from './patient/discharge/discharge.component';
 // en navbar.components.ts barra de navegació, li posem un atribut de tipus routerLink="/...", routerLinkActive="active" <- atribut, que en css li estilitzem ....> .nav-link.active, i tambe ho importem al templateURL, i style que li assignem
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
-
+    { path: 'patient', component: RecordComponent },
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },
     { path: 'search-room', component: SearchRoomComponent },
@@ -22,7 +23,8 @@ export const routes: Routes = [
     { path: 'discharge-patient', component: DischargeComponent},
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' }
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '**', redirectTo: '/login' } // quan la ruta es incorrecte o qualsevol cosa
 
 ];
 
