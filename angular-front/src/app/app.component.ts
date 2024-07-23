@@ -19,4 +19,14 @@ import { HomeComponent } from './home/home.component';
 
 export class AppComponent {
   title = 'MedicaPlus';
+
+  public showNavBar = true;
+
+toggleNavBar(component: any) {
+   if(component instanceof LoginComponent) {
+      this.showNavBar = false;
+   } else {
+      this.showNavBar = true;
+   }
+}
 }
