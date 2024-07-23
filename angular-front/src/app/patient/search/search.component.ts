@@ -10,4 +10,13 @@ import { HeaderComponent } from "../../header/header.component";
 })
 export class SearchPatientComponent {
   title = 'Busqueda Paciente:'
+  atribute1 = 'Nombre:'
+  atribute2 = 'Apellidos:'
+  atribute3 = 'DNI/NIF:'
+  atribute4 = 'Núm. Id:'
+
+  onSubmit() {
+    //canviar esto por el paciente/s encontrado por la api
+    console.log('Formulario enviado');
+  }
 }
