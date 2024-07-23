@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DischargeComponent } from './discharge.component';
+import { RecordComponent } from './record.component';
 
-describe('DischargeComponent', () => {
-  let component: DischargeComponent;
-  let fixture: ComponentFixture<DischargeComponent>;
+describe('RecordComponent', () => {
+  let component: RecordComponent;
+  let fixture: ComponentFixture<RecordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DischargeComponent]
+      imports: [RecordComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DischargeComponent);
+    fixture = TestBed.createComponent(RecordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

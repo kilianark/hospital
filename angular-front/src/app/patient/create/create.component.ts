@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-create-patient',
   standalone: true,
   imports: [HeaderComponent],
   templateUrl: './create.component.html',
