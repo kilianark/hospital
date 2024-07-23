@@ -6,7 +6,6 @@ import { SearchPatientComponent } from './patient/search/search.component';
 import { CreatePatientComponent } from './patient/create/create.component';
 import { SearchRoomComponent } from './room/search/search.component';
 import { CreateRoomComponent } from './room/create/create.component';
-import { DischargeComponent } from './patient/discharge/discharge.component';
 import { RecordComponent } from './patient/record/record.component';
 
 // lista de rutes per exemple per posar en Routes
@@ -20,7 +19,6 @@ export const routes: Routes = [
     { path: 'create-patient', component: CreatePatientComponent },
     { path: 'search-room', component: SearchRoomComponent },
     { path: 'create-room', component: CreateRoomComponent},
-    { path: 'discharge-patient', component: DischargeComponent},
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
