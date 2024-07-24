@@ -15,7 +15,6 @@ import { RecordComponent } from './patient/record/record.component';
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
-    { path: 'patient', component: RecordComponent },
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },
     { path: 'search-room', component: SearchRoomComponent },
