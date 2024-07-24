@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../navigate/header/header.component';
 
 @Component({
   selector: 'app-record',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [],
   templateUrl: './record.component.html',
   styleUrl: './record.component.css'
 })
