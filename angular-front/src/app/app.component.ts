@@ -22,7 +22,7 @@ export class AppComponent {
 
   public showNavBar = true;
 
-toggleNavBar(component: any) {
+toggleNavBar(component: Component) {
    if(component instanceof LoginComponent) {
       this.showNavBar = false;
    } else {
