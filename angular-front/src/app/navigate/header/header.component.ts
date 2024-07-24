@@ -11,4 +11,6 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 export class HeaderComponent {
   title = 'MedicaPlus';
+  nav1 = 'Inicio';
+  nav2 = 'Urgencias';
 }

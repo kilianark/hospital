@@ -14,7 +14,10 @@ import { RecordComponent } from './patient/record/record.component';
 // en navbar.components.ts barra de navegació, li posem un atribut de tipus routerLink="/...", routerLinkActive="active" <- atribut, que en css li estilitzem ....> .nav-link.active, i tambe ho importem al templateURL, i style que li assignem
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
+<<<<<<< HEAD
    
+=======
+>>>>>>> bbcc520024ca263a8a81c355462c8ba008f3f838
     { path: 'patient', component: RecordComponent },
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },

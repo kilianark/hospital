@@ -21,7 +21,6 @@ body {
     color: black;
     padding-left: 10px;
     font-size: 1.1cap;
-    
 }
 
 .sidebar ul {
@@ -44,5 +43,4 @@ body {
 
 .sidebar ul li a:hover {
     background-color: #1e90ff;
-
 }
