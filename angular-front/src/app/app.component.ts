@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { LoginComponent } from "./login/login.component";
-import { HeaderComponent } from './navigate/header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 
 

@@ -10,4 +10,6 @@ import { CommonModule } from '@angular/common';
 
 export class HeaderComponent {
   title = 'MedicaPlus';
+  nav1 = 'Inicio';
+  nav2 = 'Urgencias';
 }
