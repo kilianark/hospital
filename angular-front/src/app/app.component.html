@@ -1,5 +1,9 @@
 <app-header *ngIf="showNavBar"></app-header>
-<app-sidebar *ngIf="showNavBar"></app-sidebar>
-<main>
-    <router-outlet (activate)="toggleNavBar($event)"/>
-</main>
+
+<div class="principal">
+
+    <app-sidebar *ngIf="showNavBar"></app-sidebar>
+    <main>
+        <router-outlet (activate)="toggleNavBar($event)" />
+    </main>
+</div>
