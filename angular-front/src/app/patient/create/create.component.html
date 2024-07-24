@@ -1,1 +1,54 @@
-<p>Create Patient</p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Crear Paciente</title>
+    </head>
+    <body>
+        <form>
+            <legend>Crear Paciente:</legend>
+            <div class="grid-layout">
+                <br>
+                <label for="patientCode">Código Paciente:</label>
+                <input type="text" id="readonlyField" value="123456" readonly>
+                
+                <br>
+                <label for="dni">DNI:</label>
+                <input type="text" value="00000000-A" autofocus>
+                <label for="cip">CIP:</label>
+                <input type="text" value="LOMA 0000000000">
+    
+                <br>
+                <label for="name">Nombre:</label>
+                <input type="text" value="Juan" required>
+                <label for="lastname">Apellidos:</label>
+                <input type="text" value="López Martínez" required>
+    
+                <br>
+                <label for="phone">Teléfono:</label>
+                <input type="text" value="632345675">
+                <label for="email">E-mail:</label>
+                <input type="text" value="julo90@gmail.com">
+    
+                <br>
+                <label for="nationality">Nacionalidad:</label>
+                <input type="text" value="España" > <!--falta poner un desplegable con nacionalidades-->
+                <label for="address">Dirección:</label>
+                <input type="text" value="c/ Fluvià 65, 4, 08002, Barcelona" >
+    
+                <br>
+                <label for="gender">Sexo:</label>
+                <input type="radio" name="gender" />Masculino
+                <input type="radio" name="gender" />Femenino
+                <label for="birth">F. Nacimiento:</label>
+                <input type="date" id="birth" value="dd/mm/aaaa">
+            
+                <br>
+                <label for="emergencycontact">Contacto emergencia:</label>
+                <input type="text" value="c/ Fluvià 65, 4, 08002, Barcelona" >
+            </div>
+            <br><br>
+            <input type="submit" value="Registrar" />
+            <input type="reset" value="Reiniciar" />
+        </form>
+    </body>
+</html>
