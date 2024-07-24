@@ -1,4 +1,4 @@
-import { Countries } from '../models/Country.model'; 
+import { Countries } from '../models/country.model'; 
 
 export var countries: Countries [] = [
     { code:"AF",name:"Afghanistan"  },
