@@ -10,9 +10,7 @@ public class Patient
     public required string Nif { get; set; }
     public required string Name { get; set; }
 
-    public required string middleName { get; set; }
-
-    public string lastName { get; set; }
+    public required string Surname { get; set; }
     public bool Discharge { get; set; }
 
     public int? BedId { get; set; }
