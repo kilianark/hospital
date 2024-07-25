@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 //import { countries } from '../../shared/store/country-data.store';
 import { CommonModule } from '@angular/common';
+import { countries } from '../../shared/store/country-data.store';
 
 @Component({
   selector: 'app-create-patient',
@@ -10,5 +11,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './create.component.css'
 })
 export class CreatePatientComponent {
-
+  public countries:any = countries
 }
