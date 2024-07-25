@@ -1,6 +1,6 @@
 <div class="content">
-    <h1>Búsqueda Paciente:</h1>
     <form>
+        <legend>Búsqueda Paciente</legend>
         <div class="credentials">
             <div class="cred1">
                 <label for="patientID">Codigo paciente</label>
@@ -19,8 +19,10 @@
                 <input type="text" id="dni"/>
                 <label for="numSS">Núm. SS</label>
                 <input type="text" id="numSS"/>
-                <input type="radio" name="inOut"/>Todos
-                <input type="radio" name="inOut"/>Solo ingresados
+                <label for="todos">Todos</label>
+                <input type="radio" name="inOut" id="todos"/>
+                <label for="ingresados">Solo ingresados</label>
+                <input type="radio" name="inOut" id="ingresados"/>
             </div>
         </div>
         <input class="submit" type="submit" value="Buscar"/>

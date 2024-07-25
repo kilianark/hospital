@@ -1,5 +1,17 @@
-h1 {
+legend { 
+    margin: 0px; 
+    overflow: hidden; 
+    font-size: 24px; 
+    text-align: left; 
+    letter-spacing: 0px; 
+    line-height: 31px; 
+    white-space: pre-line;
+    font-weight: bold;
+}
 
+.cred1, .cred2 {
+    display: flex;
+    justify-content: space-between;
 }
 
 .table-wrapper {
