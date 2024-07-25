@@ -13,7 +13,7 @@ import { SidebarComponent } from './navigate/sidebar/sidebar.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: [],
+  styleUrls: ['./app.component.css'],
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive, HomeComponent, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
 })
