@@ -1,0 +1,61 @@
+body {
+    
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.slogan{
+    display: flex;
+    font-weight: bold;
+    font-style: italic;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.grid-layout {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho */
+    grid-template-rows: auto; /* Filas automáticas */
+    width: 95%;
+    height: 70vh; /* Ajusta el ancho del contenedor según necesites */
+    /*max-width: 1200px;  Máximo ancho del contenedor */
+    opacity: 0.8; 
+    margin-left: 20px;
+    margin-right: -20px;
+    
+}
+
+.grid-layout img {
+    width: 100%;
+    height: 200px;
+    display: block;
+    border-radius: 5%;
+}
+
+.grid-layout img.left-up {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.grid-layout img.right-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.grid-layout img.left-mid {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.grid-layout img.right-mid {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.grid-layout img.down {
+    grid-column: 1 / -1; 
+    grid-row: 3;
+}
