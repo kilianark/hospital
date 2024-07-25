@@ -2,35 +2,144 @@
     <h1>Búsqueda Paciente:</h1>
     <form>
         <div class="credentials">
-            <label for="patientID">Codigo paciente</label>
-            <input type="text" id="patientID"/>
-            <label for="name">Nombre</label>
-            <input type="text" id="name"/>
-            <label for="surname1">Apellido1</label>
-            <input type="text" id="surname1"/>
-            <label for="surname2">Apellido2</label>
-            <input type="text" id="surname2"/>
-            <br>
-            <label for="phone">Teléfono</label>
-            <input type="text" id="phone"/>
-            <label for="dni">DNI</label>
-            <input type="text" id="dni"/>
-            <label for="numSS">Núm. SS</label>
-            <input type="text" id="numSS"/>
-            <input type="radio" name="inOut"/>Todos
-            <input type="radio" name="inOut"/>Solo ingresados
+            <div class="cred1">
+                <label for="patientID">Codigo paciente</label>
+                <input type="text" id="patientID"/>
+                <label for="name">Nombre</label>
+                <input type="text" id="name"/>
+                <label for="surname1">Apellido1</label>
+                <input type="text" id="surname1"/>
+                <label for="surname2">Apellido2</label>
+                <input type="text" id="surname2"/>
+            </div>
+            <div class="cred2">
+                <label for="phone">Teléfono</label>
+                <input type="text" id="phone"/>
+                <label for="dni">DNI</label>
+                <input type="text" id="dni"/>
+                <label for="numSS">Núm. SS</label>
+                <input type="text" id="numSS"/>
+                <input type="radio" name="inOut"/>Todos
+                <input type="radio" name="inOut"/>Solo ingresados
+            </div>
         </div>
         <input class="submit" type="submit" value="Buscar"/>
     </form>
     <br>
-    <div class="atributes">
-        <a>Cod. Paciente </a>
-        <a>Nombre </a>
-        <a>Apellido1 </a>
-        <a>Apellido2 </a>
-        <a>Teléfono </a>
-        <a>Edad </a>
-        <a>Estado </a>
-        <a>Tipo </a>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <th>Cod. Paciente</th>
+                <th>Nombre</th>
+                <th>Apellido1</th>
+                <th>Apellido2</th>
+                <th>Teléfono</th>
+                <th>Edad</th>
+                <th>Estado</th>
+                <th>Tipo</th>
+                <th>Id Cama</th>
+                <th>Ficha</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+                <tr>
+                    <td>1234567</td>
+                    <td>Juan</td>
+                    <td>Martínez</td>
+                    <td>López</td>
+                    <td>631238791</td>
+                    <td>34</td>
+                    <td>Ambulatorio</td>
+                    <td>Urgencia</td>
+                    <td>-</td>
+                    <td><input type="button" value="FICHA"/></td>
+                </tr>
+            </tbody>
+            
+        </table>
     </div>
+    
 </div>
