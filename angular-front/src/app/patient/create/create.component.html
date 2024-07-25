@@ -16,9 +16,9 @@
                 <br>
                 <div class="form-col">
                     <label for="dni">DNI:</label>
-                    <input type="text" placeholder="00000000-A" autofocus>
+                    <input id="dni" type="text" placeholder="00000000-A" autofocus>
                     <label for="cip">CIP:</label>
-                    <input type="text" placeholder="LOMA 0000000000">
+                    <input id="cip" type="text" placeholder="LOMA 0000000000">
         
                     <label for="name">Nombre:</label>
                     <input type="text" placeholder="Juan" required>
@@ -43,9 +43,13 @@
                     </select>
                     <label for="address">Dirección:</label>
                     <input type="text" placeholder="c/ Fluvià 65, 4, 08002, Barcelona" >
-                    <br>
                 </div>
+                <br>
                 <div class="peu-form">
+                    <div class="eme-con">
+                        <label for="emergencycontact">C. Emergencia:</label>
+                    </div>
+                    <input type="text" placeholder="99999999" >
                     <label for="gender">Sexo:</label>
                     <div class="sexe">
                         <div class="select">
@@ -53,14 +57,10 @@
                             <input type="radio" name="gender"/>Femenino
                         </div>
                     </div>
-                    <div class="eme-con">
-                        <label for="emergencycontact">Contacto emergencia:</label>
-                    </div>
-                    <input type="text" placeholder="c/ Fluvià 65, 4, 08002, Barcelona" >
                 </div>
             </div>
             <br><br>
-            <div class="button">
+            <div class="formButtons">
                 <input class="submit" type="submit" placeholder="Registrar" />
                 <input class="reset" type="reset" placeholder="Reiniciar" />
             </div>

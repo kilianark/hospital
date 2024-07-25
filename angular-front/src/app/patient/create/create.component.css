@@ -1,8 +1,9 @@
 body { 
     font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol"; 
+
 }
 form {
-    padding: 5%;
+    padding-top: 4%;
 }
 legend {
     width: 161px;
@@ -16,59 +17,43 @@ legend {
     white-space: pre-line;
 }
 .head {
-    margin-left: 7.5%;
+    margin-left: 7.3%;
 }
 .cod-pat {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Dos columnas de igual ancho */
-    gap: 20px; /* Espacio entre las columnas */
-    max-width: 800px; /* Max width for larger screens */
-    margin: 0 auto;
+    grid-template-columns: 10vw 20vw;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: 7.5%;
 }
 .form-col {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Dos columnas de igual ancho */
-    gap: 20px; /* Espacio entre las columnas */
-    max-width: 800px; /* Max width for larger screens */
-    margin: 0 auto;
+    grid-template-columns: 10vw 20vw 15vw 20vw;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: 7.5%;
 }
 .peu-form {
-/*
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 30px;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;*/
-
-    
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Dos columnas de igual ancho */
-    gap: 80px; /* Espacio entre las columnas */
-    max-width: 800px; /* Max width for larger screens */
-    margin-left: 8%;
-}/*
-.sexe {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho 
-    gap: 20px; /* Espacio entre las columnas 
-    max-width: 800px; /* Max width for larger screens 
-    margin: 0 auto;
-}*/
+    grid-template-columns: 10vw 20vw 15vw 20vw;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: 7.5%;
+}
 .select {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Dos columnas de igual ancho */
-    gap: 20px; /* Espacio entre las columnas */
-    max-width: 800px; /* Max width for larger screens */
-    margin: 0 auto;
-}
-.eme-con {
-    margin-left: 47.5%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: auto;
+    max-width: 800px;
+    margin-left: -20px;
 }
 label {
     margin: 0px;
     font-size: 14px;
     font-weight: bold;
+}
+.select input {
+    margin: 0px;
 }
 .submit {
     display: flex;
@@ -84,10 +69,6 @@ label {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
     border: 0px;
 }
-
-.select input {
-    margin: 0px;
-}
 .reset {
     display: flex;
     align-items: center;
@@ -98,16 +79,17 @@ label {
     width: 196px;
     height: 57px;
     border-radius: 8px;
-    background-color: rgb(76, 217, 100);
+    background-color: rgb(194, 194, 194);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
     border: 0px;
 }
-
-.submit, .reset {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 30px;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
+.formButtons {
+    display: flex;
+    justify-content: center;
+    gap: 5vw;
+}
+@media (max-width: 600px) {
+    .form-col, .peu-form {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
 }
