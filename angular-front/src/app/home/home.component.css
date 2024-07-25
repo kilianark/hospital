@@ -16,11 +16,11 @@ body {
 
 .grid-layout {
     display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual ancho */
-    grid-template-rows: auto; /* Filas automáticas */
+    gap: 10px; /* Espacio entre las imágenes */
+    grid-template-columns: 1fr 1fr; /* Dos columnas: la primera ocupa 1/3, la segunda 2/3 */
+    grid-template-rows: auto auto auto; 
     width: 95%;
-    height: 70vh; /* Ajusta el ancho del contenedor según necesites */
+    height: 30vh; /* Ajusta el ancho del contenedor según necesites */
     /*max-width: 1200px;  Máximo ancho del contenedor */
     opacity: 0.8; 
     margin-left: 20px;
