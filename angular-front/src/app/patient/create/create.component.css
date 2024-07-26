@@ -52,6 +52,11 @@ label {
     font-size: 14px;
     font-weight: bold;
 }
+
+.select1, .select2 {
+    font-weight: normal;
+}
+
 .select input {
     margin: 0px;
 }
