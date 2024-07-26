@@ -26,6 +26,13 @@ legend {
     max-width: 800px;
     margin-left: 7.5%;
 }
+.cod-pat input[readonly] {
+    background-color: #f0f0f0;
+    color: #999;
+    border: 1px solid #ccc;
+    font-style: italic;
+    border-radius: 2px;
+}
 .form-col {
     display: grid;
     grid-template-columns: 10vw 20vw 15vw 20vw;
