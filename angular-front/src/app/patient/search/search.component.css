@@ -15,6 +15,18 @@ form {
     padding-left: 4%;
 }
 
+form button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 10%;
+    text-transform: uppercase;
+}
+
 .credentials {
     display: grid;
     grid-template-columns: repeat(1, 4fr);
