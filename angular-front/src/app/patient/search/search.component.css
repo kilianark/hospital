@@ -13,6 +13,8 @@ legend {
 form {
     padding-top: 3%;
     padding-left: 4%;
+    padding-bottom: 10px;
+    border-bottom: solid black;
 }
 
 form button {
@@ -31,8 +33,8 @@ form button {
     display: grid;
     grid-template-columns: repeat(8, minmax(0,1fr));
     grid-template-rows: auto auto;
-    gap: 20px;
-    max-width: 800px;
+    gap: 10px;
+    max-width: 950px;
     margin: 0px;
 }
 
@@ -40,29 +42,32 @@ form button {
 .filtre1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: auto;
     max-width: 800px;
-    margin-left: 0px auto;
+    margin-right: 10px;
 }
 .filtre2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: auto;
     max-width: 800px;
-    margin-left: 0px auto;
 }
 .alinear {
     display: flex;
     justify-content: center;
-    gap: 5vw;
+    gap: 20px;
+    margin-right: -157px;
 }
 
 .table-wrapper {
-    width: 100%;
-    height: 70vh;
+    width: 83vw;
+    height: 63.9vh;
     overflow: auto;
+    margin-left: 15px;
 }
-  
+.table-wrapper::-webkit-scrollbar {
+    display: none;
+}
 .table-wrapper table {
     border-collapse: collapse;
 }

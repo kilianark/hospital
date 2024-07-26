@@ -6,29 +6,31 @@
     <form>
         <legend>{{title}}</legend>
         <div class="credentials">
-            <label for="patientID">Código</label>
+            <label for="patientID">Código:</label>
             <input type="text" id="patientID"/>
-            <label for="name">Nombre</label>
+            <label for="name">Nombre:</label>
             <input type="text" id="name"/>
-            <label for="surname1">Apellido1</label>
+            <label for="surname1">Apellido1:</label>
             <input type="text" id="surname1"/>
-            <label for="surname2">Apellido2</label>
+            <label for="surname2">Apellido2:</label>
             <input type="text" id="surname2"/>
 
-            <label for="phone" class="telf">Teléfono</label>
+            <label for="phone" class="telf">Teléfono:</label>
             <input type="text" id="phone"/>
-            <label for="dni">DNI</label>
+            <label for="dni">DNI:</label>
             <input type="text" id="dni"/>
-            <label for="numSS">Núm. SS</label>
+            <label for="numSS">Núm. SS:</label>
             <input type="text" id="numSS"/>
             <div class="alinear">
                 <div class="filtre1">
-                    <input type="radio" name="inOut" id="todos"/>
                     <label for="todos">Todos</label>
+                    <input type="radio" name="inOut" id="todos"/>
+                    
                 </div>
                 <div class="filtre2">
+                    <label for="ingresados" id="labelIngr">Ingresados</label>
                     <input type="radio" name="inOut" id="ingresados"/>
-                    <label for="ingresados">Solo ingresados</label>
+                    
                 </div>
                 <br>
             </div>
