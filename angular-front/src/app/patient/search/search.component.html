@@ -6,27 +6,31 @@
     <form>
         <legend>{{title}}</legend>
         <div class="credentials">
-            <div class="cred1">
-                <label for="patientID">Codigo paciente</label>
-                <input type="text" id="patientID"/>
-                <label for="name">Nombre</label>
-                <input type="text" id="name"/>
-                <label for="surname1">Apellido1</label>
-                <input type="text" id="surname1"/>
-                <label for="surname2">Apellido2</label>
-                <input type="text" id="surname2"/>
-            </div>
-            <div class="cred2">
-                <label for="phone">Teléfono</label>
-                <input type="text" id="phone"/>
-                <label for="dni">DNI</label>
-                <input type="text" id="dni"/>
-                <label for="numSS">Núm. SS</label>
-                <input type="text" id="numSS"/>
-                <input type="radio" name="inOut" id="todos"/>
-                <label for="todos">Todos</label>
-                <input type="radio" name="inOut" id="ingresados"/>
-                <label for="ingresados">Solo ingresados</label>
+            <label for="patientID">Código</label>
+            <input type="text" id="patientID"/>
+            <label for="name">Nombre</label>
+            <input type="text" id="name"/>
+            <label for="surname1">Apellido1</label>
+            <input type="text" id="surname1"/>
+            <label for="surname2">Apellido2</label>
+            <input type="text" id="surname2"/>
+
+            <label for="phone" class="telf">Teléfono</label>
+            <input type="text" id="phone"/>
+            <label for="dni">DNI</label>
+            <input type="text" id="dni"/>
+            <label for="numSS">Núm. SS</label>
+            <input type="text" id="numSS"/>
+            <div class="alinear">
+                <div class="filtre1">
+                    <input type="radio" name="inOut" id="todos"/>
+                    <label for="todos">Todos</label>
+                </div>
+                <div class="filtre2">
+                    <input type="radio" name="inOut" id="ingresados"/>
+                    <label for="ingresados">Solo ingresados</label>
+                </div>
+                <br>
             </div>
         </div>
         <button type="submit">Buscar</button>

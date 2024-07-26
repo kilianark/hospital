@@ -29,15 +29,32 @@ form button {
 
 .credentials {
     display: grid;
-    grid-template-columns: repeat(1, 4fr);
-    gap: auto;
+    grid-template-columns: repeat(8, minmax(0,1fr));
+    grid-template-rows: auto auto;
+    gap: 20px;
     max-width: 800px;
-    margin-left: -20px;
+    margin: 0px;
 }
 
-.cred1, .cred2 {
+
+.filtre1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin-left: 0px auto;
+}
+.filtre2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin-left: 0px auto;
+}
+.alinear {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 5vw;
 }
 
 .table-wrapper {
