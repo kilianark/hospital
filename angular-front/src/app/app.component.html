@@ -3,7 +3,7 @@
 <div class="principal">
 
     <app-sidebar *ngIf="showNavBar"></app-sidebar>
-    <main>
+    <div class="content">
         <router-outlet (activate)="toggleNavBar($event)" />
-    </main>
+    </div>
 </div>
