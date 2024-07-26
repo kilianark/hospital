@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
+import {MatDialogModule} from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { SearchPatientComponent } from './patient/search/search.component';
 import { CreatePatientComponent } from './patient/create/create.component';
@@ -27,7 +28,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes), MatDialogModule],
     exports: [RouterModule]
   })
 
