@@ -23,20 +23,20 @@
                     <label for="name">Nombre:</label>
                     <input id="name" type="text" placeholder="Juan" required>
                     <label for="birth">F. Nacimiento:</label>
-                    <input id="birth" type="date" placeholder="dd/mm/aaaa">
+                    <input id="birth" type="date" placeholder="dd/mm/aaaa" required>
 
                     <label for="lastname1">Apellido1:</label>
                     <input id="lastname1" type="text" placeholder="Martínez" required>
                     <label for="lastname2">Apellido2:</label>
-                    <input id="lastname2" type="text" placeholder="López" required>
+                    <input id="lastname2" type="text" placeholder="López">
 
                     <label for="phone">Teléfono:</label>
-                    <input id="phone" type="text" placeholder="632345675">
+                    <input id="phone" type="text" placeholder="632345675" required>
                     <label for="email">E-mail:</label>
                     <input id="email" type="text" placeholder="julo90@gmail.com">
 
                     <label for="nationality">Nacionalidad:</label>
-                    <select id="nationality" name="country">
+                    <select id="nationality" name="country" required>
                         <option value="" disabled selected>Select Country</option>
                         <option value="" disabled selected>Spain</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
@@ -52,7 +52,7 @@
                     <input id="emergencycontact" type="text" placeholder="999999999">
                     <label for="gender">Sexo:</label>
                     <div class="sexe">
-                        <div class="select">
+                        <div class="select" required>
                             <input id="male" type="radio" name="gender"/>
                             <label class="select1" for="male">Masculino</label>
                             <input id="female" type="radio" name="gender"/>
