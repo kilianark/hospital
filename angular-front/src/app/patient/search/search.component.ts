@@ -19,6 +19,11 @@ export class SearchPatientComponent {
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
-    this.dialog.open(RecordComponent);
+    this.dialog.open(RecordComponent, {
+      width: '80%',
+      height: '90%',
+      maxWidth: '100vw',
+      panelClass: 'full-width-dialog'
+    });
   }
 }
