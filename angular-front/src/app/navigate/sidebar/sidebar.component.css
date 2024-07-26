@@ -6,7 +6,7 @@ body {
 }
 
 .sidebar {
-    height: 100%;
+    height: 100vh;
     width: 160px;
     margin-top: 0;
     left: 0;
@@ -28,8 +28,7 @@ body {
     font-size: 1cap;
 }
 
-.sidebar ul li {
-    
+.sidebar ul li { 
     text-decoration: none;
     margin-left: 10px;
 }

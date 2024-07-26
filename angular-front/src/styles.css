@@ -7,13 +7,13 @@ app-header {
 
   .principal {
     display: flex;
-
+    align-items: flex-start;
   }
 
-  app-sidebar {
+app-sidebar {
     position: sticky;
-    top: 0;
-  }
+    top: 81px;
+}
 
   .content {
     flex-grow: 1;
