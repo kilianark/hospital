@@ -2,8 +2,9 @@
 
 <div class="principal">
 
-    <app-sidebar *ngIf="showNavBar"></app-sidebar>
+    <app-sidebar  *ngIf="showNavBar"></app-sidebar>
     <div class="content">
         <router-outlet (activate)="toggleNavBar($event)" />
+    
     </div>
 </div>
