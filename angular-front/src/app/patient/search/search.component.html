@@ -10,30 +10,29 @@
             <input type="text" id="patientID"/>
             <label for="name">Nombre:</label>
             <input type="text" id="name"/>
-            <label for="surname1">Apellido1:</label>
+            <label for="surname1">Apellido 1:</label>
             <input type="text" id="surname1"/>
-            <label for="surname2">Apellido2:</label>
+            <label for="surname2">Apellido 2:</label>
             <input type="text" id="surname2"/>
 
-            <label for="phone" class="telf">Teléfono:</label>
-            <input type="text" id="phone"/>
             <label for="dni">DNI:</label>
             <input type="text" id="dni"/>
-            <label for="numSS">Núm. SS:</label>
+            <label for="numSS">CIP:</label>
             <input type="text" id="numSS"/>
-            <div class="alinear">
-                <div class="filtre1">
-                    <label for="todos">Todos</label>
-                    <input type="radio" name="inOut" id="todos"/>
-                    
+            <label for="phone" class="telf">Teléfono:</label>
+            <input type="text" id="phone"/>
+            <fieldset>
+                <div class="alinear">
+                    <div class="filtre1">
+                        <label for="todos">Todos</label>
+                        <input type="radio" name="inOut" id="todos" required/>
+                    </div>
+                    <div class="filtre2">
+                        <label for="ingresados" id="labelIngr">Ingresados</label>
+                        <input type="radio" name="inOut" id="ingresados" required/>
+                    </div>
                 </div>
-                <div class="filtre2">
-                    <label for="ingresados" id="labelIngr">Ingresados</label>
-                    <input type="radio" name="inOut" id="ingresados"/>
-                    
-                </div>
-                <br>
-            </div>
+            </fieldset>
         </div>
         <button type="submit">Buscar</button>
     </form>
@@ -41,15 +40,15 @@
     <div class="table-wrapper">
         <table>
             <thead>
-                <th>Cod. Paciente</th>
+                <th>Código</th>
                 <th>Nombre</th>
-                <th>Apellido1</th>
-                <th>Apellido2</th>
+                <th>Apellido 1</th>
+                <th>Apellido 2</th>
                 <th>Teléfono</th>
                 <th>Edad</th>
                 <th>Estado</th>
                 <th>Tipo</th>
-                <th>Id Cama</th>
+                <th>Id. Cama</th>
                 <th>Ficha</th>
             </thead>
             <tbody>
@@ -63,7 +62,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><button mat-button (click)="openDialog()">FICHA</button></td>
+                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -75,7 +74,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -87,7 +86,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -99,7 +98,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -111,7 +110,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -123,7 +122,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -135,7 +134,7 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
                 <tr>
                     <td>1234567</td>
@@ -147,11 +146,9 @@
                     <td>Ambulatorio</td>
                     <td>Urgencia</td>
                     <td>-</td>
-                    <td><input type="button" value="FICHA"/></td>
+                    <td><input type="button" value="Abrir"/></td>
                 </tr>
             </tbody>
-
         </table>
     </div>
-
 </div>
