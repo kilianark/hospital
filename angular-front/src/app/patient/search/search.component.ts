@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { RecordComponent } from '../record/record.component';
 
 @Component({
   selector: 'app-search-patient',
@@ -12,5 +14,11 @@ export class SearchPatientComponent {
   onSubmit() {
     //canviar esto por el paciente/s encontrado por la api
     console.log('Formulario enviado');
+  }
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(RecordComponent);
   }
 }
