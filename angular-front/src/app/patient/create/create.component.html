@@ -38,7 +38,7 @@
                     <label for="nationality">Nacionalidad:</label>
                     <select id="nationality" name="country" required>
                         <option value="" disabled selected>Select Country</option>
-                        <option value="" disabled selected>Spain</option>
+                        <option value="" selected>Spain</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                     <label for="address">Dirección:</label>
