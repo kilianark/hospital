@@ -52,14 +52,16 @@ legend {
     grid-template-columns: repeat(4, 1fr);
     gap: auto;
     max-width: 800px;
-    margin-left: -20px;
+    margin-left: -31px;
 }
 label {
     margin: 0px;
     font-size: 14px;
     font-weight: bold;
 }
-
+fieldset {
+    border: none;
+}
 .select1, .select2 {
     font-weight: normal;
 }

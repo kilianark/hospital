@@ -25,9 +25,9 @@
                     <label for="birth">F. Nacimiento:</label>
                     <input id="birth" type="date" placeholder="dd/mm/aaaa" required>
 
-                    <label for="lastname1">Apellido1:</label>
+                    <label for="lastname1">Apellido 1:</label>
                     <input id="lastname1" type="text" placeholder="Martínez" required>
-                    <label for="lastname2">Apellido2:</label>
+                    <label for="lastname2">Apellido 2:</label>
                     <input id="lastname2" type="text" placeholder="López">
 
                     <label for="phone">Teléfono:</label>
@@ -52,12 +52,14 @@
                     <input id="emergencycontact" type="text" placeholder="999999999">
                     <label for="gender">Sexo:</label>
                     <div class="sexe">
-                        <div class="select" required>
-                            <input id="male" type="radio" name="gender"/>
-                            <label class="select1" for="male">Masculino</label>
-                            <input id="female" type="radio" name="gender"/>
-                            <label class="select2" for="female">Femenino</label>
-                        </div>
+                        <fieldset>
+                            <div class="select">
+                                <input id="male" type="radio" name="gender" value="masculino" required/>
+                                <label class="select1" for="male">Masculino</label>
+                                <input id="female" type="radio" name="gender" value="femenino" required/>
+                                <label class="select2" for="female">Femenino</label>
+                            </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
