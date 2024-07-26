@@ -11,7 +11,7 @@
                 <br>
                 <div class="cod-pat">
                     <label for="patientCode">Código:</label>
-                    <input type="text" id="readonlyField" placeholder="123456" readonly>
+                    <input id="patientCode" type="text" placeholder="123456" readonly>
                 </div>
                 <br>
                 <div class="form-col">
@@ -21,19 +21,19 @@
                     <input id="cip" type="text" placeholder="LOMA 0000000000">
         
                     <label for="name">Nombre:</label>
-                    <input type="text" placeholder="Juan" required>
+                    <input id="name" type="text" placeholder="Juan" required>
                     <label for="birth">F. Nacimiento:</label>
-                    <input type="date" id="birth" placeholder="dd/mm/aaaa">
+                    <input id="birth" type="date" placeholder="dd/mm/aaaa">
 
-                    <label for="lastname">Apellido1:</label>
-                    <input type="text" placeholder="Martínez" required>
-                    <label for="lastname">Apellido2:</label>
-                    <input type="text" placeholder="López" required>
+                    <label for="lastname1">Apellido1:</label>
+                    <input id="lastname1" type="text" placeholder="Martínez" required>
+                    <label for="lastname2">Apellido2:</label>
+                    <input id="lastname2" type="text" placeholder="López" required>
 
                     <label for="phone">Teléfono:</label>
-                    <input type="text" placeholder="632345675">
+                    <input id="phone" type="text" placeholder="632345675">
                     <label for="email">E-mail:</label>
-                    <input type="text" placeholder="julo90@gmail.com">
+                    <input id="email" type="text" placeholder="julo90@gmail.com">
 
                     <label for="nationality">Nacionalidad:</label>
                     <select id="nationality" name="country">
@@ -42,29 +42,29 @@
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                     <label for="address">Dirección:</label>
-                    <input type="text" placeholder="c/ Fluvià 65, 4, 08002, Barcelona" >
+                    <input id="address" type="text" placeholder="c/ Fluvià 65, 4, 08002, Barcelona">
                 </div>
                 <br>
                 <div class="peu-form">
                     <div class="eme-con">
                         <label for="emergencycontact">C. Emergencia:</label>
                     </div>
-                    <input type="text" placeholder="99999999" >
+                    <input id="emergencycontact" type="text" placeholder="999999999">
                     <label for="gender">Sexo:</label>
                     <div class="sexe">
                         <div class="select">
-                            <input type="radio" name="gender" id="male"/>
                             <label class="select1" for="male">Masculino</label>
-                            <input type="radio" name="gender" id="female"/>
+                            <input id="male" type="radio" name="gender"/>
                             <label class="select2" for="female">Femenino</label>
+                            <input id="female" type="radio" name="gender"/>
                         </div>
                     </div>
                 </div>
             </div>
             <br><br>
             <div class="formButtons">
-                <input class="submit" type="submit" placeholder="Registrar" />
-                <input class="reset" type="reset" placeholder="Reiniciar" />
+                <input class="submit" type="submit" placeholder="Registrar"/>
+                <input class="reset" type="reset" placeholder="Reiniciar"/>
             </div>
         </form>
     </body>
