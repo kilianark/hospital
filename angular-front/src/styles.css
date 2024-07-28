@@ -1,20 +1,29 @@
 app-header {
-    position: sticky;
+    position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
   }
 
   .principal {
-    display: flex;
+    display: fixed;
     align-items: flex-start;
+    margin-top: 81px;
   }
 
 app-sidebar {
-    position: sticky;
+    position: fixed;
     top: 81px;
+    box-sizing: border-box;
+    height: calc(100vh - 81px);
+    overflow-y: auto; /* es pot treure si no arribem a tindre una barra lateral llarga de llista */
+}
+app-sidebar::-webkit-scrollbar {
+  display: none;
 }
 
   .content {
+    position: sticky;
+    margin-left: 80px;
     flex-grow: 1;
   }

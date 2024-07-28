@@ -1,4 +1,6 @@
 body {
+    position: fixed;
+    top: 81px;
     margin: 0;
     padding: 0;
     /* font family temporal hasta que lo pongamos en styles comunes*/

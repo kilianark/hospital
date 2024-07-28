@@ -2,7 +2,8 @@ body {
     /*esto no hace practicamente nada */
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin-left: 80px;
+    position: sticky;
 }
 
 .slogan{
