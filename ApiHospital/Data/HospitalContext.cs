@@ -22,6 +22,8 @@ namespace ApiHospital.Data
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<Patient> Patients { get; set; } = null!;
 
+        public DbSet<Doctor> Doctors { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             modelBuilder.Entity<Bed>()
