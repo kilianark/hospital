@@ -100,6 +100,28 @@ namespace ApiHospital.Controllers
             return NoContent();
         }
 
+        // PATCH: api/Beds/5
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchBed(int id, [FromBody] JsonPatchDocument<Bed> patchDocument)
+        {
+            if (patchDocument == null) return BadRequest();
+
+            var doctor = await _context.Doctors.FindAsync(id);
+
+            if (doctor == null) return NotFound();
+
+            patchDocument.ApplyTo(doctor, ModelState);
+
+            bool isValidPatch = TryValidateModel(doctor);
+
+            if (!isValidPatch) return BadRequest(ModelState);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+    
+        }
+
         private bool DoctorExists(int id)
         {
             return _context.Doctors.Any(e => e.Id == id);
