@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiHospital.Models;
 
-public class Patient
+public class Doctor
 {
     [Key]
     public required int Id { get; set; }
-    public required int PatientCode {get; set;}
+    public required int DoctorCode {get; set;}
     public required string Dni { get; set; }
     public required string Name { get; set; }
     public required string Surname1 { get; set; }
@@ -18,7 +18,5 @@ public class Patient
     public required string Email {get; set;}
     public required string CIP {get; set;}
     public required string Sex {get; set;}
-    public required string Status { get; set; }
-    public required string StatusType { get; set; }
-    public int? BedId { get; set; }
+    public required string Speciality { get; set; }
 }
