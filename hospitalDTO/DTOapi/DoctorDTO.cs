@@ -1,7 +1,7 @@
 namespace hospitalDTO.DTOapi {
-    public class PatientDTO {
+    public class DoctorDTO {
     public required int Id { get; set; }
-    public required int PatientCode {get; set;}
+    public required int DoctorCode {get; set;}
     public required string Dni { get; set; }
     public required string Name { get; set; }
     public required string Surname1 { get; set; }
@@ -12,8 +12,6 @@ namespace hospitalDTO.DTOapi {
     public required string Email {get; set;}
     public required string CIP {get; set;}
     public required string Sex {get; set;}
-    public required string Status { get; set; }
-    public required string StatusType { get; set; }
-    public int? BedId { get; set; }
+    public required string Speciality { get; set; }
     }
 }
