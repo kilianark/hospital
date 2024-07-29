@@ -16,8 +16,14 @@
         <label class="WorkerName">
             trabajador123
         </label>
-        <button class="WorkerSettings">
-            <img src="/assets/UserIcon.png" alt="error de carga" width=30px height=30px>
+        <button class="WorkerSettings" (click)="toggleMenu()">
+            <img src="/assets/UserIcon.png" alt="error de carga" width="30px" height="30px">
         </button>
+        <div *ngIf="isMenuOpen" class="dropdown-menu">
+            <ul>
+                <li><a href="#">Ajustes</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+            </ul>
+        </div>
     </div>
 </header>

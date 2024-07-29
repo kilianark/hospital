@@ -13,4 +13,10 @@ export class HeaderComponent {
   title = 'MedicaPlus';
   nav1 = 'Urgencias';
   nav2 = 'Consultas';
+
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
