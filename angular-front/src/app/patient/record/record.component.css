@@ -13,6 +13,7 @@ body {
   line-height: 31px;
   white-space: pre-line;
 }
+
 .form-col {
   display: grid;
   grid-template-columns: 10vw 20vw 15vw 20vw;
