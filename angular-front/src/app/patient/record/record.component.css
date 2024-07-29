@@ -50,3 +50,18 @@ label {
       grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
   }
 }
+
+.grid-layout a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.grid-layout a span {
+  margin-right: 10px;
+  text-decoration: underline;
+  color: #1e90ff;
+}
+.pdflogo {
+  vertical-align: middle;
+}
