@@ -6,7 +6,7 @@ form {
     padding-top: 4%;
 }
 legend {
-    width: 161px;
+    width: auto;
     height: 31px; 
     margin: 0px; 
     overflow: hidden; 
@@ -15,6 +15,7 @@ legend {
     letter-spacing: 0px; 
     line-height: 31px; 
     white-space: pre-line;
+    font-weight: bold;
 }
 .head {
     margin-left: 7.3%;

@@ -3,7 +3,7 @@ body {
   padding-top: 3.5%;
 }
 .title {
-  width: 161px;
+  width: auto;
   height: 31px;
   margin-left: 7.5%;
   overflow: hidden;
