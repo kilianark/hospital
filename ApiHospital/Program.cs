@@ -18,11 +18,7 @@ builder.Services.AddDbContext<HospitalContext>(opt => opt.UseInMemoryDatabase("H
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(cfg => {
-    cfg.CreateMap<Bed, BedDTO>().ReverseMap();
-    cfg.CreateMap<Patient, PatientDTO>().ReverseMap();
-    cfg.CreateMap<Room, RoomDTO>().ReverseMap();
-});
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile(new MapperProfile()));
 
 var app = builder.Build();
 

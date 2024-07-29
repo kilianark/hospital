@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace ApiHospital.Controllers
 {
@@ -23,14 +24,14 @@ namespace ApiHospital.Controllers
 
         // GET: api/Doctors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Doctors>>> GetDoctor()
+        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor()
         {
             return await _context.Doctors.ToListAsync();
         }
 
         // GET: api/Doctors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Doctors>> GetDoctor(int id)
+        public async Task<ActionResult<Doctor>> GetDoctor(int id)
         {
             var Doctors = await _context.Doctors.FindAsync(id);
 
@@ -45,7 +46,7 @@ namespace ApiHospital.Controllers
         // PUT: api/Doctors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDoctor(int id, Doctors Doctors)
+        public async Task<IActionResult> PutDoctor(int id, Doctor Doctors)
         {
             if (id != Doctors.Id)
             {
@@ -76,7 +77,7 @@ namespace ApiHospital.Controllers
         // POST: api/Doctors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Doctors>> PostDoctor(Doctors Doctors)
+        public async Task<ActionResult<Doctor>> PostDoctor(Doctor Doctors)
         {
             _context.Doctors.Add(Doctors);
             await _context.SaveChangesAsync();
@@ -102,7 +103,7 @@ namespace ApiHospital.Controllers
 
         // PATCH: api/Beds/5
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchBed(int id, [FromBody] JsonPatchDocument<Bed> patchDocument)
+        public async Task<IActionResult> PatchBed(int id, [FromBody] JsonPatchDocument<Doctor> patchDocument)
         {
             if (patchDocument == null) return BadRequest();
 
