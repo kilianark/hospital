@@ -9,6 +9,7 @@ app-header {
     display: fixed;
     align-items: flex-start;
     margin-top: 81px;
+    position: fixed;  
   }
 
 app-sidebar {
