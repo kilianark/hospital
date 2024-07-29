@@ -1,3 +1,7 @@
+html, body {
+  overscroll-behavior: none;
+}
+
 app-header {
     position: fixed;
     top: 0;
@@ -9,8 +13,8 @@ app-header {
     display: fixed;
     align-items: flex-start;
     margin-top: 81px;
-    position: fixed;  
-  }
+    
+    }
 
 app-sidebar {
     position: fixed;
@@ -27,4 +31,8 @@ app-sidebar::-webkit-scrollbar {
     position: sticky;
     margin-left: 80px;
     flex-grow: 1;
+  }
+
+  body{
+    margin: 0;
   }
