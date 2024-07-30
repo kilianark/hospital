@@ -1,9 +1,11 @@
 body, #birth { 
     font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol"; 
-
 }
 form {
     padding-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 legend {
     width: auto;
