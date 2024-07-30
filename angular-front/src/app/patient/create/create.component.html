@@ -104,7 +104,7 @@
                         [(ngModel)]="patient.country" 
                         #country="ngModel"
                     >
-                        <option value="" disabled selected>Select Country</option>
+                        <option value="" disabled>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                     <!--

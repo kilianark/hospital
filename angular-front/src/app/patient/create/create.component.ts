@@ -17,14 +17,16 @@ import { countries } from '../../shared/store/country-data.store';
   styleUrl: './create.component.css'
 })
 export class CreatePatientComponent {
-  public countries:any = countries;
+  public countries: any = countries;
+  // en TS, les propietats son publiques per defecte, no passa res
+  // es possible accedir-hi directament, desde altres components.
 
   patient: any = {
     name: '',
     birth: '',
     surname1: '',
     phone: '',
-    country: '',
+    country: 'Spain',
     gender: ''
   };
 
