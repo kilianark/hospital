@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using hospitalDTO.DTOapi;
 using ApiHospital.Models;
+using ApiHospital.Shared;
 // Descomentar el següent using NOMES si implementem el context NO amb "Mysql", sinó OracleDatabase
 // Caldrà canviar al Oracle DataBase
 // using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
@@ -14,6 +15,10 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy =>
     .AllowAnyMethod()
     .AllowAnyOrigin()));
 builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+});
 builder.Services.AddDbContext<HospitalContext>(opt => opt.UseInMemoryDatabase("Hospital"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
