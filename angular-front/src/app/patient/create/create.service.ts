@@ -16,7 +16,7 @@ export class CreateService {/*
         console.log('Pacient registrat:', patient);
         
         // Redirigir a la página de confirmación
-        this.router.navigate(['/create-patient']);/*
+        this.router.navigate(['/home']);/*
         return this.http.post<any>(this.apiUrl, patient);*/
     }
 }
