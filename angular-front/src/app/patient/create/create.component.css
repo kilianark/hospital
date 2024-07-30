@@ -47,6 +47,7 @@ legend {
     display: grid;
     grid-template-columns: 10vw 20vw 15vw 20vw;
     gap: 20px;
+    align-items: flex-start;
     max-width: 800px;
     margin-left: 7.5%;
 }
@@ -55,7 +56,8 @@ legend {
     grid-template-columns: repeat(4, 1fr);
     gap: auto;
     max-width: 800px;
-    margin-left: -31px;
+    margin-left: -40px;
+    margin-right: -20px;
 }
 label {
     margin: 0px;
@@ -71,6 +73,8 @@ fieldset {
 
 .select input {
     margin: 0px;
+    height: 75%;
+    align-self: center;
 }
 .red-req {
     color: red;
