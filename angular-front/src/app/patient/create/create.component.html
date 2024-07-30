@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="create.component.css"> <!-- uso mentres estilitzo component -->
     </head>
     <body>
-        <form>
+        <form (ngSubmit)="onSubmit()" #patientForm="ngForm">
             <div class="content">
                 <legend class="head" >Crear Paciente:</legend>
                 <br>
@@ -19,28 +19,100 @@
                     <input id="dni" type="text" placeholder="00000000-A" autofocus>
                     <label for="cip">CIP:</label>
                     <input id="cip" type="text" placeholder="LOMA 0000000000">
-        
-                    <label for="name">Nombre (*):</label>
-                    <input id="name" type="text" placeholder="Juan" required>
-                    <label for="birth">F. Nacimiento (*):</label>
-                    <input id="birth" type="date" placeholder="dd/mm/aaaa" required>
+                    <!--
+                        [(ngModel)]="patient.name"
+                        #name="ngModel"
+                        * Enlloc daixo 2, 
+                        poso ngModel
 
-                    <label for="lastname1">Apellido 1 (*):</label>
-                    <input id="lastname1" type="text" placeholder="Martínez" required>
-                    <label for="lastname2">Apellido 2:</label>
-                    <input id="lastname2" type="text" placeholder="López">
+                        "name.invalid && (name.dirty || name.touched)"
+                        * Enlloc daixo 
+                        "patientForm.submitted && !name"
+                    -->
+                    <label for="name">Nombre (*):</label>
+                    <input 
+                        id="name" 
+                        type="text" 
+                        placeholder="Juan" 
+                        required 
+                        [(ngModel)]="patient.name" 
+                        name="name" 
+                        #name="ngModel"
+                    >
+                    <!--
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                        El nombre es requerido.
+                    </div>
+                    -->
+                    <label for="birth">F. Nacimiento (*):</label>
+                    <input 
+                        id="birth" 
+                        type="date" 
+                        placeholder="dd/mm/aaaa" 
+                        required 
+                        [(ngModel)]="patient.birth" 
+                        name="birth" 
+                        #birth="ngModel"
+                    >
+                    <!--
+                    <div *ngIf="birth.invalid && (birth.dirty || birth.touched)" class="alert alert-danger">
+                        La fecha de nacimiento es requerida.
+                    </div>
+                    -->
+
+                    <label for="surname1">Apellido 1 (*):</label>
+                    <input 
+                        id="surname1" 
+                        type="text" 
+                        placeholder="Martínez" 
+                        required 
+                        [(ngModel)]="patient.surname1" 
+                        name="surname1"
+                        #surname1="ngModel"
+                    >
+                    <!--
+                    <div *ngIf="surname1.invalid && (surname1.dirty || surname1.touched)" class="alert alert-danger">
+                        El apellido es requerido.
+                    </div>
+                    -->
+                    <label for="surname2">Apellido 2:</label>
+                    <input id="surname2" type="text" placeholder="López">
 
                     <label for="phone">Teléfono (*):</label>
-                    <input id="phone" type="text" placeholder="632345675" required>
+                    <input 
+                        id="phone" 
+                        type="text" 
+                        placeholder="632345675" 
+                        required 
+                        [(ngModel)]="patient.phone" 
+                        name="phone" 
+                        #phone="ngModel"
+                    >
+                    <!--
+                    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+                        El teléfono es requerido.
+                    </div>
+                    -->
                     <label for="email">E-mail:</label>
                     <input id="email" type="text" placeholder="julo90@gmail.com">
 
                     <label for="nationality">Nacionalidad (*):</label>
-                    <select id="nationality" name="country" required>
+                    <select 
+                        id="nationality" 
+                        name="country" 
+                        required 
+                        [(ngModel)]="patient.country" 
+                        #country="ngModel"
+                    >
                         <option value="" disabled selected>Select Country</option>
-                        <option value="" selected>Spain</option>
+                        <option value="ES" selected>Spain</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
+                    <!--
+                    <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+                        La nacionalidad es requerida.
+                    </div>
+                    -->
                     <label for="address">Dirección:</label>
                     <input id="address" type="text" placeholder="c/ Fluvià 65, 4, 08002, Barcelona">
                 </div>
@@ -54,18 +126,39 @@
                     <div class="sexe">
                         <fieldset>
                             <div class="select">
-                                <input id="male" type="radio" name="gender" value="masculino" required/>
+                                <input 
+                                    id="male" 
+                                    type="radio" 
+                                    name="gender" 
+                                    value="masculino" 
+                                    required 
+                                    [(ngModel)]="patient.gender" 
+                                    #gender="ngModel"
+                                />
                                 <label class="select1" for="male">Masculino</label>
-                                <input id="female" type="radio" name="gender" value="femenino" required/>
+                                <input 
+                                    id="female" 
+                                    type="radio" 
+                                    name="gender" 
+                                    value="femenino" 
+                                    required 
+                                    [(ngModel)]="patient.gender" 
+                                    #gender="ngModel"
+                                />
                                 <label class="select2" for="female">Femenino</label>
                             </div>
+                            <!--
+                            <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
+                                El sexo es requerido.
+                            </div>
+                            -->
                         </fieldset>
                     </div>
                 </div>
             </div>
             <br><br>
             <div class="formButtons">
-                <input class="submit" type="submit" placeholder="Registrar"/>
+                <input class="submit" type="submit" placeholder="Registrar" [disabled]="patientForm.form.invalid" mat-button (click)="confirm()"/>
                 <input class="reset" type="reset" placeholder="Reiniciar"/>
             </div>
         </form>
