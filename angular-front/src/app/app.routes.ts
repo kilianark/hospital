@@ -1,13 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { SearchPatientComponent } from './patient/search/search.component';
 import { CreatePatientComponent } from './patient/create/create.component';
 import { SearchBedComponent } from './room/search-bed/search-bed.component';
 import { SearchRoomComponent } from './room/search-room/search-room.component';
 import { RecordComponent } from './patient/record/record.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -16,6 +17,7 @@ import { RecordComponent } from './patient/record/record.component';
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
+    { path: 'confirmation', component: ConfirmComponent },
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },
     { path: 'search-room', component: SearchRoomComponent },
