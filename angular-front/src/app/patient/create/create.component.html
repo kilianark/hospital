@@ -105,7 +105,6 @@
                         #country="ngModel"
                     >
                         <option value="" disabled selected>Select Country</option>
-                        <option value="ES" selected>Spain</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                     <!--
