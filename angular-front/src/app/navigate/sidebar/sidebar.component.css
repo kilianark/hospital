@@ -48,5 +48,5 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #1e90ff; /* Color de fondo cuando se pasa el ratón sobre el enlace */
+   background-color: rgb(190, 238, 254);/* Color de fondo cuando se pasa el ratón sobre el enlace */
 }
