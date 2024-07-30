@@ -66,16 +66,16 @@ button:hover {
 
 .dropdown-menu ul {
     list-style: none;
-    padding: 0; 
-    margin: 0; 
+    padding: 0;
+    margin: 0;
 }
 
 .dropdown-menu li button {
     width: 100%;
     text-align: left;
     padding: 10px;
-    background: none; 
-    cursor: pointer; 
+    background: none;
+    cursor: pointer;
 }
 
 .dropdown-menu li button img {
@@ -84,5 +84,5 @@ button:hover {
 }
 
 .dropdown-menu li button:hover {
-    background-color: #f0f0f0; 
+    background-color: #f0f0f0;
 }
