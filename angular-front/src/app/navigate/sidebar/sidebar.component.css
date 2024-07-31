@@ -32,6 +32,7 @@ body {
     margin: 0; /* Elimina márgenes para alinear los elementos */
     font-size: 0.7em; /* Cambiado a em para mejor consistencia */
     padding-left: 10px;
+    padding-right: 10px; /* Arreglat el marge de botó marcat per la dreta
 }
 
 .sidebar ul li {
