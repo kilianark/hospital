@@ -32,6 +32,7 @@ body {
     margin: 0; /* Elimina márgenes para alinear los elementos */
     font-size: 0.7em; /* Cambiado a em para mejor consistencia */
     padding-left: 10px;
+    padding-right: 10px; /* Arreglat el marge de botó marcat per la dreta
 }
 
 .sidebar ul li {
@@ -48,5 +49,5 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #1e90ff; /* Color de fondo cuando se pasa el ratón sobre el enlace */
+   background-color: rgb(190, 238, 254);/* Color de fondo cuando se pasa el ratón sobre el enlace */
 }
