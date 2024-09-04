@@ -1,1 +1,106 @@
-<h1>search-room works!</h1>
+<head>
+  <title>Busqueda habitaciones</title>
+</head>
+<div class="content">
+  <form>
+    <legend>{{title}}</legend>
+    <div class="credentials">
+      <label for="roomNumber">Número:</label>
+      <input type="text" id="roomNumber" />
+      <label for="RoomType">Tipo:</label>
+      <input type="text" id="RoomType" />
+      <label for="floor">Planta:</label>
+      <input type="text" id="floor" />
+      <label for="area">Área:</label>
+      <input type="text" id="area" />
+
+      <label for="capacity">Capacidad:</label>
+      <input type="text" id="capacity" />
+      <fieldset>
+        <div class="alinear">
+          <label for="availability">Disponible:</label>
+          <div class="filtre1">
+            <label for="available">Si</label>
+            <input type="radio" name="availability" id="available" required />
+          </div>
+          <div class="filtre2">
+            <label for="noAvailable" id="labelIngr">No</label>
+            <input type="radio" name="availability" id="noAvailable" required />
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <button type="submit">Buscar</button>
+  </form>
+  <br>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <th>Número</th>
+        <th>Tipo</th>
+        <th>Planta</th>
+        <th>Área</th>
+        <th>Capacidad</th>
+        <th>Disponible</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>001</td>
+          <td>Box</td>
+          <td>0</td>
+          <td>Urgencias</td>
+          <td>1</td>
+          <td>Si</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Box</td>
+          <td>1</td>
+          <td>Urgencias</td>
+          <td>2</td>
+          <td>Si</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Box</td>
+          <td>1</td>
+          <td>Urgencias</td>
+          <td>2</td>
+          <td>Si</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Box</td>
+          <td>1</td>
+          <td>Urgencias</td>
+          <td>2</td>
+          <td>Si</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Box</td>
+          <td>1</td>
+          <td>Urgencias</td>
+          <td>2</td>
+          <td>Si</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Box</td>
+          <td>1</td>
+          <td>Urgencias</td>
+          <td>2</td>
+          <td>Si</td>
+        </tr>
+        <tr>
+          <td>100</td>
+          <td>Box</td>
+          <td>1</td>
+          <td>Urgencias</td>
+          <td>2</td>
+          <td>Si</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
