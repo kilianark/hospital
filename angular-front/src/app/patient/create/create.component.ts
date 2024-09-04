@@ -28,12 +28,11 @@ export class CreatePatientComponent {
       name: ['', [Validators.required]],
       birth: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
-      surname2: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['Spain', [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
-      gender: ['', [Validators.required]]
+      sex: ['', [Validators.required]]
     });
   }
 

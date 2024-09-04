@@ -113,6 +113,14 @@ fieldset {
     justify-content: center;
     gap: 5vw;
 }
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+    border-color: red;
+}
+  
+input.ng-valid.ng-touched, select.ng-valid.ng-touched {
+    border-color: green;
+}
+
 @media (max-width: 600px) {
     .form-col, .peu-form {
         grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */

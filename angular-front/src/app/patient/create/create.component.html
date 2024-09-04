@@ -15,8 +15,8 @@
                 </div>
                 <br>
                 <div class="form-col">
-                    <label for="dni">DNI/NIE:</label>
-                    <input id="dni" formControlName="dni" type="text" placeholder="00000000A" autofocus>
+                    <label for="dni">DNI/NIE: (<span class="red-req">*</span>):</label>
+                    <input id="dni" formControlName="dni" type="text" placeholder="00000000A">
 
                     <label for="cip">CIP:</label>
                     <input id="cip" formControlName="cip" type="text" placeholder="LOMA 0000000000">
@@ -30,23 +30,11 @@
                     <label for="surname1">Apellido 1 (<span class="red-req">*</span>):</label>
                     <input id="surname1" formControlName="surname1" type="text" placeholder="Martínez">
 
-                    <!--
-                    <div *ngIf="surname1.invalid && (surname1.dirty || surname1.touched)" class="alert alert-danger">
-                        El apellido es requerido.
-                    </div>
-                    -->
-
                     <label for="surname2">Apellido 2:</label>
                     <input id="surname2" formControlName="surname2" type="text" placeholder="López">
 
                     <label for="phone">Teléfono (<span class="red-req">*</span>):</label>
                     <input id="phone" formControlName="phone" type="text" placeholder="632345675">
-
-                    <!--
-                    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
-                        El teléfono es requerido.
-                    </div>
-                    -->
 
                     <label for="email">E-mail:</label>
                     <input id="email" formControlName="email" type="text" placeholder="julo90@gmail.com">
@@ -56,12 +44,6 @@
                         <option value="" disabled>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
-
-                    <!--
-                    <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
-                        La nacionalidad es requerida.
-                    </div>
-                    -->
 
                     <label for="address">Dirección:</label>
                     <input id="address" type="text" placeholder="C/ Fluvià 65, 4, 08002, Barcelona">
@@ -73,21 +55,16 @@
                     </div>
                     <input id="emergencycontact" formControlName="emergencyContact" type="text" placeholder="999999999">
 
-                    <label for="gender">Sexo (<span class="red-req">*</span>):</label>
+                    <label for="sex">Sexo (<span class="red-req">*</span>):</label>
                     <div class="sexe">
                         <fieldset>
                             <div class="select">
-                                <input id="male" formControlName="gender" type="radio" name="gender" value="masculino"/>
+                                <input id="male" formControlName="sex" type="radio" name="sex" value="masculino"/>
                                 <label class="select1" for="male">Masculino</label>
 
-                                <input id="female" formControlName="gender" type="radio" name="gender" value="femenino"/>
+                                <input id="female" formControlName="sex" type="radio" name="sex" value="femenino"/>
                                 <label class="select2" for="female">Femenino</label>
                             </div>
-                            <!--
-                            <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert alert-danger">
-                                El sexo es requerido.
-                            </div>
-                            -->
                         </fieldset>
                     </div>
                 </div>
