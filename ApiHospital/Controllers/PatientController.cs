@@ -50,6 +50,17 @@ namespace ApiHospital.Controllers
             return patient;
         }
 
+        [HttpGet("/patients/{name}")]
+        public async Task<ActionResult<IEnumerable<Patient>>> GetPatientName(string name) 
+        {
+            var patients = from patient in _context.Patients select patient;
+
+            patients = patients.Where(p => p.Name.Contains(name));
+
+            return await patients.ToListAsync();
+
+        }
+
         // PUT: api/Patient/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
