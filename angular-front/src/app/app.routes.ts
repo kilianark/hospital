@@ -18,7 +18,7 @@ import { ManagePatientComponent } from './patient/manage/manage.component';
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
-    { path: 'manage-patient', component: ManagePatientComponent},
+    { path: 'manage-patient', component: ManagePatientComponent}, //path será 'manage-patient/:id'//
     { path: 'confirmation', component: ConfirmComponent },
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },

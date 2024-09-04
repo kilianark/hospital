@@ -52,102 +52,19 @@
                 <th>Ficha</th>
             </thead>
             <tbody>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
+                <tr *ngFor= "let patient of patient">
+                    <td>{{patient.codigo}}</td>
+                    <td>{{patient.nombre}}</td>
+                    <td>{{patient.apellido1}}</td>
+                    <td>{{patient.apellido2}}</td>
+                    <td>{{patient.telefono}}</td>
+                    <td>{{patient.edad}}</td>
+                    <td>{{patient.estado}}</td>
+                    <td>{{patient.tipo}}</td>
+                    <td>{{patient.idcama}}</td>
                     <td><button mat-button (click)="openDialog()">Abrir</button></td>
                 </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
-                <tr>
-                    <td>1234567</td>
-                    <td>Juan</td>
-                    <td>Martínez</td>
-                    <td>López</td>
-                    <td>631238791</td>
-                    <td>34</td>
-                    <td>Ambulatorio</td>
-                    <td>Urgencia</td>
-                    <td>-</td>
-                    <td><button mat-button (click)="openDialog()">Abrir</button></td>
-                </tr>
+              
             </tbody>
         </table>
     </div>
