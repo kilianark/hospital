@@ -109,3 +109,7 @@ td button {
 td button:hover{
 background-color:cadetblue;
 }
+
+.clickable-row {
+    cursor: pointer;
+  }

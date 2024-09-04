@@ -1,8 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { RecordComponent } from '../record/record.component';
 import { Patientsearch } from './patientsearch';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search-patient',
@@ -12,19 +13,14 @@ import { Patientsearch } from './patientsearch';
   styleUrls: ['./search.component.css']
 })
 export class SearchPatientComponent {
-  title = 'Búsqueda Pacientes:'
+  title = 'Búsqueda Pacientes:';
 
   patient: Patientsearch[] = [
-    { codigo: 1234567, nombre: "Funciona", apellido1: "Martínez", apellido2: "López",  edad: 34, telefono: 631238791, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"},
-    { codigo: 7654321, nombre: "Maria", apellido1: "Pérez", apellido2: "Castro", edad: 54, telefono: 621655788, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"}
+    { codigo: 1234567, nombre: "Funciona", apellido1: "Martínez", apellido2: "López", telefono: 631238791, edad: 34, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"},
+    { codigo: 7654321, nombre: "Maria", apellido1: "Pérez", apellido2: "Castro", telefono: 621655788, edad: 54, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"}
   ];
 
-  onSubmit() {
-    //canviar esto por el paciente/s encontrado por la api
-    console.log('Formulario enviado');
-  }
-
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private router: Router) {}
 
   openDialog() {
     this.dialog.open(RecordComponent, {
@@ -33,5 +29,9 @@ export class SearchPatientComponent {
       maxWidth: '100vw',
       panelClass: 'full-width-dialog'
     });
+  }
+
+  goToManage(patientId: number) {
+    this.router.navigate(['/manage-patient', { id: patientId }]);
   }
 }
