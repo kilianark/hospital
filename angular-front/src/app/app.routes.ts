@@ -5,7 +5,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 import { SearchPatientComponent } from './patient/search/search.component';
 import { CreatePatientComponent } from './patient/create/create.component';
-import { SearchBedComponent } from './room/search-bed/search-bed.component';
 import { SearchRoomComponent } from './room/search-room/search-room.component';
 import { RecordComponent } from './patient/record/record.component';
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -22,7 +21,6 @@ export const routes: Routes = [
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },
     { path: 'search-room', component: SearchRoomComponent },
-    { path: 'search-bed', component: SearchBedComponent },
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'profile', component: ProfileComponent },
