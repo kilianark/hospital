@@ -21,7 +21,7 @@ export class SearchPatientComponent {
   openDialog() {
     this.dialog.open(RecordComponent, {
       width: '80%',
-      height: '90%',
+      height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog'
     });
