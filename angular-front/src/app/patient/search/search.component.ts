@@ -9,7 +9,7 @@ import { RecordComponent } from '../record/record.component';
   styleUrl: './search.component.css'
 })
 export class SearchPatientComponent {
-  title = 'Busqueda Paciente:'
+  title = 'Búsqueda Pacientes:'
 
   onSubmit() {
     //canviar esto por el paciente/s encontrado por la api
