@@ -9,6 +9,7 @@ import { SearchRoomComponent } from './room/search-room/search-room.component';
 import { RecordComponent } from './patient/record/record.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ManagePatientComponent } from './patient/manage/manage.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -17,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
 
+    { path: 'manage-patient', component: ManagePatientComponent},
     { path: 'confirmation', component: ConfirmComponent },
     { path: 'search-patient', component: SearchPatientComponent },
     { path: 'create-patient', component: CreatePatientComponent },

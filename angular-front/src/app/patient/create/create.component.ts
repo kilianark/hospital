@@ -1,36 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // mòdul necessari importat que necessita ngModel
+import { ReactiveFormsModule } from '@angular/forms'; // mòdul necessari importat que necessita ngModel
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../confirm/confirm.component'; /* Missatge que confirma que la petició ha sigut correcte */
 
-import { CreateService } from './create.service';
-
 import { countries } from '../../shared/store/country-data.store';
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-create-patient',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.css'
 })
 export class CreatePatientComponent {
+  patientForm: FormGroup;
+  constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
+    this.patientForm = this.formBuilder.group({
+      dni: ['', [Validators.required, this.dniValidator]],
+      cip: ['', [Validators.pattern(/^\d{8}[A-Z]{2}$/)]],
+      name: ['', [Validators.required]],
+      birth: ['', [Validators.required]],
+      surname1: ['', [Validators.required]],
+      surname2: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      email: ['', [Validators.email]],
+      country: ['Spain', [Validators.required]],
+      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
+      gender: ['', [Validators.required]]
+    });
+  }
+
+  dniValidator(control: any) {
+    const dniPattern = /^\d{8}[A-Z]$/;
+    if (!dniPattern.test(control.value)) return {dniInvalid: true};
+    return null;
+  }
+
+
   public countries: any = countries;
-  // en TS, les propietats son publiques per defecte, no passa res
-  // es possible accedir-hi directament, desde altres components.
-
-  patient: any = {
-    name: '',
-    birth: '',
-    surname1: '',
-    phone: '',
-    country: 'Spain',
-    gender: ''
-  };
-
-  constructor(public dialog: MatDialog, private createService: CreateService) {}
 
   confirm() {
     this.dialog.open(ConfirmComponent, {
@@ -38,36 +52,9 @@ export class CreatePatientComponent {
   }
 
   onSubmit() {
-    if (this.patient.name && this.patient.birth && this.patient.surname1 && this.patient.phone && this.patient.country && this.patient.gender !== null) {
-      this.createService.createPatient(this.patient);
-      //this.confirm();
-    }
-    /*
-    if (form.valid) {
+    if(this.patientForm.invalid) return;
 
-      console.log('Paciente registrado:', this.patient);
-
-      //servei exemplar, al cridar-lo, per guardar el pacient
-      /*
-      this.createService.createPatient(this.patient).subscribe(
-        (response: any) => {
-          console.log('Paciente creado:', response);
-          this.confirm();
-        }, 
-        (error: any) => {
-          console.error('Error al registrar el pacient:', error);
-        }
-      );
-      */
-      /*
-      if (this.patientForm.form.valid) {
-        // Mostrar un pop-up de confirmación
-        alert('Paciente registrado exitosamente.');
-      }*/
-    /*  
-    } else {
-      console.log('Formulari invàlid, si us plau completa tots els camps requerits.');
-    }
-    */
+    console.log('Pacient registrat:', this.patientForm.value);
+    this.router.navigate(['/home']);
   }
 }

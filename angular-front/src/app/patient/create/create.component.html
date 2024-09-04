@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="create.component.css"> <!-- uso mentres estilitzo component -->
     </head>
     <body>
-        <form (ngSubmit)="onSubmit()" #patientForm="ngForm">
+        <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
             <div class="content">
                 <legend class="head" >Crear Paciente:</legend>
                 <br>
@@ -16,134 +16,71 @@
                 <br>
                 <div class="form-col">
                     <label for="dni">DNI/NIE:</label>
-                    <input id="dni" type="text" placeholder="00000000-A" autofocus>
-                    <label for="cip">CIP:</label>
-                    <input id="cip" type="text" placeholder="LOMA 0000000000">
-                    <!--
-                        [(ngModel)]="patient.name"
-                        #name="ngModel"
-                        * Enlloc daixo 2, 
-                        poso ngModel
+                    <input id="dni" formControlName="dni" type="text" placeholder="00000000A" autofocus>
 
-                        "name.invalid && (name.dirty || name.touched)"
-                        * Enlloc daixo 
-                        "patientForm.submitted && !name"
-                    -->
+                    <label for="cip">CIP:</label>
+                    <input id="cip" formControlName="cip" type="text" placeholder="LOMA 0000000000">
+
                     <label for="name">Nombre (<span class="red-req">*</span>):</label>
-                    <input 
-                        id="name" 
-                        type="text" 
-                        placeholder="Juan" 
-                        required 
-                        [(ngModel)]="patient.name" 
-                        name="name" 
-                        #name="ngModel"
-                    >
-                    <!--
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-                        El nombre es requerido.
-                    </div>
-                    -->
+                    <input id="name" formControlName="name" type="text" placeholder="Juan">
+
                     <label for="birth">F. Nacimiento (<span class="red-req">*</span>):</label>
-                    <input 
-                        id="birth" 
-                        type="date" 
-                        placeholder="dd/mm/aaaa" 
-                        required 
-                        [(ngModel)]="patient.birth" 
-                        name="birth" 
-                        #birth="ngModel"
-                    >
-                    <!--
-                    <div *ngIf="birth.invalid && (birth.dirty || birth.touched)" class="alert alert-danger">
-                        La fecha de nacimiento es requerida.
-                    </div>
-                    -->
+                    <input id="birth" formControlName="birth" type="date" placeholder="dd/mm/aaaa">
 
                     <label for="surname1">Apellido 1 (<span class="red-req">*</span>):</label>
-                    <input 
-                        id="surname1" 
-                        type="text" 
-                        placeholder="Martínez" 
-                        required 
-                        [(ngModel)]="patient.surname1" 
-                        name="surname1"
-                        #surname1="ngModel"
-                    >
+                    <input id="surname1" formControlName="surname1" type="text" placeholder="Martínez">
+
                     <!--
                     <div *ngIf="surname1.invalid && (surname1.dirty || surname1.touched)" class="alert alert-danger">
                         El apellido es requerido.
                     </div>
                     -->
+
                     <label for="surname2">Apellido 2:</label>
-                    <input id="surname2" type="text" placeholder="López">
+                    <input id="surname2" formControlName="surname2" type="text" placeholder="López">
 
                     <label for="phone">Teléfono (<span class="red-req">*</span>):</label>
-                    <input 
-                        id="phone" 
-                        type="text" 
-                        placeholder="632345675" 
-                        required 
-                        [(ngModel)]="patient.phone" 
-                        name="phone" 
-                        #phone="ngModel"
-                    >
+                    <input id="phone" formControlName="phone" type="text" placeholder="632345675">
+
                     <!--
                     <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
                         El teléfono es requerido.
                     </div>
                     -->
+
                     <label for="email">E-mail:</label>
-                    <input id="email" type="text" placeholder="julo90@gmail.com">
+                    <input id="email" formControlName="email" type="text" placeholder="julo90@gmail.com">
 
                     <label for="nationality">Nacionalidad (<span class="red-req">*</span>):</label>
-                    <select 
-                        id="nationality" 
-                        name="country" 
-                        required 
-                        [(ngModel)]="patient.country" 
-                        #country="ngModel"
-                    >
+                    <select id="nationality" name="country" formControlName="country">
                         <option value="" disabled>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
+
                     <!--
                     <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
                         La nacionalidad es requerida.
                     </div>
                     -->
+
                     <label for="address">Dirección:</label>
-                    <input id="address" type="text" placeholder="c/ Fluvià 65, 4, 08002, Barcelona">
+                    <input id="address" type="text" placeholder="C/ Fluvià 65, 4, 08002, Barcelona">
                 </div>
                 <br>
                 <div class="peu-form">
                     <div class="eme-con">
                         <label for="emergencycontact">C. Emergencia:</label>
                     </div>
-                    <input id="emergencycontact" type="text" placeholder="999999999">
+                    <input id="emergencycontact" formControlName="emergencyContact" type="text" placeholder="999999999">
+
                     <label for="gender">Sexo (<span class="red-req">*</span>):</label>
                     <div class="sexe">
                         <fieldset>
                             <div class="select">
-                                <input 
-                                    id="male" 
-                                    type="radio" 
-                                    name="gender" 
-                                    value="masculino" 
-                                    required 
-                                    [(ngModel)]="patient.gender" 
-                                    #gender="ngModel"
-                                />
+                                <input id="male" formControlName="gender" type="radio" name="gender" value="masculino"/>
                                 <label class="select1" for="male">Masculino</label>
-                                <input 
-                                    id="female" 
-                                    type="radio" 
-                                    name="gender" 
-                                    value="femenino" 
-                                    required 
-                                    [(ngModel)]="patient.gender" 
-                                    #gender="ngModel"
-                                />
+
+                                <input id="female" formControlName="gender" type="radio" name="gender" value="femenino"/>
                                 <label class="select2" for="female">Femenino</label>
                             </div>
                             <!--
@@ -157,7 +94,7 @@
             </div>
             <br>
             <div class="formButtons">
-                <input class="submit" type="submit" placeholder="Registrar" [disabled]="patientForm.form.invalid" mat-button (click)="confirm()"/>
+                <input class="submit" type="submit" placeholder="Registrar" [disabled]="patientForm.invalid" mat-button (click)="confirm()"/>
                 <input class="reset" type="reset" placeholder="Reiniciar"/>
             </div>
         </form>
