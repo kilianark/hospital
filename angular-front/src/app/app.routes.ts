@@ -9,6 +9,7 @@ import { SearchBedComponent } from './room/search-bed/search-bed.component';
 import { SearchRoomComponent } from './room/search-room/search-room.component';
 import { RecordComponent } from './patient/record/record.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -24,6 +25,7 @@ export const routes: Routes = [
     { path: 'search-bed', component: SearchBedComponent },
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'profile', component: ProfileComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login' } // quan la ruta es incorrecte o qualsevol cosa
 
