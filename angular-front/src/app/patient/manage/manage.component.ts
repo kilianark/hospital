@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Patientsearch } from '../search/patientsearch';
 
 import { MatDialog } from '@angular/material/dialog'; // aquest import serà per a que aparegui el llistat de llits
 import { SearchRoomComponent } from '../../room/search-room/search-room.component'; // us del component de llista dhabitacions
@@ -16,6 +17,8 @@ import { SearchRoomComponent } from '../../room/search-room/search-room.componen
 })
 export class ManagePatientComponent implements OnInit {
   title = 'Gestionar Paciente:'
+
+  
 
   patientId: number | undefined;
 
