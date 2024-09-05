@@ -1,6 +1,6 @@
-import { Countries } from '../models/country.model'; 
+import { Country } from '../models/country.model'; 
 
-export var countries: Countries [] = [
+export var countries: Country [] = [
     { code:"AF",name:"Afghanistan"  },
     { code:"AL",name:"Albania" },
     { code:"DZ",name:"Algeria" },
