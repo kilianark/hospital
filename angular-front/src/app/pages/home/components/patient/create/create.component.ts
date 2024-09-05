@@ -25,7 +25,7 @@ export class CreatePatientComponent {
   patientForm: FormGroup;
   constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.patientForm = this.formBuilder.group({
-      dni: ['', [Validators.required, this.dniValidator]],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
       cip: ['', [Validators.pattern(/^\d{8}[A-Z]{2}$/)]],
       name: ['', [Validators.required]],
       birth: ['', [Validators.required]],
@@ -38,6 +38,7 @@ export class CreatePatientComponent {
     });
   }
 
+  //need to check
   dniValidator(control: any) {
     const dniPattern = /^\d{8}[A-Z]$/;
     if (!dniPattern.test(control.value)) return {dniInvalid: true};
