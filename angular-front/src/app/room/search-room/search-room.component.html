@@ -44,61 +44,13 @@
         <th>Disponible</th>
       </thead>
       <tbody>
-        <tr>
-          <td>001</td>
-          <td>Box</td>
-          <td>0</td>
-          <td>Urgencias</td>
-          <td>1</td>
-          <td>Si</td>
-        </tr>
-        <tr>
-          <td>100</td>
-          <td>Box</td>
-          <td>1</td>
-          <td>Urgencias</td>
-          <td>2</td>
-          <td>Si</td>
-        </tr>
-        <tr>
-          <td>100</td>
-          <td>Box</td>
-          <td>1</td>
-          <td>Urgencias</td>
-          <td>2</td>
-          <td>Si</td>
-        </tr>
-        <tr>
-          <td>100</td>
-          <td>Box</td>
-          <td>1</td>
-          <td>Urgencias</td>
-          <td>2</td>
-          <td>Si</td>
-        </tr>
-        <tr>
-          <td>100</td>
-          <td>Box</td>
-          <td>1</td>
-          <td>Urgencias</td>
-          <td>2</td>
-          <td>Si</td>
-        </tr>
-        <tr>
-          <td>100</td>
-          <td>Box</td>
-          <td>1</td>
-          <td>Urgencias</td>
-          <td>2</td>
-          <td>Si</td>
-        </tr>
-        <tr>
-          <td>100</td>
-          <td>Box</td>
-          <td>1</td>
-          <td>Urgencias</td>
-          <td>2</td>
-          <td>Si</td>
+        <tr *ngFor = "let room of room">
+          <td>{{room.numero}}</td>
+          <td>{{room.tipo}}</td>
+          <td>{{room.planta}}</td>
+          <td>{{room.area}}</td>
+          <td>{{room.capacidad}}</td>
+          <td>{{room.disponible}}</td>
         </tr>
       </tbody>
     </table>
