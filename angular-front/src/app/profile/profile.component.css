@@ -1,0 +1,64 @@
+body { 
+    font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol"; 
+}
+form {
+    padding-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 4%;
+    margin-left: 7.5%;
+}
+
+h4 {
+    margin-left: 3vw;
+    font-size: 20px;
+}
+
+.personalData {
+    display: grid;
+    grid-template-columns: 35vw 40vw;
+    margin-left: 3vw;
+    column-gap: 2vw;
+
+}
+.personalData > div {
+    display: grid;
+    margin-top: 4vh;
+    grid-template-columns: 30% 70%;
+}
+
+.userData {
+    width: 40vw;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.userData > div {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin-top: 4vh;
+}
+
+.dataTitle {
+    align-self: center;
+    margin-top: 5vh;
+}
+
+.sumbitButton {
+    align-self: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgb(76, 217, 100);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+    border: 0px;
+    margin-top: 5vh;
+    margin-left: 30px;
+}

@@ -5,49 +5,79 @@
     </head>
     <body>
         <form action="">
-            <h3 class="sectionTitle">Datos Personales</h3>
-            <div>
-                <label for="name">Nombre</label>
-                <input type="text" id="name">
-                <label for="surname1">Apellido 1</label>
-                <input type="text" id="surname1">
-                <label for="surname2">Apellido 2</label>
-                <input type="text" id="surname2">
-                <label for="gender"></label>
-                <select id="gender">
-                    <option value="man">Hombre</option>
-                    <option value="woman">Mujer</option>
-                </select>
-                <label for="birthday">F. Nacimiento</label>
-                <input type="date" id="birthday">
-                <label for="nationality">Nacionalidad (<span class="red-req">*</span>):</label>
-                <select id="nationality" name="country">
-                    <option value="" disabled>Select Country</option>
-                    <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
-                </select>
-                <label for="dni">DNI</label>
-                <input type="text" id="dni">
-                <label for="cip">CIP</label>
-                <input type="text" id="cip">
-                <label for="email">Email</label>
-                <input type="text" id="email">
-                <label for="telf">Telefono</label>
-                <input type="tel" id="telf">
-                <label for="address">Dirección</label>
-                <input type="text" id="address">
+            <h4 class="personalTitle">Datos Personales</h4>
+            <div class="personalData">
+                <div>
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name">
+                </div>
+                <div>
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni">
+                </div>
+                <div>
+                    <label for="surname1">Apellido 1</label>
+                    <input type="text" id="surname1">
+                </div>
+                <div>
+                    <label for="cip">CIP</label>
+                    <input type="text" id="cip">
+                </div>
+                <div>
+                    <label for="surname2">Apellido 2</label>
+                    <input type="text" id="surname2">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" id="email">
+                </div>
+                <div>
+                    <label for="gender">Sexo</label>
+                    <select id="gender">
+                        <option value="man">Hombre</option>
+                        <option value="woman">Mujer</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="telf">Telefono</label>
+                    <input type="tel" id="telf">
+                </div>
+                <div>
+                    <label for="birthday">F. Nacimiento</label>
+                    <input type="date" id="birthday">
+                </div>
+                <div>
+                    <label for="address">Dirección</label>
+                    <input type="text" id="address">
+                </div>
+                <div>
+                    <label for="nationality">Nacionalidad</label>
+                    <select id="nationality" name="country">
+                        <option value="" disabled>Select Country</option>
+                        <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+                    </select>
+                </div>
             </div>
-            <h3 class="sectionTitle">Datos Usuario</h3>
-            <div>
-                <label for="speciality">Tipo Trabajador</label>
-                <input type="text" id="speciality">
-                <label for="user">Usuario</label>
-                <input type="text" id="user">
-                <label for="passw">Contraseña</label>
-                <input type="password" id="passw">
-                <label for="validatepassw">Validar Contraseña</label>
-                <input type="password" id="validatepassw">
-                <input type="submit" value="Guardar Datos">
+            <h4 class="dataTitle">Datos Usuario</h4>
+            <div class="userData">
+                <div>
+                    <label for="speciality">Tipo Trabajador</label>
+                    <input type="text" id="speciality">
+                </div>
+                <div>
+                    <label for="user">Usuario</label>
+                    <input type="text" id="user">
+                </div>
+                <div>
+                    <label for="passw">Contraseña</label>
+                    <input type="password" id="passw">
+                </div>
+                <div>
+                    <label for="validatepassw">Validar Contraseña</label>
+                    <input type="password" id="validatepassw">
+                </div>
             </div>
+            <input class="sumbitButton" type="submit" value="Guardar Datos">
         </form>
         
     </body>
