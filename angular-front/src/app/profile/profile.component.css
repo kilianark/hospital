@@ -10,7 +10,7 @@ form {
     margin-left: 7.5%;
 }
 
-h4 {
+.personalTitle {
     margin-left: 3vw;
     font-size: 20px;
 }
@@ -43,6 +43,7 @@ h4 {
 }
 
 .dataTitle {
+    font-size: 18px;
     align-self: center;
     margin-top: 5vh;
 }
@@ -60,5 +61,4 @@ h4 {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
     border: 0px;
     margin-top: 5vh;
-    margin-left: 30px;
 }

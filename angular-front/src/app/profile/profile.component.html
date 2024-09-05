@@ -4,32 +4,32 @@
         <title>Mi Perfil</title>
     </head>
     <body>
-        <form action="">
+        <form [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
             <h4 class="personalTitle">Datos Personales</h4>
             <div class="personalData">
                 <div>
                     <label for="name">Nombre</label>
-                    <input type="text" id="name">
+                    <input type="text" formControlName="name" id="name">
                 </div>
                 <div>
                     <label for="dni">DNI</label>
-                    <input type="text" id="dni">
+                    <input type="text" formControlName="dni" id="dni">
                 </div>
                 <div>
                     <label for="surname1">Apellido 1</label>
-                    <input type="text" id="surname1">
+                    <input type="text" formControlName="surname1" id="surname1">
                 </div>
                 <div>
                     <label for="cip">CIP</label>
-                    <input type="text" id="cip">
+                    <input type="text" formControlName="cip" id="cip">
                 </div>
                 <div>
                     <label for="surname2">Apellido 2</label>
-                    <input type="text" id="surname2">
+                    <input type="text" formControlName="surname2" id="surname2">
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="text" id="email">
+                    <input type="text" formControlName="email" id="email">
                 </div>
                 <div>
                     <label for="gender">Sexo</label>
@@ -39,20 +39,20 @@
                     </select>
                 </div>
                 <div>
-                    <label for="telf">Telefono</label>
-                    <input type="tel" id="telf">
+                    <label for="phone">Telefono</label>
+                    <input type="tel" id="phone">
                 </div>
                 <div>
-                    <label for="birthday">F. Nacimiento</label>
-                    <input type="date" id="birthday">
+                    <label for="birth">F. Nacimiento</label>
+                    <input type="date" id="birth">
                 </div>
                 <div>
                     <label for="address">Dirección</label>
                     <input type="text" id="address">
                 </div>
                 <div>
-                    <label for="nationality">Nacionalidad</label>
-                    <select id="nationality" name="country">
+                    <label for="country">Nacionalidad</label>
+                    <select id="country" name="country">
                         <option value="" disabled>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
