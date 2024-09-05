@@ -9,6 +9,8 @@ import { ConfirmComponent } from '../../confirm/confirm.component'; /* Missatge 
 
 import { countries } from '../../shared/store/country-data.store';
 
+import { Country } from '../../shared/models/country.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,7 +44,7 @@ export class CreatePatientComponent {
     return null;
   }
 
-  public countries: any = countries;
+  public countries: Country[] = countries;
 
   onSubmit() {
     if(this.patientForm.invalid) return;
