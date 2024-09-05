@@ -42,18 +42,17 @@ export class CreatePatientComponent {
     return null;
   }
 
-
   public countries: any = countries;
-
-  confirm() {
-    this.dialog.open(ConfirmComponent, {
-    });
-  }
 
   onSubmit() {
     if(this.patientForm.invalid) return;
 
     console.log('Pacient registrat:', this.patientForm.value);
+    this.confirm();
     this.router.navigate(['/home']);
+  }
+
+  confirm() {
+    this.dialog.open(ConfirmComponent, {});
   }
 }
