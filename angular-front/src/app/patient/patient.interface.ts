@@ -1,4 +1,4 @@
-export interface Patientsearch{
+export interface PatientInterface{
     codigo: number;
     nombre: string;
     apellido1: string;
