@@ -16,7 +16,7 @@ export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
   patient: Patientsearch[] = [
-    { codigo: 1234567, nombre: "Funciona", apellido1: "Martínez", apellido2: "López", telefono: 631238791, edad: 34, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"},
+    { codigo: 1234567, nombre: "Juan", apellido1: "Martínez", apellido2: "López", telefono: 631238791, edad: 34, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"},
     { codigo: 7654321, nombre: "Maria", apellido1: "Pérez", apellido2: "Castro", telefono: 621655788, edad: 54, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"}
   ];
 
