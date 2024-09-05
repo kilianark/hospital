@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { RecordComponent } from '../record/record.component';
-import { PatientInterface } from '../patient.interface';
+import { RecordComponent } from '../../../../../components/recordpatient/record.component';
+import { PatientInterface } from '../../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
 
 @Component({

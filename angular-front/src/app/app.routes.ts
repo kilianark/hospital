@@ -1,15 +1,15 @@
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/components/home.component';
 import { NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import { LoginComponent } from './login/login.component';
-import { SearchPatientComponent } from './patient/search/search.component';
-import { CreatePatientComponent } from './patient/create/create.component';
-import { SearchRoomComponent } from './room/search-room/search-room.component';
-import { RecordComponent } from './patient/record/record.component';
-import { ConfirmComponent } from './confirm/confirm.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ManagePatientComponent } from './patient/manage/manage.component';
+import { LoginComponent } from './pages/login/components/login.component';
+import { SearchPatientComponent } from './pages/home/components/patient/search/search.component';
+import { CreatePatientComponent } from './pages/home/components/patient/create/create.component';
+import { SearchRoomComponent } from './pages/home/components/room/search-room/search-room.component';
+import { RecordComponent } from './components/recordpatient/record.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { ProfileComponent } from './pages/home/components/profile/profile.component';
+import { ManagePatientComponent } from './pages/home/components/patient/manage/manage.component';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio

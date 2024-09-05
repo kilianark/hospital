@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConfirmComponent } from '../confirm/confirm.component';
+import { ConfirmComponent } from '../../../../components/confirm/confirm.component';
 import { Router } from '@angular/router';
 
-import { countries } from '../shared/store/country-data.store';
+import { countries } from '../../store/country-data.store';
 import { MatDialog } from '@angular/material/dialog';
-import { Country } from '../shared/models/country.model';
+import { Country } from '../../interfaces/country.interface';
 
 @Component({
   selector: 'app-profile',

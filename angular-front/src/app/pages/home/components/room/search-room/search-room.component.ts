@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Roomsearch } from './roomsearch';
+import { Roomsearch } from '../../../interfaces/room.interface';
 
 @Component({
   selector: 'app-search-room',
