@@ -5,7 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './pages/login/components/login.component';
 import { SearchPatientComponent } from './pages/home/components/patient/search/search.component';
 import { CreatePatientComponent } from './pages/home/components/patient/create/create.component';
-import { SearchRoomComponent } from './pages/home/components/room/search-room/search-room.component';
+import { SearchRoomComponent } from './pages/home/components/room/search/search.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ProfileComponent } from './pages/home/components/profile/profile.component';
 import { ManagePatientComponent } from './pages/home/components/patient/manage/manage.component';

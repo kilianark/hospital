@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog'; // aquest import serà per a que aparegui el llistat de llits
-import { SearchRoomComponent } from '../../room/search-room/search-room.component'; // us del component de llista dhabitacions
+import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions
  
 // potser caldra un pop-up de canvis guardats, que seria un nou component global
 
