@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search-patient',
-  standalone: true,
-  imports: [CommonModule],
+  //standalone: true,
+  //imports: [CommonModule],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })

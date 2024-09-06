@@ -4,8 +4,8 @@ import { Roomsearch } from '../../../interfaces/room.interface';
 
 @Component({
   selector: 'app-search-room',
-  standalone: true,
-  imports: [CommonModule],
+  //standalone: true,
+  //imports: [CommonModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })

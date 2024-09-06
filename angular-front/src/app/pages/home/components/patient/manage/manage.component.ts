@@ -9,8 +9,8 @@ import { SearchRoomComponent } from '../../room/search/search.component'; // us 
 
 @Component({
   selector: 'app-manage',
-  standalone: true,
-  imports: [CommonModule],
+ // standalone: true,
+  //imports: [CommonModule],
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.css']
 })

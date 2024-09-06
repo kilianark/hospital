@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from '@angular/router';
+/*import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from '../../login/components/login.component';
@@ -34,5 +34,5 @@ export const routes: Routes = [
   })
 
   export class HomeRoutingModule { }
-
+*/
 

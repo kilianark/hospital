@@ -3,10 +3,10 @@ import { HeaderComponent } from "../../../components/navigate/header/header.comp
 
 @Component({
     selector: 'app-home',
-    standalone: true,
+    //standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [HeaderComponent]
+    //imports: [HeaderComponent]
   })
 
 export class HomeComponent {

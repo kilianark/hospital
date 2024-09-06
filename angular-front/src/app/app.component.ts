@@ -4,7 +4,6 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { LoginComponent } from "./pages/login/components/login.component";
 import { HeaderComponent } from './components/navigate/header/header.component';
-import { HomeComponent } from './pages/home/components/home.component';
 import { SidebarComponent } from './components/navigate/sidebar/sidebar.component';
 
 
@@ -15,7 +14,7 @@ import { SidebarComponent } from './components/navigate/sidebar/sidebar.componen
   templateUrl: './app.component.html',
   styleUrls: [],
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, HomeComponent, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
 })
 
 export class AppComponent {

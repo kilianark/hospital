@@ -12,8 +12,8 @@ import { Country } from '../../interfaces/country.interface';
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, ReactiveFormsModule],
+  //standalone: true,
+  //imports: [RouterLink, RouterLinkActive, RouterOutlet, CommonModule, ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
