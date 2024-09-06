@@ -6,8 +6,8 @@ import { Roomsearch } from '../../../interfaces/room.interface';
   selector: 'app-search-room',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './search-room.component.html',
-  styleUrl: './search-room.component.css'
+  templateUrl: './search.component.html',
+  styleUrl: './search.component.css'
 })
 export class SearchRoomComponent {
   title = 'Búsqueda Habitaciones:'
