@@ -1,3 +1,66 @@
-p{
-    margin-left: 100px;
-} /*temporal*/
+.content{
+    font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+}
+legend { 
+    margin: 0px; 
+    overflow: hidden; 
+    font-size: 24px; 
+    text-align: left; 
+    letter-spacing: 0px; 
+    line-height: 31px; 
+    white-space: pre-line;
+    font-weight: bold;
+    padding-bottom: 2%;
+}
+form {
+    padding-top: 3%;
+    padding-left: 4%;
+    padding-bottom: 10px;
+}
+select, input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.table-wrapper{
+    width: 83vw;
+    overflow: auto;
+    border-top: solid black;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.table-wrapper input[readonly] {
+    background-color: #f0f0f0;
+    color: #999;
+    border: 1px solid #ccc;
+    font-style: italic;
+    border-radius: 2px;
+}
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 2px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 150px;
+    text-transform: uppercase;
+}
+button:hover{
+    background-color:cadetblue;
+}
+.submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: rgb(76, 217, 100);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+    border: 0px;
+}

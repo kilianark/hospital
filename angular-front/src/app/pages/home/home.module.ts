@@ -8,7 +8,7 @@ import { CreatePatientComponent } from './components/patient/create/create.compo
 import { SearchRoomComponent } from './components/room/search/search.component';
 import { ManagePatientComponent } from './components/patient/manage/manage.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 
@@ -24,6 +24,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     RouterLink,
     RouterLinkActive,

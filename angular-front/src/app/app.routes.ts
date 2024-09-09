@@ -23,6 +23,8 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) // Lazy load del módulo Home
       },
     { path: 'login', component: LoginComponent },
+    { path: 'manage-patient', component: ManagePatientComponent},
+    { path: 'create-patient', component: CreatePatientComponent },
     
     //{ path: 'profile', component: ProfileComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -39,9 +41,7 @@ export const routes: Routes = [
 
 
     /*
-    { path: 'manage-patient', component: ManagePatientComponent},
     { path: 'confirmation', component: ConfirmComponent },
     { path: 'search-patient', component: SearchPatientComponent },
-    { path: 'create-patient', component: CreatePatientComponent },
     { path: 'search-room', component: SearchRoomComponent },
     { path: 'home', component: HomeComponent },*/
