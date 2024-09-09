@@ -33,7 +33,7 @@ export class ManagePatientComponent implements OnInit {
   // per defecte no es mostra llista
   showBedsList: boolean = false;
 
-  // por defecto no muestra el form de camas
+  // por defecto no muestra el form de seleccionar camas-hab
   fakepopup: boolean = false;
 
   // convertim l'enum a una llista d'objectes per fer servir les opcions en el select
