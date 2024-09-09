@@ -18,17 +18,17 @@ import { HomeModule } from './pages/home/home.module';
 //navbar li importem els dos links i lactive.
 export const routes: Routes = [
     { 
-        path: 'home',
-        //component: HomeComponent,
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) // Lazy load del módulo Home
-      },
+      path: 'home',
+      //component: HomeComponent,
+      loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) // Lazy load del módulo Home
+    },
     { path: 'login', component: LoginComponent },
     { path: 'manage-patient', component: ManagePatientComponent},
     { path: 'create-patient', component: CreatePatientComponent },
     
     //{ path: 'profile', component: ProfileComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    //{ path: '**', redirectTo: '/login' } // quan la ruta es incorrecte o qualsevol cosa
+    { path: '**', redirectTo: '/login' } // quan la ruta es incorrecte o qualsevol cosa
 
 ];
 
