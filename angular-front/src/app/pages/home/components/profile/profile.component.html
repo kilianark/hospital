@@ -33,26 +33,26 @@
                 </div>
                 <div>
                     <label for="gender">Sexo</label>
-                    <select id="gender">
+                    <select id="gender" formControlName="gender">
                         <option value="man">Hombre</option>
                         <option value="woman">Mujer</option>
                     </select>
                 </div>
                 <div>
                     <label for="phone">Telefono</label>
-                    <input type="tel" id="phone">
+                    <input type="tel" id="phone" formControlName="phone">
                 </div>
                 <div>
                     <label for="birth">F. Nacimiento</label>
-                    <input type="date" id="birth">
+                    <input type="date" id="birth" formControlName="birth">
                 </div>
                 <div>
                     <label for="address">Dirección</label>
-                    <input type="text" id="address">
+                    <input type="text" id="address" formControlName="address">
                 </div>
                 <div>
                     <label for="country">Nacionalidad</label>
-                    <select id="country" name="country">
+                    <select id="country" name="country" formControlName="country">
                         <option value="" disabled>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
@@ -62,19 +62,19 @@
             <div class="userData">
                 <div>
                     <label for="speciality">Tipo Trabajador</label>
-                    <input type="text" id="speciality">
+                    <input class="readonly" type="text" id="speciality" placeholder="Doctor" formControlName="speciality" readonly>
                 </div>
                 <div>
                     <label for="user">Usuario</label>
-                    <input type="text" id="user">
+                    <input type="text" id="user" formControlName="user">
                 </div>
                 <div>
                     <label for="passw">Contraseña</label>
-                    <input type="password" id="passw">
+                    <input type="password" id="passw" formControlName="passw">
                 </div>
                 <div>
                     <label for="validatepassw">Validar Contraseña</label>
-                    <input type="password" id="validatepassw">
+                    <input type="password" id="validatepassw" formControlName="validatepassw">
                 </div>
             </div>
             <input class="sumbitButton" type="submit" value="Guardar Datos">

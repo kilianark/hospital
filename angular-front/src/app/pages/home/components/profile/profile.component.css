@@ -10,6 +10,12 @@ form {
     margin-left: 7.5%;
 }
 
+.readonly {
+    background-color: #f0f0f0;
+    color: #999;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
 .personalTitle {
     margin-left: 3vw;
     font-size: 20px;

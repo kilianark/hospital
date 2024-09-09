@@ -29,7 +29,8 @@ export class ProfileComponent {
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['Spain', [Validators.required]],
-      gender: ['', [Validators.required]]
+      gender: ['', [Validators.required]],
+      user: ['', [Validators.required]]
     });
   }
 
@@ -44,9 +45,8 @@ export class ProfileComponent {
   onSubmit() {
     if(this.perfilForm.invalid) return;
 
-    console.log('Pacient registrat:', this.perfilForm.value);
+    console.log('Perfil actualizado');
     this.confirm();
-    this.router.navigate(['/home']);
   }
 
   confirm() {
