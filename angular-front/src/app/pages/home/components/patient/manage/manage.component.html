@@ -2,14 +2,66 @@
     <title>Gestionar paciente</title>
 </head>
 <div class="content">
-    <form>
+    <form class="selectstatus">
         <legend>{{title}} Juan Martínez López</legend>
         <div class="credentials">
         </div>
             <!-- aqui sera la primera seccio amb el boto select-->
             <!--<div *ngIf="showable"> </div> seccio ocultat si el bolean en el ts, es false, que apuntarà al valor dSTATUS seleccionat -->
         <div>
-
+            <form class="roomselect"> <!--només visible si status no és inactiu-->
+                <div class="container">
+                    <h2>Buscar habitación</h2>
+                    <label for="area">Seleccionar área:</label>
+                    <select id="area" name="area" placeholder="Seleccionar área">
+                        <option value="cirugia">Cirugía</option>
+                        <option value="urgencias">Urgencias</option>
+                        <option value="uci">UCI</option>
+                        <option value="oncologia">Oncología</option>
+                        <option value="psico">Psicología/Psiquiatría</option>
+                        <!--Esto listrá las diferentes áreas, array en rooms -->
+                    </select>
+            
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Núm.</th>
+                                <th>Tipo</th>
+                                <th>Planta</th>
+                                <th>Área</th>
+                                <th>Capacidad</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>Box</td>
+                                <td>1</td>
+                                <td>Urgencias</td>
+                                <td>1</td>
+                                <td><button class="btn-select">SELECCIONAR</button></td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Box</td>
+                                <td>1</td>
+                                <td>Urgencias</td>
+                                <td>2</td>
+                                <td><button class="btn-select">SELECCIONAR</button></td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td>Box</td>
+                                <td>1</td>
+                                <td>Urgencias</td>
+                                <td>2</td>
+                                <td><button class="btn-select">SELECCIONAR</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>       
+        </form>
         </div>
         <button type="submit">Guardar</button>
     </form>
