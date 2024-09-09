@@ -4,11 +4,8 @@
 </head>
 <body>
     <div class="content">
-        <form class="selectstatus" (ngSubtmit)="onSubmit()">
-            <div class="head">
-                <legend>{{title}} Juan Martínez López</legend>
-                <input class="submit" type="submit" value="Guardar Estat"/>
-            </div>
+        <form class="selectstatus" (ngSubmit)="onSubmit()">
+            <legend>{{title}} Juan Martínez López</legend>  
             <!-- del model de gestió ngModel -> (@NgModule), disposa del camp que conte els enums de l'estat de pacient,
             que a més al canviar l'estat del model, li pasem la variable del esdeveniment, en que
             el mètode també comprobarà si l'estat és un valor hospitalizat per mostrar el llistat -->
@@ -32,63 +29,68 @@
                 <div class="control">
                     <label for="assignBed">Asignar cama: </label>
                     <input id="assignBed" type="text" placeholder="00201" readonly>
-                    <button type="button">SELECCIONAR</button>
-                    <div>
-                        <form class="roomselect"> <!--només visible si status no és inactiu-->
-                            <div class="container">
-                                <h2>Buscar habitación</h2>
-                                <label for="area">Seleccionar área:</label>
-                                <select id="area" name="area" placeholder="Seleccionar área">
-                                    <option value="cirugia">Cirugía</option>
-                                    <option value="urgencias">Urgencias</option>
-                                    <option value="uci">UCI</option>
-                                    <option value="oncologia">Oncología</option>
-                                    <option value="psico">Psicología/Psiquiatría</option>
-                                    <!--Esto listrá las diferentes áreas, array en rooms -->
-                                </select>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Núm.</th>
-                                            <th>Tipo</th>
-                                            <th>Planta</th>
-                                            <th>Área</th>
-                                            <th>Capacidad</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>101</td>
-                                            <td>Box</td>
-                                            <td>1</td>
-                                            <td>Urgencias</td>
-                                            <td>1</td>
-                                            <td><button class="btn-select">SELECCIONAR</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>102</td>
-                                            <td>Box</td>
-                                            <td>1</td>
-                                            <td>Urgencias</td>
-                                            <td>2</td>
-                                            <td><button class="btn-select">SELECCIONAR</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>103</td>
-                                            <td>Box</td>
-                                            <td>1</td>
-                                            <td>Urgencias</td>
-                                            <td>2</td>
-                                            <td><button class="btn-select">SELECCIONAR</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>       
-                        </form>
-                    </div>
+                    <button type="button" (click)="showfakepopup()">SELECCIONAR</button>
+                </div>
+                <div>
+                    <form class="roomselect" *ngIf="fakepopup">
+                        <div class="container">
+                            <h5>Buscar habitación</h5>
+                            <label for="area">Seleccionar área: </label>
+                            <select id="area" name="area" placeholder="Seleccionar área">
+                                <option value="cirugia">Cirugía</option>
+                                <option value="urgencias">Urgencias</option>
+                                <option value="uci">UCI</option>
+                                <option value="oncologia">Oncología</option>
+                                <option value="psico">Psicología/Psiquiatría</option>
+                                <!--Esto listrá las diferentes áreas, array en rooms -->
+                            </select>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Núm.</th>
+                                        <th>Tipo</th>
+                                        <th>Planta</th>
+                                        <th>Área</th>
+                                        <th>Capacidad</th>
+                                        <th>Disponibilidad</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>101</td>
+                                        <td>Box</td>
+                                        <td class="tbcen">1</td>
+                                        <td>Urgencias</td>
+                                        <td class="tbcen">1</td>
+                                        <td class="tbcen">1</td>
+                                        <td><button class="button">ASIGNAR</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>102</td>
+                                        <td>Box</td>
+                                        <td class="tbcen">1</td>
+                                        <td>Urgencias</td>
+                                        <td class="tbcen">2</td>
+                                        <td class="tbcen">1</td>
+                                        <td><button class="button">ASIGNAR</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>103</td>
+                                        <td>Box</td>
+                                        <td class="tbcen">1</td>
+                                        <td>Urgencias</td>
+                                        <td class="tbcen">2</td>
+                                        <td class="tbcen">2</td>
+                                        <td><button class="button">ASIGNAR</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>       
+                    </form>
                 </div>
             </div>
+            <input class="submit" type="submit" value="Guardar cambios"/>
         </form>
     </div>
 </body>

@@ -33,6 +33,9 @@ export class ManagePatientComponent implements OnInit {
   // per defecte no es mostra llista
   showBedsList: boolean = false;
 
+  // por defecto no muestra el form de camas
+  fakepopup: boolean = false;
+
   // convertim l'enum a una llista d'objectes per fer servir les opcions en el select
   // primer filtrem i després mapegem
   patientStatus = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: PatientStatus[key as keyof typeof PatientStatus] }));
@@ -78,5 +81,10 @@ export class ManagePatientComponent implements OnInit {
   // un cop guardat l'estat
   confirm() {
     this.dialog.open(ConfirmComponent, {});
+  }
+
+  // para mostrar form selección hab y cama:
+  showfakepopup() {
+    this.fakepopup = !this.fakepopup;
   }
 }
