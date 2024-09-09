@@ -12,6 +12,11 @@ legend {
     font-weight: bold;
     padding-bottom: 2%;
 }
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 form {
     padding-top: 3%;
     padding-left: 4%;
