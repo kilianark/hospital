@@ -20,15 +20,15 @@
             <div class="control">
                 <label for="type">Tipo: </label>
                 <select id="type" name="tipo" [(ngModel)]="selectedStatusType" (ngModelChange)="onTypeChange($event)">
-                    <option *ngFor="let type of statusType" [value]="type.value">
+                    <option *ngFor="let type of statusType" [ngValue]="type.value">
                         {{ type.label }}
                     </option>
                 </select>
             </div>
-            <div class="table-wrapper" *ngIf="showBedsList">
-                <div class="control">
-                    <label for="assignBed">Asignar cama: </label>
-                    <input id="assignBed" type="text" placeholder="00201" readonly>
+            <div class="table-wrapper" *ngIf="showSelectRoom">
+                <div class="selectControl">
+                    <label for="assignRoom">Asignar habitación: </label>
+                    <input id="assignRoom" type="text" placeholder="00201" readonly>
                     <button type="button" (click)="showfakepopup()">SELECCIONAR</button>
                 </div>
                 <div>
@@ -36,13 +36,10 @@
                         <div class="container">
                             <h5>Buscar habitación</h5>
                             <label for="area">Seleccionar área: </label>
-                            <select id="area" name="area" placeholder="Seleccionar área">
-                                <option value="cirugia">Cirugía</option>
-                                <option value="urgencias">Urgencias</option>
-                                <option value="uci">UCI</option>
-                                <option value="oncologia">Oncología</option>
-                                <option value="psico">Psicología/Psiquiatría</option>
-                                <!--Esto listrá las diferentes áreas, array en rooms -->
+                            <select id="area" name="area" [(ngModel)]="selectedAreaType" (ngModelChange)="onAreaChange($event)">
+                                <option *ngFor="let area of areaType" [ngValue]="area.value">
+                                    {{ area.label }}
+                                </option>
                             </select>
                             <table>
                                 <thead>

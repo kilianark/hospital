@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 import { PatientStatus } from '../../../../../enums/patient-status.enum';
 import { StatusType } from '../../../../../enums/status-type.enum';
+import { AreaType } from '../../../../../enums/area-type.enum';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
@@ -20,18 +21,14 @@ import { SearchRoomComponent } from '../../room/search/search.component'; // us 
 export class ManagePatientComponent implements OnInit {
   title = 'Gestionar Paciente:'
   patientId: number | undefined;
-
-  // statusForm: FormGroup;
-
-  //patientStatus = PatientStatus;
-  //statusType = StatusType;
   
   // variables que contindrá els valors seleccionats
   selectedPatientStatus: PatientStatus | null = PatientStatus.Inactivo ;
   selectedStatusType: StatusType | null = null;
+  selectedAreaType: AreaType | null = null;
 
   // per defecte no es mostra llista
-  showBedsList: boolean = false;
+  showSelectRoom: boolean = false;
 
   // por defecto no muestra el form de seleccionar camas-hab
   fakepopup: boolean = false;
@@ -41,6 +38,8 @@ export class ManagePatientComponent implements OnInit {
   patientStatus = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: PatientStatus[key as keyof typeof PatientStatus] }));
   
   statusType = Object.keys(StatusType).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: StatusType[key as keyof typeof StatusType] }));
+
+  areaType = Object.keys(AreaType).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: AreaType[key as keyof typeof AreaType] }));
 
   constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     //this.statusForm = this.formBuilder.group({ });
@@ -60,14 +59,19 @@ export class ManagePatientComponent implements OnInit {
 
     // en cas de que l'estat sigui hospitalitzat mostra llista
     if (status === PatientStatus.Hospitalizado || status === PatientStatus.Ambulatorio) {
-      this.showBedsList = true;
+      this.showSelectRoom = true;
     } else {
-      this.showBedsList = false;
+      this.showSelectRoom = false;
     }
   }
   onTypeChange(type: StatusType) {
     this.selectedStatusType = type;
     console.log('Tipo Seleccionado: ', type);
+  }
+
+  onAreaChange(area: AreaType) {
+    this.selectedAreaType = area;
+    console.log('Area Seleccionada: ', area);
   }
   
   onSubmit() {
