@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
 import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 import { HomeComponent } from '../../pages/home/components/home.component';
 
@@ -9,7 +8,10 @@ const routes: Routes = [
   { path: 'patient', 
     loadChildren: () => import('../patient.module/patient.module').then(m => m.PatientModule)
   },
-  { path: 'search-room', component: SearchRoomComponent },
+  {
+    path: 'room',
+    loadChildren: () => import('../room.module/room.module').then(m => m.RoomModule)
+  },
   { path: 'profile', component: ProfileComponent }
 ];
 
