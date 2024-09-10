@@ -5,6 +5,7 @@ import { PatientRoutingModule } from './patient-routing.module';
 import { SearchPatientComponent } from '../../pages/home/components/patient/search/search.component';
 import { CreatePatientComponent } from '../../pages/home/components/patient/create/create.component';
 import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,8 @@ import { ManagePatientComponent } from '../../pages/home/components/patient/mana
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     PatientRoutingModule
   ]
 })

@@ -25,8 +25,7 @@ import { PatientModule } from '../patient.module/patient.module';
     PatientModule,
     RouterLink,
     RouterLinkActive,
-    RouterOutlet,
-    BrowserModule
+    RouterOutlet
   ]
 })
 export class HomeModule { }
