@@ -8,9 +8,9 @@ import { PatientComponent } from '../../pages/home/components/patient/patient.co
 
 const routes: Routes = [
   { path: '', component: PatientComponent},
-  { path: 'manage-patient', component: ManagePatientComponent },
-  { path: 'search-patient', component: SearchPatientComponent },
-  { path: 'create-patient', component: CreatePatientComponent }
+  { path: 'manage', component: ManagePatientComponent },
+  { path: 'search', component: SearchPatientComponent },
+  { path: 'create', component: CreatePatientComponent }
 ];
 
 @NgModule({

@@ -6,9 +6,11 @@ import { HomeComponent } from '../../pages/home/components/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
+  { path: 'patient', 
+    loadChildren: () => import('../patient.module/patient.module').then(m => m.PatientModule)
+  },
   { path: 'search-room', component: SearchRoomComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: '**', redirectTo: '/home'}
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({
