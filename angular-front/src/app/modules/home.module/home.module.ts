@@ -3,21 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from '../../pages/home/components/home.component';
-import { SearchPatientComponent } from '../../pages/home/components/patient/search/search.component';
-import { CreatePatientComponent } from '../../pages/home/components/patient/create/create.component';
 import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
-import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
 import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { PatientModule } from '../patient.module/patient.module';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    CreatePatientComponent,
-    ManagePatientComponent,
-    SearchPatientComponent,
     ProfileComponent,
     SearchRoomComponent
   ],
@@ -26,9 +22,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     HomeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PatientModule,
     RouterLink,
     RouterLinkActive,
-    RouterOutlet
+    RouterOutlet,
+    BrowserModule
   ]
 })
 export class HomeModule { }
