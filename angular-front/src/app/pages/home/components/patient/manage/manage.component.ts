@@ -59,7 +59,7 @@ export class ManagePatientComponent implements OnInit {
     console.log('Estado Seleccionado: ', status);
 
     // en cas de que l'estat sigui hospitalitzat mostra llista
-    if (status === PatientStatus.Hospitalizado) {
+    if (status === PatientStatus.Hospitalizado || status === PatientStatus.Ambulatorio) {
       this.showBedsList = true;
     } else {
       this.showBedsList = false;

@@ -123,4 +123,8 @@ td button {
   text-transform: uppercase;
 }
 
+.file-click:hover{
+cursor: pointer;
+}
+
 
