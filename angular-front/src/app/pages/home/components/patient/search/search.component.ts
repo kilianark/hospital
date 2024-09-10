@@ -32,6 +32,6 @@ export class SearchPatientComponent {
   }
 
   goToManage(patientId: number) {
-    this.router.navigate(['/manage-patient', { id: patientId }]);
+    this.router.navigate(['/home/patient/manage', { id: patientId }]);
   }
 }
