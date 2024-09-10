@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component'; /* Missatge que confirma que la petició ha sigut correcte */
 
 import { countries } from '../../../store/country-data.store';
-
 import { Country } from '../../../interfaces/country.interface';
 
 @Injectable({

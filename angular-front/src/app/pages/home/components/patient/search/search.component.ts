@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
 import { PatientInterface } from '../../../interfaces/patient.interface';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search-patient',
