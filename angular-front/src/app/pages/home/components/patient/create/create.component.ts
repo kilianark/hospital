@@ -1,6 +1,4 @@
 import { Component, Injectable } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms'; // mòdul necessari importat que necessita ngModel
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -26,7 +24,7 @@ export class CreatePatientComponent {
   constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.patientForm = this.formBuilder.group({
       dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
-      cip: ['', [Validators.pattern(/^\d{8}[A-Z]{2}$/)]],
+      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
       name: ['', [Validators.required]],
       birth: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
@@ -36,13 +34,6 @@ export class CreatePatientComponent {
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
       sex: ['', [Validators.required]]
     });
-  }
-
-  //need to check
-  dniValidator(control: any) {
-    const dniPattern = /^\d{8}[A-Z]$/;
-    if (!dniPattern.test(control.value)) return {dniInvalid: true};
-    return null;
   }
 
   public countries: Country[] = countries;
