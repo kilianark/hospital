@@ -21,8 +21,8 @@ export class ProfileComponent {
   perfilForm: FormGroup;
   constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.perfilForm = this.formBuilder.group({
-      dni: ['', [Validators.required, this.dniValidator]],
-      cip: ['', [Validators.pattern(/^\d{8}[A-Z]{2}$/)]],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
+      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
       name: ['', [Validators.required]],
       birth: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
@@ -32,12 +32,6 @@ export class ProfileComponent {
       gender: ['', [Validators.required]],
       user: ['', [Validators.required]]
     });
-  }
-
-  dniValidator(control: any) {
-    const dniPattern = /^\d{8}[A-Z]$/;
-    if (!dniPattern.test(control.value)) return {dniInvalid: true};
-    return null;
   }
 
   public countries: Country[] = countries;
