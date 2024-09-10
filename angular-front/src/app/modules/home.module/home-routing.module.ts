@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManagePatientComponent } from './components/patient/manage/manage.component';
-import { SearchPatientComponent } from './components/patient/search/search.component';
-import { CreatePatientComponent } from './components/patient/create/create.component';
-import { SearchRoomComponent } from './components/room/search/search.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { HomeComponent } from './components/home.component';
+import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
+import { SearchPatientComponent } from '../../pages/home/components/patient/search/search.component';
+import { CreatePatientComponent } from '../../pages/home/components/patient/create/create.component';
+import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
+import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
+import { HomeComponent } from '../../pages/home/components/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},

@@ -9,7 +9,7 @@ import { SearchRoomComponent } from './pages/home/components/room/search/search.
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { ProfileComponent } from './pages/home/components/profile/profile.component';
 import { ManagePatientComponent } from './pages/home/components/patient/manage/manage.component';
-import { HomeModule } from './pages/home/home.module';
+import { HomeModule } from './modules/home.module/home.module';
 
 // lista de rutes per exemple per posar en Routes
 // { path: 'nomdel enllaç', component: nomVariable(per defecte es posa, en el navbar.component.ts) } por defecto va a la pagina de inicio
@@ -20,7 +20,7 @@ export const routes: Routes = [
     { 
       path: 'home',
       //component: HomeComponent,
-      loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) // Lazy load del módulo Home
+      loadChildren: () => import('./modules/home.module/home.module').then(m => m.HomeModule) // Lazy load del módulo Home
     },
     { path: 'login', component: LoginComponent },
     //{ path: 'manage-patient', component: ManagePatientComponent},
