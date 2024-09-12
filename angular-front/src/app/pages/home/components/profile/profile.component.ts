@@ -44,7 +44,8 @@ export class ProfileComponent {
   }
 
   confirm() {
-    this.dialog.open(ConfirmComponent, {});
+    let dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage("Perfil Actualizado")
   }
 
 }

@@ -80,7 +80,8 @@ export class ManagePatientComponent implements OnInit {
 
   // un cop guardat l'estat
   confirm() {
-    this.dialog.open(ConfirmComponent, {});
+    let dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage("Datos Actualizados");
   }
 
   // para mostrar form selección hab y cama:

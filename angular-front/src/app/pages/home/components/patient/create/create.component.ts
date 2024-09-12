@@ -46,6 +46,7 @@ export class CreatePatientComponent {
   }
 
   confirm() {
-    this.dialog.open(ConfirmComponent, {});
+    let dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage("Paciente Registrado");
   }
 }
