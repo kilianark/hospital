@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 import { countries } from '../../store/country-data.store';
 import { Country } from '../../interfaces/country.interface';
+import { PatientInterface } from '../../interfaces/patient.interface';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,28 +17,39 @@ export class RecordComponent {
   patientForm: FormGroup;
   constructor(private formBuilder: FormBuilder) {
     this.patientForm = this.formBuilder.group({
-      dni: [this.dni, [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
-      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      name: ['', [Validators.required]],
-      birth: ['', [Validators.required]],
-      surname1: ['', [Validators.required]],
-      surname2: ['', ],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      email: ['', [Validators.email]],
-      country: ['Spain', [Validators.required]],
+      dni: [this.patient.dni, [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
+      cip: [this.patient.cip, [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
+      name: [this.patient.name, [Validators.required]],
+      birth: [this.patient.birthdate, [Validators.required]],
+      surname1: [this.patient.surname1, [Validators.required]],
+      surname2: [this.patient.surname2, ],
+      phone: [this.patient.phone, [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      email: [this.patient.email, [Validators.email]],
+      country: [this.patient.country, [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
-      sex: ['', [Validators.required]]
+      sex: [this.patient.sex, [Validators.required]]
     });
   }
 
   public countries: Country[] = countries;
   isEditable: boolean = false;
 
-  name: string = "Juan";
-  dni: string = "00000000B";
-  surname1: string = "Martínez";
-  cip: string = "LOMA 00000002";
-  surname2: string = "López";
-  sex: string = "Masculino";
-  phone: string = "999999999";
+  patient: PatientInterface = {
+    code: 1,
+    name: "Juan",
+    surname1: "Martínez",
+    surname2: "López",
+    dni: "00000000B",
+    cip: "LOMA 00000002",
+    sex: "man",
+    phone: "999999999",
+    email: "julo90@gmail.com",
+    age: 54,
+    birthdate: new Date("1970-09-12"),
+    country: countries[208].name,
+    status: "",
+    type: "",
+    idBed: ""
+  }
+
 }

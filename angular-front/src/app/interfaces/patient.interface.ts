@@ -3,9 +3,14 @@ export interface PatientInterface{
     name: string;
     surname1: string;
     surname2: string;
-    phone: number;
+    dni: string;
+    cip: string;
+    sex: string;
+    phone: string;
+    email: string;
     age: number;
     birthdate: Date;
+    country: string;
     status: string;
     type: string;
     idBed: string; //de momento para acepta "-".
