@@ -10,8 +10,17 @@ import { MatDialogRef} from '@angular/material/dialog';
   styleUrl: './confirm.component.css'
 })
 export class ConfirmComponent {
+  private message: string = "";
 
   constructor(public dialogRef: MatDialogRef<ConfirmComponent>, private router: Router) {}
+
+  setMessage(messageString: string): void {
+    this.message = messageString;
+  }
+
+  getMessage(): string {
+    return this.message;
+  }
 
   closeDialog(): void {
     this.dialogRef.close();
