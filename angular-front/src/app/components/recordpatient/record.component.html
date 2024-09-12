@@ -20,38 +20,38 @@
           </a>
 
           <label for="name">Nombre:</label>
-          <input id="name" formControlName="name" type="text" placeholder="Juan">
+          <input id="name" formControlName="name" [(ngModel)]="name" [readonly]="!isEditable">
 
           <label for="dni">DNI:</label>
-          <input id="dni" formControlName="dni" type="text" placeholder="00000000B">
+          <input id="dni" formControlName="dni" [readonly]="!isEditable">
 
           <label for="surname1">Apellido 1:</label>
-          <input id="surname1" formControlName="surname1" type="text" placeholder="Martínez">
+          <input id="surname1" formControlName="surname1" [(ngModel)]="surname1" [readonly]="!isEditable">
 
           <label for="cip">CIP:</label>
-          <input id="cip" formControlName="cip" type="text" placeholder="LOMA 00000002">
+          <input id="cip" formControlName="cip" [(ngModel)]="cip" [readonly]="!isEditable">
 
           <label for="surname2">Apellido 2:</label>
-          <input id="surname2" formControlName="surname2" type="text" placeholder="López">
+          <input id="surname2" formControlName="surname2" [(ngModel)]="surname2" [readonly]="!isEditable">
 
           <label for="email">E-mail:</label>
           <!--modificar en a del email-->
           <a href="mailto:julo90@gmail.com"><span>julo90&#64;gmail.com</span></a>
 
           <label for="gender">Sexo:</label>
-          <select id="gender" formControlName="gender">
+          <select id="gender" formControlName="gender" >
             <option value="man">Hombre</option>
             <option value="woman">Mujer</option>
           </select>
 
           <label for="phone">Teléfono:</label>
-          <input id="phone" formControlName="phone" type="text" placeholder="999999999">
+          <input id="phone" formControlName="phone" [(ngModel)]="phone" [readonly]="!isEditable">
 
           <label for="birth">F. Nacimiento:</label>
           <input id="birth" formControlName="birth" type="date" placeholder="dd/mm/aaaa">
 
           <label for="emergencycontact">C. Emergencia:</label>
-          <input id="emergencycontact" formControlName="emergencyContact" type="text" placeholder="999999999">
+          <input id="emergencycontact" formControlName="emergencyContact" [(ngModel)]="phone" [readonly]="!isEditable">
 
           <label for="nationality">Nacionalidad:</label>
           <select id="nationality" name="country" formControlName="country">

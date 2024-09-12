@@ -25,11 +25,11 @@
                 </div>
                 <div>
                     <label for="surname2">Apellido 2</label>
-                    <input type="text" formControlName="surname2" id="surname2">
+                    <input type="text" formControlName="surname2" id="surname2" value="Martínez">
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="text" formControlName="email" id="email">
+                    <input type="text" formControlName="email" id="email" value="andresroma86@gmail.com">
                 </div>
                 <div>
                     <label for="gender">Sexo</label>
@@ -53,7 +53,7 @@
                 <div>
                     <label for="country">Nacionalidad</label>
                     <select id="country" name="country" formControlName="country">
-                        <option value="" disabled>Select Country</option>
+                        <option>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                 </div>
@@ -62,11 +62,11 @@
             <div class="userData">
                 <div>
                     <label for="speciality">Tipo Trabajador</label>
-                    <input class="readonly" type="text" id="speciality" placeholder="Doctor" formControlName="speciality" readonly>
+                    <input class="readonly" type="text" id="speciality" formControlName="speciality" readonly value="Doctor">
                 </div>
                 <div>
                     <label for="user">Usuario</label>
-                    <input type="text" id="user" formControlName="user">
+                    <input class="readonly" type="text" id="user" formControlName="user" value="anroma45362" readonly>
                 </div>
                 <div>
                     <label for="passw">Contraseña</label>
