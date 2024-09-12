@@ -5,6 +5,7 @@ export interface PatientInterface{
     apellido2: string;
     telefono: number;
     edad: number;
+    birthdate: Date;
     estado: string;
     tipo: string;
     idcama: string; //de momento para acepta "-".
