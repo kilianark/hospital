@@ -41,7 +41,7 @@ export class RecordComponent {
     surname2: "López",
     dni: "00000000B",
     cip: "LOMA 00000002",
-    sex: "man",
+    sex: 'Hombre',
     phone: "999999999",
     email: "julo90@gmail.com",
     age: 54,

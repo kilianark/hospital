@@ -13,6 +13,6 @@ export interface DoctorInterface{
     cip: string;
     email: string;
     country: string;
-    sex: string;
+    gender: string;
     speciality: string;
 }
