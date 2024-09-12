@@ -21,16 +21,18 @@ export class ProfileComponent {
   perfilForm: FormGroup;
   constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.perfilForm = this.formBuilder.group({
-      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
-      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      name: ['', [Validators.required]],
-      birth: ['', [Validators.required]],
-      surname1: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      email: ['', [Validators.email]],
+      dni: ['47960077M', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
+      cip: ['ROMA 43567658', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
+      name: ['Andrés', [Validators.required]],
+      birth: ['1990-03-10', [Validators.required]],  // Fecha en formato YYYY-MM-DD
+      surname1: ['Rodríguez', [Validators.required]],
+      surname2: ['Martínez', [Validators.required]],
+      phone: ['635647362', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      email: ['andresroma@gmail.com', [Validators.email]],
       country: ['Spain', [Validators.required]],
-      gender: ['', [Validators.required]],
-      user: ['', [Validators.required]]
+      gender: ['man', [Validators.required]],
+      user: ['anroma34232', [Validators.required]],
+      address: ['c/ Mallorca 123, 3C 08020 Barcelona España', [Validators.required]]
     });
   }
 
