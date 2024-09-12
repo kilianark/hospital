@@ -53,15 +53,15 @@
             </thead>
             <tbody>
                 <tr *ngFor="let patient of patient" (click)="goToManage(patient.codigo)" class="clickable-row">
-                    <td>{{patient.codigo}}</td>
-                    <td>{{patient.nombre}}</td>
-                    <td>{{patient.apellido1}}</td>
-                    <td>{{patient.apellido2}}</td>
-                    <td>{{patient.telefono}}</td>
-                    <td>{{patient.edad}}</td>
-                    <td>{{patient.estado}}</td>
-                    <td>{{patient.tipo}}</td>
-                    <td>{{patient.idcama}}</td>
+                    <td>{{patient.code}}</td>
+                    <td>{{patient.name}}</td>
+                    <td>{{patient.surname1}}</td>
+                    <td>{{patient.surname2}}</td>
+                    <td>{{patient.phone}}</td>
+                    <td>{{patient.age}}</td>
+                    <td>{{patient.status}}</td>
+                    <td>{{patient.type}}</td>
+                    <td>{{patient.idBed}}</td>
                     <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog()">Abrir</button></td>
                   </tr>
               
