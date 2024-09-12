@@ -42,15 +42,17 @@
         <th>Área</th>
         <th>Capacidad</th>
         <th>Disponible</th>
+        <th>Id Paciente</th>
       </thead>
       <tbody>
-        <tr *ngFor = "let room of room">
+        <tr *ngFor = "let room of room" (click)="goToManage(room.idpatient)" class="file-click">
           <td>{{room.numero}}</td>
           <td>{{room.tipo}}</td>
           <td>{{room.planta}}</td>
           <td>{{room.area}}</td>
           <td>{{room.capacidad}}</td>
           <td>{{room.disponible}}</td>
+          <td>{{room.idpatient}}</td>
         </tr>
       </tbody>
     </table>

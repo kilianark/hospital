@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component'; /* Missatge que confirma que la petició ha sigut correcte */
 
-import { countries } from '../../../store/country-data.store';
-import { Country } from '../../../interfaces/country.interface';
+import { countries } from '../../../../../store/country-data.store';
+import { Country } from '../../../../../interfaces/country.interface';
 
 @Injectable({
   providedIn: 'root'

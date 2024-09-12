@@ -11,36 +11,56 @@
         <br>
         <div class="form-col">
           <label for="patientCode">Código:</label>
-          <p id="patientCode">123567</p>
+          <input id="patientCode" type="text" placeholder="123456" readonly>
+          
           <label for="hist-pat"></label>
           <a id="hist-pat" href="https://drive.google.com/file/d/1g2QnoNsQLzy-MFS6atwXQ9zSb_IfmP4e/view?usp=sharing" target="_blank">
             <span>Visualizar historia Clínica</span>
             <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
           </a>
+
           <label for="name">Nombre:</label>
-          <p id="name">Juan</p>
+          <input id="name" formControlName="name" type="text" placeholder="Juan">
+
           <label for="dni">DNI:</label>
-          <p id="dni">00000000B</p>
+          <input id="dni" formControlName="dni" type="text" placeholder="00000000B">
+
           <label for="surname1">Apellido 1:</label>
-          <p id="surname1">Martínez</p>
+          <input id="surname1" formControlName="surname1" type="text" placeholder="Martínez">
+
           <label for="cip">CIP:</label>
-          <p id="cip">LO MA 00000002</p>
+          <input id="cip" formControlName="cip" type="text" placeholder="LOMA 00000002">
+
           <label for="surname2">Apellido 2:</label>
-          <p id="surname2">López</p>
+          <input id="surname2" formControlName="surname2" type="text" placeholder="López">
+
           <label for="email">E-mail:</label>
+          <!--modificar en a del email-->
           <a href="mailto:julo90@gmail.com"><span>julo90&#64;gmail.com</span></a>
+
           <label for="gender">Sexo:</label>
-          <p id="gender">Masculino</p>
+          <select id="gender" formControlName="gender">
+            <option value="man">Hombre</option>
+            <option value="woman">Mujer</option>
+          </select>
+
           <label for="phone">Teléfono:</label>
-          <p id="phone">631238791</p>
+          <input id="phone" formControlName="phone" type="text" placeholder="999999999">
+
           <label for="birth">F. Nacimiento:</label>
-          <p id="birth">12/03/1990</p>
+          <input id="birth" formControlName="birth" type="date" placeholder="dd/mm/aaaa">
+
           <label for="emergencycontact">C. Emergencia:</label>
-          <p id="emergencycontact">999999999</p>
+          <input id="emergencycontact" formControlName="emergencyContact" type="text" placeholder="999999999">
+
           <label for="nationality">Nacionalidad:</label>
-          <p id="nationality">España</p>
+          <select id="nationality" name="country" formControlName="country">
+            <option value="" disabled>Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+          </select>
+
           <label for="address">Dirección:</label>
-          <p id="address">C. Fluvià 65, 4, 08002, Barcelona</p>
+          <input id="address" type="text" placeholder="C. Fluvià 65, 4, 08002, Barcelona">
         </div>
       </div>
       <br>
