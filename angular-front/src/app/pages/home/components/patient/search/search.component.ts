@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
-import { PatientInterface } from '../../../interfaces/patient.interface';
+import { PatientInterface } from '../../../../../interfaces/patient.interface';
 
 @Component({
   selector: 'app-search-patient',
@@ -15,8 +15,8 @@ export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
   patient: PatientInterface[] = [
-    { codigo: 1234567, nombre: "Juan", apellido1: "Martínez", apellido2: "López", telefono: 631238791, edad: 34, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"},
-    { codigo: 7654321, nombre: "Maria", apellido1: "Pérez", apellido2: "Castro", telefono: 621655788, edad: 54, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"}
+    { code: 1234567, name: "Juan", surname1: "Martínez", surname2: "López", phone: 631238791, age: 34, birthdate: new Date("1990-09-12"), status: "Ambulatorio", type: "Urgencia", idBed: "-"},
+    { code: 7654321, name: "Maria", surname1: "Pérez", surname2: "Castro", phone: 621655788, age: 54, birthdate: new Date("1970-09-12"), status: "Ambulatorio", type: "Urgencia", idBed: "-"}
   ];
 
   constructor(public dialog: MatDialog, private router: Router) {}

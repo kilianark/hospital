@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Roomsearch } from '../../../interfaces/room.interface';
 import { Router } from '@angular/router';
-import { PatientInterface } from '../../../interfaces/patient.interface';
+import { PatientInterface } from '../../../../../interfaces/patient.interface';
 
 
 @Component({
@@ -23,8 +23,8 @@ export class SearchRoomComponent {
   ]
 
   patient: PatientInterface[] = [
-    { codigo: 1234567, nombre: "Juan", apellido1: "Martínez", apellido2: "López", telefono: 631238791, edad: 34, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"},
-    { codigo: 7654321, nombre: "Maria", apellido1: "Pérez", apellido2: "Castro", telefono: 621655788, edad: 54, estado: "Ambulatorio", tipo: "Urgencia", idcama: "-"}
+    { code: 1234567, name: "Juan", surname1: "Martínez", surname2: "López", phone: 631238791, age: 34, birthdate: new Date("1990-09-12"), status: "Ambulatorio", type: "Urgencia", idBed: "-"},
+    { code: 7654321, name: "Maria", surname1: "Pérez", surname2: "Castro", phone: 621655788, age: 54, birthdate: new Date("1970-09-12"), status: "Ambulatorio", type: "Urgencia", idBed: "-"}
   ];
 
   onSubmit() {
