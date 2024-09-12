@@ -52,7 +52,7 @@
                 <th>Ficha</th>
             </thead>
             <tbody>
-                <tr *ngFor="let patient of patient" (click)="goToManage(patient.codigo)" class="clickable-row">
+                <tr *ngFor="let patient of patient" (click)="goToManage(patient.code)" class="clickable-row">
                     <td>{{patient.code}}</td>
                     <td>{{patient.name}}</td>
                     <td>{{patient.surname1}}</td>
