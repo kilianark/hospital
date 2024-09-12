@@ -7,7 +7,6 @@ body {
 .slogan{
     display: flex;
     font-weight: bold;
-    font-style: italic;
     margin-left: 50px;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -15,43 +14,32 @@ body {
 
 .grid-layout {
     display: grid;
-    gap: 10px; /* Espacio entre las imágenes */
-    grid-template-columns: 1fr 1fr 1fr; /* Tres columnas iguales */
-    grid-template-rows: 1fr 1fr 1fr; /* Tres filas con proporciones 1fr, 2fr, y 3fr */
-    width: 70%;
+    gap: 100px; /* Espacio entre las imágenes */
+    grid-template-columns: 1fr 1fr; /* Tres columnas iguales */
+    width: 50%;
+    height: 50%;
     align-content: center;
-    opacity: 0.8; 
-    margin-left: 150px;
+    opacity: 0.8;
+    margin-left: 260px;
+}
+
+.grid-layout div{
+  text-align: center;
 }
 
 .grid-layout img {
     width: 100%;
-    height: 120px;
+    height: 100%;
     display: block;
     border-radius: 5%;
 }
 
-.grid-layout img.left-up {
+.grid-layout img.patient {
     grid-column: 1;
     grid-row: 1;
 }
 
-.grid-layout img.right-up {
-    grid-column: 2 / 4;
+.grid-layout img.room {
+    grid-column: 2;
     grid-row: 1;
-}
-
-.grid-layout img.left-mid {
-    grid-column: 1 / 3;
-    grid-row: 2;
-}
-
-.grid-layout img.right-mid {
-    grid-column: 3;
-    grid-row: 2;
-}
-
-.grid-layout img.down {
-    grid-column: 1 / -1; 
-    grid-row: 3;
 }
