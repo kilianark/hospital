@@ -4,6 +4,10 @@ body {
     position: sticky;
 }
 
+button{
+  background-color: white;
+}
+
 .slogan{
     display: flex;
     font-weight: bold;

@@ -1,0 +1,50 @@
+body {
+  margin-top: 120px;
+  margin-left: 80px;
+  position: sticky;
+}
+
+button{
+  background-color: white;
+}
+
+.title{
+  display: flex;
+  font-weight: bold;
+  margin-left: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+.grid-layout {
+  display: grid;
+  gap: 100px; /* Espacio entre las imágenes */
+  grid-template-columns: 1fr 1fr; /* Tres columnas iguales */
+  width: 50%;
+  height: 50%;
+  align-content: center;
+  opacity: 0.8;
+  margin-left: 260px;
+}
+
+.grid-layout div{
+text-align: center;
+}
+
+.grid-layout img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 5%;
+}
+
+.grid-layout img.patient {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.grid-layout img.room {
+  grid-column: 2;
+  grid-row: 1;
+}
