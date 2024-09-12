@@ -1,6 +1,9 @@
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 
+import { countries } from '../../store/country-data.store';
+import { Country } from '../../interfaces/country.interface';
+
 @Component({
   selector: 'app-record',
   standalone: true,
@@ -24,4 +27,6 @@ export class RecordComponent {
       sex: ['', [Validators.required]]
     });
   }
+
+  public countries: Country[] = countries;
 }

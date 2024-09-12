@@ -6,9 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmComponent } from '../../../../components/confirm/confirm.component';
 import { Router } from '@angular/router';
 
-import { countries } from '../../store/country-data.store';
+import { countries } from '../../../../store/country-data.store';
 import { MatDialog } from '@angular/material/dialog';
-import { Country } from '../../interfaces/country.interface';
+import { Country } from '../../../../interfaces/country.interface';
 
 @Component({
   selector: 'app-profile',
