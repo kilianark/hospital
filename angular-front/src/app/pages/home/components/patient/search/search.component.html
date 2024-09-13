@@ -47,7 +47,6 @@
                 <th>Teléfono</th>
                 <th>Edad</th>
                 <th>Estado</th>
-                <th>Tipo</th>
                 <th>Id. Cama</th>
                 <th>Ficha</th>
             </thead>
@@ -60,7 +59,6 @@
                     <td>{{patient.phone}}</td>
                     <td>{{patient.age}}</td>
                     <td>{{patient.status}}</td>
-                    <td>{{patient.type}}</td>
                     <td>{{patient.idBed}}</td>
                     <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog()">Abrir</button></td>
                   </tr>
