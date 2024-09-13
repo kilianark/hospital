@@ -28,6 +28,7 @@ export class RecordComponent {
       country: [this.patient.country, [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
       gender: [this.patient.gender, [Validators.required]]
+      gender: [this.patient.gender, [Validators.required]]
     });
   }
 
