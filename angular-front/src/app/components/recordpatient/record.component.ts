@@ -34,6 +34,7 @@ export class RecordComponent {
     country: countries[208].name,
     status: "",
     address: "C. Fluvià 65, 4, 08002, Barcelona",
+    emergencyContact: "999999999",
     idBed: ""
   }
   
