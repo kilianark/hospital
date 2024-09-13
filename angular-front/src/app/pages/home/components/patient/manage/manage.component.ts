@@ -9,12 +9,10 @@ import { HospitalzedArea } from '../../../../../enums/hospitalized-area.enum';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
-import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
+//import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
 @Component({
   selector: 'app-manage',
-  // standalone: true,
-  //imports: [CommonModule],
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.css']
 })
@@ -23,7 +21,7 @@ export class ManagePatientComponent implements OnInit {
   patientId: number | undefined;
   
   // variables que contindrá els valors seleccionats
-  selectedPatientStatus: PatientStatus | null = PatientStatus.Inactivo ;
+  selectedPatientStatus: PatientStatus | null = PatientStatus.Ambulatorio ;
   //selectedStatusType: StatusType | null = null;
   selectedAreaType: HospitalzedArea | null = null;
 
