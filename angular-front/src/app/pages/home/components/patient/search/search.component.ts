@@ -7,8 +7,6 @@ import { countries } from '../../../../../store/country-data.store';
 
 @Component({
   selector: 'app-search-patient',
-  //standalone: true,
-  //imports: [CommonModule],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
