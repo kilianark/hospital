@@ -1,9 +1,10 @@
-export enum StatusType {
+export enum AmbulatoryArea {
     ConsultaExterna,
     Diagnostico,
     Tratamiento,
-    Inyección,
+    Inyección
 }
+
 
 /* (AMBULATORI) diagnosticos de cualquier tipo
 tratamientos para la cura, recuperación, etc
