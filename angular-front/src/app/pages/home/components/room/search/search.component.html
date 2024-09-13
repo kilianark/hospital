@@ -52,7 +52,10 @@
           <td>{{room.area}}</td>
           <td>{{room.capacidad}}</td>
           <td>{{room.disponible}}</td>
-          <td>{{room.idpatient}}</td>
+          <td *ngIf="room.disponible === 'No' && room.idpatient !== undefined; else noPatient">{{ room.idpatient }}</td>
+            <ng-template #noPatient>
+              <td>-</td>
+            </ng-template>
         </tr>
       </tbody>
     </table>
