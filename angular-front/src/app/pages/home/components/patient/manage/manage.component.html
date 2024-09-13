@@ -17,14 +17,16 @@
                     </option>
                 </select>
             </div>
-            <div class="control">
-                <label for="type">Tipo: </label>
-                <select id="type" name="tipo" [(ngModel)]="selectedStatusType" (ngModelChange)="onTypeChange($event)">
-                    <option *ngFor="let type of statusType" [ngValue]="type.value">
-                        {{ type.label }}
-                    </option>
-                </select>
-            </div>
+            <!--
+                <div class="control">
+                    <label for="type">Tipo: </label>
+                    <select id="type" name="tipo" [(ngModel)]="selectedStatusType" (ngModelChange)="onTypeChange($event)">
+                        <option *ngFor="let type of statusType" [ngValue]="type.value">
+                            {{ type.label }}
+                        </option>
+                    </select>
+                </div>
+            -->
             <div class="table-wrapper" *ngIf="showSelectRoom">
                 <div class="selectControl">
                     <label for="assignRoom">Asignar habitación: </label>
@@ -37,7 +39,7 @@
                             <h5>Buscar habitación</h5>
                             <label for="area">Seleccionar área: </label>
                             <select id="area" name="area" [(ngModel)]="selectedAreaType" (ngModelChange)="onAreaChange($event)">
-                                <option *ngFor="let area of areaType" [ngValue]="area.value">
+                                <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
                                     {{ area.label }}
                                 </option>
                             </select>
