@@ -33,7 +33,7 @@ export class RecordComponent {
     birthdate: new Date("1970-09-12"),
     country: countries[208].name,
     status: "",
-    address: "",
+    address: "C. Fluvià 65, 4, 08002, Barcelona",
     idBed: ""
   }
   
@@ -66,6 +66,7 @@ export class RecordComponent {
     this.patientForm.get('country')?.disable();
     this.patientForm.get('emergencyContact')?.disable();
     this.patientForm.get('gender')?.disable();
+    this.patientForm.get('address')?.disable();
 
   }
 

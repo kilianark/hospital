@@ -35,8 +35,9 @@
           <input id="surname2" formControlName="surname2" [readonly]="!isEditable">
 
           <label for="email">E-mail:</label>
-          <!--modificar en a del email-->
-          <a href="mailto:julo90@gmail.com"><span>julo90&#64;gmail.com</span></a>
+          <!--modificar el a del email-->
+          <a *ngIf="!isEditable" href="mailto:{{patient.email}}"><span>{{patient.email}}</span></a>
+          <input *ngIf="isEditable" id="email" formControlName="email">
 
           <label for="gender">Sexo:</label>
           <select id="gender" formControlName="gender" >
@@ -60,7 +61,7 @@
           </select>
 
           <label for="address">Dirección:</label>
-          <input id="address" formControlName="address" placeholder="C. Fluvià 65, 4, 08002, Barcelona">
+          <input id="address" formControlName="address">
         </div>
       </div>
       <br>
