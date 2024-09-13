@@ -2,7 +2,7 @@ export enum AmbulatoryArea {
     ConsultaExterna,
     Diagnostico,
     Tratamiento,
-    Inyección,
+    Inyección
 }
 
 
