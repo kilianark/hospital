@@ -5,7 +5,7 @@ export interface PatientInterface{
     surname2: string;
     dni: string;
     cip: string;
-    sex: string;
+    gender: string;
     phone: string;
     email: string;
     age: number;

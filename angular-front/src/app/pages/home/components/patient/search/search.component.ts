@@ -16,8 +16,8 @@ export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
   patient: PatientInterface[] = [
-    { code: 1234567, name: "Juan", surname1: "Martínez", surname2: "López", dni: "", cip: "", sex: "", phone: "631238791", email: "", age: 34, birthdate: new Date("1990-09-12"), country: countries[208].name, status: "Ambulatorio", type: "Urgencia", idBed: "-"},
-    { code: 7654321, name: "Maria", surname1: "Pérez", surname2: "Castro", dni: "", cip: "", sex: "", phone: "621655788", email: "", age: 54, birthdate: new Date("1970-09-12"), country: countries[208].name, status: "Ambulatorio", type: "Urgencia", idBed: "-"}
+    { code: 1234567, name: "Juan", surname1: "Martínez", surname2: "López", dni: "", cip: "", gender: "", phone: "631238791", email: "", age: 34, birthdate: new Date("1990-09-12"), country: countries[208].name, status: "Ambulatorio", type: "Urgencia", idBed: "-"},
+    { code: 7654321, name: "Maria", surname1: "Pérez", surname2: "Castro", dni: "", cip: "", gender: "", phone: "621655788", email: "", age: 54, birthdate: new Date("1970-09-12"), country: countries[208].name, status: "Ambulatorio", type: "Urgencia", idBed: "-"}
   ];
 
   constructor(public dialog: MatDialog, private router: Router) {}
