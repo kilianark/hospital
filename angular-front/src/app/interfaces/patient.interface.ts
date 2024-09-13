@@ -13,5 +13,6 @@ export interface PatientInterface{
     country: string;
     status: string;
     address: string;
+    emergencyContact: string;
     idBed: string; //de momento para acepta "-".
 }

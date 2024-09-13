@@ -35,7 +35,6 @@
           <input id="surname2" formControlName="surname2" [readonly]="!isEditable">
 
           <label for="email">E-mail:</label>
-          <!--modificar el a del email-->
           <a *ngIf="!isEditable" href="mailto:{{patient.email}}"><span>{{patient.email}}</span></a>
           <input *ngIf="isEditable" id="email" formControlName="email">
 
