@@ -11,7 +11,7 @@
         <br>
         <div class="form-col">
           <label for="patientCode">Código:</label>
-          <input id="patientCode" type="text" placeholder="123456" readonly>
+          <input id="patientCode" formControlName="patientCode">
           
           <label for="hist-pat"></label>
           <a id="hist-pat" href="https://drive.google.com/file/d/1g2QnoNsQLzy-MFS6atwXQ9zSb_IfmP4e/view?usp=sharing" target="_blank">
@@ -39,7 +39,7 @@
           <a href="mailto:julo90@gmail.com"><span>julo90&#64;gmail.com</span></a>
 
           <label for="gender">Sexo:</label>
-          <select [disabled]="!isEditable" id="gender" formControlName="gender" >
+          <select id="gender" formControlName="gender" >
             <option value="man">Hombre</option>
             <option value="woman">Mujer</option>
           </select>
@@ -54,13 +54,13 @@
           <input id="emergencycontact" formControlName="emergencyContact" [readonly]="!isEditable">
 
           <label for="nationality">Nacionalidad:</label>
-          <select id="nationality" name="country" formControlName="country" [disabled]="!isEditable">
+          <select id="nationality" name="country" formControlName="country">
             <option value="" disabled>Select Country</option>
             <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
           </select>
 
           <label for="address">Dirección:</label>
-          <input id="address" type="text" placeholder="C. Fluvià 65, 4, 08002, Barcelona">
+          <input id="address" formControlName="address" placeholder="C. Fluvià 65, 4, 08002, Barcelona">
         </div>
       </div>
       <br>
