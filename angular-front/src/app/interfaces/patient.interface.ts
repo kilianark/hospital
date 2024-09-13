@@ -12,6 +12,5 @@ export interface PatientInterface{
     birthdate: Date;
     country: string;
     status: string;
-    type: string;
     idBed: string; //de momento para acepta "-".
 }

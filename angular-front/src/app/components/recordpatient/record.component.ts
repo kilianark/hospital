@@ -48,7 +48,6 @@ export class RecordComponent {
     birthdate: new Date("1970-09-12"),
     country: countries[208].name,
     status: "",
-    type: "",
     idBed: ""
   }
 

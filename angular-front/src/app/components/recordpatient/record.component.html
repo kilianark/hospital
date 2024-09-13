@@ -39,7 +39,7 @@
           <a href="mailto:julo90@gmail.com"><span>julo90&#64;gmail.com</span></a>
 
           <label for="gender">Sexo:</label>
-          <select id="gender" formControlName="gender" >
+          <select [disabled]="!isEditable" id="gender" formControlName="gender" >
             <option value="man">Hombre</option>
             <option value="woman">Mujer</option>
           </select>
@@ -48,13 +48,13 @@
           <input id="phone" formControlName="phone" [readonly]="!isEditable">
 
           <label for="birth">F. Nacimiento:</label>
-          <input id="birth" formControlName="birth" type="date">
+          <input id="birth" formControlName="birth" type="date" [readonly]="!isEditable">
 
           <label for="emergencycontact">C. Emergencia:</label>
           <input id="emergencycontact" formControlName="emergencyContact" [readonly]="!isEditable">
 
           <label for="nationality">Nacionalidad:</label>
-          <select id="nationality" name="country" formControlName="country" [(ngModel)]="patient.country">
+          <select id="nationality" name="country" formControlName="country" [disabled]="!isEditable">
             <option value="" disabled>Select Country</option>
             <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
           </select>
