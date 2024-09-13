@@ -7,7 +7,6 @@ import { SearchRoomComponent } from '../../pages/home/components/room/search/sea
 import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
 import { PatientModule } from '../patient.module/patient.module';
 
 
