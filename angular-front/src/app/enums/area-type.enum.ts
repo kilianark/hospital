@@ -1,6 +1,9 @@
 export enum AreaType {
+    MI,
     Cirurgía,
     UCI,
     Oncología,
-    Psiquiatría
+    Psiquiatría,
+    Ginecologia,
+    Pediatria
 }
