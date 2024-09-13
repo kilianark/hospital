@@ -5,7 +5,10 @@ body {
 }
 
 button{
-  background-color: white;
+  background-color: lightblue;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px black
 }
 
 .slogan{
