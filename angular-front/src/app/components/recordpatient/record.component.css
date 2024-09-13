@@ -28,7 +28,7 @@ label {
   font-size: 14px;
   font-weight: bold;
 }
-.submit {
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,6 +39,20 @@ label {
   height: 57px;
   border-radius: 8px;
   background-color: rgb(194, 194, 194);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  border: 0px;
+}
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 196px;
+  height: 57px;
+  border-radius: 8px;
+  background-color: rgb(21, 255, 0);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   border: 0px;
 }

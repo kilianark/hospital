@@ -50,7 +50,7 @@ export class RecordComponent {
       phone: [this.patient.phone, [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: [this.patient.email, [Validators.email]],
       country: [this.patient.country, [Validators.required]],
-      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
+      emergencyContact: [this.patient.emergencyContact, [Validators.pattern(/^\d{9}$/)]],
       gender: [this.patient.gender, [Validators.required]],
       address: [this.patient.address]
     });
@@ -75,11 +75,32 @@ export class RecordComponent {
     this.isEditable = !this.isEditable;
 
     if(this.isEditable){
-      this.patientForm.get('gender')?.enable();
+      this.patientForm.get('dni')?.enable();
+      this.patientForm.get('cip')?.enable();
+      this.patientForm.get('name')?.enable();
       this.patientForm.get('birth')?.enable();
+      this.patientForm.get('surname1')?.enable();
+      this.patientForm.get('surname2')?.enable();
+      this.patientForm.get('phone')?.enable();
+      this.patientForm.get('email')?.enable();
+      this.patientForm.get('country')?.enable();
+      this.patientForm.get('emergencyContact')?.enable();
+      this.patientForm.get('gender')?.enable();
+      this.patientForm.get('address')?.enable();
     } else {
-      this.patientForm.get('gender')?.disable();
+      this.patientForm.get('dni')?.disable();
+      this.patientForm.get('cip')?.disable();
+      this.patientForm.get('name')?.disable();
       this.patientForm.get('birth')?.disable();
+      this.patientForm.get('surname1')?.disable();
+      this.patientForm.get('surname2')?.disable();
+      this.patientForm.get('phone')?.disable();
+      this.patientForm.get('email')?.disable();
+      this.patientForm.get('country')?.disable();
+      this.patientForm.get('emergencyContact')?.disable();
+      this.patientForm.get('gender')?.disable();
+      this.patientForm.get('address')?.disable();
     }
   }
+
 }
