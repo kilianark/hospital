@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApiHospital.Interfaces;
 public interface IPersona {
+    public int Id { get; set; }
     public string Dni { get; set; }
     public string Name { get; set; }
     public string Surname1 { get; set; }
