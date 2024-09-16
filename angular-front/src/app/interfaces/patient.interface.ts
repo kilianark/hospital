@@ -1,4 +1,5 @@
 export interface PatientInterface{
+
     id: number;
     name: string;
     surname1: string;
@@ -17,10 +18,6 @@ export interface PatientInterface{
     emergencyContact?: string;
     status: string;
     reason?: string;
-    bed_id?: string; //de momento para acepta "-".
-
-    
-
-    
-    
+    bed_id?: number; //de momento para acepta "-".
+   
 }

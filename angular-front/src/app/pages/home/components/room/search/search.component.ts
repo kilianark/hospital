@@ -18,13 +18,13 @@ export class SearchRoomComponent {
   title = 'Búsqueda Habitaciones:'
 
   room: Roomsearch[] = [
-    { numero: "101", tipo: "Box", planta: 0, area: "Urgencias", capacidad: 1, disponible: "No", idpatient: 123456 }, // Sin idpatient
-    { numero: "204", tipo: "Cubículo", planta: 1, area: "UCI", capacidad: 1, disponible: "Si" } // Con idpatient
+    { id: 1, room_number: 101, capacity: 1, room_type: "Box", area: "Urgencias", floor: 0,  availability: false, idpatient: 123456 }, // Sin idpatient
+    { id: 2, room_number: 204, capacity: 1, room_type: "Cubículo", area: "UCI", floor: 1, availability: true} // Con idpatient
   ];
 
   patient: PatientInterface[] = [
-    { code: 123456, name: "Juan", surname1: "Martínez", surname2: "López", dni: "", cip: "", gender: "", phone: "631238791", email: "", age: 34, birthdate: new Date("1990-09-12"), country: countries[208].name, status: "Ambulatorio", address: "", emergencyContact: "", idBed: "-"},
-    { code: 654321, name: "Maria", surname1: "Pérez", surname2: "Castro", dni: "", cip: "", gender: "", phone: "621655788", email: "", age: 54, birthdate: new Date("1970-09-12"), country: countries[208].name, status: "Hospitalizado", address: "", emergencyContact: "", idBed: "4011"}
+    { id: 0, patient_code: 123456, name: "Juan", surname1: "Martínez", surname2: "López", dni: "", cip: "", gender: "", phone: 631238791, email: "", age: 34, birthdate: new Date("1990-09-12"), country: countries[208].name, status: "Ambulatorio", address: "", emergencyContact: "" },
+    { id: 1, patient_code: 654321, name: "Maria", surname1: "Pérez", surname2: "Castro", dni: "", cip: "", gender: "", phone: 621655788, email: "", age: 54, birthdate: new Date("1970-09-12"), country: countries[208].name, status: "Hospitalizado", address: "", emergencyContact: "", bed_id: 4011}
   ];
 
   onSubmit() {

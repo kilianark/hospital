@@ -9,7 +9,6 @@ public abstract class Person {
     public required string Surname1 { get; set; }
     public string? Surname2 { get; set; }
     public required string Dni { get; set; }
-
     public required DateOnly BirthDate { get; set; }
     public required string Country { get; set; }
     public string? Address {get; set;}
@@ -17,4 +16,5 @@ public abstract class Person {
     public string? Email {get; set;}
     public string? CIP {get; set;}
     public required string Gender {get; set;}
+    
 }

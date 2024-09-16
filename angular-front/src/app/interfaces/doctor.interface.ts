@@ -19,4 +19,5 @@ export interface DoctorInterface{
 
     worker_type: string;
     speciality: string;
+    
 }

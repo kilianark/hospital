@@ -22,16 +22,18 @@ export class CreatePatientComponent {
   patientForm: FormGroup;
   constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     this.patientForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      surname1: ['', [Validators.required]],
       dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
       cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      name: ['', [Validators.required]],
+      
       birth: ['', [Validators.required]],
-      surname1: ['', [Validators.required]],
+      
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
-      sex: ['', [Validators.required]]
+      gender: ['', [Validators.required]]
     });
   }
 
