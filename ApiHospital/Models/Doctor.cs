@@ -1,22 +1,21 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiHospital.Models;
 
 public class Doctor
 {
     [Key]
-    public required int Id { get; set; }
-    public required int DoctorCode {get; set;}
-    public required string Dni { get; set; }
-    public required string Name { get; set; }
-    public required string Surname1 { get; set; }
+    public int Id { get; set; }
+    public int DoctorCode {get; set;}
+    public string Dni { get; set; }
+    public string Name { get; set; }
+    public string Surname1 { get; set; }
     public string? Surname2 { get; set; }
-    public required DateOnly BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
     public string? Adress {get; set;}
-    public required string Phone {get; set; }
-    public required string Email {get; set;}
-    public required string CIP {get; set;}
-    public required string Sex {get; set;}
-    public required string Speciality { get; set; }
+    public string Phone {get; set; }
+    public string Email {get; set;}
+    public string CIP {get; set;}
+    public string Sex {get; set;}
+    public string Speciality { get; set; }
 }
