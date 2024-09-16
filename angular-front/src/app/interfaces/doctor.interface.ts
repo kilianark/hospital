@@ -15,4 +15,5 @@ export interface DoctorInterface{
     country: string;
     gender: string;
     speciality: string;
+    user: string;
 }

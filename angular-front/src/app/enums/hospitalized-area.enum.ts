@@ -1,4 +1,4 @@
-export enum AreaType {
+export enum HospitalzedArea {
     MI,
     Cirurgía,
     UCI,

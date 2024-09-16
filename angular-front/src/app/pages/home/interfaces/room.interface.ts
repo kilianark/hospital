@@ -5,5 +5,5 @@ export interface Roomsearch{
   area: string;
   capacidad: number;
   disponible: string;
-  idpatient: number;
+  idpatient?: number;
 }

@@ -28,7 +28,7 @@ export class ProfileComponent {
       email: [this.doctor.email, [Validators.email]],
       country: [this.doctor.country, [Validators.required]],
       gender: [this.doctor.gender, [Validators.required]],
-      user: [this.doctor.doctor_code, [Validators.required]],
+      user: [this.doctor.user, [Validators.required]],
       address: [this.doctor.address, [Validators.required]]
     });
   }
@@ -51,7 +51,8 @@ export class ProfileComponent {
     email: "andresroma@gmail.com",
     country: countries[208].name,
     gender: "man",
-    speciality: "Cardiólogo"
+    speciality: "Cardiólogo",
+    user: "anroma45362"
   }
 
   onSubmit() {

@@ -34,8 +34,12 @@ export class RecordComponent {
     country: countries[208].name,
     status: "",
     address: "C. Fluvià 65, 4, 08002, Barcelona",
+    emergencyContact: "999999999",
     idBed: ""
   }
+
+  camps: string[] = ['dni', 'cip', 'name', 'birth', 'surname1', 'surname2', 'phone', 'email', 'country',
+                    'emergencyContact', 'gender', 'address'] 
   
   constructor(private formBuilder: FormBuilder) {
     this.patientForm = this.formBuilder.group({
@@ -49,24 +53,15 @@ export class RecordComponent {
       phone: [this.patient.phone, [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: [this.patient.email, [Validators.email]],
       country: [this.patient.country, [Validators.required]],
-      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
+      emergencyContact: [this.patient.emergencyContact, [Validators.pattern(/^\d{9}$/)]],
       gender: [this.patient.gender, [Validators.required]],
       address: [this.patient.address]
     });
 
     this.patientForm.get('patientCode')?.disable();
-    this.patientForm.get('dni')?.disable();
-    this.patientForm.get('cip')?.disable();
-    this.patientForm.get('name')?.disable();
-    this.patientForm.get('birth')?.disable();
-    this.patientForm.get('surname1')?.disable();
-    this.patientForm.get('surname2')?.disable();
-    this.patientForm.get('phone')?.disable();
-    this.patientForm.get('email')?.disable();
-    this.patientForm.get('country')?.disable();
-    this.patientForm.get('emergencyContact')?.disable();
-    this.patientForm.get('gender')?.disable();
-    this.patientForm.get('address')?.disable();
+    for (const value of this.camps) {
+      this.patientForm.get(value)?.disable();
+    }
 
   }
 
@@ -74,11 +69,14 @@ export class RecordComponent {
     this.isEditable = !this.isEditable;
 
     if(this.isEditable){
-      this.patientForm.get('gender')?.enable();
-      this.patientForm.get('birth')?.enable();
+      for (const value of this.camps) {
+        this.patientForm.get(value)?.enable();
+      }
     } else {
-      this.patientForm.get('gender')?.disable();
-      this.patientForm.get('birth')?.disable();
+      for (const value of this.camps) {
+        this.patientForm.get(value)?.disable();
+      }
     }
   }
+
 }
