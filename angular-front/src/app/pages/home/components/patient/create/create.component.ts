@@ -29,7 +29,7 @@ export class CreatePatientComponent {
       surname1: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
-      country: ['Spain', [Validators.required]],
+      country: ['', [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
       sex: ['', [Validators.required]]
     });
