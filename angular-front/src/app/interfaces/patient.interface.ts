@@ -1,18 +1,26 @@
 export interface PatientInterface{
-    code: number;
+    id: number;
     name: string;
     surname1: string;
-    surname2: string;
-    dni: string;
-    cip: string;
+    surname2?: string;
     gender: string;
-    phone: string;
-    email: string;
-    age: number;
     birthdate: Date;
+    age: number; //* ??? meter en modelo? */
     country: string;
+    address?: string;
+    dni: string;
+    cip?: string;
+    email?: string;
+    phone: number;
+
+    patient_code: number;
+    emergencyContact?: string;
     status: string;
-    address: string;
-    emergencyContact: string;
-    idBed: string; //de momento para acepta "-".
+    reason?: string;
+    bed_id?: string; //de momento para acepta "-".
+
+    
+
+    
+    
 }

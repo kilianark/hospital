@@ -5,9 +5,9 @@ namespace ApiHospital.Models
     public class Bed
     {
         [Key]
-        public int Id { get; set; }
-        public int RoomId { get; set; }
-        public bool Availability { get; set; }
+        public required int Id { get; set; }
+        public required int RoomId { get; set; }
+        public required bool Availability { get; set; }
         public Patient? Patient { get; set; }
     }
 }
