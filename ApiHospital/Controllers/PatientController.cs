@@ -42,10 +42,7 @@ namespace ApiHospital.Controllers
         {
             var patient = await _context.Patients.FindAsync(id);
 
-            if (patient == null)
-            {
-                return NotFound();
-            }
+            if (patient == null) return NotFound();
 
             return patient;
         }
@@ -66,14 +63,10 @@ namespace ApiHospital.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPatient(int id, PatientDTO patientDTO)
         {
-            if (id != patientDTO.Id)
-            {
-                return BadRequest();
-            }
+            if (id != patientDTO.PatientCode) return BadRequest();
 
             var patient = await _context.Patients.FindAsync(id);
             if (patient == null) return NotFound();
-
 
             _mapper.Map(patientDTO, patient);
 
@@ -83,14 +76,8 @@ namespace ApiHospital.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PatientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!PatientExists(id)) return NotFound();
+                else throw;
             }
 
             return NoContent();
@@ -104,9 +91,7 @@ namespace ApiHospital.Controllers
 
             var patient = _mapper.Map<Patient>(patientDTO);
             
-            if (!BedExists(patient.BedId)) {
-                patient.BedId = null;
-            }
+            if (!BedExists(patient.BedId)) patient.BedId = null;
             
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
@@ -119,10 +104,8 @@ namespace ApiHospital.Controllers
         public async Task<IActionResult> DeletePatient(int id)
         {
             var patient = await _context.Patients.FindAsync(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
+
+            if (patient == null) return NotFound();
 
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
