@@ -46,13 +46,13 @@
       </thead>
       <tbody>
         <tr *ngFor = "let room of room" (click)="goToManage(room.idpatient)" class="file-click">
-          <td>{{room.numero}}</td>
-          <td>{{room.tipo}}</td>
-          <td>{{room.planta}}</td>
+          <td>{{room.room_number}}</td>
+          <td>{{room.room_type}}</td>
+          <td>{{room.floor}}</td>
           <td>{{room.area}}</td>
-          <td>{{room.capacidad}}</td>
-          <td>{{room.disponible}}</td>
-          <td *ngIf="room.disponible === 'No' && room.idpatient !== undefined; else noPatient">{{ room.idpatient }}</td>
+          <td>{{room.capacity}}</td>
+          <td>{{room.availability}}</td>
+          <td *ngIf="room.availability == false && room.idpatient !== undefined; else noPatient">{{ room.idpatient }}</td>
             <ng-template #noPatient>
               <td>-</td>
             </ng-template>

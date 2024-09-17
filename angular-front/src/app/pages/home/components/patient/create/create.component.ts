@@ -13,8 +13,6 @@ import { Country } from '../../../../../interfaces/country.interface';
 })
 @Component({
   selector: 'app-create-patient',
-  //standalone: true,
-  //imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create.component.html',
   styleUrl: './create.component.css'
 })

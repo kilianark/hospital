@@ -33,7 +33,7 @@ export class RecordComponent {
     dni: "00000000B",
     cip: "LOMA 00000002",
     email: "julo90@gmail.com",
-    phone: 999999999,
+    phone: "999999999",
 
     patient_code: 123456,
     emergencyContact: "999999999",

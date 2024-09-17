@@ -12,7 +12,7 @@ export interface PatientInterface{
     dni: string;
     cip?: string;
     email?: string;
-    phone: number;
+    phone: string;
 
     patient_code: number;
     emergencyContact?: string;

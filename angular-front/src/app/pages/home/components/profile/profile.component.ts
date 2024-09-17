@@ -37,6 +37,7 @@ export class ProfileComponent {
 
   
   doctor: DoctorInterface = {
+
     id: 2,
     doctor_code: 45362,
     name: "Andrés",
@@ -49,8 +50,9 @@ export class ProfileComponent {
     dni: "47586754A",
     cip: "LOMA 12345123",
     email: "andresroma@gmail.com",
-    country: countries[208].name,
+    country: countries[0].name,
     gender: "man",
+    worker_type:"Doctor",
     speciality: "Cardiólogo",
     user: "anroma45362"
   }
