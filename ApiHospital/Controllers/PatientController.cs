@@ -31,8 +31,77 @@ namespace ApiHospital.Controllers
 
         // GET: api/Patient
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients()
+        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients
+        (int? PatientCode = null, string? Name = null, string? Surname1 = null, string? Surname2 = null, string? Dni = null, int? Age = null, DateOnly? BirthDate = null, string? Country = null, string? Address = null, string? Phone = null, string? Email = null, string? Gender = null, string? Status = null, int? BedId = null )
         {
+            IQueryable <Patient> query = _context.Patients;
+
+            if (PatientCode.HasValue)
+            {
+                query = query.Where(p => p.PatientCode == PatientCode.Value);
+            }
+
+            if (!string.IsNullOrEmpty(Name))    
+            {
+                query = query.Where(p => p.Name.Contains(Name));
+            }
+
+            if (!string.IsNullOrEmpty(Surname1))    
+            {
+                query = query.Where(p => p.Surname1.Contains(Surname1));
+            }
+
+            if (!string.IsNullOrEmpty(Surname2))    
+            {
+                query = query.Where(p => p.Surname1.Contains(Surname2));
+            }
+
+            if (!string.IsNullOrEmpty(Dni))    
+            {
+                query = query.Where(p => p.Dni.Contains(Dni));
+            }
+
+            if (Age.HasValue)
+            {
+                query = query.Where(p => p.Age == Age.Value);
+            }
+
+            if (BirthDate.HasValue)
+            {
+                query = query.Where(p => p.BirthDate == BirthDate.Value);
+            }
+
+            if (!string.IsNullOrEmpty(Country))
+            {
+                query = query.Where(p => p.Country.Contains(Country));
+            }
+
+            if (!string.IsNullOrEmpty(Phone))
+            {
+            query = query.Where(p => p.Phone.Contains(Phone));
+            }
+
+            /*if (!string.IsNullOrEmpty(Email))
+            {
+                query = query.Where(p => p.Email.Contains(Email));
+            }*/
+            
+
+            if (!string.IsNullOrEmpty(Gender))
+            {
+                query = query.Where(p => p.Gender.Contains(Gender));
+            }
+
+            if (!string.IsNullOrEmpty(Status))
+            {
+                query = query.Where(p => p.Status.Contains(Status));
+            }
+
+            if (BedId.HasValue)
+            {
+                query = query.Where(p => p.BedId == BedId.Value);
+            }
+            
             return await _context.Patients.ToListAsync();
         }
 

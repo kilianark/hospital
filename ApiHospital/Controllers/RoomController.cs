@@ -31,7 +31,10 @@ namespace ApiHospital.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            return await _context.Rooms.Include(Room => Room.Beds).ThenInclude(beds => (beds as Bed).Patient).ToListAsync();
+            return await _context.Rooms
+            .Include(Room => Room.Beds)
+            .ThenInclude(beds => (beds as Bed)
+            .Patient).ToListAsync();
         }
 
         // GET: api/Room/5
