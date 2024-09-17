@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from '../../pages/home/components/home.component';
@@ -25,6 +26,7 @@ import { PatientModule } from '../patient.module/patient.module';
     RouterLink,
     RouterLinkActive,
     RouterOutlet
-  ]
+  ],
+  providers: [provideHttpClient()]
 })
 export class HomeModule { }

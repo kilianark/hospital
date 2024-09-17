@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { countries } from '../../store/country-data.store';
 import { Country } from '../../interfaces/country.interface';
 import { PatientInterface } from '../../interfaces/patient.interface';
+import { PatientService } from '../../services/patient.service';
 
 
 @Component({
@@ -19,31 +20,12 @@ export class RecordComponent {
   public countries: Country[] = countries;
   patientForm: FormGroup;
 
-  patient: PatientInterface = {
-
-    id: 0,
-    name: "Juan",
-    surname1: "Martínez",
-    surname2: "López",
-    gender: "man",
-    birthdate: new Date("1970-09-12"),
-    age: 54,
-    country: countries[0].name,
-    address: "C. Fluvià 65, 4, 08002, Barcelona",
-    dni: "00000000B",
-    cip: "LOMA 00000002",
-    email: "julo90@gmail.com",
-    phone: "999999999",
-
-    patient_code: 123456,
-    emergencyContact: "999999999",
-    status:""
-  }
+  patient: PatientInterface;
 
   camps: string[] = ['dni', 'cip', 'name', 'birth', 'surname1', 'surname2', 'phone', 'email', 'country',
                     'emergencyContact', 'gender', 'address'] 
   
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
     this.patientForm = this.formBuilder.group({
       
       name: [this.patient.name, [Validators.required]],
@@ -62,6 +44,8 @@ export class RecordComponent {
       emergencyContact: [this.patient.emergencyContact, [Validators.pattern(/^\d{9}$/)]],
       
     });
+
+    
 
     this.patientForm.get('patientCode')?.disable();
     for (const value of this.camps) {
