@@ -1,10 +1,10 @@
 namespace hospitalDTO.DTOapi {
     public class PatientDTO {
         public required int PatientCode {get; set;}
-        public required string Dni { get; set; }
         public required string Name { get; set; }
         public required string Surname1 { get; set; }
         public string? Surname2 { get; set; }
+        public required string Dni { get; set; }
         public required int Age { get; set; }
         public required DateOnly BirthDate { get; set; }
         public required string Country { get; set; } // caldra afegir també en els DTO, API, Controladors, etc
