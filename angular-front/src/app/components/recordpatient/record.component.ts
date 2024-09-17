@@ -28,7 +28,7 @@ export class RecordComponent {
     gender: "man",
     birthdate: new Date("1970-09-12"),
     age: 54,
-    country: countries[208].name,
+    country: countries[0].name,
     address: "C. Fluvià 65, 4, 08002, Barcelona",
     dni: "00000000B",
     cip: "LOMA 00000002",
