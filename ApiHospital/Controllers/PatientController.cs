@@ -78,7 +78,7 @@ namespace ApiHospital.Controllers
 
             if (!string.IsNullOrEmpty(Phone))
             {
-            query = query.Where(p => p.Phone.Contains(Phone));
+                query = query.Where(p => p.Phone.Contains(Phone));
             }
 
             if (!string.IsNullOrEmpty(Email))
