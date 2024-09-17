@@ -30,14 +30,14 @@ namespace ApiHospital.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bed>>> GetBeds()
         {
-            return await _context.Beds.Include(bed => bed.Patient).ToListAsync();
+            return await _context.Beds.ToListAsync();
         }
 
         // GET: api/Bed/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bed>> GetBed(int id)
         {
-            var bed = await _context.Beds.Include(bed => bed.Patient).Where(bed => bed.Id == id).FirstOrDefaultAsync();
+            var bed = await _context.Beds.FindAsync(id);
 
             if (bed == null)
             {
