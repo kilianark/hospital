@@ -61,44 +61,9 @@ namespace ApiHospital.Controllers
                 query = query.Where(p => p.Dni.Contains(Dni));
             }
 
-            if (Age.HasValue)
-            {
-                query = query.Where(p => p.Age == Age.Value);
-            }
-
-            if (BirthDate.HasValue)
-            {
-                query = query.Where(p => p.BirthDate == BirthDate.Value);
-            }
-
-            if (!string.IsNullOrEmpty(Country))
-            {
-                query = query.Where(p => p.Country.Contains(Country));
-            }
-
-            if (!string.IsNullOrEmpty(Address))    
-            {
-                query = query.Where(p => p.Address.Contains(Address));
-            }
-
             if (!string.IsNullOrEmpty(Phone))
             {
                 query = query.Where(p => p.Phone.Contains(Phone));
-            }
-
-            if (!string.IsNullOrEmpty(Email))
-            {
-                query = query.Where(p => p.Email.Contains(Email));
-            }
-
-            if (!string.IsNullOrEmpty(Gender))
-            {
-                query = query.Where(p => p.Gender.Contains(Gender));
-            }
-
-            if (!string.IsNullOrEmpty(EmergencyContact))
-            {
-                query = query.Where(p => p.EmergencyContact.Contains(EmergencyContact));
             }
 
             if (!string.IsNullOrEmpty(Status))
@@ -110,12 +75,7 @@ namespace ApiHospital.Controllers
             {
                 query = query.Where(p => p.BedId == BedId.Value);
             }
-            
-            if (!string.IsNullOrEmpty(Reason))
-            {
-                query = query.Where(p => p.Reason.Contains(Reason));
-            }
-
+        
             return await _context.Patients.ToListAsync();
         }
 
