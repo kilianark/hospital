@@ -18,6 +18,6 @@ export interface PatientInterface{
     emergencyContact?: string;
     status: string;
     reason?: string;
-    bed_id?: number; //de momento para acepta "-".
+    bedId?: number;
    
 }
