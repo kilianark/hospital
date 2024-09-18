@@ -26,9 +26,11 @@ namespace ApiHospital.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-            modelBuilder.Entity<Bed>()
-                .HasOne<Patient>()
-                .WithOne();
+            modelBuilder.Entity<Patient>()
+                .HasOne(p => p.Bed)
+                .WithMany()
+                .HasForeignKey(p => p.BedId)
+                .IsRequired(false);
 
             modelBuilder.Entity<Room>()
                 .HasMany(e => e.Beds)
