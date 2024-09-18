@@ -45,7 +45,7 @@ export class RecordComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       
       patientCode: [''],
-      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
+      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]]
       
     });
 
@@ -76,6 +76,7 @@ export class RecordComponent implements OnInit {
         
         patientCode: this.patient[0].patientCode,
         emergencyContact:this.patient[0].emergencyContact
+        
       });
     })
   }
