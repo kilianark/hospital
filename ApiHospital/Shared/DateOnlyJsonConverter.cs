@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ApiHospital.Shared{
     public class DateOnlyJsonConverter : JsonConverter<DateOnly> {
-        private const string Format = "yyyy-MM-dd";
+        private const string Format = "yyyy-mm-dd";
 
         public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

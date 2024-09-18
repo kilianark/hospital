@@ -57,7 +57,7 @@ export class RecordComponent implements OnInit {
     this.patientService.getPatientData().subscribe(data => {
       this.patient = data.map(patient => ({
         ...patient,
-        birthdate: new Date(patient.birthdate)
+        birthdate: new Date("1999-10-10")
       }));
       console.log(this.patient[0].birthdate);
 
