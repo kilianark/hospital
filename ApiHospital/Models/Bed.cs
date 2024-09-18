@@ -7,6 +7,6 @@ namespace ApiHospital.Models
         [Key]
         public required int Id { get; set; }
         public required int RoomId { get; set; }
-        public required bool Availability { get; set; } //si
+        public required bool Availability { get; set; }
     }
 }

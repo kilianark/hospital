@@ -4,5 +4,5 @@ public class Patient: Person{
     public string? EmergencyContact {get; set;}
     public required string Status { get; set; }
     public string? Reason { get; set; }
-    public int? BedId { get; set; } //si
+    public int? BedId { get; set; }
 }
