@@ -20,7 +20,26 @@ export class RecordComponent {
   public countries: Country[] = countries;
   patientForm: FormGroup;
 
-  patient: PatientInterface;
+  patient: PatientInterface = {
+
+    id: 0,
+    name: "Juan",
+    surname1: "Martínez",
+    surname2: "López",
+    gender: "man",
+    birthdate: new Date("1970-09-12"),
+    age: 54,
+    country: countries[0].name,
+    address: "C. Fluvià 65, 4, 08002, Barcelona",
+    dni: "00000000B",
+    cip: "LOMA 00000002",
+    email: "julo90@gmail.com",
+    phone: "999999999",
+
+    patient_code: 123456,
+    emergencyContact: "999999999",
+    status:""
+  }
 
   camps: string[] = ['dni', 'cip', 'name', 'birth', 'surname1', 'surname2', 'phone', 'email', 'country',
                     'emergencyContact', 'gender', 'address'] 
@@ -44,8 +63,6 @@ export class RecordComponent {
       emergencyContact: [this.patient.emergencyContact, [Validators.pattern(/^\d{9}$/)]],
       
     });
-
-    
 
     this.patientForm.get('patientCode')?.disable();
     for (const value of this.camps) {
