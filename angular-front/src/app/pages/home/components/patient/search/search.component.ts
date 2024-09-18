@@ -29,16 +29,21 @@ export class SearchPatientComponent implements OnInit {
 
 
 
-  openDialog() {
-    this.dialog.open(RecordComponent, {
+  openDialog(patientCode: number) {
+    let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog'
+      
     });
+
+    this.patientService.getPatientData(patientCode).subscribe(data => {
+      popupRef.componentInstance.patient = data;
+    })
   }
 
-  goToManage(patientCode: number) {
-    this.router.navigate(['/home/patient/manage', { patientCode }]);
+  goToManage(patientId: number) {
+    this.router.navigate(['/home/patient/manage', { id: patientId }]);
   }
 }
