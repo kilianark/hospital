@@ -51,16 +51,16 @@
                 <th>Ficha</th>
             </thead>
             <tbody>
-                <tr *ngFor="let patient of patient" (click)="goToManage(patient.patient_code)" class="clickable-row">
-                    <td>{{patient.patient_code}}</td>
+                <tr *ngFor="let patient of patient" (click)="goToManage(patient.patientCode)" class="clickable-row">
+                    <td>{{patient.patientCode}}</td>
                     <td>{{patient.name}}</td>
                     <td>{{patient.surname1}}</td>
                     <td>{{patient.surname2}}</td>
                     <td>{{patient.phone}}</td>
                     <td>{{patient.age}}</td>
                     <td>{{patient.status}}</td>
-                    <td>{{patient.bed_id}}</td>
-                    <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog(patient.patient_code)">Abrir</button></td>
+                    <td>{{patient.bedId}}</td>
+                    <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog(patient.surname1)">Abrir</button></td>
                   </tr>
               
             </tbody>

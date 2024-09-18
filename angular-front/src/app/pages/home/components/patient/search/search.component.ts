@@ -24,23 +24,22 @@ export class SearchPatientComponent implements OnInit {
   ngOnInit(): void {
     this.patientService.getPatientData().subscribe(data => {
       this.patient = data;
+      console.log(this.patient);
     })
   }
 
 
 
-  openDialog(patientCode: number) {
+  openDialog(surname1: string) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog'
       
+      
     });
-
-    this.patientService.getPatientData(patientCode).subscribe(data => {
-      popupRef.componentInstance.patient = data;
-    })
+    popupRef.componentInstance.patientSurname = surname1;
   }
 
   goToManage(patientId: number) {

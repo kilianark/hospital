@@ -28,8 +28,9 @@ namespace ApiHospital.Data
         {
             modelBuilder.Entity<Bed>()
                 .HasOne<Patient>()
-                .WithOne();
-//si
+                .WithOne()
+                .HasForeignKey<Patient>(p => p.BedId);
+
             modelBuilder.Entity<Room>()
                 .HasMany(e => e.Beds)
                 .WithOne()
