@@ -60,7 +60,7 @@
                     <td>{{patient.age}}</td>
                     <td>{{patient.status}}</td>
                     <td>{{patient.bed_id}}</td>
-                    <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog()">Abrir</button></td>
+                    <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog(patient.patient_code)">Abrir</button></td>
                   </tr>
               
             </tbody>

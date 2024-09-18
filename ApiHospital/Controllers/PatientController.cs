@@ -32,7 +32,7 @@ namespace ApiHospital.Controllers
         // GET: api/Patient
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatients
-        ([FromQuery] int? PatientCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] int? Age = null, [FromQuery] DateOnly? BirthDate = null, [FromQuery] string? Country = null, [FromQuery] string? Address = null, [FromQuery] string? Phone = null, [FromQuery] string? Email = null, [FromQuery] string? Gender = null, [FromQuery] string? EmergencyContact = null, [FromQuery] string? Status = null, [FromQuery] string? Reason = null, [FromQuery] int? BedId = null )
+        ([FromQuery] int? PatientCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] string? Phone = null, [FromQuery] string? Status = null, [FromQuery] int? BedId = null )
         {
             IQueryable <Patient> query = _context.Patients;
 
