@@ -27,67 +27,71 @@
                     </select>
                 </div>
             -->
+                
             <div class="table-wrapper" *ngIf="showSelectRoom">
+                
+                <hr size="3px" color="black" style="margin-left: -4%;">
                 <div class="selectControl">
                     <label for="assignRoom">Asignar habitación: </label>
                     <input id="assignRoom" type="text" placeholder="00201" readonly>
                     <button type="button" (click)="showfakepopup()">SELECCIONAR</button>
                 </div>
-                <div>
-                    <form class="roomselect" *ngIf="fakepopup">
-                        <div class="container">
-                            <h5>Buscar habitación</h5>
-                            <label for="area">Seleccionar área: </label>
-                            <select id="area" name="area" [(ngModel)]="selectedAreaType" (ngModelChange)="onAreaChange($event)">
-                                <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
-                                    {{ area.label }}
-                                </option>
-                            </select>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Núm.</th>
-                                        <th>Tipo</th>
-                                        <th>Planta</th>
-                                        <th>Área</th>
-                                        <th>Capacidad</th>
-                                        <th>Disponibilidad</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>101</td>
-                                        <td>Box</td>
-                                        <td class="tbcen">1</td>
-                                        <td>Urgencias</td>
-                                        <td class="tbcen">1</td>
-                                        <td class="tbcen">1</td>
-                                        <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>102</td>
-                                        <td>Box</td>
-                                        <td class="tbcen">1</td>
-                                        <td>Urgencias</td>
-                                        <td class="tbcen">2</td>
-                                        <td class="tbcen">1</td>
-                                        <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>103</td>
-                                        <td>Box</td>
-                                        <td class="tbcen">1</td>
-                                        <td>Urgencias</td>
-                                        <td class="tbcen">2</td>
-                                        <td class="tbcen">2</td>
-                                        <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>       
-                    </form>
-                </div>
+
+            <div>
+                <form class="roomselect" *ngIf="fakepopup">
+                    <div class="container">
+                        <h5>Buscar habitación</h5>
+                        <label for="area">Seleccionar área: </label>
+                        <select id="area" name="area" [(ngModel)]="selectedAreaType" (ngModelChange)="onAreaChange($event)">
+                            <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
+                                {{ area.label }}
+                            </option>
+                        </select>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Núm.</th>
+                                    <th>Tipo</th>
+                                    <th>Planta</th>
+                                    <th>Área</th>
+                                    <th>Capacidad</th>
+                                    <th>Disponibilidad</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>101</td>
+                                    <td>Box</td>
+                                    <td class="tbcen">1</td>
+                                    <td>Urgencias</td>
+                                    <td class="tbcen">1</td>
+                                    <td class="tbcen">1</td>
+                                    <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
+                                </tr>
+                                <tr>
+                                    <td>102</td>
+                                    <td>Box</td>
+                                    <td class="tbcen">1</td>
+                                    <td>Urgencias</td>
+                                    <td class="tbcen">2</td>
+                                    <td class="tbcen">1</td>
+                                    <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
+                                </tr>
+                                <tr>
+                                    <td>103</td>
+                                    <td>Box</td>
+                                    <td class="tbcen">1</td>
+                                    <td>Urgencias</td>
+                                    <td class="tbcen">2</td>
+                                    <td class="tbcen">2</td>
+                                    <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>       
+                </form>
+            </div>
             </div>
             <input class="submit" type="submit" value="Guardar Estat"/>
         </form>

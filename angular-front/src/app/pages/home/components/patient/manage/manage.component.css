@@ -24,7 +24,6 @@ input {
 .table-wrapper{
     width: 83vw;
     /*overflow: auto;*/
-    border-top: solid black;
     margin-top: 10px;
     padding-top: 10px;
     margin-bottom: -10px;
