@@ -8,6 +8,5 @@ namespace ApiHospital.Models
         public required int Id { get; set; }
         public required int RoomId { get; set; }
         public required bool Availability { get; set; }
-        public Patient? Patient { get; set; }
     }
 }

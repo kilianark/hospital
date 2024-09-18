@@ -24,8 +24,85 @@ namespace ApiHospital.Controllers
 
         // GET: api/Doctors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor()
+        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor([FromQuery] int? DoctorCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] int? Age = null, [FromQuery]  DateOnly? BirthDate = null, [FromQuery] string? Country = null, [FromQuery] string? Address = null, [FromQuery] string? Phone = null, [FromQuery]  string? Email = null, [FromQuery] string? CIP = null, [FromQuery] string? Gender = null, [FromQuery] string? User = null, [FromQuery] string? WorkerType = null, [FromQuery] string? Speciality = null)
         {
+            IQueryable <Doctor> query = _context.Doctors;
+
+            if (DoctorCode.HasValue)
+            {
+                query = query.Where(d => d.DoctorCode == DoctorCode.Value);
+            }
+
+            if (!string.IsNullOrEmpty(Name))    
+            {
+                query = query.Where(d => d.Name.Contains(Name));
+            }
+
+            if (!string.IsNullOrEmpty(Surname1))    
+            {
+                query = query.Where(d => d.Surname1.Contains(Surname1));
+            }
+
+            if (!string.IsNullOrEmpty(Surname2))    
+            {
+                query = query.Where(d => d.Surname1.Contains(Surname2));
+            }
+
+            if (!string.IsNullOrEmpty(Dni))    
+            {
+                query = query.Where(d => d.Dni.Contains(Dni));
+            }
+
+            if (Age.HasValue)
+            {
+                query = query.Where(d => d.Age == Age.Value);
+            }
+
+            if (BirthDate.HasValue)
+            {
+                query = query.Where(d => d.BirthDate == BirthDate.Value);
+            }
+
+            if (!string.IsNullOrEmpty(Country))
+            {
+                query = query.Where(d => d.Country.Contains(Country));
+            }
+
+            if (!string.IsNullOrEmpty(Address))
+            {
+                query = query.Where(d => d.Address.Contains(Address));
+            }
+
+            if (!string.IsNullOrEmpty(Phone))
+            {
+                query = query.Where(d => d.Phone.Contains(Phone));
+            }
+
+            if (!string.IsNullOrEmpty(Email))
+            {
+                query = query.Where(d => d.Email.Contains(Email));
+            }
+
+            if (!string.IsNullOrEmpty(Gender))
+            {
+                query = query.Where(d => d.Gender.Contains(Gender));
+            }
+
+            if (!string.IsNullOrEmpty(User))
+            {
+                query = query.Where(d => d.User.Contains(User));
+            }
+
+            if (!string.IsNullOrEmpty(WorkerType))
+            {
+                query = query.Where(d => d.WorkerType.Contains(WorkerType));
+            }
+
+            if (!string.IsNullOrEmpty(Speciality))
+            {
+                query = query.Where(d => d.Speciality.Contains(Speciality));
+            }
+
             return await _context.Doctors.ToListAsync();
         }
 

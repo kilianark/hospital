@@ -29,9 +29,41 @@ namespace ApiHospital.Controllers
 
         // GET: api/Room
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms([FromQuery] int? RoomNumber = null, [FromQuery] int? Capacity = null, [FromQuery] string? RoomType = null, [FromQuery] string? Area = null, [FromQuery] int? Floor = null, [FromQuery] bool? Availability = null)
         {
-            return await _context.Rooms.Include(Room => Room.Beds).ThenInclude(beds => (beds as Bed).Patient).ToListAsync();
+            IQueryable<Room> query = _context.Rooms.Include(room => room.Beds);
+
+            if (RoomNumber.HasValue)
+            {
+                query = query.Where(r => r.RoomNumber == RoomNumber.Value);
+            }
+
+            if (Capacity.HasValue)
+            {
+                query = query.Where(r => r.Capacity == Capacity.Value);
+            }
+
+            if (!string.IsNullOrEmpty(RoomType))
+            {
+                query = query.Where(r => r.RoomType.Contains(RoomType));
+            }
+
+            if (!string.IsNullOrEmpty(Area))
+            {
+                query = query.Where(r => r.Area.Contains(Area));
+            }
+
+            if (Floor.HasValue)
+            {
+                query = query.Where(r => r.Floor == Floor.Value);
+            }
+
+            if (Availability.HasValue)
+            {
+                query = query.Where(r => r.Availability == Availability.Value);
+            }
+
+            return await query.ToListAsync();        
         }
 
         // GET: api/Room/5
