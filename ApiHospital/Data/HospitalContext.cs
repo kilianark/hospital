@@ -29,7 +29,7 @@ namespace ApiHospital.Data
             modelBuilder.Entity<Bed>()
                 .HasOne<Patient>()
                 .WithOne();
-
+//si
             modelBuilder.Entity<Room>()
                 .HasMany(e => e.Beds)
                 .WithOne()
