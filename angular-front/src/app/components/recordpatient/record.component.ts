@@ -55,18 +55,19 @@ export class RecordComponent implements OnInit {
     }
 
     this.patientService.getPatientData().subscribe(data => {
+      console.log(data);
       this.patient = data.map(patient => ({
         ...patient,
-        birthdate: new Date("1999-10-10")
+        birthDate: new Date(patient.birthDate) 
       }));
-      console.log(this.patient[0].birthdate);
+      
 
       this.patientForm.patchValue({
         name: this.patient[0].name,
         surname1: this.patient[0].surname1,
         surname2: this.patient[0].surname2,
         gender: this.patient[0].gender,
-        birth: this.patient[0].birthdate.toISOString().split('T')[0],
+        birth: this.patient[0].birthDate.toISOString().split('T')[0],
         country: this.patient[0].country,
         address: this.patient[0].address,
         dni: this.patient[0].dni,
