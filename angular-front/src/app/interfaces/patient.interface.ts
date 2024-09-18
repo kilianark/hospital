@@ -14,7 +14,7 @@ export interface PatientInterface{
     email?: string;
     phone: string;
 
-    patient_code: number;
+    patientCode: number;
     emergencyContact?: string;
     status: string;
     reason?: string;
