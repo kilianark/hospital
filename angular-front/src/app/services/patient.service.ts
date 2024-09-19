@@ -25,10 +25,10 @@ export class PatientService {
 
   getPatientData (patientCode?: number, Surname1?: string): Observable<PatientInterface[]> {
     let params = new HttpParams();
-    if (patientCode != null) {
+    if (patientCode != null && patientCode != 0) {
       params = params.set('patientCode', patientCode);
     }
-    if (Surname1 != null && Surname1 != undefined && Surname1.trim() == '') {
+    if (Surname1 != null && Surname1 != undefined && Surname1.trim() !== "") {
       params = params.set('Surname1', Surname1);
     }
     return this.http.get<PatientInterface[]>(this.url, {params});
