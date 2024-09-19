@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -19,7 +18,6 @@ import { PatientModule } from '../patient.module/patient.module';
     SearchRoomComponent
   ],
   imports: [
-    BrowserModule,
     CommonModule,
     HomeRoutingModule,
     FormsModule,
