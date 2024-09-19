@@ -7,6 +7,8 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
 
 import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
+import { PatientInterface } from '../../../../../interfaces/patient.interface';
+import { PatientService } from '../../../../../services/patient.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +16,24 @@ import { Country } from '../../../../../interfaces/country.interface';
 @Component({
   selector: 'app-create-patient',
   templateUrl: './create.component.html',
-  styleUrl: './create.component.css'
+  styleUrls: ['./create.component.css']
 })
 export class CreatePatientComponent {
   patientForm: FormGroup;
-  constructor(private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  public countries: Country[] = countries;
+
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private patientService: PatientService // Inyectar el servicio
+  ) {
     this.patientForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
       dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
       cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      
       birth: ['', [Validators.required]],
-      
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
@@ -35,14 +42,29 @@ export class CreatePatientComponent {
     });
   }
 
-  public countries: Country[] = countries;
-
   onSubmit() {
-    if(this.patientForm.invalid) return;
+    if (this.patientForm.invalid) return;
 
-    console.log('Pacient registrat:', this.patientForm.value);
-    this.confirm();
-    this.router.navigate(['/home']);
+    const patientData: PatientInterface = {
+      ...this.patientForm.value,
+      id: 0, // El id será generado por el servicio
+      patientCode: 0, // El código será generado por el servicio
+      status: null, // El servicio se encargará de esto
+      reason: '',
+      bedId: null,
+      address: ''
+    };
+
+    this.patientService.postPatientData(patientData).subscribe(
+      (response) => {
+        console.log('Paciente registrado:', response);
+        this.confirm();
+        this.router.navigate(['/home']); //que envíe al manage de este paciente
+      },
+      (error) => {
+        console.error('Error al registrar el paciente:', error);
+      }
+    );
   }
 
   confirm() {
