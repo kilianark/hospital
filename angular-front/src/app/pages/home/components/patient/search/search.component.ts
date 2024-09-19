@@ -9,35 +9,37 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-search-patient',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchPatientComponent implements OnInit {
   title = 'Búsqueda Pacientes:';
 
-  patient: PatientInterface[] = [
-  ];
+  patient: PatientInterface[] = [];
 
   patientForm: FormGroup;
 
-  patientCode: string = ""; //comprovar que se puede convertir en numero
-  name: string = "";
-  surname1: string = "";
-  surname2: string = "";
-  dni: string = "";
-  cip: string = "";
-  phone: string = "";
- 
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private patientService: PatientService) {
+  patientCode: string = ''; //comprovar que se puede convertir en numero
+  name: string = '';
+  surname1: string = '';
+  surname2: string = '';
+  dni: string = '';
+  cip: string = '';
+  phone: string = '';
+
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private router: Router,
+    private patientService: PatientService
+  ) {
     this.patientForm = this.formBuilder.group({
-      
       patientCode: [this.patientCode],
       name: [this.name],
       surname1: [this.surname1],
       surname2: [this.surname2],
       dni: [this.dni],
       cip: [this.cip],
-      phone: [this.phone]
-      
+      phone: [this.phone],
     });
     this.patientForm.get('patientCode')?.valueChanges.subscribe(value => {
       this.patientCode = value;
@@ -48,9 +50,9 @@ export class SearchPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.patientService.getPatientData().subscribe(data => {
+    this.patientService.getPatientData().subscribe((data) => {
       this.patient = data;
-    })
+    });
   }
 
   openDialog(patientCode: number) {
@@ -59,7 +61,7 @@ export class SearchPatientComponent implements OnInit {
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode
+      data: patientCode,
     });
   }
 
@@ -68,9 +70,13 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.surname1);
-    this.patientService.getPatientData(Number(this.patientCode), this.surname1).subscribe(data => {
+    this.patientService.getPatientData(1).subscribe((data) => {
       this.patient = data;
+      console.log(data);
     });
+  }
+  isVisible: boolean = false;
+  toggleDisplay() {
+    this.isVisible = true;
   }
 }

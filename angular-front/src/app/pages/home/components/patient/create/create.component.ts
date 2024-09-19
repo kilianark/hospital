@@ -10,6 +10,8 @@ import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,21 +51,21 @@ export class CreatePatientComponent {
 
     const patientData: PatientInterface = {
       ...this.patientForm.value,
-      //birth: this.patientForm.birth,
-      patientCode: 0, // cont ----
-      status: 'inactivo', //por defecto
+      //AGE se calculará en la BBDD
+      patientCode: 0, //incrementación en BBDD
+      status: 'Inactivo', //por defecto
       reason: '',
       bedId: null,
-
     };
 
     console.log(patientData.birthDate)
 
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
+        
         console.log('Paciente registrado:', response);
         this.confirm();
-        this.router.navigate(['/home']); //que envíe al manage de este paciente
+        this.router.navigate(['/home/patient/manage', {id : patientData.id}]); //que envíe al manage de este paciente
       },
       (error) => {
         console.error('Error al registrar el paciente:', error);

@@ -9,19 +9,10 @@ import { PatientInterface } from '../interfaces/patient.interface';
 export class PatientService {
   private url = "https://localhost:7138/api/Patients"
 
-  //temporal hasta que se incremente desde bbdd
-  lastId: number = 0;
-  lastPatientCode: number = 0;
 
   constructor(private http: HttpClient) { }
 
-  //temporal hasta que se incremente desde bbdd
-  generateNextId(): number {
-    return ++this.lastId;
-  }
-  generateNextPatientCode(): number {
-    return ++this.lastPatientCode;
-  }
+
 
   getPatientData (patientCode?: number, Surname1?: string): Observable<PatientInterface[]> {
     let params = new HttpParams();
@@ -34,12 +25,11 @@ export class PatientService {
     return this.http.get<PatientInterface[]>(this.url, {params});
   }
 
-  postPatientData (patient: PatientInterface): Observable<PatientInterface[]> {
-    
-    //temporal hasta que esté conectado a bbdd
-    patient.id = this.generateNextId();
-    patient.patientCode = this.generateNextPatientCode();
+  getPatientById (patientId: number): Observable<PatientInterface>{  
+    return this.http.get<PatientInterface>(this.url + '/' + patientId);
+  }
 
+  postPatientData (patient: PatientInterface): Observable<PatientInterface[]> {
     return this.http.post<PatientInterface[]>(this.url, patient);
   }
 

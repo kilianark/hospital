@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+<<<<<<< HEAD
+    "@ngx-translate/core": "^15.0.0"
+=======
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0"
+>>>>>>> bb271e4 (pipe of ambulatoryArea)
+  }
+}
