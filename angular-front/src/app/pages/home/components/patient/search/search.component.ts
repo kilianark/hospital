@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-patient',
@@ -15,16 +16,28 @@ export class SearchPatientComponent implements OnInit {
 
   patient: PatientInterface[] = [
   ];
+
+  patientForm: FormGroup;
  
-  constructor(public dialog: MatDialog, private router: Router, private patientService: PatientService) {}
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private patientService: PatientService) {
+    this.patientForm = this.formBuilder.group({
+      
+      name: [''],
+      surname1: [''],
+      surname2: [''],
+      dni: [''],
+      cip: [''],
+      phone: [''],
+      patientCode: ['']
+      
+    });
+  }
 
   ngOnInit(): void {
     this.patientService.getPatientData().subscribe(data => {
       this.patient = data;
     })
   }
-
-
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -33,8 +46,6 @@ export class SearchPatientComponent implements OnInit {
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
       data: patientCode
-      
-      
     });
   }
 
@@ -45,7 +56,6 @@ export class SearchPatientComponent implements OnInit {
   onSubmit() {
     this.patientService.getPatientData(1).subscribe(data => {
       this.patient = data;
-      console.log(data);
     })
   }
 }
