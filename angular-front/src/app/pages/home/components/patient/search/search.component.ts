@@ -72,4 +72,8 @@ export class SearchPatientComponent implements OnInit {
       console.log(data);
     });
   }
+  isVisible: boolean = false;
+  toggleDisplay() {
+    this.isVisible = true;
+  }
 }
