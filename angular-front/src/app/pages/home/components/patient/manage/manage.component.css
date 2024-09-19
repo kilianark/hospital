@@ -11,6 +11,7 @@ legend {
     white-space: pre-line;
     font-weight: bold;
     padding-bottom: 2%;
+    margin-bottom: 20px;
 }
 form {
     padding-top: 3%;
@@ -23,9 +24,10 @@ input {
 }
 .table-wrapper{
     width: 83vw;
-    /*overflow: auto;*/
-    margin-top: 10px;
+    /*overflow: auto;
     padding-top: 10px;
+    */
+    margin-top: 10px;
     margin-bottom: -10px;
 }
 .table-wrapper input[readonly] {
@@ -52,12 +54,14 @@ button:hover{
     background-color:cadetblue;
 }
 
-.control {
+.control, .selctArea {
     display: grid;
     grid-template-columns: 10vw 20vw;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
-
+.selectControl {
+    padding-left: 0%;
+}
 .container {
     width: 80%;
     margin: 20px auto;
@@ -110,6 +114,6 @@ tr:nth-child(even) {
     margin-top: -20px;
     margin-bottom: 10px;
 }
-.selectControl {
-    margin-bottom: 0px;
+.roomselect {
+    margin-left: -70px;
 }

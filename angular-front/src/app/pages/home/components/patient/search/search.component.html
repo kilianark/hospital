@@ -34,7 +34,7 @@
                 </div>
             </fieldset>
         </div>
-        <button type="submit" (click)="toggleDisplay()">Buscar</button>
+        <button type="submit">Buscar</button>
     </form>
     <br>
     <div [style.display]="isVisible ? 'block' : 'none'" *ngIf="patient.length <= 0">
@@ -65,7 +65,7 @@
                     <td>{{patient.age}}</td>
                     <td>{{patient.status}}</td>
                     <td>{{patient.bedId}}</td>
-                    <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog(patient.surname1)">Abrir</button></td>
+                    <td (click)="$event.stopPropagation()"><button mat-button (click)="openDialog(patient.patientCode)">Abrir</button></td>
                   </tr>
               
             </tbody>

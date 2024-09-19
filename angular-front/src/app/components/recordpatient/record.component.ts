@@ -1,6 +1,7 @@
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { countries } from '../../store/country-data.store';
 import { Country } from '../../interfaces/country.interface';
@@ -28,7 +29,7 @@ export class RecordComponent implements OnInit {
   camps: string[] = ['dni', 'cip', 'name', 'birth', 'surname1', 'surname2', 'phone', 'email', 'country',
                     'emergencyContact', 'gender', 'address', 'patientCode'] 
   
-  constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: number, private formBuilder: FormBuilder, private patientService: PatientService) {
 
     this.patientForm = this.formBuilder.group({
       
@@ -54,7 +55,7 @@ export class RecordComponent implements OnInit {
       this.patientForm.get(value)?.disable();
     }
 
-    this.patientService.getPatientData().subscribe(data => {
+    this.patientService.getPatientData(data).subscribe(data => {
       this.patient = data.map(patient => ({
         ...patient,
         birthDate: new Date(patient.birthDate) 

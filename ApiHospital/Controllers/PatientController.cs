@@ -36,47 +36,23 @@ namespace ApiHospital.Controllers
         {
             IQueryable <Patient> query = _context.Patients;
 
-            if (PatientCode.HasValue)
-            {
-                query = query.Where(p => p.PatientCode == PatientCode.Value);
-            }
+            if (PatientCode.HasValue) query = query.Where(p => p.PatientCode == PatientCode.Value);
 
-            if (!string.IsNullOrEmpty(Name))    
-            {
-                query = query.Where(p => p.Name.Contains(Name));
-            }
+            if (!string.IsNullOrEmpty(Name)) query = query.Where(p => p.Name.Contains(Name));
 
-            if (!string.IsNullOrEmpty(Surname1))    
-            {
-                query = query.Where(p => p.Surname1.Contains(Surname1));
-            }
+            if (!string.IsNullOrEmpty(Surname1)) query = query.Where(p => p.Surname1.Contains(Surname1));
 
-            if (!string.IsNullOrEmpty(Surname2))    
-            {
-                query = query.Where(p => p.Surname1.Contains(Surname2));
-            }
+            if (!string.IsNullOrEmpty(Surname2)) query = query.Where(p => p.Surname1.Contains(Surname2));
 
-            if (!string.IsNullOrEmpty(Dni))    
-            {
-                query = query.Where(p => p.Dni.Contains(Dni));
-            }
+            if (!string.IsNullOrEmpty(Dni)) query = query.Where(p => p.Dni.Contains(Dni));
 
-            if (!string.IsNullOrEmpty(Phone))
-            {
-                query = query.Where(p => p.Phone.Contains(Phone));
-            }
+            if (!string.IsNullOrEmpty(Phone)) query = query.Where(p => p.Phone.Contains(Phone));
 
-            if (!string.IsNullOrEmpty(Status))
-            {
-                query = query.Where(p => p.Status.Contains(Status));
-            }
+            if (!string.IsNullOrEmpty(Status)) query = query.Where(p => p.Status.Contains(Status));
 
-            if (BedId.HasValue)
-            {
-                query = query.Where(p => p.BedId == BedId.Value);
-            }
+            if (BedId.HasValue) query = query.Where(p => p.BedId == BedId.Value);
         
-            return await _context.Patients.ToListAsync();
+            return await query.ToListAsync();
         }
 
         // GET: api/Patient/5
