@@ -26,16 +26,16 @@ export class SearchPatientComponent implements OnInit {
 
 
 
-  openDialog(surname1: string) {
+  openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
-      panelClass: 'full-width-dialog'
+      panelClass: 'full-width-dialog',
+      data: patientCode
       
       
     });
-    popupRef.componentInstance.patientSurname = surname1;
   }
 
   goToManage(patientId: number) {

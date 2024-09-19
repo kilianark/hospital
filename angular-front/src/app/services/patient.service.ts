@@ -11,7 +11,7 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
-  getPatientData (Surname1?: string, patientCode?: number): Observable<PatientInterface[]> {
+  getPatientData (patientCode?: number, Surname1?: string): Observable<PatientInterface[]> {
     let params = new HttpParams();
     if (patientCode != null) {
       params = params.set('patientCode', patientCode);
