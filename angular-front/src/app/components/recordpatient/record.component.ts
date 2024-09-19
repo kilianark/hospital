@@ -56,7 +56,6 @@ export class RecordComponent implements OnInit {
     }
 
     this.patientService.getPatientData().subscribe(data => {
-      console.log(data);
       this.patient = data.map(patient => ({
         ...patient,
         birthDate: new Date(patient.birthDate) 
