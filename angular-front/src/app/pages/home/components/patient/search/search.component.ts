@@ -45,4 +45,8 @@ export class SearchPatientComponent implements OnInit {
   goToManage(patientId: number) {
     this.router.navigate(['/home/patient/manage', { id: patientId }]);
   }
+  isVisible: boolean=false;
+  toggleDisplay(){
+    this.isVisible = true;
+  }
 }
