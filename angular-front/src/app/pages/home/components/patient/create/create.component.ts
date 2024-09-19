@@ -31,13 +31,15 @@ export class CreatePatientComponent {
     this.patientForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
+      surname2: [''],
       dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
       cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      birth: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
+      address: [''],
       gender: ['', [Validators.required]]
     });
   }
@@ -47,13 +49,15 @@ export class CreatePatientComponent {
 
     const patientData: PatientInterface = {
       ...this.patientForm.value,
-      id: 0, // El id será generado por el servicio
-      patientCode: 0, // El código será generado por el servicio
-      status: null, // El servicio se encargará de esto
+      //birth: this.patientForm.birth,
+      patientCode: 0, // cont ----
+      status: 'inactivo', //por defecto
       reason: '',
       bedId: null,
-      address: ''
+
     };
+
+    console.log(patientData.birthDate)
 
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {

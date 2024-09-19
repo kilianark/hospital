@@ -35,21 +35,11 @@
         </div>
       </fieldset>
     </div>
-    <button type="submit" (click)="toggleDisplay()">Buscar</button>
+    <button type="submit" (click)="onSubmit()">Buscar</button>
   </form>
   <br />
-  <div
-    [style.display]="isVisible ? 'block' : 'none'"
-    *ngIf="patient.length <= 0"
-  >
-    <legend style="margin-left: 3%">Paciente no encontrado</legend>
-  </div>
-  <div
-    class="table-wrapper"
-    [style.display]="isVisible ? 'block' : 'none'"
-    *ngIf="patient.length > 0"
-  >
-    <table style="display: none">
+  <div class="table-wrapper">
+    <table>
       <thead>
         <th>Código</th>
         <th>Nombre</th>

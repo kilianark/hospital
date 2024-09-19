@@ -35,10 +35,6 @@ export class PatientService {
   }
 
   postPatientData (patient: PatientInterface): Observable<PatientInterface[]> {
-
-    if (patient.status == null) {
-      patient.status == 'inactive';
-    }
     
     //temporal hasta que esté conectado a bbdd
     patient.id = this.generateNextId();

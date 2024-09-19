@@ -36,7 +36,7 @@ namespace ApiHospital.Controllers
         {
             IQueryable <Patient> query = _context.Patients;
 
-            if (PatientCode.HasValue) query = query.Where(p => p.PatientCode == PatientCode.Value);
+            if (PatientCode.HasValue && PatientCode != 0) query = query.Where(p => p.PatientCode == PatientCode.Value);
 
             if (!string.IsNullOrEmpty(Name)) query = query.Where(p => p.Name.Contains(Name));
 
