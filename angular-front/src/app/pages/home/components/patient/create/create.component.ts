@@ -34,7 +34,7 @@ export class CreatePatientComponent {
       surname2: [''],
       dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
       cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      birth: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
@@ -49,13 +49,15 @@ export class CreatePatientComponent {
 
     const patientData: PatientInterface = {
       ...this.patientForm.value,
-      birth: this.patientForm.birth,
+      //birth: this.patientForm.birth,
       patientCode: 0, // cont ----
       status: 'inactivo', //por defecto
       reason: '',
       bedId: null,
 
     };
+
+    console.log(patientData.birthDate)
 
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
