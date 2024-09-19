@@ -54,7 +54,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.patientService.getPatientData(1).subscribe(data => {
+    this.patientService.getPatientData(2).subscribe(data => {
       this.patient = data;
     })
   }
