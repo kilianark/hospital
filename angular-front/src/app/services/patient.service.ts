@@ -28,7 +28,7 @@ export class PatientService {
     if (patientCode != null) {
       params = params.set('patientCode', patientCode);
     }
-    if (Surname1 != null) {
+    if (Surname1 != null && Surname1 != undefined && Surname1.trim() == '') {
       params = params.set('Surname1', Surname1);
     }
     return this.http.get<PatientInterface[]>(this.url, {params});

@@ -39,6 +39,9 @@ export class SearchPatientComponent implements OnInit {
       phone: [this.phone]
       
     });
+    this.patientForm.get('patientCode')?.valueChanges.subscribe(value => {
+      this.patientCode = value;
+    });
     this.patientForm.get('surname1')?.valueChanges.subscribe(value => {
       this.surname1 = value;
     });
