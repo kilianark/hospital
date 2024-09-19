@@ -43,7 +43,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.patientService.getPatientData("si", 1).subscribe(data => {
+    this.patientService.getPatientData(1).subscribe(data => {
       this.patient = data;
       console.log(data);
     })
