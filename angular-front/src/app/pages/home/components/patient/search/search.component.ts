@@ -18,18 +18,29 @@ export class SearchPatientComponent implements OnInit {
   ];
 
   patientForm: FormGroup;
+
+  patientCode: string = ""; //comprovar que se puede convertir en numero
+  name: string = "";
+  surname1: string = "";
+  surname2: string = "";
+  dni: string = "";
+  cip: string = "";
+  phone: string = "";
  
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private patientService: PatientService) {
     this.patientForm = this.formBuilder.group({
       
-      name: [''],
-      surname1: [''],
-      surname2: [''],
-      dni: [''],
-      cip: [''],
-      phone: [''],
-      patientCode: ['']
+      patientCode: [this.patientCode],
+      name: [this.name],
+      surname1: [this.surname1],
+      surname2: [this.surname2],
+      dni: [this.dni],
+      cip: [this.cip],
+      phone: [this.phone]
       
+    });
+    this.patientForm.get('surname1')?.valueChanges.subscribe(value => {
+      this.surname1 = value;
     });
   }
 
@@ -54,8 +65,9 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.patientService.getPatientData(2).subscribe(data => {
+    console.log(this.surname1);
+    this.patientService.getPatientData(Number(this.patientCode), this.surname1).subscribe(data => {
       this.patient = data;
-    })
+    });
   }
 }

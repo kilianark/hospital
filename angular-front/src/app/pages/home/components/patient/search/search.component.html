@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="search.component.css"> <!-- uso mentres estilitzo component -->
 </head>
 <div class="content">
-    <form>
+    <form [formGroup]="patientForm">
         <legend>{{title}}</legend>
         <div class="credentials">
             <label for="patientID">Código:</label>
