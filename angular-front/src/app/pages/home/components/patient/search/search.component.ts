@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
-import { countries } from '../../../../../store/country-data.store';
 import { PatientService } from '../../../../../services/patient.service';
 
 @Component({
@@ -16,13 +15,12 @@ export class SearchPatientComponent implements OnInit {
 
   patient: PatientInterface[] = [
   ];
-
+ 
   constructor(public dialog: MatDialog, private router: Router, private patientService: PatientService) {}
 
   ngOnInit(): void {
     this.patientService.getPatientData().subscribe(data => {
       this.patient = data;
-      console.log(this.patient);
     })
   }
 
@@ -42,5 +40,12 @@ export class SearchPatientComponent implements OnInit {
 
   goToManage(patientId: number) {
     this.router.navigate(['/home/patient/manage', { id: patientId }]);
+  }
+
+  onSubmit() {
+    this.patientService.getPatientData("si", 1).subscribe(data => {
+      this.patient = data;
+      console.log(data);
+    })
   }
 }
