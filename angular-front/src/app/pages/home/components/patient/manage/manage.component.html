@@ -17,81 +17,210 @@
                     </option>
                 </select>
             </div>
-            <!--
-                <div class="control">
-                    <label for="type">Tipo: </label>
-                    <select id="type" name="tipo" [(ngModel)]="selectedStatusType" (ngModelChange)="onTypeChange($event)">
-                        <option *ngFor="let type of statusType" [ngValue]="type.value">
-                            {{ type.label }}
-                        </option>
-                    </select>
-                </div>
-            -->
-                
+            <div class="control">
+                <label for="reason">Motivo: </label>
+                <textarea id="reason" name="reason" rows="4" cols="30" placeholder="Detalles del motivo..." required></textarea>
+            </div>
             <div class="table-wrapper" *ngIf="showSelectRoom">
-                
                 <hr size="3px" color="black" style="margin-left: -4%;">
                 <div class="selectControl">
                     <label for="assignRoom">Asignar habitación: </label>
                     <input id="assignRoom" type="text" placeholder="00201" readonly>
-                    <button type="button" (click)="showfakepopup()">SELECCIONAR</button>
+                    <button type="button" (click)="showDropDown()">SELECCIONAR</button>
                 </div>
-
-            <div>
-                <form class="roomselect" *ngIf="fakepopup">
-                    <div class="container">
-                        <h5>Buscar habitación</h5>
-                        <label for="area">Seleccionar área: </label>
-                        <select id="area" name="area" [(ngModel)]="selectedAreaType" (ngModelChange)="onAreaChange($event)">
-                            <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
-                                {{ area.label }}
-                            </option>
-                        </select>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Núm.</th>
-                                    <th>Tipo</th>
-                                    <th>Planta</th>
-                                    <th>Área</th>
-                                    <th>Capacidad</th>
-                                    <th>Disponibilidad</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>101</td>
-                                    <td>Box</td>
-                                    <td class="tbcen">1</td>
-                                    <td>Urgencias</td>
-                                    <td class="tbcen">1</td>
-                                    <td class="tbcen">1</td>
-                                    <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
-                                </tr>
-                                <tr>
-                                    <td>102</td>
-                                    <td>Box</td>
-                                    <td class="tbcen">1</td>
-                                    <td>Urgencias</td>
-                                    <td class="tbcen">2</td>
-                                    <td class="tbcen">1</td>
-                                    <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
-                                </tr>
-                                <tr>
-                                    <td>103</td>
-                                    <td>Box</td>
-                                    <td class="tbcen">1</td>
-                                    <td>Urgencias</td>
-                                    <td class="tbcen">2</td>
-                                    <td class="tbcen">2</td>
-                                    <td><button class="button" (click)="showfakepopup()">ASIGNAR</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>       
-                </form>
-            </div>
+                <div class="selectControl">
+                    <form class="roomselect" *ngIf="showRoomList">
+                        <div class="container">
+                            <h5>Buscar habitación</h5>
+                            <div class="ambulatoryType" *ngIf="showAreaA">
+                                <div class="selectArea">
+                                    <label for="areaAmbulatory">Seleccionar área: </label>
+                                    <select id="areaAmbulatory" name="areaAmbulatory" [(ngModel)]="selectedAmbulatory" (ngModelChange)="onAreaChangeA($event)">
+                                        <option *ngFor="let area of ambulatoryArea" [ngValue]="area.value">
+                                            {{ area.label }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Núm.</th>
+                                            <th>Planta</th>
+                                            <th>Área</th>
+                                            <th>Capacidad</th>
+                                            <th>Disponibilidad</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>101</td>
+                                            <td class="tbcen">1</td>
+                                            <td>Consulta Externa</td>
+                                            <td class="tbcen">0</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>102</td>
+                                            <td class="tbcen">1</td>
+                                            <td>Consulta Externa</td>
+                                            <td class="tbcen">0</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>103</td>
+                                            <td class="tbcen">1</td>
+                                            <td>Consulta Externa</td>
+                                            <td class="tbcen">0</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="hospitalizedType" *ngIf="showAreaH">
+                                <label for="areaHospitalized">Seleccionar área: </label>
+                                <select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
+                                    <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
+                                        {{ area.label }}
+                                    </option>
+                                </select>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Núm.</th>
+                                            <th>Planta</th>
+                                            <th>Área</th>
+                                            <th>Capacidad</th>
+                                            <th>Disponibilidad</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>104</td>
+                                            <td class="tbcen">2</td>
+                                            <td>UCI</td>
+                                            <td class="tbcen">1</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>105</td>
+                                            <td class="tbcen">2</td>
+                                            <td>UCI</td>
+                                            <td class="tbcen">2</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>106</td>
+                                            <td class="tbcen">2</td>
+                                            <td>UCI</td>
+                                            <td class="tbcen">2</td>
+                                            <td class="tbcen">2</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="urgencyType" *ngIf="showAreaU">
+                                <label for="areaUrgency">Seleccionar área: </label>
+                                <select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
+                                    <option *ngFor="let area of urgencyArea" [ngValue]="area.value">
+                                        {{ area.label }}
+                                    </option>
+                                </select>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Núm.</th>
+                                            <th>Planta</th>
+                                            <th>Área</th>
+                                            <th>Capacidad</th>
+                                            <th>Disponibilidad</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>107</td>
+                                            <td class="tbcen">3</td>
+                                            <td>Box</td>
+                                            <td class="tbcen">1</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>108</td>
+                                            <td class="tbcen">3</td>
+                                            <td>Box</td>
+                                            <td class="tbcen">2</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>109</td>
+                                            <td class="tbcen">3</td>
+                                            <td>Box</td>
+                                            <td class="tbcen">2</td>
+                                            <td class="tbcen">2</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="operatingRoomType" *ngIf="showAreaO">
+                                <label for="areaOperatingRoom">Seleccionar área: </label>
+                                <select id="areaOperatingRoom" name="areaOperatingRoom" [(ngModel)]="selectedOperatingRoom" (ngModelChange)="onAreaChangeO($event)">
+                                    <option *ngFor="let area of operatingRoomArea" [ngValue]="area.value">
+                                        {{ area.label }}
+                                    </option>
+                                </select>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Núm.</th>
+                                            <th>Planta</th>
+                                            <th>Área</th>
+                                            <th>Capacidad</th>
+                                            <th>Disponibilidad</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>110</td>
+                                            <td class="tbcen">4</td>
+                                            <td>Sala de operación</td>
+                                            <td class="tbcen">1</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>111</td>
+                                            <td class="tbcen">4</td>
+                                            <td>Sala de operación</td>
+                                            <td class="tbcen">1</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>112</td>
+                                            <td class="tbcen">4</td>
+                                            <td>Sala de operación</td>
+                                            <td class="tbcen">1</td>
+                                            <td class="tbcen">1</td>
+                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>       
+                    </form>
+                </div>
             </div>
             <input class="submit" type="submit" value="Guardar Estat"/>
         </form>
