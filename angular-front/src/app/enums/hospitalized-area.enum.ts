@@ -1,9 +1,9 @@
 export enum HospitalizedArea {
-    UCI,
-    MedicinaInterna,
-    Pediatria,
-    Ginecologia,
-    Oncología,
-    Psiquiatría,
-    Cirurgía
+  UCI,
+  MedicinaInterna,
+  Pediatria,
+  Ginecologia,
+  Oncología,
+  Psiquiatría,
+  Cirurgía,
 }

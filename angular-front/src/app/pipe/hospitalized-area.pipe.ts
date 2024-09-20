@@ -15,7 +15,8 @@ export class HospitalizedAreaPipe implements PipeTransform {
           return this.translate.instant('Medicina Interna');
       }
     } catch (ex) {
-      return '';
+      console.error('Error transforming hospitalized area', ex);
+      return ''; // En caso de error, retorna una cadena vacía
     }
   }
 }
