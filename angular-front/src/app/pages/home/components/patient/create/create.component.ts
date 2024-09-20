@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,8 +9,6 @@ import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
-import { PatientComponent } from '../patient.component';
-
 
 
 @Injectable({
@@ -21,7 +19,7 @@ import { PatientComponent } from '../patient.component';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreatePatientComponent {
+export class CreatePatientComponent implements OnInit {
   patientForm: FormGroup;
   public countries: Country[] = countries;
   public patients: PatientInterface[] = [];
@@ -49,17 +47,20 @@ export class CreatePatientComponent {
       gender: ['', [Validators.required]]
     });
 
-    this.patientForm.patchValue({
-      patientCode: this.loquesea
-    });
-  }
+    this.patientForm.get('patientCode')?.disable();
 
-  ngOnInit() {
     this.nextPatientCode().then((code: number) => {
       this.loquesea = code;
+      this.patientForm.patchValue({
+        patientCode: this.loquesea
+      });
     }).catch((error: Error) => {
       console.log('MSG RANDOM');
     });
+  }
+
+  ngOnInit(): void {
+    
   }
 
   onSubmit() {
