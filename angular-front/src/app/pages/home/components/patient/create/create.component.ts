@@ -9,6 +9,7 @@ import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
+import { PatientComponent } from '../patient.component';
 
 
 
@@ -31,6 +32,7 @@ export class CreatePatientComponent {
     private patientService: PatientService // Inyectar el servicio
   ) {
     this.patientForm = this.formBuilder.group({
+      patientCode: ['', [Validators.required]],
       name: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
       surname2: [''],
