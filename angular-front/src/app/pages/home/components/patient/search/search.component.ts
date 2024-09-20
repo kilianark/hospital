@@ -9,12 +9,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-search-patient',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  styleUrls: ['./search.component.css']
 })
-export class SearchPatientComponent implements OnInit {
+export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
-  patient: PatientInterface[] = [];
+  patient: PatientInterface[] = [
+
+  ];
 
   patientForm: FormGroup;
 
@@ -26,13 +28,10 @@ export class SearchPatientComponent implements OnInit {
   cip: string = '';
   phone: string = '';
 
-  constructor(
-    private formBuilder: FormBuilder,
-    public dialog: MatDialog,
-    private router: Router,
-    private patientService: PatientService
-  ) {
+  constructor( private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private patientService: PatientService)
+  {
     this.patientForm = this.formBuilder.group({
+
       patientCode: [this.patientCode],
       name: [this.name],
       surname1: [this.surname1],
@@ -40,20 +39,23 @@ export class SearchPatientComponent implements OnInit {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
+
     });
+
     this.patientForm.get('patientCode')?.valueChanges.subscribe(value => {
       this.patientCode = value;
     });
+
     this.patientForm.get('surname1')?.valueChanges.subscribe(value => {
       this.surname1 = value;
     });
   }
 
-  ngOnInit(): void {
+ /* ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patient = data;
     });
-  }
+  }*/
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -61,7 +63,7 @@ export class SearchPatientComponent implements OnInit {
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode,
+      data: patientCode
     });
   }
 
@@ -70,7 +72,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.patientService.getPatientData(1).subscribe((data) => {
+    this.patientService.getPatientData(Number(this.patientCode), this.surname1).subscribe((data) => {
       this.patient = data;
       console.log(data);
     });

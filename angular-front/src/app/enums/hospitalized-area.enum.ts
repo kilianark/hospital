@@ -1,4 +1,4 @@
-export enum HospitalzedArea {
+export enum HospitalizedArea {
   UCI,
   MedicinaInterna,
   Pediatria,
