@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 import { PatientStatus } from '../../../../../enums/patient-status.enum';
-import { HospitalzedArea } from '../../../../../enums/hospitalized-area.enum';
+import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { AmbulatoryArea } from '../../../../../enums/ambulatory-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
@@ -28,7 +28,7 @@ export class ManagePatientComponent implements OnInit {
 
   // 3 variables mes per guardar area seleccionat segons status***
   selectedAmbulatory: AmbulatoryArea | null = null;
-  selectedHospitalized: HospitalzedArea | null = null;
+  selectedHospitalized: HospitalizedArea | null = null;
   selectedUrgency: UrgencyArea | null = null;
   selectedOperatingRoom: OperatingRoomArea | null = null;
 
@@ -53,7 +53,7 @@ export class ManagePatientComponent implements OnInit {
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
   ambulatoryArea = Object.keys(AmbulatoryArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  hospitalizedArea = Object.keys(HospitalzedArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: HospitalzedArea[key as keyof typeof HospitalzedArea] }));
+  hospitalizedArea = Object.keys(HospitalizedArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
   urgencyArea = Object.keys(UrgencyArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: UrgencyArea[key as keyof typeof UrgencyArea] }));
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
@@ -116,7 +116,7 @@ export class ManagePatientComponent implements OnInit {
   }
 
   // reb el valor de la variable $event, de tipus enum HospitalizedArea
-  onAreaChangeH(area: HospitalzedArea) {
+  onAreaChangeH(area: HospitalizedArea) {
     this.selectedHospitalized = area;
     console.log('Area Seleccionada: ', area);
   }

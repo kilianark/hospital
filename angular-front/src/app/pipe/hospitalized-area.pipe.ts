@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { HospitalzedArea } from '../enums/hospitalized-area.enum';
+import { HospitalizedArea } from '../enums/hospitalized-area.enum';
 @Pipe({
   name: 'hospitalizedArea',
   pure: false,
@@ -8,10 +8,10 @@ import { HospitalzedArea } from '../enums/hospitalized-area.enum';
 export class HospitalizedAreaPipe implements PipeTransform {
   constructor(private translate: TranslateService) {}
 
-  transform(value: HospitalzedArea) {
+  transform(value: HospitalizedArea) {
     try {
       switch (+value) {
-        case HospitalzedArea.MedicinaInterna:
+        case HospitalizedArea.MedicinaInterna:
           return this.translate.instant('Medicina Interna');
       }
     } catch (ex) {
