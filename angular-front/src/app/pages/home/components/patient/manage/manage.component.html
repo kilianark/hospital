@@ -5,7 +5,7 @@
 <body>
     <div class="content">
         <form class="selectstatus" (ngSubmit)="onSubmit()">
-            <legend>{{title}} Juan Martínez López</legend>  
+            <legend>{{title}} {{patient.name}} {{patient.surname1}} </legend>  
             <!-- del model de gestió ngModel -> (@NgModule), disposa del camp que conte els enums de l'estat de pacient,
             que a més al canviar l'estat del model, li pasem la variable del esdeveniment, en que
             el mètode també comprobarà si l'estat és un valor hospitalizat per mostrar el llistat -->

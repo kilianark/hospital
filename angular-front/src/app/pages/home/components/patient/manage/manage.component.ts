@@ -11,6 +11,8 @@ import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum'
 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { PatientInterface } from '../../../../../interfaces/patient.interface';
+import { PatientService } from '../../../../../services/patient.service';
 //import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
 @Component({
@@ -21,6 +23,8 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
 export class ManagePatientComponent implements OnInit {
   title = 'Gestionar Estado:'
   patientId: number | undefined;
+  patient!: PatientInterface;
+
   
 
   // variables que contindrá els valors seleccionats
@@ -61,16 +65,19 @@ export class ManagePatientComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
     //this.statusForm = this.formBuilder.group({ });
+    this.route.params.subscribe(params => {
+      this.patientId = +params['id']; // "+" para convertir a número
+      this.patientService.getPatientById(this.patientId).subscribe(data =>{
+        this.patient = data;
+      } )
+      // Aquí puedes cargar los datos del paciente con la ID obtenida
+    });
   }
   
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.patientId = +params['id']; // "+" para convertir a número
-      console.log('Patient ID:', this.patientId);
-      // Aquí puedes cargar los datos del paciente con la ID obtenida
-    });
+    
   }
 
   // canvis d'estat

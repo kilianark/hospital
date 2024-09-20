@@ -64,8 +64,8 @@ export class CreatePatientComponent {
       (response) => {
         
         console.log('Paciente registrado:', response);
-        this.confirm();
-        this.router.navigate(['/home/patient/manage', {id : patientData.id}]); //que envíe al manage de este paciente
+        //this.confirm();
+        this.router.navigate(['/home/patient/manage', {id : response.id}]); //que envíe al manage de este paciente
       },
       (error) => {
         console.error('Error al registrar el paciente:', error);

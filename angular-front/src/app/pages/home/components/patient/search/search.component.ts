@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchPatientComponent implements OnInit {
+export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
   patient: PatientInterface[] = [];
@@ -49,11 +49,11 @@ export class SearchPatientComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+ /* ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patient = data;
     });
-  }
+  }*/
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
