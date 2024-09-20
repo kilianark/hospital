@@ -24,6 +24,8 @@ import { PatientComponent } from '../patient.component';
 export class CreatePatientComponent {
   patientForm: FormGroup;
   public countries: Country[] = countries;
+  public patients: PatientInterface[] = [];
+  public loquesea!: number;
 
   constructor(
     private router: Router,
@@ -46,6 +48,18 @@ export class CreatePatientComponent {
       address: [''],
       gender: ['', [Validators.required]]
     });
+
+    this.patientForm.patchValue({
+      patientCode: this.loquesea
+    });
+  }
+
+  ngOnInit() {
+    this.nextPatientCode().then((code: number) => {
+      this.loquesea = code;
+    }).catch((error: Error) => {
+      console.log('MSG RANDOM');
+    });
   }
 
   onSubmit() {
@@ -53,8 +67,7 @@ export class CreatePatientComponent {
 
     const patientData: PatientInterface = {
       ...this.patientForm.value,
-      //AGE se calculará en la BBDD
-      patientCode: 0, //incrementación en BBDD
+      patientCode: this.nextPatientCode, //incrementación en BBDD
       status: 'Inactivo', //por defecto
       reason: '',
       bedId: null,
@@ -78,5 +91,18 @@ export class CreatePatientComponent {
   confirm() {
     let dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage("Paciente Registrado");
+  }
+
+  //canviar en alún momento
+  async nextPatientCode() : Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.patientService.getPatientData().subscribe(data => {
+        this.patients = data;
+        if(!this.patients || this.patients.length < 1) resolve(1);
+        else resolve(this.patients[this.patients.length - 1].id + 1);
+      }, error => {
+        reject(error);
+      });
+    });
   }
 }
