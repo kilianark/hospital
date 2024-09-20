@@ -87,10 +87,19 @@
                             </div>
                             <div class="hospitalizedType" *ngIf="showAreaH">
                                 <label for="areaHospitalized">Seleccionar área: </label>
-                                <select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
+                                <!--<select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
                                     <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
                                         {{ area.label }}
                                     </option>
+                                </select>-->
+                                <select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
+                                    <option value="uci">UCI</option>
+                                    <option value="medicinaInterna">Medicina interna</option>
+                                    <option value="pediatria">Pediatria</option>
+                                    <option value="ginecologia">Ginecologia</option>
+                                    <option value="oncologia">Oncología</option>
+                                    <option value="psiquiatria">Psiquiatría</option>
+                                    <option value="cirurgia">Cirurgía</option>
                                 </select>
                                 <table>
                                     <thead>
@@ -133,10 +142,18 @@
                             </div>
                             <div class="urgencyType" *ngIf="showAreaU">
                                 <label for="areaUrgency">Seleccionar área: </label>
-                                <select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
+                                <!--<select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
                                     <option *ngFor="let area of urgencyArea" [ngValue]="area.value">
                                         {{ area.label }}
                                     </option>
+                                </select>-->
+                                <select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
+                                    <option value="box">Box</option>
+                                    <option value="boxCritico">Box crítico</option>
+                                    <option value="medicinaInterna">Medicina interna</option>
+                                    <option value="atencioPrimaria">Atenció primaria</option>
+                                    <option value="triaje">Triaje</option>
+                                    <option value="traumatologia">Traumatologia</option>
                                 </select>
                                 <table>
                                     <thead>
@@ -186,7 +203,7 @@
                                 </select>-->
                                 <select id="areaOperatingRoom" name="areaOperatingRoom" [(ngModel)]="selectedOperatingRoom" (ngModelChange)="onAreaChangeO($event)">
                                   <option value="SalaOperacion">Sala de operación</option>
-                                  <option value="Reanimacion">Sala de reanimación/option>
+                                  <option value="Reanimacion">Sala de reanimación </option>
                                   <option value="SalaEspera">Sala de espera</option>
                                 </select>
                                 <table>
