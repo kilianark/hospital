@@ -23,7 +23,7 @@ export class CreatePatientComponent implements OnInit {
   patientForm: FormGroup;
   public countries: Country[] = countries;
   public patients: PatientInterface[] = [];
-  public loquesea!: number;
+  public patientCode!: number;
 
   constructor(
     private router: Router,
@@ -50,9 +50,9 @@ export class CreatePatientComponent implements OnInit {
     this.patientForm.get('patientCode')?.disable();
 
     this.nextPatientCode().then((code: number) => {
-      this.loquesea = code;
+      this.patientCode = code;
       this.patientForm.patchValue({
-        patientCode: this.loquesea
+        patientCode: this.patientCode
       });
     }).catch((error: Error) => {
       console.log('MSG RANDOM');
@@ -66,15 +66,17 @@ export class CreatePatientComponent implements OnInit {
   onSubmit() {
     if (this.patientForm.invalid) return;
 
+    this.patientForm.get('patientCode')?.enable();
+
     const patientData: PatientInterface = {
       ...this.patientForm.value,
-      patientCode: this.nextPatientCode, //incrementación en BBDD
+      //patientCode: this.nextPatientCode, //incrementación en BBDD
       status: 'Inactivo', //por defecto
       reason: '',
       bedId: null,
     };
 
-    console.log(patientData.birthDate)
+    console.log(this.patientForm.value);
 
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
@@ -100,7 +102,7 @@ export class CreatePatientComponent implements OnInit {
       this.patientService.getPatientData().subscribe(data => {
         this.patients = data;
         if(!this.patients || this.patients.length < 1) resolve(1);
-        else resolve(this.patients[this.patients.length - 1].id + 1);
+        else resolve(this.patients[this.patients.length - 1].patientCode + 1);
       }, error => {
         reject(error);
       });
