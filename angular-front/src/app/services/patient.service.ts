@@ -33,4 +33,8 @@ export class PatientService {
     return this.http.post<PatientInterface>(this.url, patient);
   }
 
+  putPatientData (patient: PatientInterface): Observable<PatientInterface> {
+    return this.http.put<PatientInterface>(this.url, patient);
+  }
+
 }
