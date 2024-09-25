@@ -27,7 +27,7 @@ export class RecordComponent implements OnInit {
   ];
 
   camps: string[] = ['dni', 'cip', 'name', 'birth', 'surname1', 'surname2', 'phone', 'email', 'country',
-                    'emergencyContact', 'gender', 'address', 'patientCode'] 
+                    'emergencyContact', 'gender', 'address'] 
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: number, private formBuilder: FormBuilder, private patientService: PatientService) {
 
