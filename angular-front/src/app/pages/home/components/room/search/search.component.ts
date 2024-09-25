@@ -1,47 +1,62 @@
 import { Component } from '@angular/core';
+import { RoomService } from '../../../../../services/room.service';
 import { RoomInterface } from '../../../interfaces/room.interface';
 import { Router } from '@angular/router';
-import { PatientInterface } from '../../../../../interfaces/patient.interface';
-import { countries } from '../../../../../store/country-data.store';
-
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-room',
-  //standalone: true,
-  //imports: [CommonModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
 export class SearchRoomComponent {
+  title = 'Búsqueda Habitaciones:';
+  room: RoomInterface[] = [];
+  roomForm: FormGroup;
+  isVisible: boolean = false;
 
-  constructor(private router: Router) {}
-  title = 'Búsqueda Habitaciones:'
-
-  room: RoomInterface[] = [
-    { id: 1, room_number: 101, capacity: 1, area: "Urgencias", floor: 0,  availability: false, idpatient: 123456 }, // Sin idpatient
-    { id: 2, room_number: 204, capacity: 1, area: "UCI", floor: 1, availability: true} // Con idpatient
-     ];
-
-  patient: PatientInterface[] = [
-    { id: 0, patientCode: 123456, name: "Juan", surname1: "Martínez", surname2: "López", dni: "", cip: "", gender: "", phone: "631238791", email: "", age: 34, birthDate: new Date("1990-09-12"), country: countries[0].name, status: "Ambulatorio", address: "", emergencyContact: "" },
-    { id: 1, patientCode: 654321, name: "Maria", surname1: "Pérez", surname2: "Castro", dni: "", cip: "", gender: "", phone: "621655788", email: "", age: 54, birthDate: new Date("1970-09-12"), country: countries[0].name, status: "Hospitalizado", address: "", emergencyContact: "", bedId: 4011}
-  ];
-
-  onSubmit() {
-    //canviar esto por el paciente/s encontrado por la api
-    console.log('Formulario enviado');
+  constructor(private router: Router, private formBuilder: FormBuilder, private roomService: RoomService) {
+    this.roomForm = this.formBuilder.group({
+      roomNumber: [''],
+      floor: [''],
+      area: [''],
+      capacity: [''],
+      availability: ['']
+    });
   }
 
-  
+  onSubmit() {
+    const searchFilters = this.roomForm.value;
+
+    const roomNumber = searchFilters.room_number ? parseInt(searchFilters.roomNumber, 10) : null;
+    const floor = searchFilters.floor ? parseInt(searchFilters.floor, 10) : null;
+    const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity, 10) : null;
+    const availability = searchFilters.availability ? searchFilters.availability === 'true' : null;
+
+    this.roomService.searchRooms(
+      roomNumber,
+      floor,
+      searchFilters.area,
+      capacity,
+      availability
+    ).subscribe(
+      (rooms: RoomInterface[]) => {
+        this.room = rooms;
+        this.isVisible = true;
+      },
+      (error) => {
+        console.error('Error al buscar habitaciones:', error);
+      }
+    );
+
+  }
+
   goToManage(patientId: number | undefined) {
     if (patientId !== undefined) {
       this.router.navigate(['/home/patient/manage', { id: patientId }]);
     } else {
+      console.log(this.room[0]);
       console.log('No hay paciente asignado a esta habitación.');
     }
-  }
-  isVisible: boolean=false;
-  toggleDisplay(){
-    this.isVisible = true;
   }
 }

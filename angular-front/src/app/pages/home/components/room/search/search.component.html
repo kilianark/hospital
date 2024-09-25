@@ -2,66 +2,70 @@
   <title>Búsqueda habitaciones</title>
 </head>
 <div class="content">
-  <form>
+  <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
     <legend>{{title}}</legend>
     <div class="credentials">
       <label for="roomNumber">Número:</label>
-      <input type="text" id="roomNumber" />
+      <input type="number" id="roomNumber" formControlName="roomNumber"/>
+      
       <label for="floor">Planta:</label>
-      <input type="text" id="floor" />
+      <input type="number" id="floor" formControlName="floor" />
+
       <label for="area">Área:</label>
-      <input type="text" id="area" />
+      <input type="text" id="area" formControlName="area" />
 
       <label for="capacity">Capacidad:</label>
-      <input type="text" id="capacity" />
+      <input type="number" id="capacity" formControlName="capacity" />
+      
       <fieldset>
         <div class="alinear">
           <label for="availability">Disponible:</label>
           <div class="filtre1">
-            <label for="available">Si</label>
-            <input type="radio" name="availability" id="available" required />
+            <label for="available">Sí</label>
+            <input type="radio" name="availability" id="available" formControlName="availability" value="true" />
           </div>
           <div class="filtre2">
             <label for="noAvailable" id="labelIngr">No</label>
-            <input type="radio" name="availability" id="noAvailable" required />
+            <input type="radio" name="availability" id="noAvailable" formControlName="availability" value="false"/>
           </div>
         </div>
       </fieldset>
     </div>
-    <button type="submit" (click)="toggleDisplay()" >Buscar</button>
+    
+    <button type="submit">Buscar</button>
   </form>
+  
   <br>
-  <div [style.display]="isVisible ? 'block' : 'none'" *ngIf="room.length <= 0">
-    <legend style="margin-left: 3%;">
-      Habitacion no encontrada
-    </legend>
-  </div>
-  <div class="table-wrapper" [style.display]="isVisible ? 'block' : 'none'" *ngIf="room.length > 0" >
-    <table>
-      <thead>
-        <th>Número</th>
-        <th>Planta</th>
-        <th>Área</th>
-        <th>Capacidad</th>
-        <th>Disponible</th>
-        <th>Id Paciente</th>
-      </thead>
-      <tbody>
-        <tr *ngFor = "let room of room" (click)="goToManage(room.idpatient)" class="file-click">
-          <td>{{room.room_number}}</td>
-          <td>{{room.floor}}</td>
-          <td>{{room.area}}</td>
-          <td>{{room.capacity}}</td>
-          <td *ngIf="room.availability == false ; else Disponible">No</td>
-          <ng-template #Disponible>
-            <td>Sí</td>
-          </ng-template>
-          <td *ngIf="room.availability == false && room.idpatient !== undefined; else noPatient">{{ room.idpatient }}</td>
-            <ng-template #noPatient>
-              <td>-</td>
-            </ng-template>
-        </tr>
-      </tbody>
-    </table>
+  
+  <div *ngIf="isVisible">
+    <ng-container *ngIf="room.length === 0; else roomTable">
+      <legend style="margin-left: 3%;">Habitación no encontrada</legend>
+    </ng-container>
+    <ng-template #roomTable>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Planta</th>
+              <th>Área</th>
+              <th>Capacidad</th>
+              <th>Disponible</th>
+              <th>Id Paciente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let room of room" (click)="goToManage(room.idpatient)" class="file-click">
+              <td>{{room.roomNumber}}</td>
+              <td>{{room.floor}}</td>
+              <td>{{room.area}}</td>
+              <td>{{room.capacity}}</td>
+              <td>{{ room.availability ? 'Sí' : 'No' }}</td>
+              <td>{{ room.idpatient !== undefined ? room.idpatient : '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
   </div>
 </div>

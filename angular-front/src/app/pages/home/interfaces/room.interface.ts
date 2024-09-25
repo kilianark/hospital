@@ -1,7 +1,7 @@
 export interface RoomInterface{
 
   id: number;
-  room_number: number;
+  roomNumber: number;
   capacity: number;
   area: string;
   floor: number;

@@ -14,9 +14,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
-  patient: PatientInterface[] = [
-
-  ];
+  patient: PatientInterface[] = [];
 
   patientForm: FormGroup;
 
