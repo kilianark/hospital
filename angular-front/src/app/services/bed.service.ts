@@ -12,8 +12,12 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
-  getBedData() : Observable<BedInterface[]> {
-    return this.http.get<BedInterface[]>(this.url);
+  getBedData(Availability?: boolean) : Observable<BedInterface[]> {
+    let params = new HttpParams(); 
+    if (Availability != null) {
+        params = params.set('Availability', Availability)
+    }
+    return this.http.get<BedInterface[]>(this.url, {params});
   }
 
   getBedDataById(bedId: number) : Observable<BedInterface> {
