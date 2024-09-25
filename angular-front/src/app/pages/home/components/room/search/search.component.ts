@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Roomsearch } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../interfaces/room.interface';
 import { Router } from '@angular/router';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { countries } from '../../../../../store/country-data.store';
@@ -17,9 +17,9 @@ export class SearchRoomComponent {
   constructor(private router: Router) {}
   title = 'Búsqueda Habitaciones:'
 
-  room: Roomsearch[] = [
-    { id: 1, room_number: 101, capacity: 1, room_type: "Box", area: "Urgencias", floor: 0,  availability: false, idpatient: 123456 }, // Sin idpatient
-    { id: 2, room_number: 204, capacity: 1, room_type: "Cubículo", area: "UCI", floor: 1, availability: true} // Con idpatient
+  room: RoomInterface[] = [
+    { id: 1, room_number: 101, capacity: 1, area: "Urgencias", floor: 0,  availability: false, idpatient: 123456 }, // Sin idpatient
+    { id: 2, room_number: 204, capacity: 1, area: "UCI", floor: 1, availability: true} // Con idpatient
      ];
 
   patient: PatientInterface[] = [
