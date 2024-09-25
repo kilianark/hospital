@@ -109,7 +109,7 @@
             placeholder=""
           />
 
-          <label for="gender">Sexo (<app-required></app-required>):</label>
+          <label for="gender">Sexo (<span class="red-req">*</span>):</label>
           <div class="gender">
             <fieldset>
               <div class="select">
@@ -118,7 +118,7 @@
                   formControlName="gender"
                   type="radio"
                   name="gender"
-                  value="masculino"
+                  value="man"
                 />
                 <label class="select1" for="man">Masculino</label>
 
@@ -127,7 +127,7 @@
                   formControlName="gender"
                   type="radio"
                   name="gender"
-                  value="femenino"
+                  value="woman"
                 />
                 <label class="select2" for="woman">Femenino</label>
               </div>
