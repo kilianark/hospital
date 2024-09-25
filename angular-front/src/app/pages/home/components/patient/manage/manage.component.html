@@ -12,6 +12,12 @@
             <div class="control">
                 <label for="status">Estado: </label>
                 <select id="status" name="status" [(ngModel)]="selectedPatientStatus" (ngModelChange)="onStatusChange($event)">
+                    <!--<option value="inactivo"> Inactivo </option>
+                    <option value="ambulatorio"> Ambulatorio </option>
+                    <option value="hospitalizado"> Hospitalizado </option>
+                    <option value="urgencias"> Urgencias </option>
+                    <option value="quieofano"> Quirófano </option>
+                    -->
                     <option *ngFor="let status of patientStatus" [ngValue]="status.value">
                         {{ status.label }}
                     </option>
@@ -87,11 +93,6 @@
                             </div>
                             <div class="hospitalizedType" *ngIf="showAreaH">
                                 <label for="areaHospitalized">Seleccionar área: </label>
-                                <!--<select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
-                                    <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
-                                        {{ area.label }}
-                                    </option>
-                                </select>-->
                                 <select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
                                     <option value="uci">UCI</option>
                                     <option value="medicinaInterna">Medicina interna</option>
@@ -100,6 +101,9 @@
                                     <option value="oncologia">Oncología</option>
                                     <option value="psiquiatria">Psiquiatría</option>
                                     <option value="cirurgia">Cirurgía</option>
+                                    <!--<option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
+                                        {{ area.label }}
+                                    </option>-->
                                 </select>
                                 <table>
                                     <thead>
@@ -142,18 +146,15 @@
                             </div>
                             <div class="urgencyType" *ngIf="showAreaU">
                                 <label for="areaUrgency">Seleccionar área: </label>
-                                <!--<select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
-                                    <option *ngFor="let area of urgencyArea" [ngValue]="area.value">
-                                        {{ area.label }}
-                                    </option>
-                                </select>-->
                                 <select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
                                     <option value="box">Box</option>
                                     <option value="boxCritico">Box crítico</option>
                                     <option value="medicinaInterna">Medicina interna</option>
                                     <option value="atencioPrimaria">Atenció primaria</option>
                                     <option value="triaje">Triaje</option>
-                                    <option value="traumatologia">Traumatologia</option>
+                                    <!--<option *ngFor="let area of urgencyArea" [ngValue]="area.value">
+                                        {{ area.label }}
+                                    </option>-->
                                 </select>
                                 <table>
                                     <thead>
