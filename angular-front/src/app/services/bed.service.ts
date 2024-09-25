@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BedInterface } from '../interfaces/bed.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,4 +11,16 @@ export class PatientService {
 
 
   constructor(private http: HttpClient) { }
+
+  getBedData() : Observable<BedInterface[]> {
+    return this.http.get<BedInterface[]>(this.url);
+  }
+
+  getBedDataById(bedId: number) : Observable<BedInterface> {
+    return this.http.get<BedInterface>(this.url + '/' + bedId);
+  }
+
+  postBedData(bed: BedInterface) : Observable<BedInterface> {
+    return this.http.post<BedInterface>(this.url, bed);
+  }
 }
