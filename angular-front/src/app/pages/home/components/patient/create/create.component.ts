@@ -9,15 +9,35 @@ import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
+import { RequiredComponent } from '../../../../../components/required/required.component';
+import { importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { VERSION as CDK_VERSION } from '@angular/cdk';
+import {
+  VERSION as MAT_VERSION,
+  MatNativeDateModule,
+} from '@angular/material/core';
 
+console.info('Angular CDK version', CDK_VERSION.full);
+console.info('Angular Material version', MAT_VERSION.full);
+
+bootstrapApplication(RequiredComponent, {
+  providers: [
+    provideAnimations(),
+    provideHttpClient(),
+    importProvidersFrom(MatNativeDateModule),
+  ],
+}).catch((err) => console.error(err));
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @Component({
   selector: 'app-create-patient',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  styleUrls: ['./create.component.css'],
 })
 export class CreatePatientComponent implements OnInit {
   patientForm: FormGroup;
@@ -44,24 +64,24 @@ export class CreatePatientComponent implements OnInit {
       country: ['', [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
       address: [''],
-      gender: ['', [Validators.required]]
+      gender: ['', [Validators.required]],
     });
 
     this.patientForm.get('patientCode')?.disable();
 
-    this.nextPatientCode().then((code: number) => {
-      this.patientCode = code;
-      this.patientForm.patchValue({
-        patientCode: this.patientCode
+    this.nextPatientCode()
+      .then((code: number) => {
+        this.patientCode = code;
+        this.patientForm.patchValue({
+          patientCode: this.patientCode,
+        });
+      })
+      .catch((error: Error) => {
+        console.log('MSG RANDOM');
       });
-    }).catch((error: Error) => {
-      console.log('MSG RANDOM');
-    });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     if (this.patientForm.invalid) return;
@@ -80,10 +100,9 @@ export class CreatePatientComponent implements OnInit {
 
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
-        
         console.log('Paciente registrado:', response);
         //this.confirm();
-        this.router.navigate(['/home/patient/manage', {id : response.id}]); //que envíe al manage de este paciente
+        this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
         console.error('Error al registrar el paciente:', error);
@@ -93,19 +112,22 @@ export class CreatePatientComponent implements OnInit {
 
   confirm() {
     let dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage("Paciente Registrado");
+    dialogRef.componentInstance.setMessage('Paciente Registrado');
   }
 
-  //canviar en alún momento
-  async nextPatientCode() : Promise<number> {
+  //canviar en algún momento
+  async nextPatientCode(): Promise<number> {
     return new Promise((resolve, reject) => {
-      this.patientService.getPatientData().subscribe(data => {
-        this.patients = data;
-        if(!this.patients || this.patients.length < 1) resolve(1);
-        else resolve(this.patients[this.patients.length - 1].patientCode + 1);
-      }, error => {
-        reject(error);
-      });
+      this.patientService.getPatientData().subscribe(
+        (data) => {
+          this.patients = data;
+          if (!this.patients || this.patients.length < 1) resolve(1);
+          else resolve(this.patients[this.patients.length - 1].patientCode + 1);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
     });
   }
 }

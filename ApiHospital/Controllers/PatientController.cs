@@ -82,7 +82,7 @@ namespace ApiHospital.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPatient(int id, PatientDTO patientDTO)
         {
-            if (id != patientDTO.PatientCode) return BadRequest();
+            //if (id != patientDTO.PatientCode) return BadRequest();
 
             var patient = await _context.Patients.FindAsync(id);
             if (patient == null) return NotFound();
