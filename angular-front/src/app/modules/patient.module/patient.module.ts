@@ -8,19 +8,21 @@ import { CreatePatientComponent } from '../../pages/home/components/patient/crea
 import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient.service';
+import { RequiredComponent } from '../../components/required/required.component';
 
 @NgModule({
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
-    SearchPatientComponent
+    SearchPatientComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     PatientRoutingModule,
+    RequiredComponent,
   ],
-  providers:[provideHttpClient()]
+  providers: [provideHttpClient()],
 })
-export class PatientModule { }
+export class PatientModule {}
