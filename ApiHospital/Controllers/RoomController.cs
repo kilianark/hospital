@@ -29,7 +29,7 @@ namespace ApiHospital.Controllers
 
         // GET: api/Room
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms([FromQuery] int? RoomNumber = null, [FromQuery] int? Capacity = null, [FromQuery] string? RoomType = null, [FromQuery] string? Area = null, [FromQuery] int? Floor = null, [FromQuery] bool? Availability = null)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms([FromQuery] int? RoomNumber = null, [FromQuery] int? Capacity = null, [FromQuery] string? Area = null, [FromQuery] int? Floor = null, [FromQuery] bool? Availability = null, [FromQuery] int? BedId = null)
         {
             IQueryable<Room> query = _context.Rooms.Include(room => room.Beds);
 
@@ -57,6 +57,17 @@ namespace ApiHospital.Controllers
             {
                 query = query.Where(r => r.Availability == Availability.Value);
             }
+
+            if(BedId.HasValue)
+            {
+                query = from room in query
+                        join bed in _context.Beds on room.Id equals bed.RoomId
+                        where bed.Id == BedId.Value
+                        select room;
+
+                //query = query.Where(r => r.Beds.Any(b => b.Id == BedId.Value));
+            }
+            
 
             return await query.ToListAsync();        
         }
