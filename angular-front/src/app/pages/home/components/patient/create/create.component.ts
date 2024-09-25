@@ -19,6 +19,7 @@ import {
   VERSION as MAT_VERSION,
   MatNativeDateModule,
 } from '@angular/material/core';
+import { PatientStatus } from '../../../../../enums/patient-status.enum';
 
 console.info('Angular CDK version', CDK_VERSION.full);
 console.info('Angular Material version', MAT_VERSION.full);
@@ -91,7 +92,7 @@ export class CreatePatientComponent implements OnInit {
     const patientData: PatientInterface = {
       ...this.patientForm.value,
       //patientCode: this.nextPatientCode, //incrementación en BBDD
-      status: 'Inactivo', //por defecto
+      status: PatientStatus.Inactivo, //por defecto
       reason: '',
       bedId: null,
     };

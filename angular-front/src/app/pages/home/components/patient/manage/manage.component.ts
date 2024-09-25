@@ -84,6 +84,11 @@ export class ManagePatientComponent implements OnInit {
   // reb el valor de la variable $event, de tipus enum PatientStatus
   onStatusChange(status: PatientStatus) {
     console.log('Estado Seleccionado: ', status);
+    this.patient.status = this.selectedPatientStatus;
+    console.log(this.patient.status)
+    this.patientService.putPatientData(this.patient).subscribe(data => {
+
+    });
 
     // en cas de que l'estat sigui hospitalitzat mostra llista
     if (status === PatientStatus.Hospitalizado || status === PatientStatus.Ambulatorio || status === PatientStatus.Urgencias || status === PatientStatus.Quirofano) {
