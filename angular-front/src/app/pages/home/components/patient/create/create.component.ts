@@ -9,6 +9,7 @@ import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
+import { PatientStatus } from '../../../../../enums/patient-status.enum';
 
 
 @Injectable({
@@ -71,7 +72,7 @@ export class CreatePatientComponent implements OnInit {
     const patientData: PatientInterface = {
       ...this.patientForm.value,
       //patientCode: this.nextPatientCode, //incrementación en BBDD
-      status: 'Inactivo', //por defecto
+      status: PatientStatus.Inactivo, //por defecto
       reason: '',
       bedId: null,
     };

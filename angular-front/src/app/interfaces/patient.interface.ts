@@ -1,3 +1,5 @@
+import { PatientStatus } from "../enums/patient-status.enum";
+
 export interface PatientInterface{
 
     id: number;
@@ -16,7 +18,7 @@ export interface PatientInterface{
 
     patientCode: number;
     emergencyContact?: string;
-    status: string;
+    status: PatientStatus | null;
     reason?: string;
     bedId?: number;
    

@@ -22,11 +22,6 @@ export class SearchRoomComponent {
     { id: 2, room_number: 204, capacity: 1, area: "UCI", floor: 1, availability: true} // Con idpatient
      ];
 
-  patient: PatientInterface[] = [
-    { id: 0, patientCode: 123456, name: "Juan", surname1: "Martínez", surname2: "López", dni: "", cip: "", gender: "", phone: "631238791", email: "", age: 34, birthDate: new Date("1990-09-12"), country: countries[0].name, status: "Ambulatorio", address: "", emergencyContact: "" },
-    { id: 1, patientCode: 654321, name: "Maria", surname1: "Pérez", surname2: "Castro", dni: "", cip: "", gender: "", phone: "621655788", email: "", age: 54, birthDate: new Date("1970-09-12"), country: countries[0].name, status: "Hospitalizado", address: "", emergencyContact: "", bedId: 4011}
-  ];
-
   onSubmit() {
     //canviar esto por el paciente/s encontrado por la api
     console.log('Formulario enviado');
