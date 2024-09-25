@@ -60,10 +60,11 @@ namespace ApiHospital.Controllers
 
             if(BedId.HasValue)
             {
-                query = from room in query
+                return Ok(query.ToList());
+                /*query = from room in query
                         join bed in _context.Beds on room.Id equals bed.RoomId
                         where bed.Id == BedId.Value
-                        select room;
+                        select room;*/
 
                 //query = query.Where(r => r.Beds.Any(b => b.Id == BedId.Value));
             }

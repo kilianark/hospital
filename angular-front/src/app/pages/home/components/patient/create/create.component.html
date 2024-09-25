@@ -1,80 +1,150 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Crear Paciente</title>
-        <link rel="stylesheet" href="create.component.css"> <!-- uso mentres estilitzo component -->
-    </head>
-    <body>
-        <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
-            <div class="content">
-                <legend class="head" >Crear Paciente:</legend>
-                <br>
-                <div class="cod-pat">
-                    <label for="patientCode">Código:</label>
-                    <input id="patientCode" type="text" formControlName="patientCode">
-                </div>
-                <br>
-                <div class="form-col">
-                    <label for="dni">DNI/NIE: (<span class="red-req">*</span>):</label>
-                    <input id="dni" formControlName="dni" type="text" placeholder="00000000A">
+  <head>
+    <title>Crear Paciente</title>
+    <link rel="stylesheet" href="create.component.css" />
+    <!-- uso mentres estilitzo component -->
+  </head>
+  <body>
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="content">
+        <legend class="head">Crear Paciente:</legend>
+        <br />
+        <div class="cod-pat">
+          <label for="patientCode">Código:</label>
+          <input id="patientCode" type="text" formControlName="patientCode" />
+        </div>
+        <br />
+        <div class="form-col">
+          <label for="dni">DNI/NIE: (<app-required></app-required>):</label>
+          <input
+            id="dni"
+            formControlName="dni"
+            type="text"
+            placeholder="00000000A"
+          />
 
-                    <label for="cip">CIP:</label>
-                    <input id="cip" formControlName="cip" type="text" placeholder="ABCD 00000000">
+          <label for="cip">CIP:</label>
+          <input
+            id="cip"
+            formControlName="cip"
+            type="text"
+            placeholder="ABCD 00000000"
+          />
 
-                    <label for="name">Nombre (<span class="red-req">*</span>):</label>
-                    <input id="name" formControlName="name" type="text" placeholder="">
+          <label for="name">Nombre (<app-required></app-required>):</label>
+          <input id="name" formControlName="name" type="text" placeholder="" />
 
-                    <label for="birthDate">F. Nacimiento (<span class="red-req">*</span>):</label>
-                    <input id="birthDate" formControlName="birthDate" type="date" placeholder="dd/mm/aaaa">
+          <label for="birthDate"
+            >F. Nacimiento (<app-required></app-required>):</label
+          >
+          <input
+            id="birthDate"
+            formControlName="birthDate"
+            type="date"
+            placeholder="dd/mm/aaaa"
+          />
 
-                    <label for="surname1">Apellido 1 (<span class="red-req">*</span>):</label>
-                    <input id="surname1" formControlName="surname1" type="text" placeholder="">
+          <label for="surname1"
+            >Apellido 1 (<app-required></app-required>):</label
+          >
+          <input
+            id="surname1"
+            formControlName="surname1"
+            type="text"
+            placeholder=""
+          />
 
-                    <label for="surname2">Apellido 2:</label>
-                    <input id="surname2" formControlName="surname2" type="text" placeholder="">
+          <label for="surname2">Apellido 2:</label>
+          <input
+            id="surname2"
+            formControlName="surname2"
+            type="text"
+            placeholder=""
+          />
 
-                    <label for="phone">Teléfono (<span class="red-req">*</span>):</label>
-                    <input id="phone" formControlName="phone" type="text" placeholder="">
+          <label for="phone">Teléfono (<app-required></app-required>):</label>
+          <input
+            id="phone"
+            formControlName="phone"
+            type="text"
+            placeholder=""
+          />
 
-                    <label for="email">E-mail:</label>
-                    <input id="email" formControlName="email" type="text" placeholder="">
+          <label for="email">E-mail:</label>
+          <input
+            id="email"
+            formControlName="email"
+            type="text"
+            placeholder=""
+          />
 
-                    <label for="nationality">Nacionalidad (<span class="red-req">*</span>):</label>
-                    <select id="nationality" name="country" formControlName="country">
-                        <option value="" disabled>Select Country</option>
-                        <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
-                    </select>
+          <label for="nationality"
+            >Nacionalidad (<app-required></app-required>):</label
+          >
+          <select id="nationality" name="country" formControlName="country">
+            <option value="" disabled>Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.name">
+              {{ country.name }}
+            </option>
+          </select>
 
-                    <label for="address">Dirección:</label>
-                    <input id="address" type="text" formControlName="address" placeholder="">
-                </div>
-                <br>
-                <div class="peu-form">
-                    <div class="eme-con">
-                        <label for="emergencycontact">C. Emergencia:</label>
-                    </div>
-                    <input id="emergencycontact" formControlName="emergencyContact" type="text" placeholder="">
+          <label for="address">Dirección:</label>
+          <input
+            id="address"
+            type="text"
+            formControlName="address"
+            placeholder=""
+          />
+        </div>
+        <br />
+        <div class="peu-form">
+          <div class="eme-con">
+            <label for="emergencycontact">C. Emergencia:</label>
+          </div>
+          <input
+            id="emergencycontact"
+            formControlName="emergencyContact"
+            type="text"
+            placeholder=""
+          />
 
-                    <label for="gender">Sexo (<span class="red-req">*</span>):</label>
-                    <div class="gender">
-                        <fieldset>
-                            <div class="select">
-                                <input id="man" formControlName="gender" type="radio" name="gender" value="man"/>
-                                <label class="select1" for="man">Masculino</label>
+          <label for="gender">Sexo (<app-required></app-required>):</label>
+          <div class="gender">
+            <fieldset>
+              <div class="select">
+                <input
+                  id="man"
+                  formControlName="gender"
+                  type="radio"
+                  name="gender"
+                  value="man"
+                />
+                <label class="select1" for="man">Masculino</label>
 
-                                <input id="woman" formControlName="gender" type="radio" name="gender" value="woman"/>
-                                <label class="select2" for="woman">Femenino</label>
-                                
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="formButtons">
-                <input class="submit" type="submit" placeholder="Registrar" [disabled]="patientForm.invalid"/>
-                <input class="reset" type="reset" placeholder="Reiniciar"/>
-            </div>
-        </form>
-    </body>
+                <input
+                  id="woman"
+                  formControlName="gender"
+                  type="radio"
+                  name="gender"
+                  value="woman"
+                />
+                <label class="select2" for="woman">Femenino</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="formButtons">
+        <input
+          class="submit"
+          type="submit"
+          placeholder="Registrar"
+          [disabled]="patientForm.invalid"
+        />
+        <input class="reset" type="reset" placeholder="Reiniciar" />
+      </div>
+    </form>
+  </body>
 </html>
