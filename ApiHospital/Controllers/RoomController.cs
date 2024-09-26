@@ -45,7 +45,7 @@ namespace ApiHospital.Controllers
 
             if (!string.IsNullOrEmpty(Area))
             {
-                query = query.Where(r => r.Area.Contains(Area));
+                query = query.Where(r => r.Area.StartsWith(Area));
             }
 
             if (Floor.HasValue)

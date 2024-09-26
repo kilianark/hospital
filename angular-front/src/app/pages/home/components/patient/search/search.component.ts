@@ -44,8 +44,28 @@ export class SearchPatientComponent {
       this.patientCode = value;
     });
 
+    this.patientForm.get('name')?.valueChanges.subscribe(value => {
+      this.name = value;
+    });
+
     this.patientForm.get('surname1')?.valueChanges.subscribe(value => {
       this.surname1 = value;
+    });
+
+    this.patientForm.get('surname2')?.valueChanges.subscribe(value => {
+      this.surname2 = value;
+    });
+
+    this.patientForm.get('dni')?.valueChanges.subscribe(value => {
+      this.dni = value;
+    });
+
+    this.patientForm.get('cip')?.valueChanges.subscribe(value => {
+      this.cip = value;
+    });
+
+    this.patientForm.get('phone')?.valueChanges.subscribe(value => {
+      this.phone = value;
     });
   }
 
@@ -70,7 +90,7 @@ export class SearchPatientComponent {
   }
 
   onSubmit() {
-    this.patientService.getPatientData(Number(this.patientCode), this.surname1).subscribe((data) => {
+    this.patientService.getPatientData(Number(this.patientCode), this.name, this.surname1, this.surname2, this.dni, this.cip, this.phone).subscribe((data) => {
       this.patient = data;
       console.log(data);
     });
