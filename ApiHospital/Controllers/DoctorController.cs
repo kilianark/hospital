@@ -35,22 +35,22 @@ namespace ApiHospital.Controllers
 
             if (!string.IsNullOrEmpty(Name))    
             {
-                query = query.Where(d => d.Name.Contains(Name));
+                query = query.Where(d => d.Name.StartsWith(Name));
             }
 
             if (!string.IsNullOrEmpty(Surname1))    
             {
-                query = query.Where(d => d.Surname1.Contains(Surname1));
+                query = query.Where(d => d.Surname1.StartsWith(Surname1));
             }
 
             if (!string.IsNullOrEmpty(Surname2))    
             {
-                query = query.Where(d => d.Surname1.Contains(Surname2));
+                query = query.Where(d => d.Surname1.StartsWith(Surname2));
             }
 
             if (!string.IsNullOrEmpty(Dni))    
             {
-                query = query.Where(d => d.Dni.Contains(Dni));
+                query = query.Where(d => d.Dni.StartsWith(Dni));
             }
 
             if (Age.HasValue)
@@ -65,42 +65,42 @@ namespace ApiHospital.Controllers
 
             if (!string.IsNullOrEmpty(Country))
             {
-                query = query.Where(d => d.Country.Contains(Country));
+                query = query.Where(d => d.Country.StartsWith(Country));
             }
 
             if (!string.IsNullOrEmpty(Address))
             {
-                query = query.Where(d => d.Address.Contains(Address));
+                query = query.Where(d => d.Address.StartsWith(Address));
             }
 
             if (!string.IsNullOrEmpty(Phone))
             {
-                query = query.Where(d => d.Phone.Contains(Phone));
+                query = query.Where(d => d.Phone.StartsWith(Phone));
             }
 
             if (!string.IsNullOrEmpty(Email))
             {
-                query = query.Where(d => d.Email.Contains(Email));
+                query = query.Where(d => d.Email.StartsWith(Email));
             }
 
             if (!string.IsNullOrEmpty(Gender))
             {
-                query = query.Where(d => d.Gender.Contains(Gender));
+                query = query.Where(d => d.Gender.StartsWith(Gender));
             }
 
             if (!string.IsNullOrEmpty(User))
             {
-                query = query.Where(d => d.User.Contains(User));
+                query = query.Where(d => d.User.StartsWith(User));
             }
 
             if (!string.IsNullOrEmpty(WorkerType))
             {
-                query = query.Where(d => d.WorkerType.Contains(WorkerType));
+                query = query.Where(d => d.WorkerType.StartsWith(WorkerType));
             }
 
             if (!string.IsNullOrEmpty(Speciality))
             {
-                query = query.Where(d => d.Speciality.Contains(Speciality));
+                query = query.Where(d => d.Speciality.StartsWith(Speciality));
             }
 
             return await _context.Doctors.ToListAsync();
