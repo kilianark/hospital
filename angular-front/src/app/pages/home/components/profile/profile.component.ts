@@ -7,6 +7,7 @@ import { countries } from '../../../../store/country-data.store';
 import { MatDialog } from '@angular/material/dialog';
 import { Country } from '../../../../interfaces/country.interface';
 import { DoctorInterface } from '../../../../interfaces/doctor.interface';
+import { DoctorService } from '../../../../services/doctor.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ import { DoctorInterface } from '../../../../interfaces/doctor.interface';
 export class ProfileComponent {
   profileForm: FormGroup;
   
-  constructor(public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private doctorService : DoctorService) {
     this.profileForm = this.formBuilder.group({
       dni: [this.doctor.dni, [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
       cip: [this.doctor.cip, [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
