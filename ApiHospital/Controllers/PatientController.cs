@@ -31,8 +31,7 @@ namespace ApiHospital.Controllers
 
         // GET: api/Patient
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients
-        ([FromQuery] int? PatientCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] string? Cip = null, [FromQuery] string? Phone = null, [FromQuery] string? Status = null, [FromQuery] int? BedId = null )
+        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients ([FromQuery] int? PatientCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] string? Cip = null, [FromQuery] string? Phone = null, [FromQuery] string? Status = null, [FromQuery] int? BedId = null )
         {
             IQueryable <Patient> query = _context.Patients;
 
@@ -59,8 +58,7 @@ namespace ApiHospital.Controllers
 
         // GET: api/Patient/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Patient>> GetPatient(int id)
-        {
+        public async Task<ActionResult<Patient>> GetPatient(int id) {
             var patient = await _context.Patients.FindAsync(id);
 
             if (patient == null) return NotFound();
