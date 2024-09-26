@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RoomInterface } from '../pages/home/interfaces/room.interface';
 import { Observable } from 'rxjs';
+import { BedInterface } from '../interfaces/bed.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,22 @@ export class RoomService {
   private url = "https://localhost:7138/api/Rooms";
 
   constructor(private http: HttpClient) { }
+
+  getRoomData (): Observable<RoomInterface[]>{
+    return this.http.get<RoomInterface[]>(this.url);
+  }
+
+  getRoomById(roomId: number): Observable<RoomInterface>{
+    return this.http.get<RoomInterface>(this.url + '/' + roomId );
+  }
+
+  postRoomData (room: RoomInterface): Observable<RoomInterface> {
+    return this.http.post<RoomInterface>(this.url, room);
+  }
+
+  putPatientData (room: RoomInterface): Observable<RoomInterface> {
+    return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
+  }
 
   searchRooms(room_number: number | null, floor: number | null, area: string, capacity: number | null, availability: boolean | null): Observable<RoomInterface[]> {
     let params = new HttpParams();
@@ -32,4 +49,6 @@ export class RoomService {
 
     return this.http.get<RoomInterface[]>(this.url, { params });
   }
+
+
 }

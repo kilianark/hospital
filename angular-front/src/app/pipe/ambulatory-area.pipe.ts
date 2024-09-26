@@ -4,8 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
   name: 'ambulatoryAreaPipe',
-  pure: false,
-  standalone: true
+  pure: false
 })
 export class AmbulatoryAreaPipe implements PipeTransform {
   constructor(private translate: TranslateService) {}
@@ -13,11 +12,13 @@ export class AmbulatoryAreaPipe implements PipeTransform {
     try {
       switch(+value) {
         case AmbulatoryArea.ConsultaExterna:
-          return this.translate.instant('Consulta Externa');
+          return this.translate.instant('t-consulta-externa');
         case AmbulatoryArea.HospitalDia:
-          return this.translate.instant('Hospital de dia');
+          return this.translate.instant('t-hospital-dia');
         case AmbulatoryArea.SalaEspera:
-          return this.translate.instant('Sala de Espera');
+          return this.translate.instant('t-sala-espera');
+        default:
+          return this.translate.instant('t-default');
       }
     } catch (ex) {
       return '';
