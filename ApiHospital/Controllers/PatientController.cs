@@ -42,7 +42,7 @@ namespace ApiHospital.Controllers
 
             if (!string.IsNullOrEmpty(Surname1)) query = query.Where(p => p.Surname1.Contains(Surname1));
 
-            if (!string.IsNullOrEmpty(Surname2)) query = query.Where(p => p.Surname1.Contains(Surname2));
+            if (!string.IsNullOrEmpty(Surname2)) query = query.Where(p => p.Surname2.Contains(Surname2));
 
             if (!string.IsNullOrEmpty(Dni)) query = query.Where(p => p.Dni.Contains(Dni));
 
