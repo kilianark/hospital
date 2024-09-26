@@ -24,7 +24,23 @@ namespace ApiHospital.Controllers
 
         // GET: api/Doctors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor([FromQuery] int? DoctorCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] int? Age = null, [FromQuery]  DateOnly? BirthDate = null, [FromQuery] string? Country = null, [FromQuery] string? Address = null, [FromQuery] string? Phone = null, [FromQuery]  string? Email = null, [FromQuery] string? CIP = null, [FromQuery] string? Gender = null, [FromQuery] string? User = null, [FromQuery] string? WorkerType = null, [FromQuery] string? Speciality = null)
+        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor(
+            [FromQuery] int? DoctorCode = null, 
+            [FromQuery] string? Name = null, 
+            [FromQuery] string? Surname1 = null, 
+            [FromQuery] string? Surname2 = null, 
+            [FromQuery] string? Dni = null, 
+            [FromQuery] int? Age = null, 
+            [FromQuery] DateOnly? BirthDate = null, 
+            [FromQuery] string? Country = null, 
+            [FromQuery] string? Address = null, 
+            [FromQuery] string? Phone = null, 
+            [FromQuery] string? Email = null, 
+            [FromQuery] string? CIP = null, 
+            [FromQuery] string? Gender = null, 
+            [FromQuery] string? User = null, 
+            [FromQuery] string? WorkerType = null, 
+            [FromQuery] string? Speciality = null)
         {
             IQueryable <Doctor> query = _context.Doctors;
 

@@ -29,7 +29,13 @@ namespace ApiHospital.Controllers
 
         // GET: api/Room
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms([FromQuery] int? RoomNumber = null, [FromQuery] int? Capacity = null, [FromQuery] string? Area = null, [FromQuery] int? Floor = null, [FromQuery] bool? Availability = null, [FromQuery] int? BedId = null)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms(
+            [FromQuery] int? RoomNumber = null, 
+            [FromQuery] int? Capacity = null, 
+            [FromQuery] string? Area = null, 
+            [FromQuery] int? Floor = null, 
+            [FromQuery] bool? Availability = null, 
+            [FromQuery] int? BedId = null)
         {
             IQueryable<Room> query = _context.Rooms.Include(room => room.Beds);
 
