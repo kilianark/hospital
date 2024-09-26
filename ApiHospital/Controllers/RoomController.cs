@@ -43,7 +43,7 @@ namespace ApiHospital.Controllers
                 query = query.Where(r => r.Capacity == Capacity.Value);
             }
 
-            if (!Area.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(Area))
             {
                 query = query.Where(r => r.Area.StartsWith(Area));
             }
