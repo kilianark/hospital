@@ -38,19 +38,19 @@ namespace ApiHospital.Controllers
 
             if (PatientCode.HasValue && PatientCode != 0) query = query.Where(p => p.PatientCode == PatientCode.Value);
 
-            if (!string.IsNullOrEmpty(Name)) query = query.Where(p => p.Name.Contains(Name));
+            if (!string.IsNullOrEmpty(Name)) query = query.Where(p => p.Name.StartsWith(Name));
 
-            if (!string.IsNullOrEmpty(Surname1)) query = query.Where(p => p.Surname1.Contains(Surname1));
+            if (!string.IsNullOrEmpty(Surname1)) query = query.Where(p => p.Surname1.StartsWith(Surname1));
 
-            if (!string.IsNullOrEmpty(Surname2)) query = query.Where(p => p.Surname2.Contains(Surname2));
+            if (!string.IsNullOrEmpty(Surname2)) query = query.Where(p => p.Surname2.StartsWith(Surname2));
 
-            if (!string.IsNullOrEmpty(Dni)) query = query.Where(p => p.Dni.Contains(Dni));
+            if (!string.IsNullOrEmpty(Dni)) query = query.Where(p => p.Dni.StartsWith(Dni));
 
-            if (!string.IsNullOrEmpty(Cip)) query = query.Where(p => p.CIP.Contains(Cip));
+            if (!string.IsNullOrEmpty(Cip)) query = query.Where(p => p.CIP.StartsWith(Cip));
 
-            if (!string.IsNullOrEmpty(Phone)) query = query.Where(p => p.Phone.Contains(Phone));
+            if (!string.IsNullOrEmpty(Phone)) query = query.Where(p => p.Phone.StartsWith(Phone));
 
-            if (!string.IsNullOrEmpty(Status)) query = query.Where(p => p.Status.Contains(Status));
+            if (!string.IsNullOrEmpty(Status)) query = query.Where(p => p.Status.StartsWith(Status));
 
             if (BedId.HasValue) query = query.Where(p => p.BedId == BedId.Value);
         
@@ -68,16 +68,16 @@ namespace ApiHospital.Controllers
             return patient;
         }
 
-        [HttpGet("/patients/{name}")]
+        /*[HttpGet("/patients/{name}")]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatientName(string name) 
         {
             var patients = from patient in _context.Patients select patient;
 
-            patients = patients.Where(p => p.Name.Contains(name));
+            patients = patients.Where(p => p.Name.StartsWith(name));
 
             return await patients.ToListAsync();
 
-        }
+        }*/
 
         // PUT: api/Patient/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
