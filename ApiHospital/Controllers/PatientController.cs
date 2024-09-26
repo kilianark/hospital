@@ -32,7 +32,7 @@ namespace ApiHospital.Controllers
         // GET: api/Patient
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatients
-        ([FromQuery] int? PatientCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] string? Phone = null, [FromQuery] string? Status = null, [FromQuery] int? BedId = null )
+        ([FromQuery] int? PatientCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] string? Cip = null, [FromQuery] string? Phone = null, [FromQuery] string? Status = null, [FromQuery] int? BedId = null )
         {
             IQueryable <Patient> query = _context.Patients;
 
@@ -45,6 +45,8 @@ namespace ApiHospital.Controllers
             if (!string.IsNullOrEmpty(Surname2)) query = query.Where(p => p.Surname1.Contains(Surname2));
 
             if (!string.IsNullOrEmpty(Dni)) query = query.Where(p => p.Dni.Contains(Dni));
+
+            if (!string.IsNullOrEmpty(Cip)) query = query.Where(p => p.CIP.Contains(Cip));
 
             if (!string.IsNullOrEmpty(Phone)) query = query.Where(p => p.Phone.Contains(Phone));
 
