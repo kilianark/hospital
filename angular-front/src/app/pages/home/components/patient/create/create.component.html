@@ -6,10 +6,103 @@
     <!-- uso mentres estilitzo component -->
   </head>
   <body>
+    <div
+      *ngIf="patientForm.get('dni')?.invalid && patientForm.get('dni')?.touched"
+    >
+      <div *ngIf="patientForm.get('dni')?.hasError('required')" class="alert">
+        El DNI es obligatorio
+      </div>
+    </div>
+    <div
+      *ngIf="
+        patientForm.get('name')?.invalid && patientForm.get('name')?.touched
+      "
+      class="alert"
+    >
+      El nombre es obligatorio
+    </div>
+
+    <div
+      *ngIf="
+        patientForm.get('surname1')?.invalid &&
+        patientForm.get('surname1')?.touched
+      "
+      class="alert"
+    >
+      El apellido es obligatorio
+    </div>
+    <div
+      *ngIf="patientForm.get('cip')?.invalid && patientForm.get('cip')?.touched"
+      class="alert"
+    >
+      El CIP tiene que ser válido
+    </div>
+    <div
+      *ngIf="
+        patientForm.get('phone')?.invalid && patientForm.get('phone')?.touched
+      "
+    >
+      <div *ngIf="patientForm.get('phone')?.hasError('required')" class="alert">
+        El teléfono es obligatorio
+      </div>
+    </div>
+    <div
+      *ngIf="patientForm.get('dni')?.invalid && patientForm.get('dni')?.touched"
+    >
+      <div *ngIf="patientForm.get('dni')?.hasError('pattern')" class="alert">
+        El DNI tiene que ser válido
+      </div>
+    </div>
+    <div
+      *ngIf="
+        patientForm.get('phone')?.invalid && patientForm.get('phone')?.touched
+      "
+    >
+      <div *ngIf="patientForm.get('phone')?.hasError('pattern')" class="alert">
+        El teléfono tiene que ser válido
+      </div>
+    </div>
+    <div
+      *ngIf="
+        patientForm.get('birthDate')?.invalid &&
+        patientForm.get('birthDate')?.touched
+      "
+      class="alert"
+    >
+      La fecha de nacimiento es obligatoria
+    </div>
+    <div
+      *ngIf="
+        patientForm.get('email')?.invalid && patientForm.get('email')?.touched
+      "
+      class="alert"
+    >
+      El correo electrónico tiene que ser válido
+    </div>
+
+    <div
+      *ngIf="
+        patientForm.get('emergencyContact')?.invalid &&
+        patientForm.get('emergencyContact')?.touched
+      "
+      class="alert"
+    >
+      El número del contacto tiene que ser válido
+    </div>
+    <div
+      *ngIf="
+        patientForm.get('country')?.invalid &&
+        patientForm.get('country')?.touched
+      "
+      class="alert"
+    >
+      Tienes que seleccionar un pais de nacionalidad
+    </div>
     <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="content">
         <legend class="head">Crear Paciente:</legend>
         <br />
+
         <div class="cod-pat">
           <label for="patientCode">Código:</label>
           <input id="patientCode" type="text" formControlName="patientCode" />
@@ -24,7 +117,6 @@
             placeholder="00000000A"
             style="text-transform: uppercase"
           />
-
           <label for="cip">CIP:</label>
           <input
             id="cip"
@@ -36,7 +128,6 @@
 
           <label for="name">Nombre (<app-required></app-required>):</label>
           <input id="name" formControlName="name" type="text" placeholder="" />
-
           <label for="birthDate"
             >F. Nacimiento (<app-required></app-required>):</label
           >
