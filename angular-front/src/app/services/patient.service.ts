@@ -14,14 +14,41 @@ export class PatientService {
 
 
 
-  getPatientData (patientCode?: number, Surname1?: string): Observable<PatientInterface[]> {
+  getPatientData (patientCode?: number, Name?: string, Surname1?: string, 
+    Surname2?: string, Dni?: string, Phone?: string, Status?: string, BedId?: number): Observable<PatientInterface[]> {
     let params = new HttpParams();
     if (patientCode != null && patientCode != 0) {
       params = params.set('patientCode', patientCode);
     }
+
+    if (Name != null && Name != undefined && Name.trim() !== "") {
+      params = params.set('Name', Name);
+    }
+
     if (Surname1 != null && Surname1 != undefined && Surname1.trim() !== "") {
       params = params.set('Surname1', Surname1);
     }
+
+    if (Surname2 != null && Surname2 != undefined && Surname2.trim() !== "") {
+      params = params.set('Surname2', Surname2);
+    }
+
+    if (Dni != null && Dni != undefined && Dni.trim() !== "") {
+      params = params.set('Dni', Dni);
+    }
+
+    if (Phone != null && Phone != undefined && Phone.trim() !== "") {
+      params = params.set('Phone', Phone);
+    }
+
+    if (Status != null && Status != undefined && Status.trim() !== "") {
+      params = params.set('Status', Status);
+    }
+
+    if (BedId != null && BedId != 0) {
+      params = params.set('BedId', BedId);
+    }
+
     return this.http.get<PatientInterface[]>(this.url, {params});
   }
 
