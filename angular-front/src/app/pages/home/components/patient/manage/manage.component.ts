@@ -15,6 +15,8 @@ import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 //import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
+// import { TranslateService } from '@ngx-translate/core'; 
+
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -65,7 +67,7 @@ export class ManagePatientComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder/*, private translate: TranslateService*/) {
     //this.statusForm = this.formBuilder.group({ });
     this.route.params.subscribe(params => {
       this.patientId = +params['id']; // "+" para convertir a número
@@ -74,6 +76,10 @@ export class ManagePatientComponent implements OnInit {
       } )
       // Aquí puedes cargar los datos del paciente con la ID obtenida
     });
+    /*
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
+    */
   }
   
   ngOnInit(): void {
@@ -163,6 +169,6 @@ export class ManagePatientComponent implements OnInit {
   // un cop guardat l'estat, informació d'estat de systema/acció
   confirm() {
     let dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage("Datos Actualizados");
+    dialogRef.componentInstance.setMessage("Estado Actualizado");
   }
 }
