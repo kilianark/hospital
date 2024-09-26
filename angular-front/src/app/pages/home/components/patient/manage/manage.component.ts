@@ -54,6 +54,7 @@ export class ManagePatientComponent implements OnInit {
 
   // convertim l'enum a una llista d'objectes per fer servir les opcions en el select
   // primer filtrem i després mapegem
+  //dios dame paciencia, btw esto solo se usa en el primer select (eliminarlo y substituirlo por mi pipe) kilian ;D
   patientStatus = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: PatientStatus[key as keyof typeof PatientStatus] }));
 
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
