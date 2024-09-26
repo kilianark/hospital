@@ -1,5 +1,5 @@
 export enum OperatingRoomArea {
-    SalaOperación,
-    Reanimación,
+    SalaOperacion,
+    SalaReanimacion,
     SalaEspera
 }

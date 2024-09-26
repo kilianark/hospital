@@ -15,8 +15,6 @@ import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 //import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
-// import { TranslateService } from '@ngx-translate/core'; 
-
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -26,8 +24,6 @@ export class ManagePatientComponent implements OnInit {
   title = 'Gestionar Estado:'
   patientId: number | undefined;
   patient!: PatientInterface;
-
-  
 
   // variables que contindrá els valors seleccionats
   selectedPatientStatus: PatientStatus | null = null;
@@ -67,7 +63,7 @@ export class ManagePatientComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder/*, private translate: TranslateService*/) {
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, /*private ORP: OperatingRoomAreaPipe*/) {
     //this.statusForm = this.formBuilder.group({ });
     this.route.params.subscribe(params => {
       this.patientId = +params['id']; // "+" para convertir a número
@@ -76,10 +72,6 @@ export class ManagePatientComponent implements OnInit {
       } )
       // Aquí puedes cargar los datos del paciente con la ID obtenida
     });
-    /*
-    this.translate.setDefaultLang('es');
-    this.translate.use('es');
-    */
   }
   
   ngOnInit(): void {

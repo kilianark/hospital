@@ -3,7 +3,7 @@ export enum HospitalizedArea {
   MedicinaInterna,
   Pediatria,
   Ginecologia,
-  Oncología,
-  Psiquiatría,
-  Cirurgía,
+  Oncologia,
+  Psiquiatria,
+  Cirurgia,
 }

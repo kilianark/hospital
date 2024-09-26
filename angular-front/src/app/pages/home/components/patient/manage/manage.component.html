@@ -205,16 +205,9 @@
                                 <label for="areaOperatingRoom">Seleccionar área: </label>
                                 <select id="areaOperatingRoom" name="areaOperatingRoom" [(ngModel)]="selectedOperatingRoom" (ngModelChange)="onAreaChangeO($event)">
                                     <option *ngFor="let area of operatingRoomArea" [ngValue]="area.value">
-                                        {{ area.label }}
+                                        {{ area.value | operatingRoomArea }}
                                     </option>
                                 </select>
-                                <!--
-                                    <select id="areaOperatingRoom" name="areaOperatingRoom" [(ngModel)]="selectedOperatingRoom" (ngModelChange)="onAreaChangeO($event)">
-                                        <option value="SalaOperacion">Sala de operación</option>
-                                        <option value="Reanimacion">Sala de reanimación </option>
-                                        <option value="SalaEspera">Sala de espera</option>
-                                    </select>
-                                -->
                                 <table>
                                     <thead>
                                         <tr>

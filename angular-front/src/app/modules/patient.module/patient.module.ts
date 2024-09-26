@@ -9,14 +9,8 @@ import { ManagePatientComponent } from '../../pages/home/components/patient/mana
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient.service';
 
-/*
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { OperatingRoomAreaPipe } from '../../pipe/operating-room-area.pipe';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-*/
 import { RequiredComponent } from '../../components/required/required.component';
 
 @NgModule({
@@ -24,19 +18,13 @@ import { RequiredComponent } from '../../components/required/required.component'
     CreatePatientComponent,
     ManagePatientComponent,
     SearchPatientComponent,
+    OperatingRoomAreaPipe
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     PatientRoutingModule,
-    /*TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),*/
     RequiredComponent,
   ],
   providers: [provideHttpClient()],
