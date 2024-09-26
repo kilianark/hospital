@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
-using hospitalDTO.DTOapi;
 using AutoMapper;
+using hospitalDTO.DTOapi;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiHospital.Controllers
 {
@@ -21,14 +21,16 @@ namespace ApiHospital.Controllers
         private readonly IMapper _mapper;
 
         public BedController(HospitalContext context, IMapper mapper)
-        { 
+        {
             _context = context;
             _mapper = mapper;
         }
 
         // GET: api/Bed
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bed>>> GetBeds([FromQuery] bool? availability = null)
+        public async Task<ActionResult<IEnumerable<Bed>>> GetBeds(
+            [FromQuery] bool? availability = null
+        )
         {
             IQueryable<Bed> query = _context.Beds;
 
@@ -65,8 +67,8 @@ namespace ApiHospital.Controllers
             }
 
             var bed = await _context.Beds.FindAsync(id);
-            if (bed == null) return NotFound();
-
+            if (bed == null)
+                return NotFound();
 
             _mapper.Map(bedDTO, bed);
 
@@ -94,9 +96,9 @@ namespace ApiHospital.Controllers
         [HttpPost]
         public async Task<ActionResult<Bed>> PostBed(BedDTO bedDTO)
         {
-
             var bed = _mapper.Map<Bed>(bedDTO);
-            if (!RoomExists(bed.RoomId)) {
+            if (!RoomExists(bed.RoomId))
+            {
                 return BadRequest("Room doesn't exist");
             }
             _context.Beds.Add(bed);
@@ -123,24 +125,29 @@ namespace ApiHospital.Controllers
 
         // PATCH: api/Beds/5
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchBed(int id, [FromBody] JsonPatchDocument<Bed> patchDocument)
+        public async Task<IActionResult> PatchBed(
+            int id,
+            [FromBody] JsonPatchDocument<Bed> patchDocument
+        )
         {
-            if (patchDocument == null) return BadRequest();
+            if (patchDocument == null)
+                return BadRequest();
 
             var bed = await _context.Beds.FindAsync(id);
 
-            if (bed == null) return NotFound();
+            if (bed == null)
+                return NotFound();
 
             patchDocument.ApplyTo(bed, ModelState);
 
             bool isValidPatch = TryValidateModel(bed);
 
-            if (!isValidPatch) return BadRequest(ModelState);
+            if (!isValidPatch)
+                return BadRequest(ModelState);
 
             await _context.SaveChangesAsync();
 
             return Ok();
-    
         }
 
         private bool BedExists(int id)

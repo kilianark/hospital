@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using ApiHospital.Models;
+using Microsoft.EntityFrameworkCore;
 
 // millor situar el context en la carpeta Data
 // Models sol contenir definicions de les ENTITATs de dades
@@ -12,26 +12,29 @@ namespace ApiHospital.Data
 {
     public class HospitalContext : DbContext
     {
-        public HospitalContext(DbContextOptions<HospitalContext> options) : base(options)
+        public HospitalContext(DbContextOptions<HospitalContext> options)
+            : base(options)
         {
             // no sol contenir res en el cos
         }
 
-        // implementem la BBDD pels llits, amb els seus accessors 
+        // implementem la BBDD pels llits, amb els seus accessors
         public DbSet<Bed> Beds { get; set; } = null!;
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<Patient> Patients { get; set; } = null!;
 
         public DbSet<Doctor> Doctors { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Bed>()
+            modelBuilder
+                .Entity<Bed>()
                 .HasOne<Patient>()
                 .WithOne()
                 .HasForeignKey<Patient>(p => p.BedId);
 
-            modelBuilder.Entity<Room>()
+            modelBuilder
+                .Entity<Room>()
                 .HasMany(e => e.Beds)
                 .WithOne()
                 .HasForeignKey(e => e.RoomId)
