@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiHospital.Controllers
 {
@@ -24,31 +24,48 @@ namespace ApiHospital.Controllers
 
         // GET: api/Doctors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor([FromQuery] int? DoctorCode = null, [FromQuery] string? Name = null, [FromQuery] string? Surname1 = null, [FromQuery] string? Surname2 = null, [FromQuery] string? Dni = null, [FromQuery] int? Age = null, [FromQuery]  DateOnly? BirthDate = null, [FromQuery] string? Country = null, [FromQuery] string? Address = null, [FromQuery] string? Phone = null, [FromQuery]  string? Email = null, [FromQuery] string? CIP = null, [FromQuery] string? Gender = null, [FromQuery] string? User = null, [FromQuery] string? WorkerType = null, [FromQuery] string? Speciality = null)
+        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctor(
+            [FromQuery] int? DoctorCode = null,
+            [FromQuery] string? Name = null,
+            [FromQuery] string? Surname1 = null,
+            [FromQuery] string? Surname2 = null,
+            [FromQuery] string? Dni = null,
+            [FromQuery] int? Age = null,
+            [FromQuery] DateOnly? BirthDate = null,
+            [FromQuery] string? Country = null,
+            [FromQuery] string? Address = null,
+            [FromQuery] string? Phone = null,
+            [FromQuery] string? Email = null,
+            [FromQuery] string? CIP = null,
+            [FromQuery] string? Gender = null,
+            [FromQuery] string? User = null,
+            [FromQuery] string? WorkerType = null,
+            [FromQuery] string? Speciality = null
+        )
         {
-            IQueryable <Doctor> query = _context.Doctors;
+            IQueryable<Doctor> query = _context.Doctors;
 
             if (DoctorCode.HasValue)
             {
                 query = query.Where(d => d.DoctorCode == DoctorCode.Value);
             }
 
-            if (!string.IsNullOrEmpty(Name))    
+            if (!string.IsNullOrEmpty(Name))
             {
                 query = query.Where(d => d.Name.StartsWith(Name));
             }
 
-            if (!string.IsNullOrEmpty(Surname1))    
+            if (!string.IsNullOrEmpty(Surname1))
             {
                 query = query.Where(d => d.Surname1.StartsWith(Surname1));
             }
 
-            if (!string.IsNullOrEmpty(Surname2))    
+            if (!string.IsNullOrEmpty(Surname2))
             {
                 query = query.Where(d => d.Surname1.StartsWith(Surname2));
             }
 
-            if (!string.IsNullOrEmpty(Dni))    
+            if (!string.IsNullOrEmpty(Dni))
             {
                 query = query.Where(d => d.Dni.StartsWith(Dni));
             }
@@ -180,24 +197,29 @@ namespace ApiHospital.Controllers
 
         // PATCH: api/Beds/5
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchBed(int id, [FromBody] JsonPatchDocument<Doctor> patchDocument)
+        public async Task<IActionResult> PatchBed(
+            int id,
+            [FromBody] JsonPatchDocument<Doctor> patchDocument
+        )
         {
-            if (patchDocument == null) return BadRequest();
+            if (patchDocument == null)
+                return BadRequest();
 
             var doctor = await _context.Doctors.FindAsync(id);
 
-            if (doctor == null) return NotFound();
+            if (doctor == null)
+                return NotFound();
 
             patchDocument.ApplyTo(doctor, ModelState);
 
             bool isValidPatch = TryValidateModel(doctor);
 
-            if (!isValidPatch) return BadRequest(ModelState);
+            if (!isValidPatch)
+                return BadRequest(ModelState);
 
             await _context.SaveChangesAsync();
 
             return Ok();
-    
         }
 
         private bool DoctorExists(int id)

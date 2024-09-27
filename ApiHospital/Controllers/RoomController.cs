@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
 using ApiHospital.Models;
-using hospitalDTO.DTOapi;
 using AutoMapper;
+using hospitalDTO.DTOapi;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiHospital.Controllers
 {
@@ -29,7 +29,14 @@ namespace ApiHospital.Controllers
 
         // GET: api/Room
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms([FromQuery] int? RoomNumber = null, [FromQuery] int? Capacity = null, [FromQuery] string? Area = null, [FromQuery] int? Floor = null, [FromQuery] bool? Availability = null, [FromQuery] int? BedId = null)
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms(
+            [FromQuery] int? RoomNumber = null,
+            [FromQuery] int? Capacity = null,
+            [FromQuery] string? Area = null,
+            [FromQuery] int? Floor = null,
+            [FromQuery] bool? Availability = null,
+            [FromQuery] int? BedId = null
+        )
         {
             IQueryable<Room> query = _context.Rooms.Include(room => room.Beds);
 
@@ -58,7 +65,7 @@ namespace ApiHospital.Controllers
                 query = query.Where(r => r.Availability == Availability.Value);
             }
 
-            if(BedId.HasValue)
+            if (BedId.HasValue)
             {
                 return Ok(query.ToList());
                 /*query = from room in query
@@ -68,16 +75,18 @@ namespace ApiHospital.Controllers
 
                 //query = query.Where(r => r.Beds.Any(b => b.Id == BedId.Value));
             }
-            
 
-            return await query.ToListAsync();        
+            return await query.ToListAsync();
         }
 
         // GET: api/Room/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            var room = await _context.Rooms.Include(Room => Room.Beds).Where(Room => Room.Id == id).FirstOrDefaultAsync();
+            var room = await _context
+                .Rooms.Include(Room => Room.Beds)
+                .Where(Room => Room.Id == id)
+                .FirstOrDefaultAsync();
 
             if (room == null)
             {
@@ -98,8 +107,8 @@ namespace ApiHospital.Controllers
             }
 
             var room = await _context.Rooms.FindAsync(id);
-            if (room == null) return NotFound();
-
+            if (room == null)
+                return NotFound();
 
             _mapper.Map(roomDTO, room);
 
@@ -152,24 +161,29 @@ namespace ApiHospital.Controllers
 
         // PATCH: api/Rooms/5
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchRoom(int id, [FromBody] JsonPatchDocument<Room> patchDocument)
+        public async Task<IActionResult> PatchRoom(
+            int id,
+            [FromBody] JsonPatchDocument<Room> patchDocument
+        )
         {
-            if (patchDocument == null) return BadRequest();
+            if (patchDocument == null)
+                return BadRequest();
 
             var room = await _context.Rooms.FindAsync(id);
 
-            if (room == null) return NotFound();
+            if (room == null)
+                return NotFound();
 
             patchDocument.ApplyTo(room, ModelState);
 
             bool isValidPatch = TryValidateModel(room);
 
-            if (!isValidPatch) return BadRequest(ModelState);
+            if (!isValidPatch)
+                return BadRequest(ModelState);
 
             await _context.SaveChangesAsync();
 
             return Ok();
-    
         }
 
         private bool RoomExists(int id)

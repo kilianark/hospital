@@ -1,22 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { HospitalizedArea } from '../enums/hospitalized-area.enum';
 @Pipe({
   name: 'hospitalizedArea',
-  pure: false,
 })
 export class HospitalizedAreaPipe implements PipeTransform {
-  constructor(private translate: TranslateService) {}
-
-  transform(value: HospitalizedArea) {
-    try {
-      switch (+value) {
-        case HospitalizedArea.MedicinaInterna:
-          return this.translate.instant('Medicina Interna');
-      }
-    } catch (ex) {
-      console.error('Error transforming hospitalized area', ex);
-      return ''; // En caso de error, retorna una cadena vacía
-    }
+  private readonly enumLabels: { [key: string]: string } = {
+    [HospitalizedArea.UCI]: 'Unidad de cuidados intensivos',
+    [HospitalizedArea.MedicinaInterna]: 'Medicina interna',
+    [HospitalizedArea.Pediatria]: 'Pediatría',
+    [HospitalizedArea.Ginecologia]: 'Ginecología',
+    [HospitalizedArea.Oncologia]: 'Oncología',
+    [HospitalizedArea.Psiquiatria]: 'Psiquiatría',
+    [HospitalizedArea.Cirurgia]: 'Cirurgía',
+  };
+  transform(value: HospitalizedArea): string {
+    return this.enumLabels[value];
   }
 }

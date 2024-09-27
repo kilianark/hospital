@@ -2,10 +2,11 @@ using ApiHospital.Models;
 using AutoMapper;
 using hospitalDTO.DTOapi;
 
-namespace ApiHospital.Data {
-    public class MapperProfile : Profile 
+namespace ApiHospital.Data
+{
+    public class MapperProfile : Profile
     {
-        public MapperProfile() 
+        public MapperProfile()
         {
             CreateMap<Bed, BedDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();

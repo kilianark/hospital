@@ -24,7 +24,7 @@ export class RoomService {
     return this.http.post<RoomInterface>(this.url, room);
   }
 
-  putPatientData (room: RoomInterface): Observable<RoomInterface> {
+  putRoomData (room: RoomInterface): Observable<RoomInterface> {
     return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
   }
 

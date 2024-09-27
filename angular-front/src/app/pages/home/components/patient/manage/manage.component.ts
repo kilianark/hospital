@@ -15,8 +15,6 @@ import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 //import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
-// import { TranslateService } from '@ngx-translate/core'; 
-
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -58,20 +56,20 @@ export class ManagePatientComponent implements OnInit {
 
   // convertim l'enum a una llista d'objectes per fer servir les opcions en el select
   // primer filtrem i després mapegem
-  patientStatusKeys = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => PatientStatus[key as keyof typeof PatientStatus]);
+  patientStatus = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: PatientStatus[key as keyof typeof PatientStatus] }));
 
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  ambulatoryArea = Object.keys(AmbulatoryArea).filter(key => isNaN(Number(key))).map(key => AmbulatoryArea[key as keyof typeof AmbulatoryArea]);
+  ambulatoryArea = Object.keys(AmbulatoryArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  hospitalizedArea = Object.keys(HospitalizedArea).filter(key => isNaN(Number(key))).map(key => HospitalizedArea[key as keyof typeof HospitalizedArea]);
+  hospitalizedArea = Object.keys(HospitalizedArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  urgencyArea = Object.keys(UrgencyArea).filter(key => isNaN(Number(key))).map(key => UrgencyArea[key as keyof typeof UrgencyArea]);
+  urgencyArea = Object.keys(UrgencyArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: UrgencyArea[key as keyof typeof UrgencyArea] }));
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  operatingRoomArea = Object.keys(OperatingRoomArea).filter(key => isNaN(Number(key))).map(key => OperatingRoomArea[key as keyof typeof OperatingRoomArea]);
+  operatingRoomArea = Object.keys(OperatingRoomArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
 
 
 
-  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder/*, private translate: TranslateService*/) {
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, /*private ORP: OperatingRoomAreaPipe*/) {
     //this.statusForm = this.formBuilder.group({ });
     this.route.params.subscribe(params => {
       this.patientId = +params['id']; // "+" para convertir a número
@@ -80,10 +78,6 @@ export class ManagePatientComponent implements OnInit {
       } )
       // Aquí puedes cargar los datos del paciente con la ID obtenida
     });
-    /*
-    this.translate.setDefaultLang('es');
-    this.translate.use('es');
-    */
   }
   
   ngOnInit(): void {

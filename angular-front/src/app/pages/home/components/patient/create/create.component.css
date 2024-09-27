@@ -129,3 +129,18 @@ select.ng-valid.ng-touched {
     grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
   }
 }
+.alert {
+  position: absolute;
+  background-color: gainsboro;
+  border-color: red;
+  border-radius: 1px;
+  border-style: groove;
+  font-weight: bold;
+  transition: 0.5s;
+  left: 45%;
+  top: 8%;
+  padding: 3px;
+}
+.alert:hover {
+  opacity: 0;
+}
