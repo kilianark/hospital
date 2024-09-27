@@ -27,7 +27,11 @@ export class ManagePatientComponent implements OnInit {
   patientId: number | undefined;
   patient!: PatientInterface;
 
-  
+  PatientStatus = PatientStatus;
+  AmbulatoryArea = AmbulatoryArea;
+  HospitalizedArea = HospitalizedArea;
+  UrgencyArea = UrgencyArea;
+  OperatingRoomArea = OperatingRoomArea;
 
   // variables que contindrá els valors seleccionats
   selectedPatientStatus: PatientStatus | null = null;
@@ -54,16 +58,16 @@ export class ManagePatientComponent implements OnInit {
 
   // convertim l'enum a una llista d'objectes per fer servir les opcions en el select
   // primer filtrem i després mapegem
-  patientStatus = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: PatientStatus[key as keyof typeof PatientStatus] }));
+  patientStatusKeys = Object.keys(PatientStatus).filter(key => isNaN(Number(key))).map(key => PatientStatus[key as keyof typeof PatientStatus]);
 
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  ambulatoryArea = Object.keys(AmbulatoryArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
+  ambulatoryArea = Object.keys(AmbulatoryArea).filter(key => isNaN(Number(key))).map(key => AmbulatoryArea[key as keyof typeof AmbulatoryArea]);
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  hospitalizedArea = Object.keys(HospitalizedArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
+  hospitalizedArea = Object.keys(HospitalizedArea).filter(key => isNaN(Number(key))).map(key => HospitalizedArea[key as keyof typeof HospitalizedArea]);
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  urgencyArea = Object.keys(UrgencyArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: UrgencyArea[key as keyof typeof UrgencyArea] }));
+  urgencyArea = Object.keys(UrgencyArea).filter(key => isNaN(Number(key))).map(key => UrgencyArea[key as keyof typeof UrgencyArea]);
   // substitueix areaType provisionalment, hauria d'apareixer llistat de tots els arees possibles
-  operatingRoomArea = Object.keys(OperatingRoomArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
+  operatingRoomArea = Object.keys(OperatingRoomArea).filter(key => isNaN(Number(key))).map(key => OperatingRoomArea[key as keyof typeof OperatingRoomArea]);
 
 
 

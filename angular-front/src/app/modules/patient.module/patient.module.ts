@@ -18,12 +18,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 */
 import { RequiredComponent } from '../../components/required/required.component';
+import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
 
 @NgModule({
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
     SearchPatientComponent,
+    EnumToStringPipe
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { RequiredComponent } from '../../components/required/required.component'
       }
     }),*/
     RequiredComponent,
+    
   ],
   providers: [provideHttpClient()],
 })
