@@ -1,5 +1,5 @@
 export enum AmbulatoryArea {
     ConsultaExterna,
-    HospitalDeDia,
+    HospitalDia,
     SalaEspera
 }
