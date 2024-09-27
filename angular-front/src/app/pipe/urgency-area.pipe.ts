@@ -6,9 +6,11 @@ import { UrgencyArea } from '../enums/urgency-area.enum';
 })
 export class UrgencyAreaPipe implements PipeTransform {
   private readonly enumLabels: { [key: string]: string } = {
-    [UrgencyArea.MedicinaInterna]: 'Sala de medicina interna',
-    [UrgencyArea.AtencionPrimaria]: 'Sala de atención primaria',
+    [UrgencyArea.Box]: 'Box',
     [UrgencyArea.BoxCritico]: 'Box crítico',
+    [UrgencyArea.MedicinaInterna]: 'Medicina interna',
+    [UrgencyArea.AtencionPrimaria]: 'Atención primaria',
+    [UrgencyArea.Triaje]: 'Triaje',
   };
   transform(value: UrgencyArea): string {
     return this.enumLabels[value];
