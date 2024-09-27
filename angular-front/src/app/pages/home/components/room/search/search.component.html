@@ -3,11 +3,11 @@
 </head>
 <div class="content">
   <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
-    <legend>{{title}}</legend>
+    <legend>{{ title }}</legend>
     <div class="credentials">
       <label for="roomNumber">Número:</label>
-      <input type="number" id="roomNumber" formControlName="roomNumber"/>
-      
+      <input type="number" id="roomNumber" formControlName="roomNumber" />
+
       <label for="floor">Planta:</label>
       <input type="number" id="floor" formControlName="floor" />
 
@@ -16,30 +16,44 @@
 
       <label for="capacity">Capacidad:</label>
       <input type="number" id="capacity" formControlName="capacity" />
-      
+
       <fieldset>
         <div class="alinear">
           <label for="availability">Disponible:</label>
           <div class="filtre1">
             <label for="available">Sí</label>
-            <input type="radio" name="availability" id="available" formControlName="availability" value="true" />
+            <input
+              type="radio"
+              name="availability"
+              id="available"
+              formControlName="availability"
+              value="true"
+            />
           </div>
           <div class="filtre2">
             <label for="noAvailable" id="labelIngr">No</label>
-            <input type="radio" name="availability" id="noAvailable" formControlName="availability" value="false"/>
+            <input
+              type="radio"
+              name="availability"
+              id="noAvailable"
+              formControlName="availability"
+              value="false"
+            />
           </div>
         </div>
       </fieldset>
     </div>
-    
-    <button type="submit">Buscar</button>
+
+    <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
+      Buscar
+    </button>
   </form>
-  
-  <br>
-  
+
+  <br />
+
   <div *ngIf="isVisible">
     <ng-container *ngIf="room.length === 0; else roomTable">
-      <legend style="margin-left: 3%;">Habitación no encontrada</legend>
+      <legend style="margin-left: 3%">Habitación no encontrada</legend>
     </ng-container>
     <ng-template #roomTable>
       <div class="table-wrapper">
@@ -55,13 +69,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let room of room" (click)="goToManage(room.idpatient)" class="file-click">
-              <td>{{room.roomNumber}}</td>
-              <td>{{room.floor}}</td>
-              <td>{{room.area}}</td>
-              <td>{{room.capacity}}</td>
-              <td>{{ room.availability ? 'Sí' : 'No' }}</td>
-              <td>{{ room.idpatient !== undefined ? room.idpatient : '-' }}</td>
+            <tr
+              *ngFor="let room of room"
+              (click)="goToManage(room.idpatient)"
+              class="file-click"
+            >
+              <td>{{ room.roomNumber }}</td>
+              <td>{{ room.floor }}</td>
+              <td>{{ room.area }}</td>
+              <td>{{ room.capacity }}</td>
+              <td>{{ room.availability ? "Sí" : "No" }}</td>
+              <td>{{ room.idpatient !== undefined ? room.idpatient : "-" }}</td>
             </tr>
           </tbody>
         </table>
