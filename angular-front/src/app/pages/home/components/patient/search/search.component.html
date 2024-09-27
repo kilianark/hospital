@@ -4,86 +4,86 @@
   <!-- uso mentres estilitzo component -->
 </head>
 <div class="content">
-    <form [formGroup]="patientForm">
-        <legend>{{ title }}</legend>
-        <div class="credentials">
-        <label for="patientID">Código:</label>
-        <input type="text" id="patientID" formControlName="patientCode"/>
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" formControlName="name"/>
-        <label for="surname1">Apellido 1:</label>
-        <input type="text" id="surname1" formControlName="surname1"/>
-        <label for="surname2">Apellido 2:</label>
-        <input type="text" id="surname2" formControlName="surname2"/>
+  <form [formGroup]="patientForm">
+    <legend>{{ title }}</legend>
+    <div class="credentials">
+      <label for="patientID">Código:</label>
+      <input type="text" id="patientID" formControlName="patientCode" />
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" formControlName="name" />
+      <label for="surname1">Apellido 1:</label>
+      <input type="text" id="surname1" formControlName="surname1" />
+      <label for="surname2">Apellido 2:</label>
+      <input type="text" id="surname2" formControlName="surname2" />
 
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" formControlName="dni"/>
-        <label for="numSS">CIP:</label>
-        <input type="text" id="numSS" formControlName="cip"/>
-        <label for="phone" class="telf">Teléfono:</label>
-        <input type="text" id="phone" formControlName="phone"/>
-        <fieldset>
-            <div class="alinear">
-            <div class="filtre1">
-                <label for="todos">Todos</label>
-                <input type="radio" name="inOut" id="todos" required />
-            </div>
-            <div class="filtre2">
-                <label for="ingresados" id="labelIngr">Ingresados</label>
-                <input type="radio" name="inOut" id="ingresados" required />
-            </div>
-            </div>
-        </fieldset>
+      <label for="dni">DNI:</label>
+      <input type="text" id="dni" formControlName="dni" />
+      <label for="numSS">CIP:</label>
+      <input type="text" id="numSS" formControlName="cip" />
+      <label for="phone" class="telf">Teléfono:</label>
+      <input type="text" id="phone" formControlName="phone" />
+      <fieldset>
+        <div class="alinear">
+          <div class="filtre1">
+            <label for="todos">Todos</label>
+            <input type="radio" name="inOut" id="todos" required />
+          </div>
+          <div class="filtre2">
+            <label for="ingresados" id="labelIngr">Ingresados</label>
+            <input type="radio" name="inOut" id="ingresados" required />
+          </div>
         </div>
-        <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
-        Buscar
-        </button>
-    </form>
-    <br />
-    <div
-        [style.display]="isVisible ? 'block' : 'none'"
-        *ngIf="patient.length <= 0"
-    >
-        <legend style="margin-left: 3%">Paciente no encontrado</legend>
+      </fieldset>
     </div>
-    <div
-        class="table-wrapper"
-        [style.display]="isVisible ? 'block' : 'none'"
-        *ngIf="patient.length > 0"
-    >
-        <table>
-            <thead>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Apellido 1</th>
-                <th>Apellido 2</th>
-                <th>Teléfono</th>
-                <th>Edad</th>
-                <th>Estado</th>
-                <th>Id. Cama</th>
-                <th>Ficha</th>
-            </thead>
-            <tbody>
-                <tr
-                *ngFor="let patient of patient"
-                (click)="goToManage(patient.id)"
-                class="clickable-row"
-                >
-                    <td>{{ patient.patientCode }}</td>
-                    <td>{{ patient.name }}</td>
-                    <td>{{ patient.surname1 }}</td>
-                    <td>{{ patient.surname2 }}</td>
-                    <td>{{ patient.phone }}</td>
-                    <td>{{ patient.age }}</td>
-                    <td>{{ patient.status }}</td>
-                    <td>{{ patient.bedId }}</td>
-                    <td (click)="$event.stopPropagation()">
-                        <button mat-button (click)="openDialog(patient.patientCode)">
-                        Abrir
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
+      Buscar
+    </button>
+  </form>
+  <br />
+  <div
+    [style.display]="isVisible ? 'block' : 'none'"
+    *ngIf="patient.length <= 0"
+  >
+    <legend style="margin-left: 3%">Paciente no encontrado</legend>
+  </div>
+  <div
+    class="table-wrapper"
+    [style.display]="isVisible ? 'block' : 'none'"
+    *ngIf="patient.length > 0"
+  >
+    <table>
+      <thead>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Apellido 1</th>
+        <th>Apellido 2</th>
+        <th>Teléfono</th>
+        <th>Edad</th>
+        <th>Estado</th>
+        <th>Id. Cama</th>
+        <th>Ficha</th>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let patient of patient"
+          (click)="goToManage(patient.id)"
+          class="clickable-row"
+        >
+          <td>{{ patient.patientCode }}</td>
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.surname1 }}</td>
+          <td>{{ patient.surname2 }}</td>
+          <td>{{ patient.phone }}</td>
+          <td>{{ patient.age }}</td>
+          <td>{{ patient.status }}</td>
+          <td>{{ patient.bedId }}</td>
+          <td (click)="$event.stopPropagation()">
+            <button mat-button (click)="openDialog(patient.patientCode)">
+              Abrir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-.content{
+.content {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
 }
 
@@ -33,13 +33,13 @@ form button {
   text-transform: uppercase;
 }
 
-form button:hover{
-  background-color:cadetblue;
+form button:hover {
+  background-color: cadetblue;
 }
 
 .credentials {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0,1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   grid-template-rows: auto auto;
   gap: 10px;
   max-width: 950px;
@@ -101,7 +101,6 @@ thead {
   position: -webkit-sticky;
   position: sticky;
   background-color: #ffffff;
-
 }
 
 td {
@@ -123,8 +122,6 @@ td button {
   text-transform: uppercase;
 }
 
-.file-click:hover{
-cursor: pointer;
+.file-click:hover {
+  cursor: pointer;
 }
-
-
