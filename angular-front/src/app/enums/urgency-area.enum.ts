@@ -1,5 +1,5 @@
 export enum UrgencyArea {
-    Box,
+    Box = 1,
     BoxCritico,
     MedicinaInterna,
     AtencionPrimaria,

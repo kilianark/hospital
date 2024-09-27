@@ -1,5 +1,5 @@
 export enum HospitalizedArea {
-  UCI,
+  UCI = 1,
   MedicinaInterna,
   Pediatria,
   Ginecologia,

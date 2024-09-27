@@ -1,5 +1,5 @@
 export enum PatientStatus {
-    Inactivo,
+    Inactivo = 1,
     Ambulatorio,
     Hospitalizado,
     Urgencias,
