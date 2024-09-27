@@ -16,6 +16,7 @@ import { UrgencyAreaPipe } from '../../pipe/urgency-area.pipe';
 import { OperatingRoomAreaPipe } from '../../pipe/operating-room-area.pipe';
 
 import { RequiredComponent } from '../../components/required/required.component';
+import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RequiredComponent } from '../../components/required/required.component'
     AmbulatoryAreaPipe,
     HospitalizedAreaPipe,
     UrgencyAreaPipe,
-    OperatingRoomAreaPipe
+    OperatingRoomAreaPipe,
+    EnumToStringPipe
   ],
   imports: [
     CommonModule,
@@ -34,6 +36,7 @@ import { RequiredComponent } from '../../components/required/required.component'
     FormsModule,
     PatientRoutingModule,
     RequiredComponent,
+    
   ],
   providers: [provideHttpClient()],
 })

@@ -25,6 +25,12 @@ export class ManagePatientComponent implements OnInit {
   patientId: number | undefined;
   patient!: PatientInterface;
 
+  PatientStatus = PatientStatus;
+  AmbulatoryArea = AmbulatoryArea;
+  HospitalizedArea = HospitalizedArea;
+  UrgencyArea = UrgencyArea;
+  OperatingRoomArea = OperatingRoomArea;
+
   // variables que contindrá els valors seleccionats
   selectedPatientStatus: PatientStatus | null = null;
 
