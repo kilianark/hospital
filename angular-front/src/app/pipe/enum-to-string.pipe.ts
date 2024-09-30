@@ -1,12 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
   name: 'enumToString'
 })
 export class EnumToStringPipe implements PipeTransform {
 
-  transform(value: number, enumType: any): string {
-    return enumType[value].replace(/([a-z])([A-Z])/g, '$1 $2').replace(/( [A-Z])/g, ' $1');
+  constructor(private translate: TranslateService) {}
+
+  transform(value: number,  enumName: string): string {
+    const enumKey = `${enumName}.${value}`;
+
+    return this.translate.instant(enumKey);
   }
 
 }
