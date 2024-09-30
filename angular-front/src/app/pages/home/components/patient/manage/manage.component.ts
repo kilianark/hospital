@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { PatientStatus } from '../../../../../enums/patient-status.enum';
 import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
@@ -22,8 +22,9 @@ import { PatientService } from '../../../../../services/patient.service';
 })
 export class ManagePatientComponent implements OnInit {
   title = 'Gestionar Estado:'
-  patientId: number | undefined;
+  patientId!: number ;
   patient!: PatientInterface;
+  statusForm: FormGroup
 
   PatientStatus = PatientStatus;
   AmbulatoryArea = AmbulatoryArea;
@@ -32,7 +33,6 @@ export class ManagePatientComponent implements OnInit {
   OperatingRoomArea = OperatingRoomArea;
 
   // variables que contindrá els valors seleccionats
-  selectedPatientStatus: PatientStatus | null = PatientStatus.Hospitalizado;
 
   // 3 variables mes per guardar area seleccionat segons status***
   selectedAmbulatory: AmbulatoryArea | null = null;
@@ -69,28 +69,35 @@ export class ManagePatientComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, /*private ORP: OperatingRoomAreaPipe*/) {
-    //this.statusForm = this.formBuilder.group({ });
+    this.statusForm = this.formBuilder.group({
+      status: ['']
+     });
+
+     
+
     this.route.params.subscribe(params => {
       this.patientId = +params['id']; // "+" para convertir a número
+      // Aquí puedes cargar los datos del paciente con la ID obtenida
       this.patientService.getPatientById(this.patientId).subscribe(data =>{
         this.patient = data;
+        console.log(this.patient)
+        this.statusForm.patchValue({
+          status: this.patient.status
+        });
       } )
-      // Aquí puedes cargar los datos del paciente con la ID obtenida
     });
   }
   
   ngOnInit(): void {
-    this.selectedPatientStatus = this.patient.status;
   }
 
   // canvis d'estat
   // reb el valor de la variable $event, de tipus enum PatientStatus
   onStatusChange(status: PatientStatus) {
     console.log('Estado Seleccionado: ', status);
-    this.patient.status = this.selectedPatientStatus;
+    this.patient.status = status;
     console.log(this.patient.status)
     this.patientService.putPatientData(this.patient).subscribe(data => {
-
     });
 
     // en cas de que l'estat sigui hospitalitzat mostra llista
@@ -158,7 +165,7 @@ export class ManagePatientComponent implements OnInit {
     onSubmit() {
       //if(this.statusForm.invalid) return;
   
-      console.log('Estat Actualitzat:', this.selectedPatientStatus);
+      console.log('Estat Actualitzat:');
       this.confirm();
       this.router.navigate(['/home']);
     }
