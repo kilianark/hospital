@@ -73,17 +73,24 @@ export class ManagePatientComponent implements OnInit {
       status: ['']
      });
 
-     
-
     this.route.params.subscribe(params => {
       this.patientId = +params['id']; // "+" para convertir a número
       // Aquí puedes cargar los datos del paciente con la ID obtenida
       this.patientService.getPatientById(this.patientId).subscribe(data =>{
         this.patient = data;
-        console.log(this.patient)
+      
         this.statusForm.patchValue({
           status: this.patient.status
         });
+        if (this.patient.status != PatientStatus.Inactivo) {
+          this.showSelectRoom = true;
+          this.showRoomList = true;
+          if (this.patient.status == PatientStatus.Ambulatorio) this.showAreaA = true;
+          if (this.patient.status == PatientStatus.Urgencias) this.showAreaU = true;
+          if (this.patient.status == PatientStatus.Quirofano) this.showAreaO = true;
+          if (this.patient.status == PatientStatus.Hospitalizado) this.showAreaH = true;
+          
+        }
       } )
     });
   }
@@ -94,31 +101,27 @@ export class ManagePatientComponent implements OnInit {
   // canvis d'estat
   // reb el valor de la variable $event, de tipus enum PatientStatus
   onStatusChange(status: PatientStatus) {
-    console.log('Estado Seleccionado: ', status);
     this.patient.status = status;
-    console.log(this.patient.status)
-    this.patientService.putPatientData(this.patient).subscribe(data => {
-    });
 
     // en cas de que l'estat sigui hospitalitzat mostra llista
-    if (status === PatientStatus.Hospitalizado || status === PatientStatus.Ambulatorio || status === PatientStatus.Urgencias || status === PatientStatus.Quirofano) {
+    if (status != PatientStatus.Inactivo ) {
       this.showSelectRoom = true;
-      if (status === PatientStatus.Ambulatorio) {
+      if (status == PatientStatus.Ambulatorio) {
         this.showAreaA = true;
         this.showAreaH = false;
         this.showAreaU = false;
         this.showAreaO = false;
-      } else if (status === PatientStatus.Hospitalizado) {
+      } else if (status == PatientStatus.Hospitalizado) {
         this.showAreaA = false;
         this.showAreaH = true;
         this.showAreaU = false;
         this.showAreaO = false;
-      } else if (status === PatientStatus.Urgencias) {
+      } else if (status == PatientStatus.Urgencias) {
         this.showAreaA = false;
         this.showAreaH = false;
         this.showAreaU = true;
         this.showAreaO = false;
-      } else if (status === PatientStatus.Quirofano) {
+      } else if (status == PatientStatus.Quirofano) {
         this.showAreaA = false;
         this.showAreaH = false;
         this.showAreaU = false;
@@ -164,6 +167,8 @@ export class ManagePatientComponent implements OnInit {
     // enviament del formulari completat
     onSubmit() {
       //if(this.statusForm.invalid) return;
+      this.patientService.putPatientData(this.patient).subscribe(data => {
+      });
   
       console.log('Estat Actualitzat:');
       this.confirm();
