@@ -5,7 +5,7 @@ import { AmbulatoryArea } from '../enums/ambulatory-area.enum';
 })
 export class AmbulatoryAreaPipe implements PipeTransform {
   private readonly enumLabels: { [key: string]: string } = {
-    [AmbulatoryArea.ConsultaExterna]: 'Consulta Externa',
+    [AmbulatoryArea.ConsultaExterna]: 'Consulta externa',
     [AmbulatoryArea.HospitalDia]: 'Hospital de día',
     [AmbulatoryArea.SalaEspera]: 'Sala de espera'
   }
