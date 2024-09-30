@@ -6,30 +6,26 @@
         "4": "Urgencaias",
         "5": "Quirófano"
     },
-    "AMBULATORY_AREA": {
-        "1": "Consultaa externas",
+    "AREA": {
+        "1": "Consulta externas",
         "2": "Hospital de día",
-        "3": "Sala de espera"
-    },
-    "HOSPITALIZED_AREA": {
-        "1": "Unidad de cuidados intensivos",
-        "2": "Medicina interna",
-        "3": "Pediatría",
-        "4": "Ginecología",
-        "5": "Oncología",
-        "6": "Psiquiatría",
-        "7": "Cirgía"
-    },
-    "OPERATING_AREA": {
-        "1": "Sala de operaciones",
-        "2": "Sala de reanimación",
-        "3": "Sala de espera"
-    },
-    "URGENCY_AREA": {
-        "1": "Box",
-        "2": "Box crítico",
-        "3": "Medicina interna",
-        "4": "Antención primaria",
-        "5": "Triaje"
+        "3": "Sala de espera",
+        "4": "Sala de operaciones",
+        "5": "Sala de reanimación",
+        "6": "Unidad de cuidados intensivos",
+        "7": "Cirugía",
+        "8": "Pediatría",
+        "9": "Ginecología",
+        "10": "Oncología",
+        "11": "Psiquiatría",
+        "12": "Medicina interna",
+        "13": "Box",
+        "14": "Box crítico",
+        "15": "Antención primaria",
+        "16": "Triaje"
     }
+    //AMBULATORI: CE, HDD, SE
+    //QUIROFAN: SE, SO, SR
+    //URGENCIAS: UCI, C, P, G, O, P, MI
+    //HOSPITALIZADO: MI, B, BC, AP, T
 }
