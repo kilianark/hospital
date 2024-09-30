@@ -1,6 +1,35 @@
 {
-    "t-consulta-externa": "Consulta Externa",
-    "t-hospital-dia": "Hospital de día",
-    "t-sala-espera": "Sala de espera",
-    "t-default": "-----"
+    "PATIENT_STATUS": {
+        "1": "Inactivo",
+        "2": "Ambulatorio",
+        "3": "Hospitalizado",
+        "4": "Urgencaias",
+        "5": "Quirófano"
+    },
+    "AMBULATORY_AREA": {
+        "1": "Consultaa externas",
+        "2": "Hospital de día",
+        "3": "Sala de espera"
+    },
+    "HOSPITALIZED_AREA": {
+        "1": "Unidad de cuidados intensivos",
+        "2": "Medicina interna",
+        "3": "Pediatría",
+        "4": "Ginecología",
+        "5": "Oncología",
+        "6": "Psiquiatría",
+        "7": "Cirgía"
+    },
+    "OPERATING_AREA": {
+        "1": "Sala de operaciones",
+        "2": "Sala de reanimación",
+        "3": "Sala de espera"
+    },
+    "URGENCY_AREA": {
+        "1": "Box",
+        "2": "Box crítico",
+        "3": "Medicina interna",
+        "4": "Antención primaria",
+        "5": "Triaje"
+    }
 }
