@@ -4,15 +4,15 @@
 </head>
 <body>
   <div class="content">
-    <form class="selectstatus" (ngSubmit)="onSubmit()">
+    <form class="selectstatus" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
       <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
       <!-- del model de gestió ngModel -> (@NgModule), disposa del camp que conte els enums de l'estat de pacient,
             que a més al canviar l'estat del model, li pasem la variable del esdeveniment, en que
             el mètode també comprobarà si l'estat és un valor hospitalizat per mostrar el llistat -->
             <div class="control">
                 <label for="status">Estado: </label>
-                <select id="status" name="status" [(ngModel)]="selectedPatientStatus" (ngModelChange)="onStatusChange($event)">
-                    <option *ngFor="let status of patientStatus" [ngValue]="selectedPatientStatus">
+                <select id="status" name="status" formControlName="status" (ngModelChange)="onStatusChange($event)">
+                    <option *ngFor="let status of patientStatus" [value]="status.value">
                         {{ status.value | patientStatus }}
                     </option>
                 </select>
