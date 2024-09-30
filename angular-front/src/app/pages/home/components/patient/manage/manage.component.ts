@@ -32,7 +32,7 @@ export class ManagePatientComponent implements OnInit {
   OperatingRoomArea = OperatingRoomArea;
 
   // variables que contindrá els valors seleccionats
-  selectedPatientStatus: PatientStatus | null = null;
+  selectedPatientStatus: PatientStatus | null = PatientStatus.Hospitalizado;
 
   // 3 variables mes per guardar area seleccionat segons status***
   selectedAmbulatory: AmbulatoryArea | null = null;
@@ -68,7 +68,6 @@ export class ManagePatientComponent implements OnInit {
   operatingRoomArea = Object.keys(OperatingRoomArea).filter(key => isNaN(Number(key))).map(key => ({ label: key, value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
 
 
-
   constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, /*private ORP: OperatingRoomAreaPipe*/) {
     //this.statusForm = this.formBuilder.group({ });
     this.route.params.subscribe(params => {
@@ -81,7 +80,7 @@ export class ManagePatientComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    
+    this.selectedPatientStatus = this.patient.status;
   }
 
   // canvis d'estat
