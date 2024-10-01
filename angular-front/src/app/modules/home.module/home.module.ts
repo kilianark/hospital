@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from '../../pages/home/components/home.component';
@@ -10,6 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PatientModule } from '../patient.module/patient.module';
 
+import { provideHttpClient, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +31,14 @@ import { PatientModule } from '../patient.module/patient.module';
     PatientModule,
     RouterLink,
     RouterLinkActive,
-    RouterOutlet
+    RouterOutlet,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [provideHttpClient()]
 })

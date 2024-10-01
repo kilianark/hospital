@@ -7,12 +7,12 @@
         "5": "Quirófano"
     },
     "AMBULATORY_AREA": {
-        "1": "Consultaa externas",
+        "1": "Consultas externas",
         "2": "Hospital de día",
         "3": "Sala de espera"
     },
     "HOSPITALIZED_AREA": {
-        "1": "Unidad de cuidados intensivos",
+        "1": "UCI",
         "2": "Medicina interna",
         "3": "Pediatría",
         "4": "Ginecología",

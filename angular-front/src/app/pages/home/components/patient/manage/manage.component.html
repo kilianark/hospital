@@ -12,8 +12,8 @@
             <div class="control">
                 <label for="status">Estado: </label>
                 <select id="status" name="status" formControlName="status" (ngModelChange)="onStatusChange($event)">
-                    <option *ngFor="let status of patientStatus" [value]="status.value">
-                        {{ status.value | patientStatus }}
+                    <option *ngFor="let status of patientStatus" [ngValue]="status.value">
+                        {{ status.value | enumToString: 'PATIENT_STATUS' }}
                     </option>
                 </select>
             </div>
@@ -37,7 +37,7 @@
                                     <label for="areaAmbulatory">Seleccionar área: </label>
                                     <select id="areaAmbulatory" name="areaAmbulatory" [(ngModel)]="selectedAmbulatory" (ngModelChange)="onAreaChangeA($event)">
                                         <option *ngFor="let area of ambulatoryArea" [ngValue]="area.value">
-                                            {{ area.value | ambulatoryAreaPipe }}
+                                            {{ area.value | enumToString: 'AMBULATORY_AREA' }}
                                         </option>
                                     </select>
                                 </div>
@@ -84,7 +84,7 @@
                                 <label for="areaHospitalized">Seleccionar área: </label>
                                 <select id="areaHospitalized" name="areaHospitalized" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
                                     <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
-                                        {{ area.value | hospitalizedArea }}
+                                        {{ area.value | enumToString: 'HOSPITALIZED_AREA' }}
                                     </option>
                                 </select>
                                 <table>
@@ -150,7 +150,7 @@
                                     *ngFor="let area of urgencyArea"
                                     [ngValue]="area.value"
                                 >
-                                    {{ area.value | urgencyArea }}
+                                    {{ area.value | enumToString: 'URGENCY_AREA' }}
                                 </option>
                                 </select>
                                 <table>
@@ -216,7 +216,7 @@
                                     *ngFor="let area of operatingRoomArea"
                                     [ngValue]="area.value"
                                 >
-                                    {{ area.value | operatingRoomArea }}
+                                    {{ area.value | enumToString: 'OPERATING_AREA' }}
                                 </option>
                                 </select>
 
