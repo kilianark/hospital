@@ -22,11 +22,20 @@ namespace ApiHospital.Data
         public DbSet<Bed> Beds { get; set; } = null!;
         public DbSet<Room> Rooms { get; set; } = null!;
         public DbSet<Patient> Patients { get; set; } = null!;
-
+        public DbSet<Person> Persons { get; set; } = null!;
         public DbSet<Doctor> Doctors { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Person>()
+                .ToTable("Persons");
+
+            modelBuilder.Entity<Patient>()
+                .ToTable("Patients");
+            
+            modelBuilder.Entity<Patient>()
+                .HasBaseType<Person>();
+
             modelBuilder
                 .Entity<Bed>()
                 .HasOne<Patient>()

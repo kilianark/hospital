@@ -31,7 +31,7 @@ namespace ApiHospital.Controllers
 
         // GET: api/Patient
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients(
+        public async Task<ActionResult<IEnumerable<PatientDTO>>> GetPatients(
             [FromQuery] int? PatientCode = null,
             [FromQuery] string? Name = null,
             [FromQuery] string? Surname1 = null,
@@ -44,9 +44,28 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Ingresados = null
         )
         {
-            IQueryable<Patient> query = _context.Patients;
+            var query = _context.Patients.Select(p => new PatientDTO
+            {
+                PatientCode = p.PatientCode,
+                Name = p.Name,            
+                Surname1 = p.Surname1,  
+                Surname2 = p.Surname2,  
+                Dni = p.Dni,           
+                Age = DateTime.Now.Year - p.BirthDate.Year - (DateTime.Now.DayOfYear < p.BirthDate.DayOfYear ? 1 : 0),
+                BirthDate = p.BirthDate,
+                Country = p.Country,   
+                Address = p.Address,   
+                Phone = p.Phone,       
+                Email = p.Email,       
+                CIP = p.CIP,           
+                Gender = p.Gender,     
+                EmergencyContact = p.EmergencyContact,
+                Status = p.Status,
+                Reason = p.Reason,
+                BedId = p.BedId
+            });
 
-            if (PatientCode.HasValue && PatientCode != 0)
+            if (PatientCode.HasValue)
                 query = query.Where(p => p.PatientCode == PatientCode.Value);
 
             if (!string.IsNullOrEmpty(Name))
@@ -78,7 +97,13 @@ namespace ApiHospital.Controllers
                    // query = query.Where(p => p.Status != 1));
 
 
-            return await query.ToListAsync();
+            var patients = await query.ToListAsync();
+
+            if (!patients.Any())
+            {
+                return NoContent();
+            }
+            return Ok(patients);
         }
 
         // GET: api/Patient/5
