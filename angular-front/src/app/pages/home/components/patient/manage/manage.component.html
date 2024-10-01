@@ -12,7 +12,7 @@
             <div class="control">
                 <label for="status">Estado: </label>
                 <select id="status" name="status" formControlName="status" (ngModelChange)="onStatusChange($event)">
-                    <option *ngFor="let status of patientStatus" [ngValue]="status.value">
+                    <option *ngFor="let status of patientStatus" [value]="status.value">
                         {{ status.value | enumToString: 'PATIENT_STATUS' }}
                     </option>
                 </select>
