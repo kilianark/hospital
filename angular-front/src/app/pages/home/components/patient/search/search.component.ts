@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-search-patient',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
@@ -27,10 +27,13 @@ export class SearchPatientComponent {
   phone: string = '';
   ingresados: string = '';
 
-  constructor( private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private patientService: PatientService)
-  {
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private router: Router,
+    private patientService: PatientService
+  ) {
     this.patientForm = this.formBuilder.group({
-
       patientCode: [this.patientCode],
       name: [this.name],
       surname1: [this.surname1],
@@ -38,44 +41,43 @@ export class SearchPatientComponent {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
-      ingresados: [this.ingresados]
-
+      ingresados: [this.ingresados],
     });
 
-    this.patientForm.get('patientCode')?.valueChanges.subscribe(value => {
+    this.patientForm.get('patientCode')?.valueChanges.subscribe((value) => {
       this.patientCode = value;
     });
 
-    this.patientForm.get('name')?.valueChanges.subscribe(value => {
+    this.patientForm.get('name')?.valueChanges.subscribe((value) => {
       this.name = value;
     });
 
-    this.patientForm.get('surname1')?.valueChanges.subscribe(value => {
+    this.patientForm.get('surname1')?.valueChanges.subscribe((value) => {
       this.surname1 = value;
     });
 
-    this.patientForm.get('surname2')?.valueChanges.subscribe(value => {
+    this.patientForm.get('surname2')?.valueChanges.subscribe((value) => {
       this.surname2 = value;
     });
 
-    this.patientForm.get('dni')?.valueChanges.subscribe(value => {
+    this.patientForm.get('dni')?.valueChanges.subscribe((value) => {
       this.dni = value;
     });
 
-    this.patientForm.get('cip')?.valueChanges.subscribe(value => {
+    this.patientForm.get('cip')?.valueChanges.subscribe((value) => {
       this.cip = value;
     });
 
-    this.patientForm.get('phone')?.valueChanges.subscribe(value => {
+    this.patientForm.get('phone')?.valueChanges.subscribe((value) => {
       this.phone = value;
     });
 
-    this.patientForm.get('ingresados')?.valueChanges.subscribe(value => {
+    this.patientForm.get('ingresados')?.valueChanges.subscribe((value) => {
       this.ingresados = value;
     });
   }
 
- /* ngOnInit(): void {
+  /* ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patient = data;
     });
@@ -87,7 +89,7 @@ export class SearchPatientComponent {
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode
+      data: patientCode,
     });
   }
 
@@ -96,10 +98,21 @@ export class SearchPatientComponent {
   }
 
   onSubmit() {
-    this.patientService.getPatientData(Number(this.patientCode), this.name, this.surname1, this.surname2, this.dni, this.cip, this.phone).subscribe((data) => {
-      this.patient = data;
-      console.log(data);
-    });
+    this.patientService
+      .getPatientData(
+        Number(this.patientCode),
+        this.name,
+        this.surname1,
+        this.surname2,
+        this.dni,
+        this.cip,
+        this.phone,
+        this.ingresados
+      )
+      .subscribe((data) => {
+        this.patient = data;
+        console.log(data);
+      });
   }
   isVisible: boolean = false;
   toggleDisplay() {
