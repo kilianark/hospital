@@ -1,0 +1,21 @@
+.content {
+    font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  }
+  
+  legend {
+    margin: 0px;
+    overflow: hidden;
+    font-size: 24px;
+    text-align: left;
+    letter-spacing: 0px;
+    line-height: 31px;
+    white-space: pre-line;
+    font-weight: bold;
+    padding-bottom: 2%;
+  }
+  
+body{
+    margin-left: 125px;
+    margin-top: 120px;
+}
+  

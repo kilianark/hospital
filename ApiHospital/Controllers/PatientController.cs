@@ -40,7 +40,8 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Cip = null,
             [FromQuery] string? Phone = null,
             [FromQuery] string? Status = null,
-            [FromQuery] int? BedId = null
+            [FromQuery] int? BedId = null,
+            [FromQuery] string? Ingresados = null
         )
         {
             IQueryable<Patient> query = _context.Patients;
@@ -71,6 +72,11 @@ namespace ApiHospital.Controllers
 
             if (BedId.HasValue)
                 query = query.Where(p => p.BedId == BedId.Value);
+
+            if (!string.IsNullOrEmpty(Ingresados))
+                if (Ingresados == "in") {}
+                   // query = query.Where(p => p.Status != 1));
+
 
             return await query.ToListAsync();
         }

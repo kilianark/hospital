@@ -65,17 +65,16 @@
               <th>Área</th>
               <th>Capacidad</th>
               <th>Disponible</th>
-              <th>Id Paciente</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let room of room"  (click)="goToManage(room.idpatient)" class="file-click">
+            <tr *ngFor="let room of room"  (click)="goToRooms(room.id)" class="file-click">
               <td>{{room.roomNumber}}</td>
               <td>{{room.floor}}</td>
               <td>{{room.area}}</td>
               <td>{{room.capacity}}</td>
               <td>{{room.availability ? 'Sí' : 'No' }}</td>
-              <td>{{room.idpatient !== undefined ? room.idpatient : '-' }}</td>
+              <!-- <td>{{room.idpatient !== undefined ? room.idpatient : '-' }}</td> -->
             </tr>
           </tbody>
         </table>

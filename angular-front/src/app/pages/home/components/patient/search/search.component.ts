@@ -25,6 +25,7 @@ export class SearchPatientComponent {
   dni: string = '';
   cip: string = '';
   phone: string = '';
+  ingresados: string = '';
 
   constructor( private formBuilder: FormBuilder, public dialog: MatDialog, private router: Router, private patientService: PatientService)
   {
@@ -37,6 +38,7 @@ export class SearchPatientComponent {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
+      ingresados: [this.ingresados]
 
     });
 
@@ -66,6 +68,10 @@ export class SearchPatientComponent {
 
     this.patientForm.get('phone')?.valueChanges.subscribe(value => {
       this.phone = value;
+    });
+
+    this.patientForm.get('ingresados')?.valueChanges.subscribe(value => {
+      this.ingresados = value;
     });
   }
 
