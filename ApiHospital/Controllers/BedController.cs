@@ -29,17 +29,23 @@ namespace ApiHospital.Controllers
         // GET: api/Bed
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bed>>> GetBeds(
+            [FromQuery] int? RoomId = null,
             [FromQuery] bool? availability = null
         )
         {
             IQueryable<Bed> query = _context.Beds;
+
+            if (RoomId.HasValue) 
+            {
+                query = query.Where(b => b.RoomId == RoomId.Value);
+            }
 
             if (availability.HasValue)
             {
                 query = query.Where(b => b.Availability == availability.Value);
             }
 
-            return await _context.Beds.ToListAsync();
+            return await query.ToListAsync();
         }
 
         // GET: api/Bed/5

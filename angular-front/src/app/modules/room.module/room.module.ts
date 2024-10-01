@@ -3,13 +3,21 @@ import { CommonModule } from '@angular/common';
 import { provideHttpClient } from '@angular/common/http';
 
 import { RoomRoutingModule } from './room-routing.module';
+import { BedComponent } from '../../pages/home/components/room/bed/bed.component';
+import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    BedComponent,
+    SearchRoomComponent
+  ],
   imports: [
     CommonModule,
-    RoomRoutingModule
+    RoomRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers:[provideHttpClient()]
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoomInterface } from '../../../interfaces/room.interface';
 import { BedInterface } from '../../../../../interfaces/bed.interface';
 import { ActivatedRoute } from '@angular/router';
-import { PatientService } from '../../../../../services/bed.service';
+import { BedService } from '../../../../../services/bed.service';
 
 @Component({
   selector: 'app-bed',
@@ -15,7 +15,7 @@ export class BedComponent implements OnInit {
   room: RoomInterface | null = null;  
   beds: BedInterface[] = [];  
 
-  constructor(private route: ActivatedRoute, private patientService: PatientService) {}
+  constructor(private route: ActivatedRoute, private bedService: BedService) {}
 
   ngOnInit() {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
@@ -24,7 +24,7 @@ export class BedComponent implements OnInit {
       console.log('ID de la habitación:', this.roomId);
   
       // Cargar las camas usando el servicio
-      this.patientService.getBedsByRoomId(this.roomId).subscribe(
+      this.bedService.getBedData(this.roomId).subscribe(
         (beds: BedInterface[]) => {
           this.beds = beds;
           console.log('Camas obtenidas:', this.beds);

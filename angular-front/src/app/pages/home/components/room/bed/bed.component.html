@@ -18,10 +18,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let bed of beds" class="file-click">
-            <td>{{ bed.bedNumber }}</td>
-            <td>{{ bed.availability ? 'Sí' : 'No' }}</td>
-            <td>{{ bed.patient?.name }} {{ bed.patient?.surname1 }}</td>
-            <td>{{ bed.patient?.id }}</td>
+            <td>{{ bed.BedCode }}</td>
+            <td>{{ bed.Availability ? 'Sí' : 'No' }}</td>
+            <!-- <td>{{ bed.atient?.name }} {{ bed.patient?.surname1 }}</td> -->
+            <!-- <td>{{ bed.patient?.id }}</td> -->
             <td>botón ficha</td>
             <td>botón gestión pte</td>
           </tr>
