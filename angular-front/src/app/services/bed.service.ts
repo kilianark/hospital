@@ -27,4 +27,9 @@ export class PatientService {
   postBedData(bed: BedInterface) : Observable<BedInterface> {
     return this.http.post<BedInterface>(this.url, bed);
   }
+
+  getBedsByRoomId(roomId: number): Observable<BedInterface[]> {
+    return this.http.get<BedInterface[]>(`${this.url}/room/${roomId}`);
+  }
+  
 }

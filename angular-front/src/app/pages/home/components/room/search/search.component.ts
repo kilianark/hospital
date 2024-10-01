@@ -64,14 +64,17 @@ export class SearchRoomComponent {
       );
   }
 
-  goToManage(patientId: number | undefined) {
-    if (patientId !== undefined) {
-      this.router.navigate(['/home/patient/manage', { id: patientId }]);
-    } else {
+
+  
+    goToRooms(roomId: number) {
+      if (roomId !== undefined) {
+      this.router.navigate(['/home/room/beds', roomId]);
+    }else {
       console.log(this.room[0]);
-      console.log('No hay paciente asignado a esta habitación.');
+      console.log('No hay camas asignadas a esta habitación.');
     }
-  }
+    }
+
   toggleDisplay() {
     this.isVisible = true;
   }

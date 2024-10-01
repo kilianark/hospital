@@ -74,6 +74,7 @@ button:hover{
 }
 select {
     padding: 5px;
+    width: 220px;
 }
 table {
     width: 100%;

@@ -22,9 +22,3 @@ export const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
-
-/*
-    { path: 'confirmation', component: ConfirmComponent },
-    { path: 'search-patient', component: SearchPatientComponent },
-    { path: 'search-room', component: SearchRoomComponent },
-    { path: 'home', component: HomeComponent },*/
