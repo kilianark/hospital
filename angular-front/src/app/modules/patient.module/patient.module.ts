@@ -9,11 +9,6 @@ import { ManagePatientComponent } from '../../pages/home/components/patient/mana
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient.service';
 
-import { PatientStatusPipe } from '../../pipe/patient-status.pipe';
-import { AmbulatoryAreaPipe } from '../../pipe/ambulatory-area.pipe';
-import { HospitalizedAreaPipe } from '../../pipe/hospitalized-area.pipe';
-import { UrgencyAreaPipe } from '../../pipe/urgency-area.pipe';
-import { OperatingRoomAreaPipe } from '../../pipe/operating-room-area.pipe';
 
 import { RequiredComponent } from '../../components/required/required.component';
 import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
@@ -23,11 +18,6 @@ import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
     CreatePatientComponent,
     ManagePatientComponent,
     SearchPatientComponent,
-    PatientStatusPipe,
-    AmbulatoryAreaPipe,
-    HospitalizedAreaPipe,
-    UrgencyAreaPipe,
-    OperatingRoomAreaPipe,
     EnumToStringPipe
   ],
   imports: [
