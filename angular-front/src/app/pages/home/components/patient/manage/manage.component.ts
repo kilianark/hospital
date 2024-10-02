@@ -68,7 +68,7 @@ export class ManagePatientComponent implements OnInit {
 		.map(key => ({value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
 
 
-	constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, private translate: TranslateService/*private ORP: OperatingRoomAreaPipe*/) {
+	constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, private translate: TranslateService) {
 		
 		this.translate.use('es');
 		
