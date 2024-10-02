@@ -31,7 +31,7 @@ namespace ApiHospital.Controllers
 
         // GET: api/Patient
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PatientDTO>>> GetPatients(
+        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients(
             [FromQuery] int? PatientCode = null,
             [FromQuery] string? Name = null,
             [FromQuery] string? Surname1 = null,
@@ -43,8 +43,10 @@ namespace ApiHospital.Controllers
             [FromQuery] int? BedId = null,
             [FromQuery] string? Ingresados = null
         )
-        {
-            var query = _context.Patients.Select(p => new PatientDTO
+        { 
+            
+            IQueryable<Patient> query = _context.Patients;
+            /*var query = _context.Patients.Select(p => new PatientDTO
             {
                 PatientCode = p.PatientCode,
                 Name = p.Name,            
@@ -63,7 +65,7 @@ namespace ApiHospital.Controllers
                 Status = p.Status,
                 Reason = p.Reason,
                 BedId = p.BedId
-            });
+            });*/
 
             if (PatientCode.HasValue)
                 query = query.Where(p => p.PatientCode == PatientCode.Value);
@@ -93,17 +95,15 @@ namespace ApiHospital.Controllers
                 query = query.Where(p => p.BedId == BedId.Value);
 
             if (!string.IsNullOrEmpty(Ingresados))
-                if (Ingresados == "in") {}
-                   // query = query.Where(p => p.Status != 1));
+                if (Ingresados == "in") {
+                   query = query.Where(p => p.BedId != null);
+                }
+            return await query.ToListAsync();
 
-
-            var patients = await query.ToListAsync();
-
-            if (!patients.Any())
+         /*   if (!patients.Any())
             {
                 return NoContent();
-            }
-            return Ok(patients);
+            */
         }
 
         // GET: api/Patient/5
