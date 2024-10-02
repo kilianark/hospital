@@ -52,7 +52,7 @@
   <br />
 
   <div *ngIf="isVisible">
-    <ng-container *ngIf="room.length === 0; else roomTable">
+    <ng-container *ngIf="rooms.length === 0; else roomTable">
       <legend style="margin-left: 3%">Habitación no encontrada</legend>
     </ng-container>
     <ng-template #roomTable>
@@ -68,12 +68,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let room of room"  (click)="goToRooms(room.id)" class="file-click">
-              <td>{{room.roomNumber}}</td>
-              <td>{{room.floor}}</td>
-              <td>{{room.area}}</td>
-              <td>{{room.capacity}}</td>
-              <td>{{room.availability ? 'Sí' : 'No' }}</td>
+            <tr
+              *ngFor="let room of rooms"
+              (click)="goToRooms(room.id)"
+              class="file-click"
+            >
+              <td>{{ room.roomNumber }}</td>
+              <td>{{ room.floor }}</td>
+              <td>{{ room.area }}</td>
+              <td>{{ room.capacity }}</td>
+              <td>{{ room.availability ? "Sí" : "No" }}</td>
               <!-- <td>{{room.idpatient !== undefined ? room.idpatient : '-' }}</td> -->
             </tr>
           </tbody>

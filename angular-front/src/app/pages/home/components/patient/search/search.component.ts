@@ -5,6 +5,7 @@ import { RecordComponent } from '../../../../../components/recordpatient/record.
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-patient',
@@ -14,7 +15,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class SearchPatientComponent {
   title = 'Búsqueda Pacientes:';
 
-  patient: PatientInterface[] = [];
+  patients: PatientInterface[] = [];
 
   patientForm: FormGroup;
 
@@ -31,8 +32,12 @@ export class SearchPatientComponent {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private router: Router,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private translator: TranslateService
   ) {
+
+    this.translator.use('es');
+
     this.patientForm = this.formBuilder.group({
       patientCode: [this.patientCode],
       name: [this.name],
@@ -77,9 +82,9 @@ export class SearchPatientComponent {
     });
   }
 
-  /* ngOnInit(): void {
+  /*ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
-      this.patient = data;
+      this.patients = data;
     });
   }*/
 
@@ -110,7 +115,7 @@ export class SearchPatientComponent {
         this.ingresados
       )
       .subscribe((data) => {
-        this.patient = data;
+        this.patients = data;
         console.log(data);
       });
   }

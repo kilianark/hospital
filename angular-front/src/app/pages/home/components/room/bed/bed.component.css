@@ -1,21 +1,50 @@
 .content {
-    font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
-  }
-  
-  legend {
-    margin: 0px;
-    overflow: hidden;
-    font-size: 24px;
-    text-align: left;
-    letter-spacing: 0px;
-    line-height: 31px;
-    white-space: pre-line;
-    font-weight: bold;
-    padding-bottom: 2%;
-  }
-  
-body{
-    margin-left: 125px;
-    margin-top: 120px;
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
 }
-  
+
+legend {
+  margin-bottom: 15px;
+  overflow: hidden;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 31px;
+  white-space: pre-line;
+  font-weight: bold;
+  padding-bottom: 2%;
+}
+
+body {
+  margin-left: 125px;
+  margin-top: 120px;
+}
+
+.table-wrapper {
+  width: 83vw;
+  height: 63.9vh;
+  overflow: auto;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.table-wrapper table {
+  border-collapse: collapse;
+}
+
+thead {
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #ffffff;
+}
+
+td {
+  text-align: center;
+  height: 50px;
+  width: 200px;
+}
+
+.file-click:hover {
+  background-color: #f5f5f5;
+}

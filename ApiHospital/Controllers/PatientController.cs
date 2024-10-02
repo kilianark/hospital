@@ -43,6 +43,7 @@ namespace ApiHospital.Controllers
             [FromQuery] int? BedId = null,
             [FromQuery] string? Ingresados = null
         )
+<<<<<<< HEAD
         {
                 /*var query = from p in _context.Patients
                 join person in _context.Persons on p.Id equals person.Id
@@ -67,6 +68,31 @@ namespace ApiHospital.Controllers
                     BedId = p.BedId
                 };
                 */
+=======
+        { 
+            
+            IQueryable<Patient> query = _context.Patients;
+            /*var query = _context.Patients.Select(p => new PatientDTO
+            {
+                PatientCode = p.PatientCode,
+                Name = p.Name,            
+                Surname1 = p.Surname1,  
+                Surname2 = p.Surname2,  
+                Dni = p.Dni,           
+                Age = DateTime.Now.Year - p.BirthDate.Year - (DateTime.Now.DayOfYear < p.BirthDate.DayOfYear ? 1 : 0),
+                BirthDate = p.BirthDate,
+                Country = p.Country,   
+                Address = p.Address,   
+                Phone = p.Phone,       
+                Email = p.Email,       
+                CIP = p.CIP,           
+                Gender = p.Gender,     
+                EmergencyContact = p.EmergencyContact,
+                Status = p.Status,
+                Reason = p.Reason,
+                BedId = p.BedId
+            });*/
+>>>>>>> f6b3489c6a7c48329cc32e46bf4a8da16301d892
 
             //string query = "Select * from \"Patients\" join \"Persons\" where \"Patients.Id\" = \"Persons.Id\"";
 
@@ -100,11 +126,20 @@ namespace ApiHospital.Controllers
                 query = query.Where(p => p.BedId == BedId.Value);
 
             if (!string.IsNullOrEmpty(Ingresados))
-                if (Ingresados == "in") {}
-                   // query = query.Where(p => p.Status != 1));
+                if (Ingresados == "in") {
+                   query = query.Where(p => p.BedId != null);
+                }
+            return await query.ToListAsync();
 
+<<<<<<< HEAD
 
             return await query.ToListAsync();
+=======
+         /*   if (!patients.Any())
+            {
+                return NoContent();
+            */
+>>>>>>> f6b3489c6a7c48329cc32e46bf4a8da16301d892
         }
 
         // GET: api/Patient/5

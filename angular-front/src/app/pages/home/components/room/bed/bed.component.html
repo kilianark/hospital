@@ -1,25 +1,29 @@
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestión de camas</title>
-</head>
+  </head>
 
-<body>
-    <legend>{{ title }} {{ roomId }}</legend>
+  <body>
+    <legend id="titleBed">{{ title }} {{ roomId }}</legend>
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
-            <th>Núm.</th>
-            <th>Disponibilidad</th>
-            <th>Paciente</th>
-            <th>Código Paciente</th>
-            <th>Ficha</th>
-            <th>Gestionar</th>
+            <th class="inTableBed">Núm.</th>
+            <th class="inTableBed">Disponibilidad</th>
+            <th class="inTableBed">Paciente</th>
+            <th class="inTableBed">Código Paciente</th>
+            <th class="inTableBed">Ficha</th>
+            <th class="inTableBed">Gestionar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let bed of beds" class="file-click">
             <td>{{ bed.BedCode }}</td>
-            <td>{{ bed.Availability ? 'Sí' : 'No' }}</td>
+            <td>{{ bed.Availability ? "Sí" : "No" }}</td>
             <!-- <td>{{ bed.atient?.name }} {{ bed.patient?.surname1 }}</td> -->
             <!-- <td>{{ bed.patient?.id }}</td> -->
             <td>botón ficha</td>
@@ -28,4 +32,5 @@
         </tbody>
       </table>
     </div>
-</body>
+  </body>
+</html>
