@@ -82,11 +82,11 @@ export class SearchPatientComponent {
     });
   }
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
-      this.patient = data;
+      this.patients = data;
     });
-  }
+  }*/
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
