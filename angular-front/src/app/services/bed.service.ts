@@ -6,14 +6,17 @@ import { BedInterface } from '../interfaces/bed.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class PatientService {
+export class BedService {
   private url = "https://localhost:7138/api/Beds"
 
 
   constructor(private http: HttpClient) { }
 
-  getBedData(Availability?: boolean) : Observable<BedInterface[]> {
+  getBedData(roomId?: number, Availability?: boolean) : Observable<BedInterface[]> {
     let params = new HttpParams(); 
+    if (roomId != null && roomId != 0) {
+      params = params.set('roomId', roomId)
+    }
     if (Availability != null) {
         params = params.set('Availability', Availability)
     }
