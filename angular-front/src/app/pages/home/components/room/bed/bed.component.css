@@ -23,7 +23,6 @@ body {
   width: 83vw;
   height: 63.9vh;
   overflow: auto;
-  margin-left: 15px;
 }
 
 .table-wrapper::-webkit-scrollbar {
