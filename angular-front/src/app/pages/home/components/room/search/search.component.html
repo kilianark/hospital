@@ -52,7 +52,7 @@
   <br />
 
   <div *ngIf="isVisible">
-    <ng-container *ngIf="room.length === 0; else roomTable">
+    <ng-container *ngIf="rooms.length === 0; else roomTable">
       <legend style="margin-left: 3%">Habitación no encontrada</legend>
     </ng-container>
     <ng-template #roomTable>
@@ -69,7 +69,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let room of room"
+              *ngFor="let room of rooms"
               (click)="goToRooms(room.id)"
               class="file-click"
             >
