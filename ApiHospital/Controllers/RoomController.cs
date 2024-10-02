@@ -38,7 +38,7 @@ namespace ApiHospital.Controllers
             [FromQuery] int? BedId = null
         )
         {
-            IQueryable<Room> query = _context.Rooms.Include(room => room.Beds);
+            IQueryable<Room> query = _context.Rooms;
 
             if (RoomNumber.HasValue)
             {
@@ -52,12 +52,12 @@ namespace ApiHospital.Controllers
 
             if (!string.IsNullOrEmpty(Area))
             {
-                query = query.Where(r => r.Area.StartsWith(Area));
+           //     query = query.Where(r => r.Area.StartsWith(Area));
             }
 
             if (Floor.HasValue)
             {
-                query = query.Where(r => r.Floor == Floor.Value);
+          //      query = query.Where(r => r.Floor == Floor.Value);
             }
 
             if (Availability.HasValue)

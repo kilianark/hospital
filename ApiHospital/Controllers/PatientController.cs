@@ -31,7 +31,7 @@ namespace ApiHospital.Controllers
 
         // GET: api/Patient
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PatientDTO>>> GetPatients(
+        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients(
             [FromQuery] int? PatientCode = null,
             [FromQuery] string? Name = null,
             [FromQuery] string? Surname1 = null,
@@ -44,27 +44,34 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Ingresados = null
         )
         {
-            var query = _context.Patients.Select(p => new PatientDTO
-            {
-                PatientCode = p.PatientCode,
-                Name = p.Name,            
-                Surname1 = p.Surname1,  
-                Surname2 = p.Surname2,  
-                Dni = p.Dni,           
-                Age = DateTime.Now.Year - p.BirthDate.Year - (DateTime.Now.DayOfYear < p.BirthDate.DayOfYear ? 1 : 0),
-                BirthDate = p.BirthDate,
-                Country = p.Country,   
-                Address = p.Address,   
-                Phone = p.Phone,       
-                Email = p.Email,       
-                CIP = p.CIP,           
-                Gender = p.Gender,     
-                EmergencyContact = p.EmergencyContact,
-                Status = p.Status,
-                Reason = p.Reason,
-                BedId = p.BedId
-            });
+                /*var query = from p in _context.Patients
+                join person in _context.Persons on p.Id equals person.Id
+                select new PatientDTO
+                {
+                    PatientCode = p.PatientCode,
+                    Name = person.Name,                
+                    Surname1 = person.Surname1,       
+                    Surname2 = person.Surname2,       
+                    Dni = person.Dni,                 
+                    Age = DateTime.Now.Year - person.BirthDate.Year - (DateTime.Now.DayOfYear < person.BirthDate.DayOfYear ? 1 : 0),
+                    BirthDate = person.BirthDate,
+                    Country = person.Country,
+                    Address = person.Address,
+                    Phone = person.Phone,             
+                    Email = person.Email,
+                    CIP = person.CIP,
+                    Gender = person.Gender,
+                    EmergencyContact = p.EmergencyContact,
+                    Status = p.Status,
+                    Reason = p.Reason,
+                    BedId = p.BedId
+                };
+                */
 
+            //string query = "Select * from \"Patients\" join \"Persons\" where \"Patients.Id\" = \"Persons.Id\"";
+
+            IQueryable<Patient> query = _context.Patients;
+            
             if (PatientCode.HasValue)
                 query = query.Where(p => p.PatientCode == PatientCode.Value);
 
@@ -97,13 +104,7 @@ namespace ApiHospital.Controllers
                    // query = query.Where(p => p.Status != 1));
 
 
-            var patients = await query.ToListAsync();
-
-            if (!patients.Any())
-            {
-                return NoContent();
-            }
-            return Ok(patients);
+            return await query.ToListAsync();
         }
 
         // GET: api/Patient/5
@@ -160,9 +161,8 @@ namespace ApiHospital.Controllers
         // POST: api/Patient
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Patient>> PostPatient(PatientDTO patientDTO)
+        public async Task<ActionResult<Patient>> PostPatient(Patient patient)
         {
-            var patient = _mapper.Map<Patient>(patientDTO);
 
             if (!BedExists(patient.BedId))
                 patient.BedId = null;
