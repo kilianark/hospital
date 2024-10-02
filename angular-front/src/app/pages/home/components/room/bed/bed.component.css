@@ -3,7 +3,7 @@
 }
 
 legend {
-  margin: 0px;
+  margin-bottom: 15px;
   overflow: hidden;
   font-size: 24px;
   text-align: left;
@@ -34,13 +34,6 @@ body {
   border-collapse: collapse;
 }
 
-.table-wrapper table thead {
-  position: -webkit-sticky; /* Safari... */
-  position: sticky;
-  top: 0;
-  left: 0;
-}
-
 thead {
   position: -webkit-sticky;
   position: sticky;
@@ -53,6 +46,6 @@ td {
   width: 200px;
 }
 
-tr:hover {
+.file-click:hover {
   background-color: #f5f5f5;
 }
