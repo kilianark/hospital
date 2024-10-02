@@ -20,10 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    ProfileComponent,
-  ],
+  declarations: [HomeComponent, ProfileComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -38,10 +35,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [provideHttpClient()]
+  providers: [provideHttpClient()],
 })
-export class HomeModule { }
+export class HomeModule {}

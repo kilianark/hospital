@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class SearchRoomComponent {
   title = 'Búsqueda Habitaciones:';
-  room: RoomInterface[] = [];
+  rooms: RoomInterface[] = [];
   roomForm: FormGroup;
   isVisible: boolean = false;
 
@@ -55,7 +55,7 @@ export class SearchRoomComponent {
       )
       .subscribe(
         (rooms: RoomInterface[]) => {
-          this.room = rooms;
+          this.rooms = rooms;
           this.isVisible = true;
         },
         (error) => {
@@ -70,7 +70,7 @@ export class SearchRoomComponent {
       if (roomId !== undefined) {
       this.router.navigate(['/home/room/beds', roomId]);
     }else {
-      console.log(this.room[0]);
+      console.log(this.rooms[0]);
       console.log('No hay camas asignadas a esta habitación.');
     }
     }
