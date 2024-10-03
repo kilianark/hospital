@@ -43,35 +43,9 @@ namespace ApiHospital.Controllers
             [FromQuery] int? BedId = null,
             [FromQuery] string? Ingresados = null
         )
-<<<<<<< HEAD
-        {
-                /*var query = from p in _context.Patients
-                join person in _context.Persons on p.Id equals person.Id
-                select new PatientDTO
-                {
-                    PatientCode = p.PatientCode,
-                    Name = person.Name,                
-                    Surname1 = person.Surname1,       
-                    Surname2 = person.Surname2,       
-                    Dni = person.Dni,                 
-                    Age = DateTime.Now.Year - person.BirthDate.Year - (DateTime.Now.DayOfYear < person.BirthDate.DayOfYear ? 1 : 0),
-                    BirthDate = person.BirthDate,
-                    Country = person.Country,
-                    Address = person.Address,
-                    Phone = person.Phone,             
-                    Email = person.Email,
-                    CIP = person.CIP,
-                    Gender = person.Gender,
-                    EmergencyContact = p.EmergencyContact,
-                    Status = p.Status,
-                    Reason = p.Reason,
-                    BedId = p.BedId
-                };
-                */
-=======
         { 
             
-            IQueryable<Patient> query = _context.Patients;
+
             /*var query = _context.Patients.Select(p => new PatientDTO
             {
                 PatientCode = p.PatientCode,
@@ -92,7 +66,6 @@ namespace ApiHospital.Controllers
                 Reason = p.Reason,
                 BedId = p.BedId
             });*/
->>>>>>> f6b3489c6a7c48329cc32e46bf4a8da16301d892
 
             //string query = "Select * from \"Patients\" join \"Persons\" where \"Patients.Id\" = \"Persons.Id\"";
 
@@ -131,15 +104,10 @@ namespace ApiHospital.Controllers
                 }
             return await query.ToListAsync();
 
-<<<<<<< HEAD
-
-            return await query.ToListAsync();
-=======
          /*   if (!patients.Any())
             {
                 return NoContent();
             */
->>>>>>> f6b3489c6a7c48329cc32e46bf4a8da16301d892
         }
 
         // GET: api/Patient/5
