@@ -12,11 +12,11 @@ button {
 }
 
 .slogan {
+  font-size: 1.2em;
   display: flex;
   font-weight: bold;
   margin-left: 50px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .grid-layout {
@@ -47,7 +47,25 @@ button {
 @media screen and (max-width: 768px) {
   .grid-layout {
     display: flex;
+    width: 100%;
     align-content: center;
+    height: 300%;
     justify-content: center;
+    vertical-align: middle;
+    flex-direction: column;
+  }
+
+  .grid-layout div {
+    vertical-align: middle;
+    width: 30vw;
+    height: 30vw;
+  }
+  .slogan {
+    padding-top: 5%;
+    font-size: 1.3em;
+    margin-bottom: 10%;
+    margin-left: 0;
+    justify-content: center;
+    text-align: center;
   }
 }
