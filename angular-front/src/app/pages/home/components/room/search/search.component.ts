@@ -32,7 +32,7 @@ export class SearchRoomComponent {
   onSubmit() {
     const searchFilters = this.roomForm.value;
 
-    const roomNumber = searchFilters.room_number
+    const roomNumber = searchFilters.roomNumber
       ? parseInt(searchFilters.roomNumber, 10)
       : null;
     const floor = searchFilters.floor
