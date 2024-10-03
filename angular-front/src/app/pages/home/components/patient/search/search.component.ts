@@ -26,7 +26,9 @@ export class SearchPatientComponent {
   dni: string = '';
   cip: string = '';
   phone: string = '';
-  ingresados: string = '';
+  status: string = '';
+  bedId: number = 0;
+  ingresados: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -112,6 +114,8 @@ export class SearchPatientComponent {
         this.dni,
         this.cip,
         this.phone,
+        this.status,
+        this.bedId,
         this.ingresados
       )
       .subscribe((data) => {

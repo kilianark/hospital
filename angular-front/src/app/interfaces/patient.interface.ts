@@ -21,5 +21,5 @@ export interface PatientInterface{
     status: PatientStatus | null;
     reason?: string;
     bedId?: number;
-   
+    roomId?: number;
 }
