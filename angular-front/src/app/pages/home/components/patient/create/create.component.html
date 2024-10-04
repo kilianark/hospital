@@ -236,7 +236,7 @@
           placeholder="Registrar"
           [disabled]="patientForm.invalid"
         />
-        <input class="reset" type="reset" placeholder="Reiniciar" />
+        <input class="reset" type="button" value="Reiniciar" (click)="resetForm()">
       </div>
     </form>
   </body>

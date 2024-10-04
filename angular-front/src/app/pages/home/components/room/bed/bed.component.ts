@@ -67,8 +67,9 @@ export class BedComponent implements OnInit {
         this.room = data;
       });
       
-      this.patientService.getPatientData(this.bedId).subscribe(data => {
+      this.patientService.getPatientData(undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,this.bedId).subscribe(data => {
         //this.patient = data;
       })
-    }
+
+          }
   }}
