@@ -43,8 +43,6 @@ namespace ApiHospital.Controllers
             [FromQuery] int? BedId = null,
             [FromQuery] string? Ingresados = null
         )
-
-        {
                 /*var query = from p in _context.Patients
                 join person in _context.Persons on p.Id equals person.Id
                 select new PatientDTO
@@ -71,7 +69,6 @@ namespace ApiHospital.Controllers
 
         { 
             
-            IQueryable<Patient> query = _context.Patients;
             /*var query = _context.Patients.Select(p => new PatientDTO
             {
                 PatientCode = p.PatientCode,
