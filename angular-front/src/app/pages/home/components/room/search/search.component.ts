@@ -68,11 +68,11 @@ export class SearchRoomComponent {
   
     goToRooms(roomId: number) {
       if (roomId !== undefined) {
-      this.router.navigate(['/home/room/beds', roomId]);
-    }else {
-      console.log(this.rooms[0]);
-      console.log('No hay camas asignadas a esta habitación.');
-    }
+        this.router.navigate(['/home/room/beds', roomId]);
+      } else {
+        console.log(this.rooms[0]);
+        console.log('No hay camas asignadas a esta habitación.');
+      }
     }
 
   toggleDisplay() {

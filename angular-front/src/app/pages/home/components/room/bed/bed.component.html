@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <legend id="titleBed">{{ title }} {{ roomId }}</legend>
+    <legend id="titleBed">{{ title }} {{ room.roomNumber }}</legend>
     <div class="table-wrapper">
       <table>
         <thead>
@@ -17,17 +17,28 @@
             <th class="inTableBed">Paciente</th>
             <th class="inTableBed">Código Paciente</th>
             <th class="inTableBed">Ficha</th>
-            <th class="inTableBed">Gestionar</th>
+            <th class="inTableBed">Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let bed of beds" class="file-click">
-            <td>{{ bed.BedCode }}</td>
-            <td>{{ bed.Availability ? "Sí" : "No" }}</td>
-            <!-- <td>{{ bed.atient?.name }} {{ bed.patient?.surname1 }}</td> -->
+            <td>{{ bed.bedCode }}</td>
+            <td>{{ bed.availability ? "Sí" : "No" }}</td>
+            <!-- els registres de llits pot apareixer sense pacient, ja que es la llista de llits d'una habitació -->
+            <!-- <td>{{ bed.patient?.name }} {{ bed.patient?.surname1 }}</td> -->
             <!-- <td>{{ bed.patient?.id }}</td> -->
-            <td>botón ficha</td>
-            <td>botón gestión pte</td>
+            <td></td>
+            <td></td>
+            <td (click)="$event.stopPropagation()">
+              <button mat-button (click)="openDialog(patient.patientCode)">
+                Abrir
+              </button>
+            </td>
+            <td>
+              <button type="button" routerLink="/home/patient/manage">
+                Gestionar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
