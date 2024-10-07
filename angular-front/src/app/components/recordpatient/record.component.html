@@ -13,11 +13,12 @@
           <label for="patientCode">Código:</label>
           <input id="patientCode" formControlName="patientCode">
           
-          <label for="hist-pat"></label>
-          <a id="hist-pat" href="https://drive.google.com/file/d/1g2QnoNsQLzy-MFS6atwXQ9zSb_IfmP4e/view?usp=sharing" target="_blank">
-            <span>Visualizar historia Clínica</span>
+          
+          <button id="hist-pat" (click)="generatePDF()">
+            <span>Historial médico</span>
             <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
-          </a>
+          </button>
+          <br>
 
           <label for="name">Nombre:</label>
           <input id="name" formControlName="name">

@@ -3,6 +3,7 @@ body {
   padding-top: 3.5%;
   height: 50vh;
 }
+
 .title {
   width: auto;
   height: 31px;
@@ -23,11 +24,13 @@ body {
   max-width: 800px;
   margin-left: 7.5%;
 }
+
 label {
   margin: 0px;
   font-size: 14px;
   font-weight: bold;
 }
+
 .button {
   display: flex;
   align-items: center;
@@ -42,6 +45,7 @@ label {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   border: 0px;
 }
+
 .submit {
   display: flex;
   align-items: center;
@@ -56,14 +60,17 @@ label {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   border: 0px;
 }
+
 .formButtons {
   display: flex;
   justify-content: center;
   gap: 5vw;
 }
+
 @media (max-width: 600px) {
-  .form-col, .peu-form {
-      grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  .form-col,
+  .peu-form {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -73,11 +80,17 @@ label {
   text-decoration: none;
   color: inherit;
 }
+
 .grid-layout a span {
   margin-right: 10px;
   text-decoration: underline;
   color: #1e90ff;
 }
+
 .pdflogo {
   vertical-align: middle;
+}
+
+#hist-pat{
+  color: #1e90ff;
 }
