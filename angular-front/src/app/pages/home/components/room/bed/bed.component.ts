@@ -20,9 +20,13 @@ export class BedComponent implements OnInit {
   roomId: number | null = null;  
   // data per convenció reb l'instància (RoomInf)
   room!: RoomInterface;
+  // obtenim tot el llistar d'interfaces de llit
   beds: BedInterface[] = [];
+  // obtenim el bedId desde el bedService
   bedId!: number; // tinc que obtenir els ID beds per la llista de beds
-  pacients: PatientInterface[] = [];
+
+  // contindrà llista d'interface de pacients
+  patients: PatientInterface[] = [];
   patient!: PatientInterface;
 
   // quan rebem una data interface de paciente d'allà obtenim, id, nomSur, i el codiPatient. 
@@ -51,8 +55,12 @@ export class BedComponent implements OnInit {
   
     if (this.roomId) {
       console.log('ID de la habitación:', this.roomId);
+      
+      this.roomService.getRoomById(this.roomId).subscribe(data =>{
+        this.room = data;
+      });
   
-      // Cargar las camas usando el servicio
+      // Cargar las camas usando el servicio, filtrando por idRoom, no posem disponibilitat perquè volem mostrar tots els llits
       this.bedService.getBedData(this.roomId).subscribe(
         (beds: BedInterface[]) => {
           this.beds = beds;
@@ -63,13 +71,25 @@ export class BedComponent implements OnInit {
         }
       );
 
-      this.roomService.getRoomById(this.roomId).subscribe(data =>{
-        this.room = data;
-      });
-      
-      this.patientService.getPatientData(undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,this.bedId).subscribe(data => {
-        //this.patient = data;
-      })
+      //this.bedService.get
 
-          }
-  }}
+      // orden de paràmetros, bedid no correspon a patientcode
+      this.patientService.getPatientData(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.bedId)
+      .subscribe(
+        (patients: PatientInterface[]) => {
+            this.patients = patients;
+            console.log('Pacientes obtenido:', this.patient);
+        },
+        error => {
+            console.error('Error al cargar paciente:', error);
+        }
+      );
+    }
+  };
+  // En tu componente .ts
+  getPatientByBedId(bedId: number): PatientInterface | null {
+    return this.patients.find(patient => patient.bedId === bedId) || null;
+  }
+}
+
+  
