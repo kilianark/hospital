@@ -8,6 +8,7 @@ app-header {
   top: 0;
   width: 100%;
   z-index: 1000;
+  box-sizing: border-box;
 }
 
 .principal {
@@ -43,5 +44,13 @@ body {
   }
   .content {
     margin-left: 0px;
+  }
+  app-header {
+    position: static;
+    width: 100vw;
+  }
+  .principal {
+    position: static;
+    margin-top: 0px;
   }
 }

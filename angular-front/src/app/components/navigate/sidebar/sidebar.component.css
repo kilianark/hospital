@@ -59,17 +59,23 @@ body {
     display: flex;
     position: sticky;
     top: 0px;
-    height: 10vh;
+    height: 12vh;
     width: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
+    border-right: none;
+    border-bottom: solid;
   }
   body {
     display: flex;
     position: sticky;
   }
   .sidebar label {
-    font-size: 1.5em;
-    margin-left: 30px;
+    font-size: 3.2vw;
   }
   .sidebar ul {
+    text-align: center;
+    font-size: 2vw;
   }
 }
