@@ -44,6 +44,10 @@ button {
 }
 
 @media screen and (max-width: 768px) {
+  body {
+    margin-top: 0px;
+    margin-left: 0px;
+  }
   .grid-layout {
     display: flex;
     width: 100%;
