@@ -96,6 +96,8 @@ export class CreatePatientComponent implements OnInit {
       bedId: null,
     };
 
+    this.patientForm.get('patientCode')?.disable();
+
     console.log(this.patientForm.value);
 
     this.patientService.postPatientData(patientData).subscribe(
