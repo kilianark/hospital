@@ -43,55 +43,8 @@ namespace ApiHospital.Controllers
             [FromQuery] int? BedId = null,
             [FromQuery] string? Ingresados = null
         )
-                /*var query = from p in _context.Patients
-                join person in _context.Persons on p.Id equals person.Id
-                select new PatientDTO
-                {
-                    PatientCode = p.PatientCode,
-                    Name = person.Name,                
-                    Surname1 = person.Surname1,       
-                    Surname2 = person.Surname2,       
-                    Dni = person.Dni,                 
-                    Age = DateTime.Now.Year - person.BirthDate.Year - (DateTime.Now.DayOfYear < person.BirthDate.DayOfYear ? 1 : 0),
-                    BirthDate = person.BirthDate,
-                    Country = person.Country,
-                    Address = person.Address,
-                    Phone = person.Phone,             
-                    Email = person.Email,
-                    CIP = person.CIP,
-                    Gender = person.Gender,
-                    EmergencyContact = p.EmergencyContact,
-                    Status = p.Status,
-                    Reason = p.Reason,
-                    BedId = p.BedId
-                };
-                */
-
+        
         { 
-            
-            /*var query = _context.Patients.Select(p => new PatientDTO
-            {
-                PatientCode = p.PatientCode,
-                Name = p.Name,            
-                Surname1 = p.Surname1,  
-                Surname2 = p.Surname2,  
-                Dni = p.Dni,           
-                Age = DateTime.Now.Year - p.BirthDate.Year - (DateTime.Now.DayOfYear < p.BirthDate.DayOfYear ? 1 : 0),
-                BirthDate = p.BirthDate,
-                Country = p.Country,   
-                Address = p.Address,   
-                Phone = p.Phone,       
-                Email = p.Email,       
-                CIP = p.CIP,           
-                Gender = p.Gender,     
-                EmergencyContact = p.EmergencyContact,
-                Status = p.Status,
-                Reason = p.Reason,
-                BedId = p.BedId
-            });*/
-
-            //string query = "Select * from \"Patients\" join \"Persons\" where \"Patients.Id\" = \"Persons.Id\"";
-
             IQueryable<Patient> query = _context.Patients;
             
             if (PatientCode.HasValue)
@@ -126,11 +79,6 @@ namespace ApiHospital.Controllers
                    query = query.Where(p => p.BedId != null);
                 }
             return await query.ToListAsync();
-
-         /*   if (!patients.Any())
-            {
-                return NoContent();
-            */
         }
 
         // GET: api/Patient/5
