@@ -95,7 +95,6 @@ button:hover {
   .btn {
     display: block;
     cursor: pointer;
-    margin: 20px;
   }
 
   .icon-bar {
@@ -107,8 +106,21 @@ button:hover {
   }
   mat-toolbar {
     background-color: lightblue;
+    padding: 0;
   }
   #notMenu {
     display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .icon-bar {
+    width: 10px;
+  }
+  #menu {
+    width: 70px;
+  }
+  #notMenu {
+    width: 70px;
   }
 }
