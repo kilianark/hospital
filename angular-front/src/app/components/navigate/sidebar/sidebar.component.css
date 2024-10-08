@@ -7,7 +7,9 @@ body {
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
-
+#sidebarTS {
+  display: none;
+}
 .sidebar {
   position: sticky;
   top: 0;

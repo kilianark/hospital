@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -31,7 +32,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
   ],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent
+  extends SidebarComponent
+  implements OnInit, OnDestroy
+{
   title = 'MedicaPlus';
   nav1 = 'Urgencias';
   nav2 = 'Consultas';
@@ -43,17 +47,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private elRef: ElementRef,
     private renderer: Renderer2,
     private router: Router
-  ) {}
+  ) {
+    super();
+  }
   menu = true;
   onClick() {
     const htmlmenu = document.getElementById('menu') as HTMLElement;
     const htmlclose = document.getElementById('notMenu') as HTMLElement;
-
+    const sidebar = document.getElementById('sidebarTS') as HTMLElement;
     this.menu = !this.menu; // Toggle the menu state
 
     // Update the display properties based on the new menu state
     htmlmenu?.style.setProperty('display', this.menu ? 'block' : 'none');
     htmlclose?.style.setProperty('display', this.menu ? 'none' : 'block');
+    sidebar?.style.setProperty('display', this.menu ? 'none' : 'flex');
   }
   ngOnInit() {
     //cierra el menú al clicar fuera de él
