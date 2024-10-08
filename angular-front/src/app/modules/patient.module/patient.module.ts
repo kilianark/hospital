@@ -9,7 +9,6 @@ import { ManagePatientComponent } from '../../pages/home/components/patient/mana
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient.service';
 
-
 import { RequiredComponent } from '../../components/required/required.component';
 import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
 

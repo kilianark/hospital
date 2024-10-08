@@ -9,7 +9,6 @@ import { PatientInterface } from '../../interfaces/patient.interface';
 import { PatientService } from '../../services/patient.service';
 
 import { jsPDF } from 'jspdf';
-import { autoTable } from 'jspdf-autotable';
 
 @Component({
   selector: 'app-record',
