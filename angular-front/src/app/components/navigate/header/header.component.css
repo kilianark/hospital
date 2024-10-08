@@ -1,88 +1,126 @@
 header {
-    background-color: lightblue;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: solid;
-    border-color:  rgba(1,47,70,255);
-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: lightblue;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: solid;
+  border-color: rgba(1, 47, 70, 255);
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 
 button {
-    background-color: lightblue;
-    width: 150px;
-    height: 60px;
-    align-self: center;
-    border: none;
-    cursor: pointer;
+  background-color: lightblue;
+  width: 150px;
+  height: 60px;
+  align-self: center;
+  border: none;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: rgb(190, 238, 254);
+  background-color: rgb(190, 238, 254);
 }
 
 .DashboardButton {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .DashboardButton img {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .DashboardButton span {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .Worker,
 .Management {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .LeftButtons {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .RightButtons {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
-.WorkerSettings{
-    width: 50%;
+.WorkerSettings {
+  width: 50%;
 }
 
 .dropdown-menu {
-    position: absolute;
-    margin-top: 206px;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 10px 10px 10px rgba(123, 0, 254, 0.1);
-    padding: 0;
+  position: absolute;
+  margin-top: 206px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 10px 10px 10px rgba(123, 0, 254, 0.1);
+  padding: 0;
 }
 
 .dropdown-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .dropdown-menu li button {
-    width: 100%;
-    text-align: left;
-    padding: 10px;
-    background: none;
-    cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  background: none;
+  cursor: pointer;
 }
 
 .dropdown-menu li button img {
-    vertical-align: middle;
-    margin-right: 10px;
+  vertical-align: middle;
+  margin-right: 10px;
 }
 
 .dropdown-menu li button:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
+}
+.btn {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .btn {
+    display: block;
+    cursor: pointer;
+  }
+
+  .icon-bar {
+    width: 22px;
+    height: 2px;
+    background: black;
+    margin: 3px;
+    position: relative;
+  }
+  mat-toolbar {
+    background-color: lightblue;
+    padding: 0;
+  }
+  #notMenu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .icon-bar {
+    width: 10px;
+  }
+  #menu {
+    width: 70px;
+  }
+  #notMenu {
+    width: 70px;
+  }
 }

@@ -1,0 +1,145 @@
+body{
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+}
+form {
+  padding-top: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 4%;
+}
+legend {
+  width: auto;
+  height: 31px;
+  margin: 0px;
+  overflow: hidden;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 31px;
+  white-space: pre-line;
+  font-weight: bold;
+}
+.head {
+  margin-left: 7.3%;
+}
+.cod-pat {
+  display: grid;
+  grid-template-columns: 10vw 20vw;
+  gap: 20px;
+  max-width: 800px;
+  margin-left: 7.5%;
+}
+.cod-pat input[readonly] {
+  background-color: #f0f0f0;
+  color: #999;
+  border: 1px solid #ccc;
+  font-style: italic;
+  border-radius: 2px;
+}
+.form-col {
+  display: grid;
+  grid-template-columns: 10vw 20vw 15vw 20vw;
+  gap: 20px;
+  max-width: 800px;
+  margin-left: 7.5%;
+}
+.peu-form {
+  display: grid;
+  grid-template-columns: 10vw 20vw 15vw 20vw;
+  gap: 20px;
+  align-items: flex-start;
+  max-width: 800px;
+  margin-left: 7.5%;
+}
+.select {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: auto;
+  max-width: 800px;
+  margin-left: -40px;
+  margin-right: -20px;
+}
+label {
+  margin: 0px;
+  font-size: 14px;
+  font-weight: bold;
+}
+fieldset {
+  border: none;
+}
+.select1,
+.select2 {
+  font-weight: normal;
+}
+
+.select input {
+  margin: 0px;
+  height: 75%;
+  align-self: center;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 196px;
+  height: 57px;
+  border-radius: 8px;
+  background-color: rgb(76, 217, 100);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  border: 0px;
+}
+.reset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 196px;
+  height: 57px;
+  border-radius: 8px;
+  background-color: rgb(194, 194, 194);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  border: 0px;
+}
+.formButtons {
+  display: flex;
+  justify-content: center;
+  gap: 5vw;
+}
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+input.ng-valid.ng-touched,
+select.ng-valid.ng-touched {
+  border-color: green;
+}
+
+@media (max-width: 600px) {
+  .form-col,
+  .peu-form {
+    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  }
+}
+.alert {
+  position: absolute;
+  background-color: gainsboro;
+  border-color: red;
+  border-radius: 1px;
+  border-style: groove;
+  font-weight: bold;
+  transition: 0.5s;
+  left: 45%;
+  top: 8%;
+  padding: 3px;
+}
+.alert:hover {
+  opacity: 0;
+}

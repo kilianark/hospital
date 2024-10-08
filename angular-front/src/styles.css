@@ -1,38 +1,57 @@
-html, body {
+html,
+body {
   overscroll-behavior: none;
+  height: 100%;
 }
 
 app-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+}
 
-  .principal {
-    display: fixed;
-    align-items: flex-start;
-    margin-top: 81px;
-    
-    }
+.principal {
+  display: fixed;
+  align-items: flex-start;
+  margin-top: 81px;
+}
 
 app-sidebar {
-    position: fixed;
-    top: 81px;
-    box-sizing: border-box;
-    height: calc(100vh - 81px);
-    overflow-y: auto; /* es pot treure si no arribem a tindre una barra lateral llarga de llista */
+  position: fixed;
+  top: 81px;
+  box-sizing: border-box;
+  height: calc(100vh - 81px);
+  overflow-y: auto; /* es pot treure si no arribem a tindre una barra lateral llarga de llista */
 }
 app-sidebar::-webkit-scrollbar {
   display: none;
 }
 
-  .content {
-    position: sticky;
-    margin-left: 80px;
-    flex-grow: 1;
-  }
+.content {
+  position: sticky;
+  margin-left: 80px;
+  flex-grow: 1;
+}
 
-  body{
-    margin: 0;
+body {
+  margin: 0;
+}
+@media screen and (max-width: 768px) {
+  app-sidebar {
+    position: sticky;
+    overflow-x: auto;
   }
+  .content {
+    margin-left: 0px;
+  }
+  app-header {
+    position: static;
+    width: 100vw;
+  }
+  .principal {
+    position: static;
+    margin-top: 0px;
+  }
+}

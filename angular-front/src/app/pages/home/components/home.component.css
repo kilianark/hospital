@@ -68,4 +68,8 @@ button {
     justify-content: center;
     text-align: center;
   }
+  body {
+    margin-top: 0px;
+    margin-left: 0px;
+  }
 }

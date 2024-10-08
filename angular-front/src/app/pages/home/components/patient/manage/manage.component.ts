@@ -27,7 +27,7 @@ export class ManagePatientComponent implements OnInit {
 	title = 'Gestionar Estado:'
 	patientId!: number ;
 	patient!: PatientInterface;
-	statusForm: FormGroup
+	statusForm: FormGroup;
 
 	selectedAmbulatory: AmbulatoryArea | null = null;
 	selectedHospitalized: HospitalizedArea | null = null;
