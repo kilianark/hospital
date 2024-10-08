@@ -61,11 +61,16 @@ body {
     top: 0px;
     height: auto;
     width: 100%;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: space-around;
+    justify-content: center;
     border-right: none;
     border-bottom: solid;
+    padding-bottom: 15px;
+  }
+  .columna {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: auto;
   }
   body {
     display: flex;
@@ -83,10 +88,12 @@ body {
   }
 }
 @media screen and (max-width: 480px) {
-  .sidebar {
-    height: auto;
+  .sidebar ul li a {
+    font-size: 1.5vh;
+    padding: 0;
+    height: 50%;
   }
-  .sidebar ul {
-    font-size: 2vh;
+  .sidebar label {
+    font-size: 1.75vh;
   }
 }
