@@ -14,6 +14,8 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { TranslateService } from '@ngx-translate/core';
+import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomService } from '../../../../../services/room.service';
 //import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
 @Component({
@@ -27,17 +29,10 @@ export class ManagePatientComponent implements OnInit {
 	patient!: PatientInterface;
 	statusForm: FormGroup
 
-	PatientStatus = PatientStatus;
-	AmbulatoryArea = AmbulatoryArea;
-	HospitalizedArea = HospitalizedArea;
-	UrgencyArea = UrgencyArea;
-	OperatingRoomArea = OperatingRoomArea;
-
 	selectedAmbulatory: AmbulatoryArea | null = null;
 	selectedHospitalized: HospitalizedArea | null = null;
 	selectedUrgency: UrgencyArea | null = null;
 	selectedOperatingRoom: OperatingRoomArea | null = null;
-
 
 	showSelectRoom: boolean = false;
 	showRoomList: boolean = false;
@@ -46,6 +41,7 @@ export class ManagePatientComponent implements OnInit {
 	showAreaU: boolean = false;
 	showAreaO: boolean = false;
 
+	rooms: RoomInterface[] = [];
 
 	patientStatus = Object.keys(PatientStatus)
 		.filter(key => !isNaN(Number(PatientStatus[key as keyof typeof PatientStatus])))
@@ -67,8 +63,8 @@ export class ManagePatientComponent implements OnInit {
 		.filter(key => !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea])))
 		.map(key => ({value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
 
-
-	constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, private translate: TranslateService) {
+	//
+	constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, private translate: TranslateService, private roomService: RoomService) {
 		
 		this.translate.use('es');
 		
@@ -86,7 +82,6 @@ export class ManagePatientComponent implements OnInit {
 				});
 				if (this.patient.status != PatientStatus.Inactivo) {
 					this.showSelectRoom = true;
-					this.showRoomList = true;
 					if (this.patient.status == PatientStatus.Ambulatorio) this.showAreaA = true;
 					if (this.patient.status == PatientStatus.Urgencias) this.showAreaU = true;
 					if (this.patient.status == PatientStatus.Quirofano) this.showAreaO = true;
@@ -152,6 +147,11 @@ export class ManagePatientComponent implements OnInit {
 
 	showDropDown() {
 		this.showRoomList = !this.showRoomList;
+		if(this.showRoomList) {
+			this.roomService.getRoomData().subscribe(data =>
+				this.rooms = data
+			);
+		}
 	}
 
 	
