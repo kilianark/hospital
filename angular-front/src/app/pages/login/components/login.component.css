@@ -35,6 +35,8 @@ h1 {
   display: flex;
   justify-content: center;
   width: 100%;
+  align-items: center;
+  margin-top: 100px;
 }
 
 form {
@@ -72,7 +74,32 @@ input[type="password"],
   margin-top: 10px;
   cursor: pointer;
 }
-
+body {
+  height: 100%;
+}
 .submit:hover {
   background-color: #1e90ff;
+}
+@media screen and (max-width: 768px) {
+  .header {
+    position: sticky;
+    top: 0;
+  }
+  .main {
+    margin-left: 0;
+  }
+  form {
+    width: 25vw;
+  }
+  h1 {
+    font-size: 9vw;
+  }
+  .header img {
+    width: 40vw;
+  }
+}
+@media screen and (max-width: 480px) {
+  form {
+    width: 40vw;
+  }
 }
