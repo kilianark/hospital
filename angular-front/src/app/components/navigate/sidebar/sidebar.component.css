@@ -7,9 +7,7 @@ body {
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
-#sidebarTS {
-  display: none;
-}
+
 .sidebar {
   position: sticky;
   top: 0;
@@ -61,7 +59,7 @@ body {
     display: flex;
     position: sticky;
     top: 0px;
-    height: 12vh;
+    height: auto;
     width: 100%;
     flex-wrap: wrap;
     flex-direction: column;
@@ -79,5 +77,16 @@ body {
   .sidebar ul {
     text-align: center;
     font-size: 2vw;
+  }
+  #sidebarTS {
+    display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+  .sidebar {
+    height: auto;
+  }
+  .sidebar ul {
+    font-size: 2vh;
   }
 }
