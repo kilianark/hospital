@@ -18,7 +18,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [HomeComponent, ProfileComponent],
+  declarations: [
+    HomeComponent, 
+    ProfileComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,
