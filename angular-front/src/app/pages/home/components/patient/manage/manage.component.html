@@ -53,28 +53,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="tbcen">101</td>
-                                            <td class="tbcen">1</td>
-                                            <td class="tbcen">Consulta Externa</td>
-                                            <td class="tbcen">0</td>
-                                            <td class="tbcen">1</td>
-                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tbcen">102</td>
-                                            <td class="tbcen">1</td>
-                                            <td class="tbcen">Consulta Externa</td>
-                                            <td class="tbcen">0</td>
-                                            <td class="tbcen">1</td>
-                                            <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tbcen">103</td>
-                                            <td class="tbcen">1</td>
-                                            <td class="tbcen">Consulta Externa</td>
-                                            <td class="tbcen">0</td>
-                                            <td class="tbcen">1</td>
+                                        <tr *ngFor="let room of rooms">
+                                            <td class="tbcen">{{room.roomNumber}}</td>
+                                            <td class="tbcen">{{room.floor}}</td>
+                                            <td class="tbcen">{{room.area}}</td>
+                                            <td class="tbcen">{{room.capacity}}</td>
+                                            <td class="tbcen">{{room.availability}}</td>
                                             <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
                                         </tr>
                                     </tbody>
@@ -140,28 +124,20 @@
                             </div>
                             <div class="urgencyType" *ngIf="showAreaU">
                                 <label for="areaUrgency">Seleccionar área: </label>
-                                <select
-                                id="areaUrgency"
-                                name="areaUrgency"
-                                [(ngModel)]="selectedUrgency"
-                                (ngModelChange)="onAreaChangeU($event)"
-                                >
-                                <option
-                                    *ngFor="let area of urgencyArea"
-                                    [ngValue]="area.value"
-                                >
-                                    {{ area.value | enumToString: 'URGENCY_AREA' }}
-                                </option>
+                                <select id="areaUrgency" name="areaUrgency" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
+                                    <option *ngFor="let area of urgencyArea" [ngValue]="area.value">
+                                        {{ area.value | enumToString: 'URGENCY_AREA' }}
+                                    </option>
                                 </select>
                                 <table>
                                 <thead>
                                     <tr>
-                                    <th>Núm.</th>
-                                    <th>Planta</th>
-                                    <th>Área</th>
-                                    <th>Capacidad</th>
-                                    <th>Disponibilidad</th>
-                                    <th></th>
+                                        <th>Núm.</th>
+                                        <th>Planta</th>
+                                        <th>Área</th>
+                                        <th>Capacidad</th>
+                                        <th>Disponibilidad</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
