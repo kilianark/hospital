@@ -92,7 +92,8 @@ onSubmit() {
           capacity: this.addRoomForm.value.capacity,
           floor: this.addRoomForm.value.floor, 
           availability: this.addRoomForm.value.availability,
-          area: this.addRoomForm.value.area
+          area: this.addRoomForm.value.area,
+          zone: this.addRoomForm.value.zone,
       };
 
       console.log('datos hab:', roomData);
