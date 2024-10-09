@@ -170,7 +170,7 @@ select.ng-valid.ng-touched {
   .form-col {
     display: grid;
     grid-template-columns: 18vw 18vw 20vw 20vw;
-    grid-template-rows: 4vh 7vh 4vh 4vh 4vh;
+    grid-template-rows: 4vh 4vh 4vh 4vh 4vh;
     max-width: 800px;
     margin-left: 7.5%;
   }
