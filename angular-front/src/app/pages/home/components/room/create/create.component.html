@@ -43,13 +43,13 @@
             <br />
 
             <div class="availability">
-                <label for="availability">Disponibilidad:</label>
+                <label for="availability">Disponibile:</label>
                 <div class="select">
-                    <input id="availability-yes" formControlName="availability" type="radio" name="availability" value="true" />
-                    <label class="select1" for="yes">Sí</label>
-
-                    <input id="availability-no" formControlName="availability" type="radio" name="availability" value="false" />
-                    <label class="select2" for="no">No</label>
+                    <input id="availability-yes" type="radio" formControlName="availability" [value]="true" />
+                    <label class="select1" for="availability-yes">Sí</label>
+            
+                    <input id="availability-no" type="radio" formControlName="availability" [value]="false" />
+                    <label class="select2" for="availability-no">No</label>
                 </div>
             </div>
             <br />

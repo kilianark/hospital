@@ -48,9 +48,9 @@ export class CreateComponent implements OnInit {
       capacity: ['', Validators.required],
       zone: ['', Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
-      floor: [{ value: '', disabled: true }, Validators.required],
-      availability: [false]
-    });
+      floor: [{ value: '', disabled: true }, Validators.required], 
+      availability: ['']
+  });
   }
 
   ngOnInit(): void {}
@@ -70,35 +70,47 @@ export class CreateComponent implements OnInit {
 
   firstNumToFloor() {
     const roomNumberValue = this.addRoomForm.get('roomNumber')?.value;
-    const firstNum = roomNumberValue.toString().charAt(0);
-    this.addRoomForm.patchValue({ floor: firstNum });
-  }
 
-  onSubmit() {
-    if (this.addRoomForm.valid) {
-      const roomData: RoomInterface = {
-        id: 0,
-        roomNumber: this.addRoomForm.value.roomNumber,
-        capacity: this.addRoomForm.value.capacity,
-        floor: this.addRoomForm.value.floor, 
-        availability: this.addRoomForm.value.availability,
-        area: this.addRoomForm.value.area
-      };
-  
-      this.roomService.postRoomData(roomData).subscribe({
-        next: (data) => {
-          this.confirm('Habitación creada con éxito');
-          this.router.navigate(['/home']);
-        },
-        error: (error) => {
-          console.error('Error al crear habitación:', error);
-          this.confirm('Error al crear la habitación. Inténtalo de nuevo.');
+    if (roomNumberValue) {
+        const firstNum = parseInt(roomNumberValue.toString().charAt(0));
+        if (!isNaN(firstNum)) {
+            this.addRoomForm.patchValue({ floor: firstNum });
+            this.addRoomForm.get('floor')?.enable(); 
         }
-      });
-    } else {
-      console.warn('El formulario no es válido:', this.addRoomForm.errors);
     }
+}
+
+onAvailabilityChange(value: boolean) {
+  this.addRoomForm.patchValue({ availability: value });
+}
+
+onSubmit() {
+  if (this.addRoomForm.valid) {
+      const roomData: RoomInterface = {
+          id: 0,
+          roomNumber: this.addRoomForm.value.roomNumber,
+          capacity: this.addRoomForm.value.capacity,
+          floor: this.addRoomForm.value.floor, 
+          availability: this.addRoomForm.value.availability,
+          area: this.addRoomForm.value.area
+      };
+
+      console.log('datos hab:', roomData);
+
+      this.roomService.postRoomData(roomData).subscribe({
+          next: (data) => {
+              this.confirm('Habitación creada con éxito');
+              this.router.navigate(['/home']);
+          },
+          error: (error) => {
+              console.error('Error al crear habitación:', error);
+              this.confirm('Error al crear la habitación. Inténtalo de nuevo.');
+          }
+      });
+  } else {
+      console.warn('El formulario no es válido:', this.addRoomForm.errors);
   }
+}
 
   confirm(message: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
