@@ -127,7 +127,7 @@
           <label for="name">Nombre (<app-required></app-required>):</label>
           <input id="name" formControlName="name" type="text" placeholder="" />
           <label for="birthDate"
-            >F. Nacimiento (<app-required></app-required>):</label
+            >F.Nacimiento (<app-required></app-required>):</label
           >
           <input
             id="birthDate"
@@ -146,14 +146,6 @@
             placeholder=""
           />
 
-          <label for="surname2">Apellido 2:</label>
-          <input
-            id="surname2"
-            formControlName="surname2"
-            type="text"
-            placeholder=""
-          />
-
           <label for="phone">Teléfono (<app-required></app-required>):</label>
           <input
             id="phone"
@@ -161,7 +153,13 @@
             type="text"
             placeholder=""
           />
-
+          <label for="surname2">Apellido 2:</label>
+          <input
+            id="surname2"
+            formControlName="surname2"
+            type="text"
+            placeholder=""
+          />
           <label for="email">E-mail:</label>
           <input
             id="email"
@@ -234,7 +232,12 @@
           placeholder="Registrar"
           [disabled]="patientForm.invalid"
         />
-        <input class="reset" type="button" value="Reiniciar" (click)="resetForm()">
+        <input
+          class="reset"
+          type="button"
+          value="Reiniciar"
+          (click)="resetForm()"
+        />
       </div>
     </form>
   </body>

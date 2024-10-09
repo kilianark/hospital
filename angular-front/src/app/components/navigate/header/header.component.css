@@ -123,4 +123,7 @@ button:hover {
   #notMenu {
     width: 70px;
   }
+  .WorkerName {
+    font-size: 3.5vw;
+  }
 }
