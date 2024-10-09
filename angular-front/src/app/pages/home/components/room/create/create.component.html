@@ -9,40 +9,48 @@
 
     <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()">
         <div class="content">
-            <legend class="head">Crear habitación:</legend>
+            <legend class="head">{{ title }}</legend>
             <br />
 
             <div class="roomNumber">
-                <label for="roomNumber">Número de habitación:</label>
-                <input id="roomNumber" type="number" formControlName="roomNumber" />
+                <label for="roomNumber">Núm. Hab.:</label>
+                <input id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()" required />
             </div>
             <br />
 
             <div class="capacity">
                 <label for="capacity">Capacidad: </label>
-                <input id="capacity" formControlName="capacity" type="number" />
+                <input id="capacity" formControlName="capacity" type="number" required />
             </div>
             <br />
 
             <div class="zone">
                 <label for="zone">Zona:</label>
-                <select id="zone" name="zone" formControlName="zone">
-                  <!--  <option *ngFor="let status of patientStatus" [value]="zone.value">
-                        {{ zone.value | enumToString: 'PATIENT_STATUS' }}
-                    </option> -->
+                <select id="zone" formControlName="zone" (change)="onZoneChange($event)">
+                    <option value="" disabled selected>Seleccione una zona</option>
+                    <option *ngFor="let area of ['Ambulatorio', 'Hospitalizado', 'Urgencias', 'Quirofano']" [value]="area"> {{ area }}</option>
                 </select>
             </div>
             <br />
 
-            <div class="floor">
-                <label for="floor">Piso:</label>
-                <input id="floor" formControlName="floor" type="number" />
+            <div class="area">
+                <label for="area">Área:</label>
+                <select id="area" formControlName="area" [disabled]="!selectedZone">
+                    <option value="" disabled selected>Seleccione un área</option>
+                    <option *ngFor="let area of getAreasByZone()" [value]="area.value">{{ area.name }}</option>
+                </select>
             </div>
             <br />
 
             <div class="availability">
                 <label for="availability">Disponibilidad:</label>
-                <input id="availability" formControlName="availability" type="radio" />
+                <div class="select">
+                    <input id="availability-yes" formControlName="availability" type="radio" name="availability" value="true" />
+                    <label class="select1" for="yes">Sí</label>
+
+                    <input id="availability-no" formControlName="availability" type="radio" name="availability" value="false" />
+                    <label class="select2" for="no">No</label>
+                </div>
             </div>
             <br />
 
