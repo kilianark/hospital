@@ -17,7 +17,7 @@ import {
   VERSION as MAT_VERSION,
   MatNativeDateModule,
 } from '@angular/material/core';
-import { PatientStatus } from '../../../../../enums/patient-status.enum';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 
 
 
@@ -104,7 +104,7 @@ export class CreatePatientComponent implements OnInit {
     const patientData: PatientInterface = {
       ...this.patientForm.value,
       //patientCode: this.nextPatientCode, //incrementación en BBDD
-      status: PatientStatus.Inactivo, //por defecto
+      status: HospitalZone.Inactivo, //por defecto
       reason: '',
       bedId: null,
     };
