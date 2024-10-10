@@ -19,6 +19,8 @@ import {
 } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 
+
+
 console.info('Angular CDK version', CDK_VERSION.full);
 console.info('Angular Material version', MAT_VERSION.full);
 
@@ -44,11 +46,15 @@ export class CreatePatientComponent implements OnInit {
   public patients: PatientInterface[] = [];
   public patientCode!: number;
 
+  maxDateBirth: string;
+  minDateBirth: string;
+
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private patientService: PatientService // Inyectar el servicio
+
   ) {
     this.patientForm = this.formBuilder.group({
       patientCode: ['', [Validators.required]],
@@ -66,6 +72,14 @@ export class CreatePatientComponent implements OnInit {
       gender: ['', [Validators.required]],
     });
 
+    // Fecha actual para el máximo (hoy)
+    const today = new Date();
+    this.maxDateBirth = this.formatDate(today);
+
+    // Restar 150 años para el mínimo
+    const minDate = new Date(today.setFullYear(today.getFullYear() - 150));
+    this.minDateBirth = this.formatDate(minDate);
+
     this.patientForm.get('patientCode')?.disable();
 
     this.nextPatientCode()
@@ -80,7 +94,7 @@ export class CreatePatientComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit() {
     if (this.patientForm.invalid) return;
@@ -137,5 +151,13 @@ export class CreatePatientComponent implements OnInit {
     this.patientForm.patchValue({
       patientCode: this.patientCode,
     });
+  }
+
+  // Función para formatear la fecha en yyyy-mm-dd
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }
