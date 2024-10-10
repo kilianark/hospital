@@ -75,7 +75,7 @@
             <tr *ngFor="let room of rooms" (click)="goToRooms(room.id)" class="file-click">
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
-              <td>{{ room.zone | enumToString: 'PATIENT_STATUS'}}</td>
+              <td>{{ room.zone | enumToString: 'HOSPITAL_ZONE'}}</td>
               <td>{{ room.area }}</td>
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
