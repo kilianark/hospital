@@ -12,6 +12,15 @@ import { PatientService } from '../../services/patient.service';
 import { RequiredComponent } from '../../components/required/required.component';
 import { SharedModule } from '../../shared/shared.module';
 
+// Angular Material Modules
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     CreatePatientComponent,
@@ -24,8 +33,17 @@ import { SharedModule } from '../../shared/shared.module';
     FormsModule,
     PatientRoutingModule,
     RequiredComponent,
-    SharedModule
+    SharedModule,
+
+    // Angular Material imports
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
   ],
   providers: [provideHttpClient()],
 })
-export class PatientModule {}
+export class PatientModule { }
