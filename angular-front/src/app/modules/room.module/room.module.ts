@@ -7,6 +7,7 @@ import { BedComponent } from '../../pages/home/components/room/bed/bed.component
 import { CreateComponent } from '../../pages/home/components/room/create/create.component';
 import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     RoomRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers:[provideHttpClient()]
 })

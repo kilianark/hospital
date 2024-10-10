@@ -10,14 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient.service';
 
 import { RequiredComponent } from '../../components/required/required.component';
-import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
-    SearchPatientComponent,
-    EnumToStringPipe
+    SearchPatientComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +24,7 @@ import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
     FormsModule,
     PatientRoutingModule,
     RequiredComponent,
-    
+    SharedModule
   ],
   providers: [provideHttpClient()],
 })

@@ -29,7 +29,7 @@ form button {
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
-  width: 10%;
+  width: auto;
   text-transform: uppercase;
 }
 
@@ -121,4 +121,25 @@ td button {
 .file-click:hover {
   cursor: pointer;
   background-color: #f5f5f5;
+}
+@media screen and (max-width: 768px) {
+  content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  form {
+    padding-right: 2%;
+  }
+  .credentials {
+    display: grid;
+    grid-template-columns: 18vw 65vw;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    max-width: 950px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .credentials {
+    grid-template-columns: 25vw 65vw;
+  }
 }

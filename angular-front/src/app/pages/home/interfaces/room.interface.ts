@@ -12,5 +12,6 @@ export interface RoomInterface{
   floor: number;
   availability: boolean;
   idpatient?: number;
+  zone: string;
   
 }
