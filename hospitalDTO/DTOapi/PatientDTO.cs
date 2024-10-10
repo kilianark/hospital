@@ -14,8 +14,8 @@ namespace hospitalDTO.DTOapi {
         public required string CIP {get; set;}
         public required string Gender {get; set;}
         public string? EmergencyContact { get; set; }
-        public required string Status { get; set; }
-        public string? Reason { get; set; }
+        public required string PatientZone { get; set; }
+        public int? ReasonId { get; set; }
         public int? BedId { get; set; }
     }
 }
