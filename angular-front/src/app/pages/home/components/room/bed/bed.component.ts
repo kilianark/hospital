@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { BedInterface } from '../../../../../interfaces/bed.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { ActivatedRoute } from '@angular/router';
