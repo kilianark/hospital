@@ -1,7 +1,6 @@
 html,
 body {
   overscroll-behavior: none;
-  height: 100%;
 }
 
 app-header {
