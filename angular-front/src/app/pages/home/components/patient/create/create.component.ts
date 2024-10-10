@@ -18,6 +18,7 @@ import {
   MatNativeDateModule,
 } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
+import { CustomValidators } from '../../../../../validators/CustomValidators';
 
 
 
@@ -58,11 +59,11 @@ export class CreatePatientComponent implements OnInit {
   ) {
     this.patientForm = this.formBuilder.group({
       patientCode: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      surname1: ['', [Validators.required]],
+      name: ['', [Validators.required, CustomValidators.notBlank()]],
+      surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
-      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
+      dni: ['', [Validators.required, CustomValidators.validDni()]],
+      cip: ['', [CustomValidators.validCip()]],
       birthDate: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
