@@ -11,19 +11,19 @@
         <div class="content">
             <legend class="head">{{ title }}</legend>
             <br />
-
+    
             <div class="roomNumber">
                 <label for="roomNumber">Núm. Hab.:</label>
                 <input id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()" required />
             </div>
             <br />
-
+    
             <div class="capacity">
                 <label for="capacity">Capacidad: </label>
                 <input id="capacity" formControlName="capacity" type="number" required />
             </div>
             <br />
-
+    
             <div class="zone">
                 <label for="zone">Zona:</label>
                 <select id="zone" formControlName="zone" (change)="onZoneChange($event)">
@@ -32,7 +32,7 @@
                 </select>
             </div>
             <br />
-
+    
             <div class="area">
                 <label for="area">Área:</label>
                 <select id="area" formControlName="area" [disabled]="!selectedZone">
@@ -41,20 +41,19 @@
                 </select>
             </div>
             <br />
-
+    
             <div class="availability">
                 <label for="availability">Disponibilidad:</label>
                 <div class="select">
-                    <input id="availability-yes" formControlName="availability" type="radio" name="availability" value="true" />
-                    <label class="select1" for="yes">Sí</label>
-
-                    <input id="availability-no" formControlName="availability" type="radio" name="availability" value="false" />
-                    <label class="select2" for="no">No</label>
+                    <input id="availability-yes" type="radio" formControlName="availability" [value]="true" />
+                    <label class="select1" for="availability-yes">Sí</label>
+    
+                    <input id="availability-no" type="radio" formControlName="availability" [value]="false" />
+                    <label class="select2" for="availability-no">No</label>
                 </div>
             </div>
             <br />
-
-            <br />
+    
             <div class="formButtons">
                 <input class="submit" type="submit" placeholder="Registrar" [disabled]="addRoomForm.invalid" />
                 <input class="reset" type="button" value="Reiniciar" (click)="resetForm()">

@@ -123,12 +123,6 @@ select.ng-valid.ng-touched {
   border-color: green;
 }
 
-@media (max-width: 600px) {
-  .form-col,
-  .peu-form {
-    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-  }
-}
 .alert {
   position: absolute;
   background-color: gainsboro;
@@ -143,4 +137,59 @@ select.ng-valid.ng-touched {
 }
 .alert:hover {
   opacity: 0;
+}
+@media screen and (max-width: 768px) {
+  label {
+    font-size: 0.8em;
+  }
+  .cod-pat {
+    display: grid;
+    grid-template-columns: 18vw 20vw;
+    gap: 20px;
+    max-width: 800px;
+    margin-left: 7.5%;
+  }
+  legend {
+    font-size: 1.5em;
+  }
+  .form-col {
+    display: grid;
+    grid-template-columns: 18vw 20vw 18vw 20vw;
+    grid-template-rows: auto auto;
+    max-width: 800px;
+    margin-left: 7.5%;
+  }
+  .peu-form {
+    grid-template-columns: 18vw 20vw 18vw 20vw;
+  }
+}
+@media screen and (max-width: 480px) {
+  .select {
+    grid-template-columns: auto auto;
+  }
+  .form-col {
+    display: grid;
+    grid-template-columns: 18vw 18vw 20vw 20vw;
+    grid-template-rows: 4vh 4vh 4vh 4vh 4vh;
+    max-width: 800px;
+    margin-left: 7.5%;
+  }
+  .peu-form {
+    grid-template-columns: 18vw 18vw 18vw 20vw;
+    grid-template-rows: 5vh;
+  }
+  legend {
+    font-size: 1.2em;
+  }
+  .reset {
+    width: 40vw;
+    height: 7vh;
+  }
+  .submit {
+    width: 40vw;
+    height: 7vh;
+  }
+  label {
+    font-size: 0.7em;
+  }
 }

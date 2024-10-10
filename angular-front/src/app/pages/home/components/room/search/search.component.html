@@ -11,6 +11,9 @@
       <label for="floor">Planta:</label>
       <input type="number" id="floor" formControlName="floor" />
 
+      <label for="zone">Zone:</label>
+      <input type="text" id="zone" formControlName="zone"/>
+
       <label for="area">Área:</label>
       <input type="text" id="area" formControlName="area" />
 
@@ -62,23 +65,20 @@
             <tr>
               <th>Número</th>
               <th>Planta</th>
+              <th>Zone</th>
               <th>Área</th>
               <th>Capacidad</th>
               <th>Disponible</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              *ngFor="let room of rooms"
-              (click)="goToRooms(room.id)"
-              class="file-click"
-            >
+            <tr *ngFor="let room of rooms" (click)="goToRooms(room.id)" class="file-click">
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
+              <td>{{ room.zone | enumToString: 'HOSPITAL_ZONE'}}</td>
               <td>{{ room.area }}</td>
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
-              <!-- <td>{{room.idpatient !== undefined ? room.idpatient : '-' }}</td> -->
             </tr>
           </tbody>
         </table>

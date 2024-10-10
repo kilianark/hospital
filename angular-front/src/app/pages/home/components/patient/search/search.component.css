@@ -1,115 +1,135 @@
-.content{
-    font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+.content {
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
 }
-legend { 
-    margin: 0px; 
-    overflow: hidden; 
-    font-size: 24px; 
-    text-align: left; 
-    letter-spacing: 0px; 
-    line-height: 31px; 
-    white-space: pre-line;
-    font-weight: bold;
-    padding-bottom: 2%;
+legend {
+  margin: 0px;
+  overflow: hidden;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 31px;
+  white-space: pre-line;
+  font-weight: bold;
+  padding-bottom: 2%;
 }
 form {
-    padding-top: 3%;
-    padding-left: 4%;
-    padding-bottom: 10px;
-    border-bottom: solid black;
+  padding-top: 3%;
+  padding-left: 4%;
+  padding-bottom: 10px;
+  border-bottom: solid black;
 }
 form button {
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-    width: 10%;
-    text-transform: uppercase;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: auto;
+  text-transform: uppercase;
 }
-form button:hover{
-    background-color:cadetblue;
+form button:hover {
+  background-color: cadetblue;
 }
 .credentials {
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0,1fr));
-    grid-template-rows: auto auto;
-    gap: 10px;
-    max-width: 950px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  gap: 10px;
+  max-width: 950px;
 }
 .filtre1 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    max-width: 800px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 800px;
 }
 .filtre2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    max-width: 800px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 800px;
 }
 .alinear {
-    display: flex;
-    align-items: center;
-    font-style: italic;
-    text-decoration: underline;
-    gap: 3vw;
-    margin-top: -10px;
-    margin-bottom: -10px;
-    margin-left: -10px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  text-decoration: underline;
+  gap: 3vw;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: -10px;
 }
 fieldset {
-    border: none;
+  border: none;
 }
 .table-wrapper {
-    width: 83vw;
-    height: 63.9vh;
-    overflow: auto;
-    margin-left: 15px;
+  width: 83vw;
+  height: 63.9vh;
+  overflow: auto;
+  margin-left: 15px;
 }
 .table-wrapper::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 .table-wrapper table {
-    border-collapse: collapse;
-} 
+  border-collapse: collapse;
+}
 .table-wrapper table thead {
-    position: -webkit-sticky; /* Safari... */
-    position: sticky;
-    top: 0;
-    left: 0;
+  position: -webkit-sticky; /* Safari... */
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 thead {
-    position: -webkit-sticky;
-    position: sticky;
-    background-color: #ffffff;
-    
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #ffffff;
 }
 td {
-    text-align: center;
-    height: 50px;
-    width: 200px;
+  text-align: center;
+  height: 50px;
+  width: 200px;
 }
 tr:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 td button {
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    text-transform: uppercase;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase;
 }
 
-td button:hover{
-background-color:cadetblue;
+td button:hover {
+  background-color: cadetblue;
 }
 
 .clickable-row {
-    cursor: pointer;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  content {
+    display: flex;
+    flex-wrap: wrap;
   }
+  form {
+    padding-right: 2%;
+  }
+  .credentials {
+    display: grid;
+    grid-template-columns: 18vw 65vw;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    max-width: 950px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .credentials {
+    grid-template-columns: 25vw 65vw;
+  }
+}

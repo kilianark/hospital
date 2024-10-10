@@ -75,7 +75,7 @@
           <td>{{ patient.surname2 }}</td>
           <td>{{ patient.phone }}</td>
           <td>{{ patient.age }}</td>
-          <td>{{ patient.status?.valueOf() ?? 1 | enumToString: 'PATIENT_STATUS' }}</td>
+          <td>{{ patient.status?.valueOf() ?? 1 | enumToString: 'HOSPITAL_ZONE' }}</td>
           <td>{{ patient.bedId }}</td>
           <td (click)="$event.stopPropagation()">
             <button mat-button (click)="openDialog(patient.patientCode)">

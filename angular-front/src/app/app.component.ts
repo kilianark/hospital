@@ -7,26 +7,28 @@ import { HeaderComponent } from './components/navigate/header/header.component';
 import { SidebarComponent } from './components/navigate/sidebar/sidebar.component';
 
 
+
+
 // sempre que es crea un componen s'ha d'importar en @Component a imports, el seu template url, i style url
 // fitxers a tocar, component.css/html/ts i app.routes.ts
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: [],
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
+   selector: 'app-root',
+   templateUrl: './app.component.html',
+   styleUrls: [],
+   standalone: true,
+   imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
 })
 
 export class AppComponent {
-  title = 'MedicaPlus';
+   title = 'MedicaPlus';
 
-  public showNavBar = true;
+   public showNavBar = true;
 
-toggleNavBar(component: Component) {
-   if(component instanceof LoginComponent) {
-      this.showNavBar = false;
-   } else {
-      this.showNavBar = true;
+   toggleNavBar(component: Component) {
+      if (component instanceof LoginComponent) {
+         this.showNavBar = false;
+      } else {
+         this.showNavBar = true;
+      }
    }
-}
 }
