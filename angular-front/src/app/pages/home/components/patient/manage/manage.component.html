@@ -68,6 +68,7 @@
                                     <tr *ngFor="let room of rooms">
                                         <td class="tbcen">{{room.roomNumber}}</td>
                                         <td class="tbcen">{{room.floor}}</td>
+                                        <td class="tbcen">{{ room.zone | enumToString: 'HOSPITAL_ZONE' }} </td>
                                         <td class="tbcen">{{room.area}}</td>
                                         <td class="tbcen">{{room.capacity}}</td>
                                         <td class="tbcen">{{room.availability}}</td>

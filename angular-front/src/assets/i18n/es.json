@@ -1,5 +1,5 @@
 {
-    "PATIENT_STATUS": {
+    "HOSPITAL_ZONE": {
         "1": "Inactivo",
         "2": "Ambulatorio",
         "3": "Hospitalizado",

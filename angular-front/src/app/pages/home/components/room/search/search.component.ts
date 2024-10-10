@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RoomService } from '../../../../../services/room.service';
-import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -34,7 +34,7 @@ export class SearchRoomComponent {
 		const floor = searchFilters.floor ? parseInt(searchFilters.floor, 10) : null;
 
 		const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity, 10) : null;
-		
+
 		const availability = searchFilters.availability ? searchFilters.availability === 'true' : null;
 
 		this.roomService

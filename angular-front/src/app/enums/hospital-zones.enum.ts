@@ -1,7 +1,7 @@
-export enum PatientStatus {
+export enum HospitalZone {
     Inactivo = 1,
     Ambulatorio,
-    Hospitalizado,
+    Hospitalizacion,
     Urgencias,
     Quirofano
 }

@@ -8,7 +8,7 @@ import { AmbulatoryArea } from '../../../../../enums/ambulatory-area.enum';
 import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
-import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../../../interfaces/room.interface';
 
 @Component({
   selector: 'app-create',
