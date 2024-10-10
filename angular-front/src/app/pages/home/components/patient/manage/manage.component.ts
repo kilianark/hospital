@@ -16,7 +16,6 @@ import { PatientService } from '../../../../../services/patient.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RoomInterface } from '../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
-//import { SearchRoomComponent } from '../../room/search/search.component'; // us del component de llista dhabitacions o no?
 
 @Component({
 	selector: 'app-manage',
@@ -100,26 +99,23 @@ export class ManagePatientComponent implements OnInit {
 
 		if (status != PatientStatus.Inactivo ) {
 			this.showSelectRoom = true;
-			if (status == PatientStatus.Ambulatorio) {
-				this.showAreaA = true;
-				this.showAreaH = false;
-				this.showAreaU = false;
-				this.showAreaO = false;
-			} else if (status == PatientStatus.Hospitalizado) {
-				this.showAreaA = false;
-				this.showAreaH = true;
-				this.showAreaU = false;
-				this.showAreaO = false;
-			} else if (status == PatientStatus.Urgencias) {
-				this.showAreaA = false;
-				this.showAreaH = false;
-				this.showAreaU = true;
-				this.showAreaO = false;
-			} else if (status == PatientStatus.Quirofano) {
-				this.showAreaA = false;
-				this.showAreaH = false;
-				this.showAreaU = false;
-				this.showAreaO = true;
+
+			this.showAreaA = this.showAreaH = this.showAreaU = this.showAreaO = false;
+			switch (Number(status)) {
+				case (PatientStatus.Ambulatorio):
+					this.showAreaA = true;
+					break;
+				case (PatientStatus.Hospitalizado):
+					this.showAreaH = true;
+					break;
+				case (PatientStatus.Urgencias):
+					this.showAreaU = true;
+					break;
+				case (PatientStatus.Quirofano):
+					this.showAreaO = true;
+					break;
+				default:
+					console.log("Esto no furula");
 			}
 		} else this.showSelectRoom = false;	
 	}
@@ -144,7 +140,6 @@ export class ManagePatientComponent implements OnInit {
 		console.log('Area Seleccionada: ', area);
 	}
 
-
 	showDropDown() {
 		this.showRoomList = !this.showRoomList;
 		if(this.showRoomList) {
@@ -153,7 +148,6 @@ export class ManagePatientComponent implements OnInit {
 			);
 		}
 	}
-
 	
 	onSubmit() {
 		this.patientService.putPatientData(this.patient).subscribe(data => {
