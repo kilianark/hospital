@@ -1,4 +1,4 @@
-import { Component, HostAttributeToken, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -27,6 +27,8 @@ export class ManagePatientComponent implements OnInit {
 	patientId!: number ;
 	patient!: PatientInterface;
 	statusForm: FormGroup;
+
+	HospitalZone = HospitalZone;
 
 	selectedAmbulatory: AmbulatoryArea | null = null;
 	selectedHospitalized: HospitalizedArea | null = null;
@@ -101,7 +103,7 @@ export class ManagePatientComponent implements OnInit {
 			this.showSelectRoom = true;
 
 			this.showAreaA = this.showAreaH = this.showAreaU = this.showAreaO = false;
-			switch (Number(status)) {
+			switch (status) {
 				case (HospitalZone.Ambulatorio):
 					this.showAreaA = true;
 					break;
