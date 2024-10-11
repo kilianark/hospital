@@ -27,7 +27,7 @@ export class RoomService {
     return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
   }
 
-  searchRooms(room_number: number | null, floor: number | null, area: string, capacity: number | null, availability: boolean | null): Observable<RoomInterface[]> {
+  searchRooms(room_number: number | null, floor: number | null, zone: string,area: string, capacity: number | null, availability: boolean | null): Observable<RoomInterface[]> {
     let params = new HttpParams();
 
     if (room_number !== null) {
@@ -35,6 +35,9 @@ export class RoomService {
     }
     if (floor !== null) {
         params = params.set('Floor', floor.toString());
+    }
+    if(zone) {
+      params = params.set('Zone', zone)
     }
     if (area) {
         params = params.set('Area', area);

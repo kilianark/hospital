@@ -29,11 +29,11 @@ export class SearchRoomComponent {
 	onSubmit() {
 		const searchFilters = this.roomForm.value;
 
-		const roomNumber = searchFilters.roomNumber ? parseInt(searchFilters.roomNumber, 10) : null;
+		const roomNumber = searchFilters.roomNumber ? parseInt(searchFilters.roomNumber) : null;
 
-		const floor = searchFilters.floor ? parseInt(searchFilters.floor, 10) : null;
+		const floor = searchFilters.floor ? parseInt(searchFilters.floor) : null;
 
-		const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity, 10) : null;
+		const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity) : null;
 
 		const availability = searchFilters.availability ? searchFilters.availability === 'true' : null;
 
@@ -42,6 +42,7 @@ export class SearchRoomComponent {
 			roomNumber,
 			floor,
 			searchFilters.area,
+			searchFilters.zone,
 			capacity,
 			availability
 		)
