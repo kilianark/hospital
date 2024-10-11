@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -22,7 +22,7 @@ import { RoomService } from '../../../../../services/room.service';
 	templateUrl: './manage.component.html',
 	styleUrls: ['./manage.component.css']
 })
-export class ManagePatientComponent implements OnInit {
+export class ManagePatientComponent {
 	title = 'Gestionar Estado:'
 	patientId!: number ;
 	patient!: PatientInterface;
@@ -93,9 +93,6 @@ export class ManagePatientComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {
-	}
-
 	onStatusChange(status: HospitalZone) {
 		this.patient.status = status;
 
@@ -118,6 +115,12 @@ export class ManagePatientComponent implements OnInit {
 					break;
 				default:
 					console.log("Esto no furula");
+			}
+			
+			if(this.showRoomList) {
+				this.roomService.searchRooms(null, null, this.patient.status, null, null, null).subscribe(data =>
+					this.rooms = data
+				);
 			}
 		} else this.showSelectRoom = false;	
 	}
@@ -145,7 +148,7 @@ export class ManagePatientComponent implements OnInit {
 	showDropDown() {
 		this.showRoomList = !this.showRoomList;
 		if(this.showRoomList) {
-			this.roomService.getRoomData().subscribe(data =>
+			this.roomService.searchRooms(null, null, this.patient.status, null, null, null).subscribe(data =>
 				this.rooms = data
 			);
 		}
