@@ -32,24 +32,9 @@
                             <div class="selectArea">
                                 <label for="area">Seleccionar área: </label>
 
-                                <select id="area" name="areaAmbulatory" *ngIf="showAreaA" [(ngModel)]="selectedAmbulatory" (ngModelChange)="onAreaChangeA($event)">
-                                    <option *ngFor="let area of ambulatoryArea" [ngValue]="area.value">
-                                        {{ area.value | enumToString: 'AMBULATORY_AREA' }}
-                                    </option>
-                                </select>
-                                <select id="area" name="areaHospitalized" *ngIf="showAreaH" [(ngModel)]="selectedHospitalized" (ngModelChange)="onAreaChangeH($event)">
-                                    <option *ngFor="let area of hospitalizedArea" [ngValue]="area.value">
-                                        {{ area.value | enumToString: 'HOSPITALIZED_AREA' }}
-                                    </option>
-                                </select>
-                                <select id="area" name="areaUrgency" *ngIf="showAreaU" [(ngModel)]="selectedUrgency" (ngModelChange)="onAreaChangeU($event)">
-                                    <option *ngFor="let area of urgencyArea" [ngValue]="area.value">
-                                        {{ area.value | enumToString: 'URGENCY_AREA' }}
-                                    </option>
-                                </select>
-                                <select id="areaOperatingRoom" name="areaOperatingRoom" *ngIf="showAreaO" [(ngModel)]="selectedOperatingRoom" (ngModelChange)="onAreaChangeO($event)">
-                                    <option *ngFor="let area of operatingRoomArea" [ngValue]="area.value">
-                                        {{ area.value | enumToString: 'OPERATING_AREA' }}
+                                <select id="area" name="area" [(ngModel)]="selectedZone" (ngModelChange)="onAreaChange($event)">
+                                    <option *ngFor="let area of currentArea" [ngValue]="area.value">
+                                        {{ area.value | enumToString: currentAreaType }}
                                     </option>
                                 </select>
                             </div>

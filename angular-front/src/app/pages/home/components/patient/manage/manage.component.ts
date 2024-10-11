@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -16,13 +16,14 @@ import { PatientService } from '../../../../../services/patient.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
+import { HttpClientJsonpModule } from '@angular/common/http';
 
 @Component({
 	selector: 'app-manage',
 	templateUrl: './manage.component.html',
 	styleUrls: ['./manage.component.css']
 })
-export class ManagePatientComponent {
+export class ManagePatientComponent implements OnInit{
 	title = 'Gestionar Estado:'
 	patientId!: number ;
 	patient!: PatientInterface;
@@ -30,10 +31,14 @@ export class ManagePatientComponent {
 
 	HospitalZone = HospitalZone;
 
+	selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
 	selectedAmbulatory: AmbulatoryArea | null = null;
 	selectedHospitalized: HospitalizedArea | null = null;
 	selectedUrgency: UrgencyArea | null = null;
 	selectedOperatingRoom: OperatingRoomArea | null = null;
+
+	currentArea;
+	currentAreaType: string;
 
 	showSelectRoom: boolean = false;
 	showRoomList: boolean = false;
@@ -63,8 +68,9 @@ export class ManagePatientComponent {
 	operatingRoomArea = Object.keys(OperatingRoomArea)
 		.filter(key => !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea])))
 		.map(key => ({value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
-
 	//
+
+
 	constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, private translate: TranslateService, private roomService: RoomService) {
 		
 		this.translate.use('es');
@@ -89,18 +95,24 @@ export class ManagePatientComponent {
 					if (this.patient.status == HospitalZone.Hospitalizacion) this.showAreaH = true;
 					
 				}
-			})
+
+				this.updateArea();
+			});
 		});
+	}
+
+	ngOnInit(): void {
+		
 	}
 
 	onStatusChange(status: HospitalZone) {
 		this.patient.status = status;
+		this.selectedZone = null;
 
 		if (status != HospitalZone.Inactivo ) {
 			this.showSelectRoom = true;
-
 			this.showAreaA = this.showAreaH = this.showAreaU = this.showAreaO = false;
-			switch (status) {
+			switch (Number(status)) {
 				case (HospitalZone.Ambulatorio):
 					this.showAreaA = true;
 					break;
@@ -116,13 +128,39 @@ export class ManagePatientComponent {
 				default:
 					console.log("Esto no furula");
 			}
-			
+
+			this.updateArea();
+
 			if(this.showRoomList) {
 				this.roomService.searchRooms(null, null, this.patient.status, null, null, null).subscribe(data =>
 					this.rooms = data
 				);
 			}
 		} else this.showSelectRoom = false;	
+	}
+
+	updateArea() {
+		if (this.showAreaA) {
+			this.currentArea = this.ambulatoryArea;
+			this.currentAreaType = 'AMBULATORY_AREA';
+		} else if (this.showAreaH) {
+			this.currentArea = this.hospitalizedArea;
+			this.currentAreaType = 'HOSPITALIZED_AREA';
+		} else if (this.showAreaU) {
+			this.currentArea = this.urgencyArea;
+			this.currentAreaType = 'URGENCY_AREA';
+		} else if (this.showAreaO) {
+			this.currentArea = this.operatingRoomArea;
+			this.currentAreaType = 'OPERATING_AREA';
+		}
+	}
+
+	onAreaChange(area: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea) {
+		if(this.showRoomList) {
+			this.roomService.searchRooms(null, null, this.patient.status, area.toString(), null, null).subscribe(data =>
+				this.rooms = data
+			);
+		}
 	}
 
 	onAreaChangeA(area: AmbulatoryArea) {
