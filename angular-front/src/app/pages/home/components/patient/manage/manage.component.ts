@@ -16,14 +16,13 @@ import { PatientService } from '../../../../../services/patient.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
-import { HttpClientJsonpModule } from '@angular/common/http';
 
 @Component({
 	selector: 'app-manage',
 	templateUrl: './manage.component.html',
 	styleUrls: ['./manage.component.css']
 })
-export class ManagePatientComponent implements OnInit{
+export class ManagePatientComponent {
 	title = 'Gestionar Estado:'
 	patientId!: number ;
 	patient!: PatientInterface;
@@ -32,20 +31,12 @@ export class ManagePatientComponent implements OnInit{
 	HospitalZone = HospitalZone;
 
 	selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
-	selectedAmbulatory: AmbulatoryArea | null = null;
-	selectedHospitalized: HospitalizedArea | null = null;
-	selectedUrgency: UrgencyArea | null = null;
-	selectedOperatingRoom: OperatingRoomArea | null = null;
 
 	currentArea;
 	currentAreaType: string;
 
 	showSelectRoom: boolean = false;
 	showRoomList: boolean = false;
-	showAreaA: boolean = false;
-	showAreaH: boolean = false;
-	showAreaU: boolean = false;
-	showAreaO: boolean = false;
 
 	rooms: RoomInterface[] = [];
 
@@ -84,25 +75,12 @@ export class ManagePatientComponent implements OnInit{
 			this.patientService.getPatientById(this.patientId).subscribe(data =>{
 				this.patient = data;
 			
-				this.statusForm.patchValue({
-					status: this.patient.status
-				});
-				if (this.patient.status != HospitalZone.Inactivo) {
-					this.showSelectRoom = true;
-					if (this.patient.status == HospitalZone.Ambulatorio) this.showAreaA = true;
-					if (this.patient.status == HospitalZone.Urgencias) this.showAreaU = true;
-					if (this.patient.status == HospitalZone.Quirofano) this.showAreaO = true;
-					if (this.patient.status == HospitalZone.Hospitalizacion) this.showAreaH = true;
-					
-				}
+				this.statusForm.patchValue({ status: this.patient.status });
+				if (this.patient.status != HospitalZone.Inactivo) this.showSelectRoom = true;
 
 				this.updateArea();
 			});
 		});
-	}
-
-	ngOnInit(): void {
-		
 	}
 
 	onStatusChange(status: HospitalZone) {
@@ -111,23 +89,6 @@ export class ManagePatientComponent implements OnInit{
 
 		if (status != HospitalZone.Inactivo ) {
 			this.showSelectRoom = true;
-			this.showAreaA = this.showAreaH = this.showAreaU = this.showAreaO = false;
-			switch (Number(status)) {
-				case (HospitalZone.Ambulatorio):
-					this.showAreaA = true;
-					break;
-				case (HospitalZone.Hospitalizacion):
-					this.showAreaH = true;
-					break;
-				case (HospitalZone.Urgencias):
-					this.showAreaU = true;
-					break;
-				case (HospitalZone.Quirofano):
-					this.showAreaO = true;
-					break;
-				default:
-					console.log("Esto no furula");
-			}
 
 			this.updateArea();
 
@@ -140,16 +101,16 @@ export class ManagePatientComponent implements OnInit{
 	}
 
 	updateArea() {
-		if (this.showAreaA) {
+		if (this.patient.status == HospitalZone.Ambulatorio) {
 			this.currentArea = this.ambulatoryArea;
 			this.currentAreaType = 'AMBULATORY_AREA';
-		} else if (this.showAreaH) {
+		} else if (this.patient.status == HospitalZone.Hospitalizacion) {
 			this.currentArea = this.hospitalizedArea;
 			this.currentAreaType = 'HOSPITALIZED_AREA';
-		} else if (this.showAreaU) {
+		} else if (this.patient.status == HospitalZone.Urgencias) {
 			this.currentArea = this.urgencyArea;
 			this.currentAreaType = 'URGENCY_AREA';
-		} else if (this.showAreaO) {
+		} else if (this.patient.status == HospitalZone.Quirofano) {
 			this.currentArea = this.operatingRoomArea;
 			this.currentAreaType = 'OPERATING_AREA';
 		}
@@ -161,26 +122,6 @@ export class ManagePatientComponent implements OnInit{
 				this.rooms = data
 			);
 		}
-	}
-
-	onAreaChangeA(area: AmbulatoryArea) {
-		this.selectedAmbulatory = area;
-		console.log('Area Seleccionada: ', area);
-	}
-
-	onAreaChangeH(area: HospitalizedArea) {
-		this.selectedHospitalized = area;
-		console.log('Area Seleccionada: ', area);
-	}
-
-	onAreaChangeU(area: UrgencyArea) {
-		this.selectedUrgency = area;
-		console.log('Area Seleccionada: ', area);
-	}
-
-	onAreaChangeO(area: OperatingRoomArea) {
-		this.selectedOperatingRoom = area;
-		console.log('Area Seleccionada: ', area);
 	}
 
 	showDropDown() {
