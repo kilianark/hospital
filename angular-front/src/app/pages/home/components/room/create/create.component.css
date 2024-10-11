@@ -27,7 +27,10 @@ button {
 mat-form-field {
   margin-right: 20px;
 }
-@media (max-width: 600px) {
+@media (max-width: 786px) {
+  form {
+    margin: 30px;
+  }
   .roomNumber,
   .capacity,
   .zone,
