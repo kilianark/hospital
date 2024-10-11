@@ -32,6 +32,7 @@ namespace ApiHospital.Controllers
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms(
             [FromQuery] int? RoomNumber = null,
             [FromQuery] int? Capacity = null,
+            [FromQuery] string? Zone = null,
             [FromQuery] string? Area = null,
             [FromQuery] int? Floor = null,
             [FromQuery] bool? Availability = null,
@@ -40,30 +41,18 @@ namespace ApiHospital.Controllers
         {
             IQueryable<Room> query = _context.Rooms;
 
-            if (RoomNumber.HasValue)
-            {
-                query = query.Where(r => r.RoomNumber == RoomNumber.Value);
-            }
+            if (RoomNumber.HasValue) query = query.Where(r => r.RoomNumber == RoomNumber.Value);
 
-            if (Capacity.HasValue)
-            {
-                query = query.Where(r => r.Capacity == Capacity.Value);
-            }
+            if (Capacity.HasValue) query = query.Where(r => r.Capacity == Capacity.Value);
 
-            if (!string.IsNullOrEmpty(Area))
-            {
-                query = query.Where(r => r.Area.StartsWith(Area));
-            }
+            if (!string.IsNullOrEmpty(Zone)) query = query.Where(r => r.Zone.StartsWith(Zone));
 
-            if (Floor.HasValue)
-            {
-                query = query.Where(r => r.Floor == Floor.Value);
-            }
+            if (!string.IsNullOrEmpty(Area))  query = query.Where(r => r.Area.StartsWith(Area));
 
-            if (Availability.HasValue)
-            {
-                query = query.Where(r => r.Availability == Availability.Value);
-            }
+
+            if (Floor.HasValue) query = query.Where(r => r.Floor == Floor.Value);
+
+            if (Availability.HasValue) query = query.Where(r => r.Availability == Availability.Value);
 
             if (BedId.HasValue)
             {

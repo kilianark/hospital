@@ -5,57 +5,69 @@
 </head>
 <div class="content">
   <form [formGroup]="patientForm">
-    <legend>{{ title }}</legend>
-    <div class="credentials">
-      <mat-form-field appearance="outline">
-        <mat-label>Código:</mat-label>
-        <input
-          matInput
-          type="text"
-          id="patientID"
-          formControlName="patientCode"
-        />
-      </mat-form-field>
+    <mat-card-title> {{ title }}</mat-card-title>
+    <mat-card-content>
+      <div class="credentials">
+        <mat-form-field appearance="outline">
+          <mat-label>Código:</mat-label>
+          <input
+            matInput
+            type="text"
+            id="patientID"
+            formControlName="patientCode"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="name">Nombre:</mat-label>
-        <input matInput type="text" id="name" formControlName="name" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="name">Nombre:</mat-label>
+          <input matInput type="text" id="name" formControlName="name" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="surname1">Apellido 1:</mat-label>
-        <input matInput type="text" id="surname1" formControlName="surname1" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="surname1">Apellido 1:</mat-label>
+          <input
+            matInput
+            type="text"
+            id="surname1"
+            formControlName="surname1"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="surname2">Apellido 2:</mat-label>
-        <input matInput type="text" id="surname2" formControlName="surname2" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="surname2">Apellido 2:</mat-label>
+          <input
+            matInput
+            type="text"
+            id="surname2"
+            formControlName="surname2"
+          />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="dni">DNI:</mat-label>
-        <input matInput type="text" id="dni" formControlName="dni" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="dni">DNI:</mat-label>
+          <input matInput type="text" id="dni" formControlName="dni" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="numSS">CIP:</mat-label>
-        <input matInput type="text" id="numSS" formControlName="cip" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="numSS">CIP:</mat-label>
+          <input matInput type="text" id="numSS" formControlName="cip" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label for="phone" class="telf">Teléfono:</mat-label>
-        <input matInput type="text" id="phone" formControlName="phone" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Zona: </mat-label>
-        <mat-select formControlName="ingresados">
-          <mat-option>
-            <!-- <mat-option  *ngFor="let country of countries" [value]="country.name">-->
-            {{ "patata" }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+        <mat-form-field appearance="outline">
+          <mat-label for="phone" class="telf">Teléfono:</mat-label>
+          <input matInput type="text" id="phone" formControlName="phone" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Zona: </mat-label>
+          <mat-select formControlName="ingresados">
+            <mat-option>
+              <!-- <mat-option  *ngFor="let country of countries" [value]="country.name">-->
+              {{ "patata" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
     <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
       Buscar
     </button>
