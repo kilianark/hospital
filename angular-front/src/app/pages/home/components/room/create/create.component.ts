@@ -50,7 +50,7 @@ export class CreateComponent implements OnInit {
       zone: ['', Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
       floor: [{ value: '', disabled: true }, Validators.required],
-      availability: ['']
+      availability: [false]
     });
   }
 
@@ -80,9 +80,9 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  onAvailabilityChange(value: boolean) {
-    this.addRoomForm.patchValue({ availability: value });
-  }
+ // onAvailabilityChange(value: boolean) {
+ //   this.addRoomForm.patchValue({ availability: value });
+ // }
 
   onSubmit() {
     if (this.addRoomForm.valid) {
