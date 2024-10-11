@@ -13,13 +13,14 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RoomModule } from '../room.module/room.module';
 
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
   declarations: [
-    HomeComponent, 
+    HomeComponent,
     ProfileComponent
   ],
   imports: [
@@ -40,6 +41,5 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
   ],
-  providers: [provideHttpClient()],
 })
-export class HomeModule {}
+export class HomeModule { }

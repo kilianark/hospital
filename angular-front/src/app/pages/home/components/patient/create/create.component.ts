@@ -47,8 +47,15 @@ export class CreatePatientComponent implements OnInit {
   public patients: PatientInterface[] = [];
   public patientCode!: number;
 
-  maxDateBirth: string;
-  minDateBirth: string;
+  // Fecha actual
+  today: Date = new Date();
+
+  // Fecha mínima: 150 años antes de la fecha actual
+  minDateBirth: Date = new Date(this.today.getFullYear() - 150, this.today.getMonth(), this.today.getDate());
+
+  // Fecha máxima: hoy
+  maxDateBirth: Date = new Date();
+
 
   constructor(
     private router: Router,
@@ -72,14 +79,6 @@ export class CreatePatientComponent implements OnInit {
       address: [''],
       gender: ['', [Validators.required]],
     });
-
-    // Fecha actual para el máximo (hoy)
-    const today = new Date();
-    this.maxDateBirth = this.formatDate(today);
-
-    // Restar 150 años para el mínimo
-    const minDate = new Date(today.setFullYear(today.getFullYear() - 150));
-    this.minDateBirth = this.formatDate(minDate);
 
     this.patientForm.get('patientCode')?.disable();
 
@@ -154,11 +153,4 @@ export class CreatePatientComponent implements OnInit {
     });
   }
 
-  // Función para formatear la fecha en yyyy-mm-dd
-  formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
 }
