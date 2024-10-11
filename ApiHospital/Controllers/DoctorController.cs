@@ -30,7 +30,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Surname1 = null,
             [FromQuery] string? Surname2 = null,
             [FromQuery] string? Dni = null,
-            [FromQuery] DateOnly? BirthDate = null,
+            [FromQuery] DateTime? BirthDate = null,
             [FromQuery] string? Country = null,
             [FromQuery] string? Address = null,
             [FromQuery] string? Phone = null,
