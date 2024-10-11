@@ -39,7 +39,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   app-sidebar {
-    position: sticky;
+    position: static;
     overflow-x: auto;
   }
   .content {
