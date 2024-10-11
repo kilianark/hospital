@@ -30,7 +30,6 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Surname1 = null,
             [FromQuery] string? Surname2 = null,
             [FromQuery] string? Dni = null,
-            [FromQuery] int? Age = null,
             [FromQuery] DateOnly? BirthDate = null,
             [FromQuery] string? Country = null,
             [FromQuery] string? Address = null,
@@ -68,11 +67,6 @@ namespace ApiHospital.Controllers
             if (!string.IsNullOrEmpty(Dni))
             {
                 query = query.Where(d => d.Dni.StartsWith(Dni));
-            }
-
-            if (Age.HasValue)
-            {
-                query = query.Where(d => d.Age == Age.Value);
             }
 
             if (BirthDate.HasValue)
