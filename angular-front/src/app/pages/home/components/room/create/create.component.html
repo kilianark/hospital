@@ -1,70 +1,110 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Crear habitación</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" novalidate>
-        <mat-card>
-            <mat-card-title> {{title}}</mat-card-title>
-            <mat-card-content>
-                <div class="form-row">
+      <mat-card-title> {{ title }}</mat-card-title>
+      <mat-card-content>
+        <div class="form-row">
+          <!-- Número de habitación -->
+          <mat-form-field appearance="outline">
+            <mat-label for="roomNumber">Núm. Hab.</mat-label>
+            <input
+              matInput
+              id="roomNumber"
+              type="number"
+              formControlName="roomNumber"
+              (input)="firstNumToFloor()"
+              required
+            />
+          </mat-form-field>
 
-                    <!-- Número de habitación -->
-                    <mat-form-field appearance="outline">
-                        <mat-label for="roomNumber">Núm. Hab.</mat-label>
-                        <input matInput id="roomNumber" type="number" formControlName="roomNumber"
-                            (input)="firstNumToFloor()" required />
-                    </mat-form-field>
+          <!-- Capacidad -->
+          <mat-form-field appearance="outline">
+            <mat-label for="capacity">Capacidad</mat-label>
+            <input
+              matInput
+              id="capacity"
+              formControlName="capacity"
+              type="number"
+              required
+            />
+          </mat-form-field>
 
-                    <!-- Capacidad -->
-                    <mat-form-field appearance="outline">
-                        <mat-label for="capacity">Capacidad</mat-label>
-                        <input matInput id="capacity" formControlName="capacity" type="number" required />
-                    </mat-form-field>
+          <!-- Zona -->
+          <mat-form-field appearance="outline">
+            <mat-label for="zone">Zona</mat-label>
+            <mat-select
+              id="zone"
+              formControlName="zone"
+              (selectionChange)="onZoneChange($event)"
+            >
+              <mat-option disabled selected>Seleccione una zona</mat-option>
+              <mat-option
+                *ngFor="
+                  let area of [
+                    'Ambulatorio',
+                    'Hospitalizado',
+                    'Urgencias',
+                    'Quirofano'
+                  ]
+                "
+                [value]="area"
+              >
+                {{ area }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-                    <!-- Zona -->
-                    <mat-form-field appearance="outline">
-                        <mat-label for="zone">Zona</mat-label>
-                        <mat-select id="zone" formControlName="zone" (selectionChange)="onZoneChange($event)">
-                          <mat-option disabled selected>Seleccione una zona</mat-option>
-                          <mat-option *ngFor="let area of ['Ambulatorio', 'Hospitalizado', 'Urgencias', 'Quirofano']" [value]="area">
-                            {{ area }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
+          <!-- Area -->
+          <mat-form-field appearance="outline">
+            <mat-label for="area">Area</mat-label>
+            <mat-select
+              id="area"
+              formControlName="area"
+              [disabled]="!selectedZone"
+            >
+              <mat-option value="" disabled selected
+                >Seleccione un área</mat-option
+              >
+              <mat-option
+                *ngFor="let area of getAreasByZone()"
+                [value]="area.value"
+                >{{ area.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
 
-                    <!-- Area -->
-                    <mat-form-field appearance="outline">
-                        <mat-label for="area">Area</mat-label>
-                        <mat-select id="area" formControlName="area" [disabled]="!selectedZone">
-                            <mat-option value="" disabled selected>Seleccione un área</mat-option>
-                            <mat-option *ngFor="let area of getAreasByZone()" [value]="area.value">{{ area.name }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+       <!--   Disponibilidad 
+          <mat-radio-group formControlName="availability">
+            <mat-label for="availability">Disponibilidad</mat-label>
+            <mat-radio-button for="availability-yes" [value]="true"
+              >Sí</mat-radio-button
+            >
+            <mat-radio-button for="availability-no" [value]="false"
+              >No</mat-radio-button
+            >
+          </mat-radio-group>
+        -->
+        </div>
+      </mat-card-content>
 
-                    <!-- Disponibilidad -->
-                    <mat-radio-group formControlName="availability">
-                        <mat-label for="availability">Disponibilidad</mat-label>
-                        <mat-radio-button for="availability-yes" [value]="true">Sí</mat-radio-button>
-                        <mat-radio-button for="availability-no" [value]="false">No</mat-radio-button>         
-                    </mat-radio-group>
-                </div>
-            </mat-card-content>
-
-            <mat-card-actions>
-                <button mat-raised-button color="primary" type="submit" [disabled]="addRoomForm.invalid">
-                Registrar
-                </button>
-                <button mat-raised-button type="button" (click)="resetForm()">
-                Reiniciar
-                </button>
-            </mat-card-actions>
-
-        </mat-card>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="addRoomForm.invalid"
+        >
+          Registrar
+        </button>
+        <button mat-raised-button type="button" (click)="resetForm()">
+          Reiniciar
+        </button>
+      </mat-card-actions>
     </form>
-</body>
+  </body>
 </html>
