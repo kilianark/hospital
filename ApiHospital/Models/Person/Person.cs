@@ -10,7 +10,6 @@ namespace ApiHospital.Models
         public required string Surname1 { get; set; }
         public string? Surname2 { get; set; }
         public required string Dni { get; set; }
-        public required int Age { get; set; }
         public required DateTime BirthDate { get; set; }
         public required string Country { get; set; }
         public string? Address { get; set; }

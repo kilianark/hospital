@@ -39,7 +39,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Dni = null,
             [FromQuery] string? Cip = null,
             [FromQuery] string? Phone = null,
-            [FromQuery] string? PatientZone = null,
+            [FromQuery] string? Zone = null,
             [FromQuery] int? BedId = null,
             [FromQuery] string? Ingresados = null
         )
@@ -68,8 +68,8 @@ namespace ApiHospital.Controllers
             if (!string.IsNullOrEmpty(Phone))
                 query = query.Where(p => p.Phone.StartsWith(Phone));
 
-            if (!string.IsNullOrEmpty(PatientZone))
-                query = query.Where(p => p.PatientZone.StartsWith(PatientZone));
+            if (!string.IsNullOrEmpty(Zone))
+                query = query.Where(p => p.Zone.StartsWith(Zone));
 
             if (BedId.HasValue)
                 query = query.Where(p => p.BedId == BedId.Value);
