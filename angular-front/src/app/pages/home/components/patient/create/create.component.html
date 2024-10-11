@@ -12,9 +12,38 @@
           patientCode.disabled
         />
       </mat-form-field>
+      <div id="void"></div>
+
+      <!-- Nombre -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" required />
+        @if(patientForm.get('name')?.hasError('required')) {
+        <mat-error>El nombre es obligatorio</mat-error>
+        } @else if(patientForm.get('name')?.hasError('notBlank')) {
+        <mat-error
+          >El nombre no puede contener solo espacios en blanco</mat-error
+        >
+        }
+      </mat-form-field>
+
+      <!-- Primer Apellido -->
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido 1</mat-label>
+        <input matInput formControlName="surname1" required />
+        @if(patientForm.get('surname1')?.hasError('required')) {
+        <mat-error>El apellido es obligatorio</mat-error>
+        }
+      </mat-form-field>
+
+      <!-- Segundo Apellido -->
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido 2</mat-label>
+        <input matInput formControlName="surname2" />
+      </mat-form-field>
 
       <!-- DNI -->
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" id="dni">
         <mat-label>DNI/NIE</mat-label>
         <input
           matInput
@@ -29,65 +58,55 @@
         }
       </mat-form-field>
 
-        <!-- Nombre -->
-        <mat-form-field appearance="outline">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="name" required />
-          @if(patientForm.get('name')?.hasError('required')) {
-          <mat-error>El nombre es obligatorio</mat-error>
-          }
-          @else if(patientForm.get('name')?.hasError('notBlank')) {
-          <mat-error>El nombre no puede contener solo espacios en blanco</mat-error>
-          }
-        </mat-form-field>
+      <!-- Teléfono -->
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input
+          matInput
+          type="tel"
+          formControlName="phone"
+          placeholder="123456789"
+          required
+        />
+        <mat-icon matSuffix>phone</mat-icon>
+        @if(patientForm.get('phone')?.hasError('required')) {
+        <mat-error>El teléfono es obligatorio</mat-error>
+        } @else if(patientForm.get('phone')?.invalid) {
+        <mat-error>El teléfono debe ser válido</mat-error>
+        }
+      </mat-form-field>
 
-        <!-- Primer Apellido -->
-        <mat-form-field appearance="outline">
-          <mat-label>Apellido 1</mat-label>
-          <input matInput formControlName="surname1" required />
-          @if(patientForm.get('surname1')?.hasError('required')) {
-          <mat-error>El apellido es obligatorio</mat-error>
-          }
-        </mat-form-field>
+      <!-- Teléfono Contacto emergencia -->
+      <mat-form-field appearance="outline">
+        <mat-label>C. Emergencia</mat-label>
+        <input
+          matInput
+          type="tel"
+          formControlName="emergencyContact"
+          placeholder="123456789"
+        />
+        <mat-icon matSuffix>phone</mat-icon>
+        @if(patientForm.get('phone')?.invalid) {
+        <mat-error>El teléfono debe ser válido</mat-error>
+        }
+      </mat-form-field>
 
-        <!-- Segundo Apellido -->
-        <mat-form-field appearance="outline">
-          <mat-label>Apellido 2</mat-label>
-          <input matInput formControlName="surname2" />
-        </mat-form-field>
-
-        <!-- Teléfono -->
-        <mat-form-field appearance="outline">
-          <mat-label>Teléfono</mat-label>
-          <input matInput type="tel" formControlName="phone" placeholder="123456789" required />
-          <mat-icon matSuffix>phone</mat-icon>
-          @if(patientForm.get('phone')?.hasError('required')) {
-          <mat-error>El teléfono es obligatorio</mat-error>
-          }
-          @else if(patientForm.get('phone')?.invalid) {
-          <mat-error>El teléfono debe ser válido</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Teléfono Contacto emergencia -->
-        <mat-form-field appearance="outline">
-          <mat-label>C. Emergencia</mat-label>
-          <input matInput type="tel" formControlName="emergencyContact" placeholder="123456789" />
-          <mat-icon matSuffix>phone</mat-icon>
-          @if(patientForm.get('phone')?.invalid) {
-          <mat-error>El teléfono debe ser válido</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Fecha de Nacimiento -->
-        <mat-form-field appearance="outline">
-          <mat-label>Fecha de Nacimiento</mat-label>
-          <input matInput type="date" [max]="maxDateBirth" [min]="minDateBirth" formControlName="birthDate" required />
-          <mat-icon matSuffix>calendar_today</mat-icon>
-          @if(patientForm.get('birthDate')?.hasError('required')) {
-          <mat-error>La fecha de nacimiento es obligatoria</mat-error>
-          }
-        </mat-form-field>
+      <!-- Fecha de Nacimiento -->
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input
+          matInput
+          type="date"
+          [max]="maxDateBirth"
+          [min]="minDateBirth"
+          formControlName="birthDate"
+          required
+        />
+        <mat-icon matSuffix>calendar_today</mat-icon>
+        @if(patientForm.get('birthDate')?.hasError('required')) {
+        <mat-error>La fecha de nacimiento es obligatoria</mat-error>
+        }
+      </mat-form-field>
 
       <!-- Nacionalidad -->
       <mat-form-field appearance="outline">
@@ -102,46 +121,44 @@
         }
       </mat-form-field>
 
-        <!-- Sexo -->
-        <mat-form-field appearance="outline">
-          <mat-label>Género</mat-label>
-          <mat-select formControlName="gender" required>
-            <mat-option value="male">Masculino</mat-option>
-            <mat-option value="female">Femenino</mat-option>
-          </mat-select>
-          @if(patientForm.get('gender')?.hasError('required')) {
-          <mat-error>El género es obligatorio</mat-error>
-          }
-        </mat-form-field>
+      <!-- Sexo -->
+      <mat-form-field appearance="outline">
+        <mat-label>Género</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option value="male">Masculino</mat-option>
+          <mat-option value="female">Femenino</mat-option>
+        </mat-select>
+        @if(patientForm.get('gender')?.hasError('required')) {
+        <mat-error>El género es obligatorio</mat-error>
+        }
+      </mat-form-field>
 
-        <!-- CIP -->
-        <mat-form-field appearance="outline">
-          <mat-label>CIP</mat-label>
-          <input matInput formControlName="cip" placeholder="ABCD 00000000" />
-          @if(patientForm.get('cip')?.hasError('invalidCIP')) {
-          <mat-error>El CIP debe ser válido</mat-error>
-          }
-        </mat-form-field>
+      <!-- CIP -->
+      <mat-form-field appearance="outline">
+        <mat-label>CIP</mat-label>
+        <input matInput formControlName="cip" placeholder="ABCD 00000000" />
+        @if(patientForm.get('cip')?.hasError('invalidCIP')) {
+        <mat-error>El CIP debe ser válido</mat-error>
+        }
+      </mat-form-field>
 
-        <!-- Email -->
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" />
-          <mat-icon matSuffix>email</mat-icon>
-          @if (patientForm.get('email').invalid) {
-          <mat-error>El email debe ser válido</mat-error>
-          }
-        </mat-form-field>
+      <!-- Email -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+        <mat-icon matSuffix>email</mat-icon>
+        @if (patientForm.get('email').invalid) {
+        <mat-error>El email debe ser válido</mat-error>
+        }
+      </mat-form-field>
 
-        <!-- Direccion -->
-        <mat-form-field appearance="outline">
-          <mat-label>Dirección</mat-label>
-          <input matInput formControlName="address" />
-        </mat-form-field>
-
-
-      </div>
-    </mat-card-content>
+      <!-- Direccion -->
+      <mat-form-field appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="address" />
+      </mat-form-field>
+    </div>
+  </mat-card-content>
 
   <mat-card-actions>
     <button
