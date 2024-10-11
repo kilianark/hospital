@@ -5,7 +5,10 @@ body,
 form {
   padding-top: 4%;
 }
-#patientCode {
+#void {
+  display: grid;
+  grid-column-start: 2;
+  grid-column-end: 4;
 }
 .form-row {
   padding-top: 3%;

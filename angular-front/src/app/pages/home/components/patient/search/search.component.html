@@ -7,33 +7,54 @@
   <form [formGroup]="patientForm">
     <legend>{{ title }}</legend>
     <div class="credentials">
-      <label for="patientID">Código:</label>
-      <input type="text" id="patientID" formControlName="patientCode" />
-      <label for="name">Nombre:</label>
-      <input type="text" id="name" formControlName="name" />
-      <label for="surname1">Apellido 1:</label>
-      <input type="text" id="surname1" formControlName="surname1" />
-      <label for="surname2">Apellido 2:</label>
-      <input type="text" id="surname2" formControlName="surname2" />
+      <mat-form-field appearance="outline">
+        <mat-label>Código:</mat-label>
+        <input
+          matInput
+          type="text"
+          id="patientID"
+          formControlName="patientCode"
+        />
+      </mat-form-field>
 
-      <label for="dni">DNI:</label>
-      <input type="text" id="dni" formControlName="dni" />
-      <label for="numSS">CIP:</label>
-      <input type="text" id="numSS" formControlName="cip" />
-      <label for="phone" class="telf">Teléfono:</label>
-      <input type="text" id="phone" formControlName="phone" />
-      <fieldset>
-        <div class="alinear">
-          <div class="filtre1">
-            <label for="todos">Todos</label>
-            <input type="radio" name="ingresados" id="todos" value="false" formControlName="ingresados" required />
-          </div>
-          <div class="filtre2">
-            <label for="ingresados" id="labelIngr">Ingresados</label>
-            <input type="radio" name="ingresados" id="ingresados" value="true" formControlName="ingresados" required />
-          </div>
-        </div>
-      </fieldset>
+      <mat-form-field appearance="outline">
+        <mat-label for="name">Nombre:</mat-label>
+        <input matInput type="text" id="name" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="surname1">Apellido 1:</mat-label>
+        <input matInput type="text" id="surname1" formControlName="surname1" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="surname2">Apellido 2:</mat-label>
+        <input matInput type="text" id="surname2" formControlName="surname2" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="dni">DNI:</mat-label>
+        <input matInput type="text" id="dni" formControlName="dni" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="numSS">CIP:</mat-label>
+        <input matInput type="text" id="numSS" formControlName="cip" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label for="phone" class="telf">Teléfono:</mat-label>
+        <input matInput type="text" id="phone" formControlName="phone" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Zona: </mat-label>
+        <mat-select formControlName="ingresados">
+          <mat-option>
+            <!-- <mat-option  *ngFor="let country of countries" [value]="country.name">-->
+            {{ "patata" }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
     <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
       Buscar
@@ -75,7 +96,11 @@
           <td>{{ patient.surname2 }}</td>
           <td>{{ patient.phone }}</td>
           <td>{{ patient.age }}</td>
-          <td>{{ patient.status?.valueOf() ?? 1 | enumToString: 'HOSPITAL_ZONE' }}</td>
+          <td>
+            {{
+              patient.status?.valueOf() ?? 1 | enumToString : "HOSPITAL_ZONE"
+            }}
+          </td>
           <td>{{ patient.bedId }}</td>
           <td (click)="$event.stopPropagation()">
             <button mat-button (click)="openDialog(patient.patientCode)">
