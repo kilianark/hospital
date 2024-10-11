@@ -12,6 +12,9 @@ import { PatientService } from '../../services/patient.service';
 import { RequiredComponent } from '../../components/required/required.component';
 import { SharedModule } from '../../shared/shared.module';
 
+// Custom validators
+import { CustomValidators } from '../../validators/CustomValidators';
+
 // Angular Material Modules
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';

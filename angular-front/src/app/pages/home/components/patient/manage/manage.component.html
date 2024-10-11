@@ -10,7 +10,7 @@
                 <label for="status">Estado: </label>
                 <select id="status" name="status" formControlName="status" (ngModelChange)="onStatusChange($event)">
                     <option *ngFor="let status of patientStatus" [value]="status.value">
-                        {{ status.value | enumToString: 'PATIENT_STATUS' }}
+                        {{ status.value | enumToString: 'HOSPITAL_ZONE' }}
                     </option>
                 </select>
             </div>
@@ -58,6 +58,7 @@
                                     <tr>
                                         <th>Núm.</th>
                                         <th>Planta</th>
+                                        <th>Zona</th>
                                         <th>Área</th>
                                         <th>Capacidad</th>
                                         <th>Disponibilidad</th>
@@ -68,7 +69,11 @@
                                     <tr *ngFor="let room of rooms">
                                         <td class="tbcen">{{room.roomNumber}}</td>
                                         <td class="tbcen">{{room.floor}}</td>
-                                        <td class="tbcen">{{room.area}}</td>
+                                        <td class="tbcen">{{ room.zone | enumToString: 'HOSPITAL_ZONE' }} </td>
+                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">{{ room.area | enumToString: 'AMBULATORY_AREA' }}</td>
+                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Hospitalizacion">{{ room.area | enumToString: 'HOSPITALIZED_AREA' }}</td>
+                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Urgencias">{{ room.area | enumToString: 'URGENCY_AREA' }}</td>
+                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Quirofano">{{ room.area | enumToString: 'OPERATING_AREA' }}</td>
                                         <td class="tbcen">{{room.capacity}}</td>
                                         <td class="tbcen">{{room.availability}}</td>
                                         <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>

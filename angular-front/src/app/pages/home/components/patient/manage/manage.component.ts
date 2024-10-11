@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { PatientStatus } from '../../../../../enums/patient-status.enum';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { AmbulatoryArea } from '../../../../../enums/ambulatory-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
@@ -14,7 +14,7 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
 
 @Component({
@@ -27,6 +27,8 @@ export class ManagePatientComponent implements OnInit {
 	patientId!: number ;
 	patient!: PatientInterface;
 	statusForm: FormGroup;
+
+	HospitalZone = HospitalZone;
 
 	selectedAmbulatory: AmbulatoryArea | null = null;
 	selectedHospitalized: HospitalizedArea | null = null;
@@ -42,9 +44,9 @@ export class ManagePatientComponent implements OnInit {
 
 	rooms: RoomInterface[] = [];
 
-	patientStatus = Object.keys(PatientStatus)
-		.filter(key => !isNaN(Number(PatientStatus[key as keyof typeof PatientStatus])))
-		.map(key => ({value: PatientStatus[key as keyof typeof PatientStatus] }));
+	patientStatus = Object.keys(HospitalZone)
+		.filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
+		.map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
 	//
 	ambulatoryArea = Object.keys(AmbulatoryArea)
 		.filter(key => !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea])))
@@ -79,12 +81,12 @@ export class ManagePatientComponent implements OnInit {
 				this.statusForm.patchValue({
 					status: this.patient.status
 				});
-				if (this.patient.status != PatientStatus.Inactivo) {
+				if (this.patient.status != HospitalZone.Inactivo) {
 					this.showSelectRoom = true;
-					if (this.patient.status == PatientStatus.Ambulatorio) this.showAreaA = true;
-					if (this.patient.status == PatientStatus.Urgencias) this.showAreaU = true;
-					if (this.patient.status == PatientStatus.Quirofano) this.showAreaO = true;
-					if (this.patient.status == PatientStatus.Hospitalizado) this.showAreaH = true;
+					if (this.patient.status == HospitalZone.Ambulatorio) this.showAreaA = true;
+					if (this.patient.status == HospitalZone.Urgencias) this.showAreaU = true;
+					if (this.patient.status == HospitalZone.Quirofano) this.showAreaO = true;
+					if (this.patient.status == HospitalZone.Hospitalizacion) this.showAreaH = true;
 					
 				}
 			})
@@ -94,24 +96,24 @@ export class ManagePatientComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	onStatusChange(status: PatientStatus) {
+	onStatusChange(status: HospitalZone) {
 		this.patient.status = status;
 
-		if (status != PatientStatus.Inactivo ) {
+		if (status != HospitalZone.Inactivo ) {
 			this.showSelectRoom = true;
 
 			this.showAreaA = this.showAreaH = this.showAreaU = this.showAreaO = false;
-			switch (Number(status)) {
-				case (PatientStatus.Ambulatorio):
+			switch (status) {
+				case (HospitalZone.Ambulatorio):
 					this.showAreaA = true;
 					break;
-				case (PatientStatus.Hospitalizado):
+				case (HospitalZone.Hospitalizacion):
 					this.showAreaH = true;
 					break;
-				case (PatientStatus.Urgencias):
+				case (HospitalZone.Urgencias):
 					this.showAreaU = true;
 					break;
-				case (PatientStatus.Quirofano):
+				case (HospitalZone.Quirofano):
 					this.showAreaO = true;
 					break;
 				default:
