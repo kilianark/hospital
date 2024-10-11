@@ -12,8 +12,10 @@ legend {
   font-weight: bold;
   padding-bottom: 2%;
 }
+
 .credentials {
   display: grid;
+  padding-top: 4%;
   grid-template-columns: auto auto auto auto;
 }
 mat-form-field {
@@ -23,7 +25,6 @@ mat-form-field {
 mat-card-title {
   font-weight: bold;
   font-size: 1.5em;
-  margin-left: 100px;
 }
 form {
   padding-top: 3%;
