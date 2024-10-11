@@ -18,7 +18,7 @@ import { CustomValidators } from '../../validators/CustomValidators';
 // Angular Material Modules
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,7 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
-    SearchPatientComponent
+    SearchPatientComponent,
   ],
   imports: [
     CommonModule,

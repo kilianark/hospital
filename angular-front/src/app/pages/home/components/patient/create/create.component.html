@@ -1,33 +1,28 @@
 <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" novalidate>
   <mat-card-title>Crear Paciente</mat-card-title>
+  <div id="void"></div>
+  <!-- Codigo paciente -->
+  <mat-form-field appearance="outline" id="patientCode">
+    <mat-label>Codigo paciente</mat-label>
+    <input
+      matInput
+      formControlName="patientCode"
+      required
+      patientCode.disabled
+    />
+  </mat-form-field>
   <mat-card-content>
     <div class="form-row">
-      <!-- Codigo paciente -->
-      <mat-form-field appearance="outline" id="patientCode">
-        <mat-label>Codigo paciente</mat-label>
-        <input matInput formControlName="patientCode" required patientCode.disabled />
-      </mat-form-field>
-
-      <!-- DNI -->
-      <mat-form-field appearance="outline">
-        <mat-label>DNI/NIE</mat-label>
-        <input matInput formControlName="dni" placeholder="00000000A" required />
-        @if(patientForm.get('dni')?.hasError('required')) {
-        <mat-error>El DNI/NIE es obligatorio</mat-error>
-        } @else if(patientForm.get('dni')?.hasError('pattern')) {
-        <mat-error>El DNI tiene que ser válido</mat-error>
-        }
-      </mat-form-field>
-
       <!-- Nombre -->
       <mat-form-field appearance="outline">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="name" required />
         @if(patientForm.get('name')?.hasError('required')) {
         <mat-error>El nombre es obligatorio</mat-error>
-        }
-        @else if(patientForm.get('name')?.hasError('notBlank')) {
-        <mat-error>El nombre no puede contener solo espacios en blanco</mat-error>
+        } @else if(patientForm.get('name')?.hasError('notBlank')) {
+        <mat-error
+          >El nombre no puede contener solo espacios en blanco</mat-error
+        >
         }
       </mat-form-field>
 
@@ -46,15 +41,36 @@
         <input matInput formControlName="surname2" />
       </mat-form-field>
 
+      <!-- DNI -->
+      <mat-form-field appearance="outline" id="dni">
+        <mat-label>DNI/NIE</mat-label>
+        <input
+          matInput
+          formControlName="dni"
+          placeholder="00000000A"
+          required
+        />
+        @if(patientForm.get('dni')?.hasError('required')) {
+        <mat-error>El DNI/NIE es obligatorio</mat-error>
+        } @else if(patientForm.get('dni')?.hasError('pattern')) {
+        <mat-error>El DNI tiene que ser válido</mat-error>
+        }
+      </mat-form-field>
+
       <!-- Teléfono -->
       <mat-form-field appearance="outline">
         <mat-label>Teléfono</mat-label>
-        <input matInput type="tel" formControlName="phone" placeholder="123456789" required />
+        <input
+          matInput
+          type="tel"
+          formControlName="phone"
+          placeholder="123456789"
+          required
+        />
         <mat-icon matSuffix>phone</mat-icon>
         @if(patientForm.get('phone')?.hasError('required')) {
         <mat-error>El teléfono es obligatorio</mat-error>
-        }
-        @else if(patientForm.get('phone')?.invalid) {
+        } @else if(patientForm.get('phone')?.invalid) {
         <mat-error>El teléfono debe ser válido</mat-error>
         }
       </mat-form-field>
@@ -62,7 +78,12 @@
       <!-- Teléfono Contacto emergencia -->
       <mat-form-field appearance="outline">
         <mat-label>C. Emergencia</mat-label>
-        <input matInput type="tel" formControlName="emergencyContact" placeholder="123456789" />
+        <input
+          matInput
+          type="tel"
+          formControlName="emergencyContact"
+          placeholder="123456789"
+        />
         <mat-icon matSuffix>phone</mat-icon>
         @if(patientForm.get('phone')?.invalid) {
         <mat-error>El teléfono debe ser válido</mat-error>
@@ -136,8 +157,6 @@
         <mat-label>Dirección</mat-label>
         <input matInput formControlName="address" />
       </mat-form-field>
-
-
     </div>
   </mat-card-content>
 

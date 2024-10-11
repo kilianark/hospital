@@ -10,6 +10,7 @@ import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum'
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -49,18 +50,17 @@ export class CreateComponent implements OnInit {
       zone: ['', Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
       floor: [{ value: '', disabled: true }, Validators.required],
-      availability: ['']
+      availability: [false]
     });
   }
 
   ngOnInit(): void {}
 
-  onZoneChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const zoneValue = selectElement.value;
-
+  onZoneChange(event: any) {
+    const zoneValue = event.value;
+  
     this.selectedZone = zoneValue;
-
+  
     if (zoneValue) {
       this.addRoomForm.get('area')?.enable();
     } else {
@@ -80,9 +80,9 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  onAvailabilityChange(value: boolean) {
-    this.addRoomForm.patchValue({ availability: value });
-  }
+ // onAvailabilityChange(value: boolean) {
+ //   this.addRoomForm.patchValue({ availability: value });
+ // }
 
   onSubmit() {
     if (this.addRoomForm.valid) {
