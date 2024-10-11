@@ -35,7 +35,7 @@ export class SearchRoomComponent {
 
 		const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity) : null;
 
-		const availability = searchFilters.availability ? searchFilters.availability === 'true' : null;
+		const availability = searchFilters.availability !== null ? searchFilters.availability : null;
 
 		this.roomService
 		.searchRooms(

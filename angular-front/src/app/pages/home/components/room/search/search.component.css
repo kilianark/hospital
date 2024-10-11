@@ -1,7 +1,10 @@
 .content {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
 }
-
+mat-card-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
 legend {
   margin: 0px;
   overflow: hidden;
@@ -39,10 +42,12 @@ form button:hover {
 
 .credentials {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: auto auto auto auto auto;
   grid-template-rows: auto auto;
   gap: 10px;
   max-width: 950px;
+
+  margin-top: 3%;
 }
 
 .filtre1 {

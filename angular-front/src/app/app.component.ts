@@ -7,6 +7,9 @@ import { HeaderComponent } from './components/navigate/header/header.component';
 import { SidebarComponent } from './components/navigate/sidebar/sidebar.component';
 
 
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+
 
 
 // sempre que es crea un componen s'ha d'importar en @Component a imports, el seu template url, i style url
@@ -17,6 +20,7 @@ import { SidebarComponent } from './components/navigate/sidebar/sidebar.componen
    styleUrls: [],
    standalone: true,
    imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
+   
 })
 
 export class AppComponent {

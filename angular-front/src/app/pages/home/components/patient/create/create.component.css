@@ -34,12 +34,19 @@ button {
 }
 @media screen and (max-width: 768px) {
   form {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    margin: 20px;
+  }
+  button {
+    width: 20vw;
+    height: 10vw;
+    margin-right: 2vw;
   }
   .form-row {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto auto;
   }
 }
 @media screen and (max-width: 480px) {

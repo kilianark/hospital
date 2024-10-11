@@ -23,6 +23,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -38,16 +40,17 @@ import { MatIconModule } from '@angular/material/icon';
     PatientRoutingModule,
     RequiredComponent,
     SharedModule,
-        // Angular Material imports
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-    
 
+    // Angular Material imports
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
   ],
   providers: [provideHttpClient()],
