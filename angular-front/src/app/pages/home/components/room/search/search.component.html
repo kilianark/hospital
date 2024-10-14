@@ -7,10 +7,14 @@
 
     <mat-card-content>
       <div class="credentials">
-
         <mat-form-field appearance="outline">
           <mat-label for="roomNumber">Número:</mat-label>
-          <input matInput type="number" id="roomNumber" formControlName="roomNumber" />
+          <input
+            matInput
+            type="number"
+            id="roomNumber"
+            formControlName="roomNumber"
+          />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -30,23 +34,24 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="capacity">Capacidad:</mat-label>
-          <input matInput type="number" id="capacity" formControlName="capacity" />
+          <input
+            matInput
+            type="number"
+            id="capacity"
+            formControlName="capacity"
+          />
         </mat-form-field>
 
         <fieldset>
-          <div class="alinear">
-            <mat-form-field appearance="outline">
-              <mat-label for="availability">Disponibilidad</mat-label>
-              <mat-select id="availability" formControlName="availability">
-                <mat-option [value]="true">Sí</mat-option>
-                <mat-option [value]="false">No</mat-option>
-                <mat-option [value]="null">Todas</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label for="availability">Disponibilidad</mat-label>
+            <mat-select id="availability" formControlName="availability">
+              <mat-option [value]="true">Sí</mat-option>
+              <mat-option [value]="false">No</mat-option>
+              <mat-option [value]="null">Todas</mat-option>
+            </mat-select>
+          </mat-form-field>
         </fieldset>
-
-
       </div>
     </mat-card-content>
     <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
@@ -74,7 +79,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let room of rooms" (click)="goToRooms(room.id)" class="file-click">
+            <tr
+              *ngFor="let room of rooms"
+              (click)="goToRooms(room.id)"
+              class="file-click"
+            >
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
               <td>{{ room.zone | enumToString : "HOSPITAL_ZONE" }}</td>
