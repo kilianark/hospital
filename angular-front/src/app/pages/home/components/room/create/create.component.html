@@ -1,114 +1,88 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Crear habitación</title>
-  </head>
 
-  <body>
-    <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" novalidate>
-      <mat-card-title> {{ title }}</mat-card-title>
-      <mat-card-content>
-        <div class="form-row">
-          <!-- Número de habitación -->
+<head>
+  <title>Crear habitación</title>
+</head>
 
-          <mat-form-field appearance="outline">
+<body>
+  <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" novalidate>
+    <mat-card-title> {{ title }}</mat-card-title>
+    <mat-card-content>
+      <div class="form-row">
+        <!-- Número de habitación -->
+
+        <mat-form-field appearance="outline">
 
           <mat-label for="roomNumber">Núm. Hab.</mat-label>
-          <input matInput id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()" required />
-          
+          <input matInput id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()"
+            required />
+
           <mat-error *ngIf="addRoomForm.get('roomNumber')?.hasError('required')">
-            El número de habitación es obligatorio.
+            Este campo es obligatorio.
           </mat-error>
-        
-          <mat-error *ngIf="addRoomForm.get('roomNumber')?.hasError('roomExists') && addRoomForm.get('roomNumber')?.touched">
+
+          <mat-error
+            *ngIf="addRoomForm.get('roomNumber')?.hasError('roomExists') && addRoomForm.get('roomNumber')?.touched">
             Este número de habitación ya existe.
           </mat-error>
 
-          <!--
-          
-            <mat-label for="roomNumber">Número de habitación</mat-label>
-            <input
-              matInput
-              id="roomNumber"
-              type="number"
-              formControlName="roomNumber"
-              (input)="firstNumToFloor()"
-              required
-            /> -->
-          </mat-form-field>
+        </mat-form-field>
 
-          <!-- Capacidad -->
-          <mat-form-field appearance="outline">
-            <mat-label for="capacity">Capacidad</mat-label>
-            <input
-              matInput
-              id="capacity"
-              formControlName="capacity"
-              type="number"
-              required
-            />
-          </mat-form-field>
+        <!-- Capacidad -->
+        <mat-form-field appearance="outline">
+          <mat-label for="capacity">Capacidad</mat-label>
+          <input matInput id="capacity" formControlName="capacity" type="number" required />
+          <mat-error *ngIf="addRoomForm.get('capacity')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
 
-          <!-- Zona -->
-          <mat-form-field appearance="outline">
-            <mat-label for="zone">Zona</mat-label>
-            <mat-select
-              id="zone"
-              formControlName="zone"
-              (selectionChange)="onZoneChange($event)"
-            >
-              <mat-option disabled selected>Seleccione una zona</mat-option>
-              <mat-option
-                *ngFor="
+        <!-- Zona -->
+        <mat-form-field appearance="outline">
+          <mat-label for="zone">Zona</mat-label>
+          <mat-select id="zone" formControlName="zone" (selectionChange)="onZoneChange($event)">
+            <mat-option disabled selected>Seleccione una zona</mat-option>
+            <mat-option *ngFor="
                   let area of [
                     'Ambulatorio',
                     'Hospitalizado',
                     'Urgencias',
                     'Quirofano'
                   ]
-                "
-                [value]="area"
-              >
-                {{ area }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+                " [value]="area">
+              {{ area }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="addRoomForm.get('zone')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
 
-          <!-- Area -->
-          <mat-form-field appearance="outline">
-            <mat-label for="area">Area</mat-label>
-            <mat-select
-              id="area"
-              formControlName="area"
-              [disabled]="!selectedZone"
-            >
-              <mat-option value="" disabled selected
-                >Seleccione un área</mat-option
-              >
-              <mat-option
-                *ngFor="let area of getAreasByZone()"
-                [value]="area.value"
-                >{{ area.name }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
+        <!-- Area -->
+        <mat-form-field appearance="outline">
+          <mat-label for="area">Area</mat-label>
+          <mat-select id="area" formControlName="area" [disabled]="!selectedZone">
+            <mat-option value="" disabled selected>Seleccione un área</mat-option>
+            <mat-option *ngFor="let area of getAreasByZone()" [value]="area.value">{{ area.name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="addRoomForm.get('area')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
 
-        </div>
-      </mat-card-content>
+      </div>
+    </mat-card-content>
 
-      <mat-card-actions>
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="addRoomForm.invalid"
-        >
-          Registrar
-        </button>
-        <button mat-raised-button type="button" (click)="resetForm()">
-          Reiniciar
-        </button>
-      </mat-card-actions>
-    </form>
-  </body>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="addRoomForm.invalid">
+        Registrar
+      </button>
+      <button mat-raised-button type="button" (click)="resetForm()">
+        Reiniciar
+      </button>
+    </mat-card-actions>
+  </form>
+</body>
+
 </html>
