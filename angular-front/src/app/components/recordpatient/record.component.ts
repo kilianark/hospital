@@ -175,22 +175,50 @@ export class RecordComponent implements OnInit {
     doc.setLineWidth(0.5);
     doc.rect(10, 30, 190, 28);
 
+    const name = this.patientForm.get('name')?.value || '';
+    const surname1 = this.patientForm.get('surname1')?.value || '';
+    const surname2 = this.patientForm.get('surname2')?.value || '';
+
     doc.setFont('helvetica', 'bold');
     doc.text(`Nombre completo: `, 16, 35);
     doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('name')?.value}`, 65, 35);
-    doc.text(`${this.patientForm.get('surname1')?.value}`, 85, 35);
-    doc.text(`${this.patientForm.get('surname2')?.value}`, 105, 35);
+
+    let startPosition = 65;
+
+    doc.text(name, startPosition, 35);
+
+    const nameWidth = doc.getTextWidth(name);
+
+    startPosition += nameWidth + 2;
+
+    doc.text(surname1, startPosition, 35);
+
+    const surnameWidth = doc.getTextWidth(surname1);
+
+    startPosition += surnameWidth + 2;
+
+    doc.text(surname2, startPosition, 35);
 
     doc.setFont('helvetica', 'bold');
     doc.text(`Código paciente: `, 140, 35);
     doc.setFont('helvetica', 'normal');
     doc.text(`${this.patientForm.get('patientCode')?.value}`, 180, 35);
 
+
+    function formatDate(date) {
+      if (!date) return '';
+      const d = new Date(date);
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = d.getFullYear();
+      return `${day}/${month}/${year}`;
+  }
+
     doc.setFont('helvetica', 'bold');
     doc.text(`Fecha de nacimiento: `, 16, 40);
     doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('birth')?.value}`, 65, 40);
+    const birthDate = this.patientForm.get('birth')?.value;
+    doc.text(formatDate(birthDate), 65, 40);
 
     doc.setFont('helvetica', 'bold');
     doc.text(`Sexo: `, 16, 45);
