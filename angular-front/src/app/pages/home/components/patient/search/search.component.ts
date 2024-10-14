@@ -29,14 +29,13 @@ export class SearchPatientComponent {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
-  ingresados: boolean = false;
+  zona: string = '';
 
-  hospitalZones = Object.keys(HospitalZone)
+  patientStatus = Object.keys(HospitalZone)
     .filter(
       (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
     )
     .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
-  //
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +54,7 @@ export class SearchPatientComponent {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
-      ingresados: [this.ingresados],
+      zona: [this.zona],
     });
 
     this.patientForm.get('patientCode')?.valueChanges.subscribe((value) => {
@@ -86,8 +85,8 @@ export class SearchPatientComponent {
       this.phone = value;
     });
 
-    this.patientForm.get('ingresados')?.valueChanges.subscribe((value) => {
-      this.ingresados = value;
+    this.patientForm.get('zona')?.valueChanges.subscribe((value) => {
+      this.zona = value;
     });
   }
 
@@ -122,8 +121,7 @@ export class SearchPatientComponent {
         this.cip,
         this.phone,
         this.status,
-        this.bedId,
-        this.ingresados
+        this.bedId
       )
       .subscribe((data) => {
         this.patients = data;
