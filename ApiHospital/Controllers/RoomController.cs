@@ -85,6 +85,19 @@ namespace ApiHospital.Controllers
             return room;
         }
 
+
+//COMPROBAR SI NÚMERO DE HABITACIÓN EXISTE:
+
+
+[HttpGet("exists/{roomNumber}")]
+public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
+{
+    var exists = await _context.Rooms.AnyAsync(r => r.RoomNumber == roomNumber);
+    return Ok(exists);
+}
+
+
+
         // PUT: api/Room/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomService } from '../../../../../services/room.service';
@@ -9,6 +9,7 @@ import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
+import { debounceTime, map, Observable } from 'rxjs';
 
 
 @Component({
@@ -45,13 +46,23 @@ export class CreateComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.addRoomForm = this.fb.group({
-      roomNumber: ['', Validators.required],
+      roomNumber: ['', [ Validators.required], [this.roomNumberValidator.bind(this)]],
       capacity: ['', Validators.required],
       zone: ['', Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
       floor: [{ value: '', disabled: true }, Validators.required],
       availability: [false]
     });
+  }
+
+  roomNumberValidator(control: AbstractControl): Observable<{ [key:string]: boolean } | null > {
+
+    return this.roomService.checkRoomNumberExists(control.value).pipe(
+      debounceTime(500),
+      map((exists: boolean) => {
+        return exists ? { roomExists: true} : null;
+      })
+    );
   }
 
   ngOnInit(): void {}
@@ -66,6 +77,13 @@ export class CreateComponent implements OnInit {
     } else {
       this.addRoomForm.get('area')?.disable();
     }
+
+    this.addRoomForm.get('roomNumber')?.statusChanges.subscribe(status => {
+      console.log('Estado de roomNumber:', status);
+      console.log('Errores de roomNumber:', this.addRoomForm.get('roomNumber')?.errors);
+    });
+
+
   }
 
   firstNumToFloor() {
@@ -79,10 +97,6 @@ export class CreateComponent implements OnInit {
       }
     }
   }
-
- // onAvailabilityChange(value: boolean) {
- //   this.addRoomForm.patchValue({ availability: value });
- // }
 
   onSubmit() {
     if (this.addRoomForm.valid) {

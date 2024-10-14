@@ -10,7 +10,22 @@
       <mat-card-content>
         <div class="form-row">
           <!-- Número de habitación -->
+
           <mat-form-field appearance="outline">
+
+          <mat-label for="roomNumber">Núm. Hab.</mat-label>
+          <input matInput id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()" required />
+          
+          <mat-error *ngIf="addRoomForm.get('roomNumber')?.hasError('required')">
+            El número de habitación es obligatorio.
+          </mat-error>
+        
+          <mat-error *ngIf="addRoomForm.get('roomNumber')?.hasError('roomExists') && addRoomForm.get('roomNumber')?.touched">
+            Este número de habitación ya existe.
+          </mat-error>
+
+          <!--
+          
             <mat-label for="roomNumber">Número de habitación</mat-label>
             <input
               matInput
@@ -19,7 +34,7 @@
               formControlName="roomNumber"
               (input)="firstNumToFloor()"
               required
-            />
+            /> -->
           </mat-form-field>
 
           <!-- Capacidad -->
