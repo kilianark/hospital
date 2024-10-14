@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
@@ -29,11 +29,12 @@ export class SearchPatientComponent {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
-  ingresados: boolean = false;
+  ingresados: string = '';
 
   hospitalZones = Object.keys(HospitalZone)
     .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
-    .map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
+    .map(key => ({ value: HospitalZone[key as keyof typeof HospitalZone], key: key }));
+
   //
 
   constructor(
@@ -41,7 +42,8 @@ export class SearchPatientComponent {
     public dialog: MatDialog,
     private router: Router,
     private patientService: PatientService,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private cdRef: ChangeDetectorRef
   ) {
 
     this.translator.use('es');
@@ -90,11 +92,14 @@ export class SearchPatientComponent {
     });
   }
 
-  /*ngOnInit(): void {
-    this.patientService.getPatientData().subscribe((data) => {
-      this.patients = data;
-    });
-  }*/
+  ngOnInit() {
+    this.hospitalZones = Object.keys(HospitalZone)
+      .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
+      .map(key => ({ value: HospitalZone[key as keyof typeof HospitalZone], key: key }));
+    
+    // Forzar la detección de cambios después de que los datos están listos
+    this.cdRef.detectChanges();
+  }
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -121,8 +126,7 @@ export class SearchPatientComponent {
         this.cip,
         this.phone,
         this.status,
-        this.bedId,
-        this.ingresados
+        this.bedId
       )
       .subscribe((data) => {
         this.patients = data;
