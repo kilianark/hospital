@@ -34,7 +34,7 @@ export class SearchPatientComponent {
   hospitalZones = Object.keys(HospitalZone)
     .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
     .map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
-//
+  //
 
   constructor(
     private formBuilder: FormBuilder,
