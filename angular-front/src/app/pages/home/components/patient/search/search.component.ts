@@ -6,6 +6,7 @@ import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 
 @Component({
   selector: 'app-search-patient',
@@ -29,6 +30,11 @@ export class SearchPatientComponent {
   status: string = '';
   bedId: number = 0;
   ingresados: boolean = false;
+
+  hospitalZones = Object.keys(HospitalZone)
+    .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
+    .map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
+//
 
   constructor(
     private formBuilder: FormBuilder,
