@@ -3,73 +3,122 @@
   <link rel="stylesheet" href="manage.component.css" />
 </head>
 <body>
-    <div class="content">
-        <form class="selectstatus" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
-            <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
-            <div class="control">
-                <label for="status">Estado: </label>
-                <select id="status" name="status" formControlName="status" (ngModelChange)="onStatusChange($event)">
-                    <option *ngFor="let status of patientStatus" [value]="status.value">
-                        {{ status.value | enumToString: 'HOSPITAL_ZONE' }}
-                    </option>
-                </select>
-            </div>
-            <div class="control">
-                <label for="reason">Motivo: </label>
-                <textarea id="reason" name="reason" rows="4" cols="30" placeholder="Detalles del motivo..." required></textarea>
-            </div>
-            <div class="table-wrapper" *ngIf="showSelectRoom">
-                <hr size="3px" color="black" style="margin-left: -4%;">
-                <div class="selectControl">
-                    <label for="assignRoom">Asignar habitación: </label>
-                    <input id="assignRoom" type="text" placeholder="00201" readonly>
-                    <button type="button" (click)="showDropDown()">SELECCIONAR</button>
-                </div>
-                <div class="selectControl">
-                    <form class="roomselect" *ngIf="showRoomList">
-                        <div class="container">
-                            <h5>Buscar habitación</h5>
-                            <div class="selectArea">
-                                <label for="area">Seleccionar área: </label>
+  <div class="content">
+    <form class="selectstatus" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+      <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
+      <div class="control">
+        <label for="status">Estado: </label>
+        <select
+          id="status"
+          name="status"
+          formControlName="status"
+          (ngModelChange)="onStatusChange($event)"
+        >
+          <option *ngFor="let status of patientStatus" [value]="status.value">
+            {{ status.value | enumToString : "HOSPITAL_ZONE" }}
+          </option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="reason">Motivo: </label>
+        <textarea
+          id="reason"
+          name="reason"
+          rows="4"
+          cols="30"
+          placeholder="Detalles del motivo..."
+          required
+        ></textarea>
+      </div>
+      <div class="table-wrapper" *ngIf="showSelectRoom">
+        <hr size="3px" color="black" style="margin-left: -4%" />
+        <div class="selectControl">
+          <label for="assignRoom">Asignar habitación: </label>
+          <input id="assignRoom" type="text" placeholder="00201" readonly />
+          <button type="button" (click)="showDropDown()">SELECCIONAR</button>
+        </div>
+        <div class="selectControl">
+          <form class="roomselect" *ngIf="showRoomList">
+            <div class="container">
+              <h5>Buscar habitación</h5>
+              <div class="selectArea">
+                <label for="area">Seleccionar área: </label>
 
-                                <select id="area" name="area" [(ngModel)]="selectedZone" (ngModelChange)="onAreaChange($event)">
-                                    <option *ngFor="let area of currentArea" [ngValue]="area.value">
-                                        {{ area.value | enumToString: currentAreaType }}
-                                    </option>
-                                </select>
-                            </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Núm.</th>
-                                        <th>Planta</th>
-                                        <th>Zona</th>
-                                        <th>Área</th>
-                                        <th>Capacidad</th>
-                                        <th>Disponibilidad</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let room of rooms">
-                                        <td class="tbcen">{{room.roomNumber}}</td>
-                                        <td class="tbcen">{{room.floor}}</td>
-                                        <td class="tbcen">{{ room.zone | enumToString: 'HOSPITAL_ZONE' }} </td>
-                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">{{ room.area | enumToString: 'AMBULATORY_AREA' }}</td>
-                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Hospitalizacion">{{ room.area | enumToString: 'HOSPITALIZED_AREA' }}</td>
-                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Urgencias">{{ room.area | enumToString: 'URGENCY_AREA' }}</td>
-                                        <td class="tbcen" *ngIf="room.zone == HospitalZone.Quirofano">{{ room.area | enumToString: 'OPERATING_AREA' }}</td>
-                                        <td class="tbcen">{{room.capacity}}</td>
-                                        <td class="tbcen">{{room.availability}}</td>
-                                        <td><button class="button" (click)="showDropDown()">ASIGNAR</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
+                <select
+                  id="area"
+                  name="area"
+                  [(ngModel)]="selectedZone"
+                  (ngModelChange)="onAreaChange($event)"
+                >
+                  <option
+                    *ngFor="let area of currentArea"
+                    [ngValue]="area.value"
+                  >
+                    {{ area.value | enumToString : currentAreaType }}
+                  </option>
+                </select>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Núm.</th>
+                    <th>Planta</th>
+                    <th>Zona</th>
+                    <th>Área</th>
+                    <th>Capacidad</th>
+                    <th>Disponibilidad</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let room of rooms">
+                    <td class="tbcen">{{ room.roomNumber }}</td>
+                    <td class="tbcen">{{ room.floor }}</td>
+                    <td class="tbcen">
+                      {{ room.zone | enumToString : "HOSPITAL_ZONE" }}
+                    </td>
+                    <td
+                      class="tbcen"
+                      *ngIf="room.zone == HospitalZone.Ambulatorio"
+                    >
+                      {{ room.area | enumToString : "AMBULATORY_AREA" }}
+                    </td>
+                    <td
+                      class="tbcen"
+                      *ngIf="room.zone == HospitalZone.Hospitalizacion"
+                    >
+                      {{ room.area | enumToString : "HOSPITALIZED_AREA" }}
+                    </td>
+                    <td
+                      class="tbcen"
+                      *ngIf="room.zone == HospitalZone.Urgencias"
+                    >
+                      {{ room.area | enumToString : "URGENCY_AREA" }}
+                    </td>
+                    <td
+                      class="tbcen"
+                      *ngIf="room.zone == HospitalZone.Quirofano"
+                    >
+                      {{ room.area | enumToString : "OPERATING_AREA" }}
+                    </td>
+                    <td class="tbcen">{{ room.capacity }}</td>
+                    <td class="tbcen">{{ room.availability }}</td>
+                    <td>
+                      <button
+                        class="button"
+                        (click)="openDialog(room.roomNumber)"
+                      >
+                        ASIGNAR
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <input class="submit" type="submit" value="Guardar Estat" />
-        </form>
-    </div>
+          </form>
+        </div>
+      </div>
+      <input class="submit" type="submit" value="Guardar Estat" />
+    </form>
+  </div>
 </body>

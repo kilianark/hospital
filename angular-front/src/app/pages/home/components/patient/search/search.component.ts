@@ -32,8 +32,10 @@ export class SearchPatientComponent {
   ingresados: boolean = false;
 
   hospitalZones = Object.keys(HospitalZone)
-    .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
-    .map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
+    .filter(
+      (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
+    )
+    .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
   //
 
   constructor(
@@ -43,7 +45,6 @@ export class SearchPatientComponent {
     private patientService: PatientService,
     private translator: TranslateService
   ) {
-
     this.translator.use('es');
 
     this.patientForm = this.formBuilder.group({
@@ -96,13 +97,13 @@ export class SearchPatientComponent {
     });
   }*/
 
-  openDialog(patientCode: number) {
+  openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode,
+      data: patientId,
     });
   }
 
