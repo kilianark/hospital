@@ -1,6 +1,26 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
+
+  static dateRange(minDate: Date, maxDate: Date) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = new Date(control.value);
+      if (isNaN(value.getTime())) {
+        return null; // Return if value is not a valid date
+      }
+
+      if (value < minDate) {
+        return { minDate: true };
+      }
+
+      if (value > maxDate) {
+        return { maxDate: true };
+      }
+
+      return null; // No errors
+    };
+  }
+
   // Validador para no permitir solo espacios en blanco (si se usa, no puede ser en elemento required)
   static notBlank(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
