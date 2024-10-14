@@ -29,11 +29,12 @@ export class SearchPatientComponent {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
-  ingresados: boolean = false;
+  ingresados: string = '';
 
   hospitalZones = Object.keys(HospitalZone)
     .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
-    .map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
+    .map(key => ({ value: HospitalZone[key as keyof typeof HospitalZone], key: key }));
+
   //
 
   constructor(
@@ -121,8 +122,7 @@ export class SearchPatientComponent {
         this.cip,
         this.phone,
         this.status,
-        this.bedId,
-        this.ingresados
+        this.bedId
       )
       .subscribe((data) => {
         this.patients = data;

@@ -3,6 +3,7 @@
   <link rel="stylesheet" href="search.component.css" />
 </head>
 <div class="content">
+
   <form [formGroup]="patientForm">
     <mat-card-title> {{ title }}</mat-card-title>
     <mat-card-content>
@@ -51,15 +52,15 @@
           <mat-label for="numSS">CIP:</mat-label>
           <input matInput type="text" id="numSS" formControlName="cip" />
         </mat-form-field>
-
+        
         <mat-form-field appearance="outline">
           <mat-label for="phone" class="telf">Teléfono:</mat-label>
           <input matInput type="text" id="phone" formControlName="phone" />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Zona: </mat-label>
-          <mat-select formControlName="ingresados">
-            <mat-option *ngFor="let zone of hospitalZones">
+          <mat-label for="zona">Zona:</mat-label>
+          <mat-select id="zona" formControlName="ingresados">
+            <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
               {{ zone.value | enumToString: 'HOSPITAL_ZONE' }}
             </mat-option>
           </mat-select>
