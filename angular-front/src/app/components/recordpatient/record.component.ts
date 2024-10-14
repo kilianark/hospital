@@ -106,7 +106,8 @@ export class RecordComponent implements OnInit {
         this.patient[0].surname2 = value;
       });
       this.patientForm.get('gender')?.valueChanges.subscribe((value) => {
-        this.patient[0].gender = value;
+        this.patientForm.get('gender')?.value;
+
       });
       this.patientForm.get('birth')?.valueChanges.subscribe((value) => {
         this.patient[0].birthDate = value;

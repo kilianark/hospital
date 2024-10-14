@@ -42,11 +42,10 @@ form button:hover {
 
 .credentials {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  grid-template-rows: auto auto;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
   gap: 10px;
-  max-width: 950px;
-
+  margin-right: 2%;
   margin-top: 3%;
 }
 
@@ -66,18 +65,13 @@ form button:hover {
   max-width: 800px;
 }
 
-.alinear {
-  display: flex;
-  align-items: center;
-  font-style: italic;
-  gap: 4.3vw;
-  margin-top: -10px;
-  margin-bottom: -10px;
-  margin-left: -10px;
-}
-
 fieldset {
   border: none;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .table-wrapper {

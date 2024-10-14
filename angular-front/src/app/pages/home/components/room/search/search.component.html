@@ -41,22 +41,16 @@
             formControlName="capacity"
           />
         </mat-form-field>
+
         <fieldset>
-          <div class="alinear radio-buttons">
-            <mat-radio-group formControlName="availability">
-              <mat-label for="availability">Disponibilidad</mat-label>
-              <mat-radio-button for="availability-yes" [value]="true"
-                >Sí</mat-radio-button
-              >
-              <mat-radio-button for="availability-no" [value]="false"
-                >No</mat-radio-button
-              >
-              <mat-radio-button for="availability-all" [value]="null"
-              >
-                Todas
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
+          <mat-form-field appearance="outline">
+            <mat-label for="availability">Disponibilidad</mat-label>
+            <mat-select id="availability" formControlName="availability">
+              <mat-option [value]="true">Sí</mat-option>
+              <mat-option [value]="false">No</mat-option>
+              <mat-option [value]="null">Todas</mat-option>
+            </mat-select>
+          </mat-form-field>
         </fieldset>
       </div>
     </mat-card-content>
