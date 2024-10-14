@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { RoomInterface } from '../interfaces/room.interface';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,6 +51,12 @@ export class RoomService {
     }
 
     return this.http.get<RoomInterface[]>(this.url, { params });
+  }
+
+  checkRoomNumberExists(room_number: number): Observable<boolean>{
+
+    return this.http.get<boolean>((`${this.url}/exists/${room_number}`));
+    //this.url + '/exists/' + room_number
   }
 
 }
