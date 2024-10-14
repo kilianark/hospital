@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
@@ -42,8 +42,7 @@ export class SearchPatientComponent {
     public dialog: MatDialog,
     private router: Router,
     private patientService: PatientService,
-    private translator: TranslateService,
-    private cdRef: ChangeDetectorRef
+    private translator: TranslateService
   ) {
 
     this.translator.use('es');
@@ -92,14 +91,11 @@ export class SearchPatientComponent {
     });
   }
 
-  ngOnInit() {
-    this.hospitalZones = Object.keys(HospitalZone)
-      .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
-      .map(key => ({ value: HospitalZone[key as keyof typeof HospitalZone], key: key }));
-    
-    // Forzar la detección de cambios después de que los datos están listos
-    this.cdRef.detectChanges();
-  }
+  /*ngOnInit(): void {
+    this.patientService.getPatientData().subscribe((data) => {
+      this.patients = data;
+    });
+  }*/
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
