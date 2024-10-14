@@ -5,7 +5,7 @@ body,
 form {
   padding-top: 3%;
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 33% 33% 33.33333%;
   margin-left: 100px;
   grid-template-rows: 8vh 55vh 5vh;
 }
@@ -17,6 +17,7 @@ form {
 }
 mat-form-field {
   margin-right: 20px;
+  margin-bottom: 10px;
 }
 mat-card-content {
   grid-column-start: 1;
@@ -28,8 +29,8 @@ mat-card-title {
   font-size: 1.5em;
 }
 button {
-  width: 10vw;
-  height: 5vw;
+  width: 9vw;
+  height: 10vh;
   margin-right: 2vw;
 }
 @media screen and (max-width: 768px) {

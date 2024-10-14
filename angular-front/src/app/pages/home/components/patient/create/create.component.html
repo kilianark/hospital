@@ -93,17 +93,21 @@
       <!-- Fecha de Nacimiento -->
       <mat-form-field appearance="outline">
         <mat-label>Fecha de Nacimiento</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="DD/MM/YYYY"
-          [min]="minDateBirth" [max]="maxDateBirth" required />
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <input
+          matInput
+          type="date"
+          formControlName="birthDate"
+          placeholder="DD/MM/YYYY"
+          [min]="minDateBirth"
+          [max]="maxDateBirth"
+          required
+        />
+        <mat-icon matSuffix>today</mat-icon>
         @if(patientForm.get('birthDate')?.hasError('required')) {
         <mat-error>La fecha de nacimiento es obligatoria</mat-error>
-        }
-        @else if(patientForm.get('birthDate')?.hasError('matDatepickerMin')) {
+        } @else if(patientForm.get('birthDate')?.hasError('minDate')) {
         <mat-error>La fecha no puede ser anterior a 150 años</mat-error>
-        }
-        @else if(patientForm.get('birthDate')?.hasError('matDatepickerMax')) {
+        } @else if(patientForm.get('birthDate')?.hasError('maxDate')) {
         <mat-error>La fecha de nacimiento no puede ser futura</mat-error>
         }
       </mat-form-field>
@@ -158,14 +162,19 @@
         <input matInput formControlName="address" />
       </mat-form-field>
     </div>
-  </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-raised-button color="primary" type="submit" [disabled]="patientForm.invalid">
-      Registrar
-    </button>
-    <button mat-raised-button type="button" (click)="resetForm()">
-      Reiniciar
-    </button>
-  </mat-card-actions>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="patientForm.invalid"
+      >
+        Registrar
+      </button>
+      <button mat-raised-button type="button" (click)="resetForm()">
+        Reiniciar
+      </button>
+    </mat-card-actions>
+  </mat-card-content>
 </form>

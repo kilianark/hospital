@@ -1,7 +1,6 @@
 <head>
   <title>Búsqueda pacientes</title>
   <link rel="stylesheet" href="search.component.css" />
-  <!-- uso mentres estilitzo component -->
 </head>
 <div class="content">
   <form [formGroup]="patientForm">
@@ -60,9 +59,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Zona: </mat-label>
           <mat-select formControlName="ingresados">
-            <mat-option>
-              <!-- <mat-option  *ngFor="let country of countries" [value]="country.name">-->
-              {{ "patata" }}
+            <mat-option *ngFor="let zone of hospitalZones">
+              {{ zone.value | enumToString: 'HOSPITAL_ZONE' }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -110,7 +108,7 @@
           <td>{{ patient.age }}</td>
           <td>
             {{
-              patient.status?.valueOf() ?? 1 | enumToString : "HOSPITAL_ZONE"
+              patient.status | enumToString : "HOSPITAL_ZONE"
             }}
           </td>
           <td>{{ patient.bedId }}</td>

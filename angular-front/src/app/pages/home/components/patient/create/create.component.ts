@@ -8,15 +8,11 @@ import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { RequiredComponent } from '../../../../../components/required/required.component';
-import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { VERSION as CDK_VERSION } from '@angular/cdk';
-import {
-  VERSION as MAT_VERSION,
-  MatNativeDateModule,
-} from '@angular/material/core';
+import { VERSION as MAT_VERSION } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { CustomValidators } from '../../../../../validators/CustomValidators';
 
@@ -29,7 +25,6 @@ bootstrapApplication(RequiredComponent, {
   providers: [
     provideAnimations(),
     provideHttpClient(),
-    importProvidersFrom(MatNativeDateModule),
   ],
 }).catch((err) => console.error(err));
 
@@ -71,7 +66,7 @@ export class CreatePatientComponent implements OnInit {
       surname2: [''],
       dni: ['', [Validators.required, CustomValidators.validDni()]],
       cip: ['', [CustomValidators.validCip()]],
-      birthDate: ['', [Validators.required]],
+      birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
