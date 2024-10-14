@@ -58,11 +58,11 @@
           <input matInput type="text" id="phone" formControlName="phone" />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label for="zona">Zona:</mat-label>
-          <mat-select id="zona" formControlName="ingresados">
-            <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
-              {{ zone.value | enumToString: 'HOSPITAL_ZONE' }}
-            </mat-option>
+          <mat-label for="status">Estado: </mat-label>
+          <mat-select id="status" name="status" formControlName="status">
+              <mat-option *ngFor="let status of patientStatus" [value]="status.value">
+                  {{ status.value | enumToString: 'HOSPITAL_ZONE' }}
+              </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -90,7 +90,6 @@
         <th>Apellido 1</th>
         <th>Apellido 2</th>
         <th>Teléfono</th>
-        <!--<th>Edad</th>-->
         <th>Estado</th>
         <th>Id. Cama</th>
         <th>Ficha</th>
@@ -106,7 +105,6 @@
           <td>{{ patient.surname1 }}</td>
           <td>{{ patient.surname2 }}</td>
           <td>{{ patient.phone }}</td>
-          <!--<td>{{ patient.age }}</td>-->
           <td>
             {{
               patient.status | enumToString : "HOSPITAL_ZONE"
