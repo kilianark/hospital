@@ -38,8 +38,10 @@ button {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto auto;
-    margin: 20px;
+    margin-left: 10px;
+    align-items: first baseline;
   }
+
   button {
     width: 20vw;
     height: 10vw;
