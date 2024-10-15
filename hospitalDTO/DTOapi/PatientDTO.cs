@@ -9,8 +9,8 @@ namespace hospitalDTO.DTOapi {
         public required string Country { get; set; }
         public string? Address {get; set;}
         public required string Phone {get; set; }
-        public required string Email {get; set;}
-        public required string CIP {get; set;}
+        public string? Email {get; set;}
+        public string? CIP {get; set;}
         public required string Gender {get; set;}
         public string? EmergencyContact { get; set; }
         public required string Zone { get; set; }
