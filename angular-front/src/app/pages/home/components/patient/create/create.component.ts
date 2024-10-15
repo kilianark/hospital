@@ -64,7 +64,7 @@ export class CreatePatientComponent implements OnInit {
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDni()]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()]],
       cip: ['', [CustomValidators.validCip()]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],

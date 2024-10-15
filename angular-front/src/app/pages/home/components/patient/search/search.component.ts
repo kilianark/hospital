@@ -31,9 +31,6 @@ export class SearchPatientComponent {
   bedId: number = 0;
   ingresados: boolean = false;
 
-  hospitalZones = Object.keys(HospitalZone)
-    .filter(key => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
-    .map(key => ({value: HospitalZone[key as keyof typeof HospitalZone] }));
   //
 
   constructor(
@@ -90,11 +87,11 @@ export class SearchPatientComponent {
     });
   }
 
-  /*ngOnInit(): void {
+  ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patients = data;
     });
-  }*/
+  }
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -133,4 +130,5 @@ export class SearchPatientComponent {
   toggleDisplay() {
     this.isVisible = true;
   }
+
 }
