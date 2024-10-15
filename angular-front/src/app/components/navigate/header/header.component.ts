@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -46,7 +47,8 @@ export class HeaderComponent
   constructor(
     private elRef: ElementRef,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private readonly keycloak: KeycloakService
   ) {
     super();
   }
@@ -82,5 +84,9 @@ export class HeaderComponent
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  logout() {
+    this.keycloak.logout();
   }
 }
