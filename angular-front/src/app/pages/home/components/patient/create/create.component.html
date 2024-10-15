@@ -20,9 +20,7 @@
         @if(patientForm.get('name')?.hasError('required')) {
         <mat-error>El nombre es obligatorio</mat-error>
         } @else if(patientForm.get('name')?.hasError('notBlank')) {
-        <mat-error
-          >El nombre no puede contener solo espacios en blanco</mat-error
-        >
+        <mat-error>El campo no puede contener solo espacios en blanco</mat-error>
         }
       </mat-form-field>
 
@@ -32,6 +30,8 @@
         <input matInput formControlName="surname1" required />
         @if(patientForm.get('surname1')?.hasError('required')) {
         <mat-error>El apellido es obligatorio</mat-error>
+        } @else if(patientForm.get('name')?.hasError('notBlank')) {
+        <mat-error>El campo no puede contener solo espacios en blanco</mat-error>
         }
       </mat-form-field>
 
