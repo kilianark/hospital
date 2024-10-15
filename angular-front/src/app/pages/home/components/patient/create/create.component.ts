@@ -15,6 +15,7 @@ import { VERSION as CDK_VERSION } from '@angular/cdk';
 import { VERSION as MAT_VERSION } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { CustomValidators } from '../../../../../validators/CustomValidators';
+import { AsyncValidators } from '../../../../../validators/AsyncValidators';
 
 
 
@@ -64,7 +65,7 @@ export class CreatePatientComponent implements OnInit {
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDniOrNie()]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService)]],
       cip: ['', [CustomValidators.validCip()]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
@@ -112,19 +113,19 @@ export class CreatePatientComponent implements OnInit {
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
         console.log('Paciente registrado:', response);
-        this.confirm('Paciente registrado con éxito','success');
+        this.confirm('Paciente registrado con éxito', 'success');
         this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
         console.error('Error al registrar el paciente:', error);
-        this.confirm('Error al registrar paciente. Inténtalo de nuevo.','error');
+        this.confirm('Error al registrar paciente. Inténtalo de nuevo.', 'error');
       }
     );
   }
 
-  confirm(message: string,type:string) {
+  confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message,type);
+    dialogRef.componentInstance.setMessage(message, type);
   }
 
   //canviar en algún momento

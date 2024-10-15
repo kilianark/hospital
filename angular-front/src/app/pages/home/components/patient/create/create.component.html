@@ -4,12 +4,7 @@
   <!-- Codigo paciente -->
   <mat-form-field appearance="outline" id="patientCode">
     <mat-label>Codigo paciente</mat-label>
-    <input
-      matInput
-      formControlName="patientCode"
-      required
-      patientCode.disabled
-    />
+    <input matInput formControlName="patientCode" required patientCode.disabled />
   </mat-form-field>
   <mat-card-content>
     <div class="form-row">
@@ -44,29 +39,20 @@
       <!-- DNI -->
       <mat-form-field appearance="outline" id="dni">
         <mat-label>DNI/NIE</mat-label>
-        <input
-          matInput
-          formControlName="dni"
-          placeholder="00000000A"
-          required
-        />
+        <input matInput formControlName="dni" placeholder="00000000A" required />
         @if(patientForm.get('dni')?.hasError('required')) {
         <mat-error>El DNI/NIE es obligatorio</mat-error>
         } @else if(patientForm.get('dni')?.hasError('invalidDNI')) {
         <mat-error>El DNI/NIE tiene que ser válido</mat-error>
+        } @else if(patientForm.get('dni')?.hasError('dniExists')) {
+        <mat-error>Este DNI/NIE ya está registrado</mat-error>
         }
       </mat-form-field>
 
       <!-- Teléfono -->
       <mat-form-field appearance="outline">
         <mat-label>Teléfono</mat-label>
-        <input
-          matInput
-          type="tel"
-          formControlName="phone"
-          placeholder="123456789"
-          required
-        />
+        <input matInput type="tel" formControlName="phone" placeholder="123456789" required />
         <mat-icon matSuffix>phone</mat-icon>
         @if(patientForm.get('phone')?.hasError('required')) {
         <mat-error>El teléfono es obligatorio</mat-error>
@@ -78,12 +64,7 @@
       <!-- Teléfono Contacto emergencia -->
       <mat-form-field appearance="outline">
         <mat-label>C. Emergencia</mat-label>
-        <input
-          matInput
-          type="tel"
-          formControlName="emergencyContact"
-          placeholder="123456789"
-        />
+        <input matInput type="tel" formControlName="emergencyContact" placeholder="123456789" />
         <mat-icon matSuffix>phone</mat-icon>
         @if(patientForm.get('phone')?.invalid) {
         <mat-error>El teléfono debe ser válido</mat-error>
@@ -93,15 +74,8 @@
       <!-- Fecha de Nacimiento -->
       <mat-form-field appearance="outline">
         <mat-label>Fecha de Nacimiento</mat-label>
-        <input
-          matInput
-          type="date"
-          formControlName="birthDate"
-          placeholder="DD/MM/YYYY"
-          [min]="minDateBirth"
-          [max]="maxDateBirth"
-          required
-        />
+        <input matInput type="date" formControlName="birthDate" placeholder="DD/MM/YYYY" [min]="minDateBirth"
+          [max]="maxDateBirth" required />
         <mat-icon matSuffix>today</mat-icon>
         @if(patientForm.get('birthDate')?.hasError('required')) {
         <mat-error>La fecha de nacimiento es obligatoria</mat-error>
@@ -164,21 +138,10 @@
     </div>
 
     <mat-card-actions>
-      <button
-        mat-raised-button
-        color="primary"
-        class="submit"
-        type="submit"
-        [disabled]="patientForm.invalid"
-      >
+      <button mat-raised-button color="primary" class="submit" type="submit" [disabled]="patientForm.invalid">
         Registrar
       </button>
-      <button
-        class="reset"
-        mat-raised-button
-        type="button"
-        (click)="resetForm()"
-      >
+      <button class="reset" mat-raised-button type="button" (click)="resetForm()">
         Reiniciar
       </button>
     </mat-card-actions>
