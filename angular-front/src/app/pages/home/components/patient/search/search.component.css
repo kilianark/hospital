@@ -124,6 +124,9 @@ td button:hover {
     display: flex;
     flex-wrap: wrap;
   }
+  mat-form-field {
+    margin-left: 10px;
+  }
   form {
     padding-right: 2%;
   }
@@ -131,11 +134,10 @@ td button:hover {
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
-    max-width: 950px;
   }
 }
 @media screen and (max-width: 480px) {
   .credentials {
-    grid-template-columns: 45vw 45vw;
+    grid-template-columns: 48vw 48vw;
   }
 }
