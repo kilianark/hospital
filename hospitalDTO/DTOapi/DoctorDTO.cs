@@ -15,5 +15,6 @@ namespace hospitalDTO.DTOapi {
     public required string User {get; set;}
     public required string WorkerType {get; set;}
     public required string Speciality { get; set; }
+    public required string Hospital { get; set; }
     }
 }

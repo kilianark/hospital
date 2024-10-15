@@ -99,8 +99,9 @@ export class CreatePatientComponent implements OnInit {
     const patientData: PatientInterface = {
       ...this.patientForm.value,
       //patientCode: this.nextPatientCode, //incrementación en BBDD
-      status: HospitalZone.Inactivo, //por defecto
+      zone: HospitalZone.Inactivo, //por defecto
       reason: '',
+      hospital: "H1",
       bedId: null,
     };
 

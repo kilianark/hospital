@@ -17,5 +17,6 @@ namespace ApiHospital.Models
         public string? Email { get; set; }
         public string? CIP { get; set; }
         public required string Gender { get; set; }
+        public required string Hospital {get; set;}
     }
 }

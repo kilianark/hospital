@@ -18,8 +18,8 @@ export interface PatientInterface{
 
     patientCode: number;
     emergencyContact?: string;
-    status: HospitalZone | null;
+    zone: HospitalZone | null;
     reason?: string;
     bedId?: number;
-    roomId?: number;
+    hospital: string;
 }
