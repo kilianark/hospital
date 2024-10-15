@@ -35,34 +35,18 @@ export class CustomValidators {
   }
 
   // Validador que comprueba que el dni sea valido
-  static validDni(): ValidatorFn {
+  static validDniOrNie(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const dni = control.value;
+      const value = control.value;
 
       // Si el valor es nulo o vacío, no realizar ninguna validación
-      if (!dni) return null;
+      if (!value) return null;
 
-      // Verificar que el DNI tiene la longitud correcta
-      if (dni.length !== 9) {
-        return { invalidDNI: true }; // Longitud no válida
-      }
+      // Llama a la función de validación combinada
+      const isValid = validarDniNie(value);
 
-      // Separar números y letra
-      const numbers = dni.slice(0, 8);
-      const letter = dni.charAt(8).toUpperCase();
-
-      // Comprobar que los primeros 8 caracteres son números
-      if (!/^\d{8}$/.test(numbers)) {
-        return { invalidDNI: true }; // Números no válidos
-      }
-
-      // Calcular la letra correspondiente
-      const dniNumber = parseInt(numbers, 10);
-      const validLetters = 'TRWAGMYFPDXBNJZSQVHLCKET';
-      const calculatedLetter = validLetters.charAt(dniNumber % 23);
-
-      // Comparar la letra calculada con la letra del DNI
-      return calculatedLetter === letter ? null : { invalidDNI: true }; // DNI válido o no
+      // Devuelve un error si no es válido
+      return isValid ? null : { invalidDNI: true };
     };
   }
 
@@ -86,7 +70,40 @@ export class CustomValidators {
   }
 
 
-
-
 }
 
+// Función para validar DNI/NIE
+function validarDniNie(value: string): boolean {
+  const validChars = 'TRWAGMYFPDXBNJZSQVHLCKE';
+  const nifRegex = /^[0-9]{8}[A-Z]$/i; // Formato DNI
+  const nieRegex = /^[XYZ][0-9]{7}[A-Z]$/i; // Formato NIE
+
+  const str = value.toString().toUpperCase().trim();
+
+  // Validación para DNI
+  if (nifRegex.test(str)) {
+    const numbers = str.slice(0, 8);
+    const letter = str.charAt(8);
+    const dniNumber = parseInt(numbers, 10);
+    const calculatedLetter = validChars.charAt(dniNumber % 23);
+    return calculatedLetter === letter;
+  }
+  // Validación para NIE
+  else if (nieRegex.test(str)) {
+    let nieNumber = str;
+
+    if (nieNumber.charAt(0) === 'X') {
+      nieNumber = '0' + nieNumber.substr(1);
+    } else if (nieNumber.charAt(0) === 'Y') {
+      nieNumber = '1' + nieNumber.substr(1);
+    } else if (nieNumber.charAt(0) === 'Z') {
+      nieNumber = '2' + nieNumber.substr(1);
+    }
+
+    const letter = str.charAt(8);
+    const calculatedLetter = validChars.charAt(parseInt(nieNumber, 10) % 23);
+    return calculatedLetter === letter;
+  }
+
+  return false; // Formato no válido
+}

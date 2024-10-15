@@ -52,8 +52,8 @@
         />
         @if(patientForm.get('dni')?.hasError('required')) {
         <mat-error>El DNI/NIE es obligatorio</mat-error>
-        } @else if(patientForm.get('dni')?.hasError('pattern')) {
-        <mat-error>El DNI tiene que ser válido</mat-error>
+        } @else if(patientForm.get('dni')?.hasError('invalidDNI')) {
+        <mat-error>El DNI/NIE tiene que ser válido</mat-error>
         }
       </mat-form-field>
 
