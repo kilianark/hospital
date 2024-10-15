@@ -16,5 +16,6 @@ namespace hospitalDTO.DTOapi {
         public required string Zone { get; set; }
         public int? ReasonId { get; set; }
         public int? BedId { get; set; }
+        public int? RoomId { get; set; }
     }
 }

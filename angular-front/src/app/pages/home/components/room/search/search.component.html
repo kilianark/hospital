@@ -3,47 +3,55 @@
 </head>
 <div class="content">
   <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
-    <legend>{{ title }}</legend>
-    <div class="credentials">
-      <label for="roomNumber">Número:</label>
-      <input type="number" id="roomNumber" formControlName="roomNumber" />
+    <mat-card-title> {{ title }}</mat-card-title>
 
-      <label for="floor">Planta:</label>
-      <input type="number" id="floor" formControlName="floor" />
+    <mat-card-content>
+      <div class="credentials">
+        <mat-form-field appearance="outline">
+          <mat-label for="roomNumber">Número:</mat-label>
+          <input
+            matInput
+            type="number"
+            id="roomNumber"
+            formControlName="roomNumber"
+          />
+        </mat-form-field>
 
-      <label for="area">Área:</label>
-      <input type="text" id="area" formControlName="area" />
+        <mat-form-field appearance="outline">
+          <mat-label for="floor">Planta:</mat-label>
+          <input matInput type="number" id="floor" formControlName="floor" />
+        </mat-form-field>
 
-      <label for="capacity">Capacidad:</label>
-      <input type="number" id="capacity" formControlName="capacity" />
+        <mat-form-field appearance="outline">
+          <mat-label for="zone">Zona:</mat-label>
+          <input matInput type="text" id="zone" formControlName="zone" />
+        </mat-form-field>
 
-      <fieldset>
-        <div class="alinear">
-          <label for="availability">Disponible:</label>
-          <div class="filtre1">
-            <label for="available">Sí</label>
-            <input
-              type="radio"
-              name="availability"
-              id="available"
-              formControlName="availability"
-              value="true"
-            />
-          </div>
-          <div class="filtre2">
-            <label for="noAvailable" id="labelIngr">No</label>
-            <input
-              type="radio"
-              name="availability"
-              id="noAvailable"
-              formControlName="availability"
-              value="false"
-            />
-          </div>
-        </div>
-      </fieldset>
-    </div>
+        <mat-form-field appearance="outline">
+          <mat-label for="area">Área:</mat-label>
+          <input matInput type="text" id="area" formControlName="area" />
+        </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label for="capacity">Capacidad:</mat-label>
+          <input
+            matInput
+            type="number"
+            id="capacity"
+            formControlName="capacity"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label for="availability">Disponibilidad</mat-label>
+          <mat-select id="availability" formControlName="availability">
+            <mat-option [value]="true">Sí</mat-option>
+            <mat-option [value]="false">No</mat-option>
+            <mat-option [value]="null">Todas</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
     <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
       Buscar
     </button>
@@ -62,6 +70,7 @@
             <tr>
               <th>Número</th>
               <th>Planta</th>
+              <th>Zona</th>
               <th>Área</th>
               <th>Capacidad</th>
               <th>Disponible</th>
@@ -75,10 +84,10 @@
             >
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
+              <td>{{ room.zone | enumToString : "HOSPITAL_ZONE" }}</td>
               <td>{{ room.area }}</td>
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
-              <!-- <td>{{room.idpatient !== undefined ? room.idpatient : '-' }}</td> -->
             </tr>
           </tbody>
         </table>

@@ -1,75 +1,105 @@
 .main {
-    margin-top: -81px;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items:flex-end;
-    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  }
-  
-  .main{
-    margin-left: -80px;
-    
-  }
-  
+  margin-top: -81px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.main {
+  margin-left: -80px;
+}
+
+.header {
+  background-color: lightblue;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header img {
+  margin-right: 10px;
+}
+
+h1 {
+  font-size: 75px;
+  color: rgba(1, 47, 70, 255);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  margin-top: 100px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 15%;
+}
+
+.credentials {
+  margin: 0;
+  width: 100%;
+}
+
+input[type="text"],
+input[type="password"],
+.submit {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.submit {
+  border-radius: 20px;
+  background-color: lightblue;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+}
+body {
+  height: 100%;
+}
+.submit:hover {
+  background-color: #1e90ff;
+}
+@media screen and (max-width: 768px) {
   .header {
-    background-color: lightblue;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: sticky;
+    top: 0;
   }
-  
-  .header img {
-    margin-right: 10px;
+  .main {
+    margin-left: 0;
   }
-  
-  h1 {
-    font-size: 75px;
-    color: rgba(1,47,70,255);
-  }
-  
-  .content {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-  
   form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    width: 15%;
+    width: 25vw;
   }
-  
-  .credentials {
-    margin: 0;
-    width: 100%;
+  h1 {
+    font-size: 9vw;
   }
-  
-  input[type="text"], input[type="password"], .submit {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+  .header img {
+    width: 40vw;
   }
-  
-  .submit {
-    border-radius: 20px;
-    background-color: lightblue;
-    height: 50px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    cursor: pointer;
+}
+@media screen and (max-width: 480px) {
+  form {
+    width: 40vw;
   }
-  
-  .submit:hover {
-    background-color: #1e90ff;
-  }
+}

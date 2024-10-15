@@ -6,6 +6,7 @@ import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 
 @Component({
   selector: 'app-search-patient',
@@ -26,7 +27,15 @@ export class SearchPatientComponent {
   dni: string = '';
   cip: string = '';
   phone: string = '';
-  ingresados: string = '';
+  status: string = '';
+  bedId: number = 0;
+  zona: string = '';
+
+  patientStatus = Object.keys(HospitalZone)
+    .filter(
+      (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
+    )
+    .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +44,6 @@ export class SearchPatientComponent {
     private patientService: PatientService,
     private translator: TranslateService
   ) {
-
     this.translator.use('es');
 
     this.patientForm = this.formBuilder.group({
@@ -46,7 +54,7 @@ export class SearchPatientComponent {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
-      ingresados: [this.ingresados],
+      zona: [this.zona],
     });
 
     this.patientForm.get('patientCode')?.valueChanges.subscribe((value) => {
@@ -77,24 +85,24 @@ export class SearchPatientComponent {
       this.phone = value;
     });
 
-    this.patientForm.get('ingresados')?.valueChanges.subscribe((value) => {
-      this.ingresados = value;
+    this.patientForm.get('zona')?.valueChanges.subscribe((value) => {
+      this.zona = value;
     });
   }
 
-  /*ngOnInit(): void {
+  ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patients = data;
     });
-  }*/
+  }
 
-  openDialog(patientCode: number) {
+  openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode,
+      data: patientId,
     });
   }
 
@@ -112,7 +120,8 @@ export class SearchPatientComponent {
         this.dni,
         this.cip,
         this.phone,
-        this.ingresados
+        this.status,
+        this.bedId
       )
       .subscribe((data) => {
         this.patients = data;
@@ -123,4 +132,5 @@ export class SearchPatientComponent {
   toggleDisplay() {
     this.isVisible = true;
   }
+
 }

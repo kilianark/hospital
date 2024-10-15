@@ -1,25 +1,22 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component'; /* Missatge que confirma que la petició ha sigut correcte */
-
+import { Router } from '@angular/router';
 import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { RequiredComponent } from '../../../../../components/required/required.component';
-import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { VERSION as CDK_VERSION } from '@angular/cdk';
-import {
-  VERSION as MAT_VERSION,
-  MatNativeDateModule,
-} from '@angular/material/core';
-import { PatientStatus } from '../../../../../enums/patient-status.enum';
+import { VERSION as MAT_VERSION } from '@angular/material/core';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
+import { CustomValidators } from '../../../../../validators/CustomValidators';
+
+
 
 console.info('Angular CDK version', CDK_VERSION.full);
 console.info('Angular Material version', MAT_VERSION.full);
@@ -28,7 +25,6 @@ bootstrapApplication(RequiredComponent, {
   providers: [
     provideAnimations(),
     provideHttpClient(),
-    importProvidersFrom(MatNativeDateModule),
   ],
 }).catch((err) => console.error(err));
 
@@ -46,20 +42,31 @@ export class CreatePatientComponent implements OnInit {
   public patients: PatientInterface[] = [];
   public patientCode!: number;
 
+  // Fecha actual
+  today: Date = new Date();
+
+  // Fecha mínima: 150 años antes de la fecha actual
+  minDateBirth: Date = new Date(this.today.getFullYear() - 150, this.today.getMonth(), this.today.getDate());
+
+  // Fecha máxima: hoy
+  maxDateBirth: Date = new Date();
+
+
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private patientService: PatientService // Inyectar el servicio
+
   ) {
     this.patientForm = this.formBuilder.group({
       patientCode: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      surname1: ['', [Validators.required]],
+      name: ['', [Validators.required, CustomValidators.notBlank()]],
+      surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
-      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      birthDate: ['', [Validators.required]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()]],
+      cip: ['', [CustomValidators.validCip()]],
+      birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
@@ -82,7 +89,7 @@ export class CreatePatientComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit() {
     if (this.patientForm.invalid) return;
@@ -92,28 +99,31 @@ export class CreatePatientComponent implements OnInit {
     const patientData: PatientInterface = {
       ...this.patientForm.value,
       //patientCode: this.nextPatientCode, //incrementación en BBDD
-      status: PatientStatus.Inactivo, //por defecto
+      status: HospitalZone.Inactivo, //por defecto
       reason: '',
       bedId: null,
     };
+
+    this.patientForm.get('patientCode')?.disable();
 
     console.log(this.patientForm.value);
 
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
         console.log('Paciente registrado:', response);
-        //this.confirm();
+        this.confirm('Paciente registrado con éxito','success');
         this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
         console.error('Error al registrar el paciente:', error);
+        this.confirm('Error al registrar paciente. Inténtalo de nuevo.','error');
       }
     );
   }
 
-  confirm() {
-    let dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage('Paciente Registrado');
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 
   //canviar en algún momento
@@ -131,4 +141,12 @@ export class CreatePatientComponent implements OnInit {
       );
     });
   }
+
+  resetForm() {
+    this.patientForm.reset();
+    this.patientForm.patchValue({
+      patientCode: this.patientCode,
+    });
+  }
+
 }
