@@ -20,8 +20,8 @@ mat-card-title {
   grid-template-columns: auto auto;
 }
 button {
-  width: 25vw;
-  height: 8vw;
+  width: 10vw;
+  height: 4vw;
   margin-right: 2vw;
 }
 mat-form-field {
@@ -37,6 +37,11 @@ mat-form-field {
   .area,
   .availability {
     grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  }
+  button {
+    width: 25vw;
+    height: 8vw;
+    margin-right: 2vw;
   }
 }
 @media screen and (max-width: 480px) {
