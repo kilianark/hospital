@@ -69,9 +69,9 @@ export class CreateComponent implements OnInit {
 
   onZoneChange(event: any) {
     const zoneValue = event.value;
-  
+
     this.selectedZone = zoneValue;
-  
+
     if (zoneValue) {
       this.addRoomForm.get('area')?.enable();
     } else {
@@ -114,22 +114,23 @@ export class CreateComponent implements OnInit {
 
       this.roomService.postRoomData(roomData).subscribe({
         next: (data) => {
-          this.confirm('Habitación creada con éxito');
+          this.confirm('Habitación creada con éxito','succes');
           this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Error al crear habitación:', error);
-          this.confirm('Error al crear la habitación. Inténtalo de nuevo.');
+          this.confirm('Error al crear la habitación. Inténtalo de nuevo.','error');
         }
       });
     } else {
       console.warn('El formulario no es válido:', this.addRoomForm.errors);
+      this.confirm('Error al crear la habitación. Inténtalo de nuevo.','warning');
     }
   }
 
-  confirm(message: string) {
+  confirm(message: string,type:string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message);
+    dialogRef.componentInstance.setMessage(message,type);
   }
 
   resetForm() {

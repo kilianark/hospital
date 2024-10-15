@@ -1,0 +1,19 @@
+#hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#grided {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.mat-card-content {
+  padding: 16px;
+}
+legend {
+  font-size: 1.8em;
+  margin: 30px;
+}
+mat-card {
+  margin-right: 10px;
+}

@@ -29,9 +29,13 @@ export class SearchPatientComponent {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
-  ingresados: boolean = false;
+  zona: string = '';
 
-  //
+  patientStatus = Object.keys(HospitalZone)
+    .filter(
+      (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
+    )
+    .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +44,6 @@ export class SearchPatientComponent {
     private patientService: PatientService,
     private translator: TranslateService
   ) {
-
     this.translator.use('es');
 
     this.patientForm = this.formBuilder.group({
@@ -51,7 +54,7 @@ export class SearchPatientComponent {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
-      ingresados: [this.ingresados],
+      zona: [this.zona],
     });
 
     this.patientForm.get('patientCode')?.valueChanges.subscribe((value) => {
@@ -82,8 +85,8 @@ export class SearchPatientComponent {
       this.phone = value;
     });
 
-    this.patientForm.get('ingresados')?.valueChanges.subscribe((value) => {
-      this.ingresados = value;
+    this.patientForm.get('zona')?.valueChanges.subscribe((value) => {
+      this.zona = value;
     });
   }
 
@@ -93,13 +96,13 @@ export class SearchPatientComponent {
     });
   }
 
-  openDialog(patientCode: number) {
+  openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode,
+      data: patientId,
     });
   }
 
@@ -118,8 +121,7 @@ export class SearchPatientComponent {
         this.cip,
         this.phone,
         this.status,
-        this.bedId,
-        this.ingresados
+        this.bedId
       )
       .subscribe((data) => {
         this.patients = data;
