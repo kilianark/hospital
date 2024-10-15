@@ -136,6 +136,6 @@ td button:hover {
 }
 @media screen and (max-width: 480px) {
   .credentials {
-    grid-template-columns: 25vw 65vw;
+    grid-template-columns: 45vw 45vw;
   }
 }
