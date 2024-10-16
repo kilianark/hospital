@@ -50,7 +50,7 @@ export class SearchPatientComponent {
 
     setTimeout(() => {
       this.showSelect = true;
-    }, 100);
+    }, 1);
 
     this.patientForm = this.formBuilder.group({
       status: [HospitalZone.Inactivo],

@@ -10,6 +10,8 @@ import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum'
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { debounceTime, map, Observable } from 'rxjs';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -20,6 +22,10 @@ import { debounceTime, map, Observable } from 'rxjs';
 export class CreateComponent implements OnInit {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
+
+  hospitalZones = Object.keys(HospitalZone)
+    .filter((key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
+    .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
 
   ambulatoryAreas = Object.keys(AmbulatoryArea)
     .filter(key => isNaN(Number(key)))
@@ -39,12 +45,25 @@ export class CreateComponent implements OnInit {
 
   selectedZone: string | null = null;
 
+  showSelect: boolean;
+
+  currentArea;
+  currentAreaType: string;
+
   constructor(
     private fb: FormBuilder,
     private roomService: RoomService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private translator: TranslateService
   ) {
+
+    this.translator.use('es');
+
+    setTimeout(() => {
+      this.showSelect = true;
+    }, 1);
+
     this.addRoomForm = this.fb.group({
       roomNumber: ['', [ Validators.required], [this.roomNumberValidator.bind(this)]],
       capacity: ['', Validators.required],

@@ -1,5 +1,6 @@
 .content {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  overflow: hidden;
 }
 legend {
   margin: 0px;
@@ -12,21 +13,22 @@ legend {
   font-weight: bold;
   padding-bottom: 2%;
   margin-bottom: 20px;
+
+  padding-left: 4%;
 }
 form {
   padding-top: 3%;
-  padding-left: 4%;
   padding-bottom: 10px;
 }
 input {
+  margin-left: 4%;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 .table-wrapper {
+  padding-left: 4%;
   width: 83vw;
-  /*overflow: auto;
-    padding-top: 10px;
-    */
+  overflow: hidden;
   margin-top: 10px;
   margin-bottom: -10px;
 }
@@ -38,6 +40,7 @@ input {
   border-radius: 2px;
 }
 button {
+  padding-left: 4%;
   background-color: #333;
   color: white;
   border: none;
@@ -59,25 +62,31 @@ button:hover {
   display: grid;
   grid-template-columns: 10vw 20vw;
   margin-bottom: 25px;
+
+  padding-left: 4%;
 }
 .selectControl {
   padding-left: 0%;
 }
 .container {
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
   padding: 20px;
+  margin-left: 5%;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   margin-top: -20px;
+  overflow: scroll;
   margin-bottom: 10px;
 }
 select {
+  padding-left: 4%;
   padding: 5px;
   width: 220px;
 }
 table {
+  padding-left: 4%;
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
@@ -128,11 +137,42 @@ tr:nth-child(even) {
     display: flex;
     flex-wrap: wrap;
   }
+
+  #seleccionarButton {
+    margin-left: 0;
+  }
   .control {
     display: flex;
+    width: 100%;
     flex-wrap: wrap;
   }
   label {
     padding-right: 1%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .container {
+    width: 58%;
+    margin-left: 20%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .table-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+  }
+  #area {
+    width: 50%;
+  }
+  #tabliña {
+    width: 50%;
+    font-size: 7px;
   }
 }
