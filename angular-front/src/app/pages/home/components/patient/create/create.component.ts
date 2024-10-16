@@ -78,16 +78,6 @@ export class CreatePatientComponent implements OnInit {
 
     this.patientForm.get('patientCode')?.disable();
 
-    this.nextPatientCode()
-      .then((code: number) => {
-        this.patientCode = code;
-        this.patientForm.patchValue({
-          patientCode: this.patientCode,
-        });
-      })
-      .catch((error: Error) => {
-        console.log('MSG RANDOM');
-      });
   }
 
   ngOnInit(): void { }
@@ -99,7 +89,6 @@ export class CreatePatientComponent implements OnInit {
 
     const patientData: PatientInterface = {
       ...this.patientForm.value,
-      //patientCode: this.nextPatientCode, //incrementación en BBDD
       zone: HospitalZone.Inactivo, //por defecto
       reason: '',
       hospital: "H1",
@@ -126,22 +115,6 @@ export class CreatePatientComponent implements OnInit {
   confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
-  }
-
-  //canviar en algún momento
-  async nextPatientCode(): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this.patientService.getPatientData().subscribe(
-        (data) => {
-          this.patients = data;
-          if (!this.patients || this.patients.length < 1) resolve(1);
-          else resolve(this.patients[this.patients.length - 1].patientCode + 1);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
   }
 
   resetForm() {
