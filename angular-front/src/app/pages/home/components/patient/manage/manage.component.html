@@ -30,12 +30,14 @@
           required
         ></textarea>
       </div>
+      <hr size="3px" color="black" style="width: 100vw" />
       <div class="table-wrapper" *ngIf="showSelectRoom">
-        <hr size="3px" color="black" style="margin-left: -4%" />
         <div class="selectControl">
           <label for="assignRoom">Asignar habitación: </label>
           <input id="assignRoom" type="text" placeholder="00201" readonly />
-          <button type="button" (click)="showDropDown()">SELECCIONAR</button>
+          <button type="button" id="seleccionarButton" (click)="showDropDown()">
+            SELECCIONAR
+          </button>
         </div>
         <div class="selectControl">
           <form class="roomselect" *ngIf="showRoomList">
@@ -50,7 +52,7 @@
                   </option>
                 </select>
               </div>
-              <table>
+              <table id="tabliña">
                 <thead>
                   <tr>
                     <th>Núm.</th>
