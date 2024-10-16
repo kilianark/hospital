@@ -47,6 +47,9 @@ export class CreateComponent implements OnInit {
 
   showSelect: boolean;
 
+  currentArea;
+  currentAreaType: string;
+
   constructor(
     private fb: FormBuilder,
     private roomService: RoomService,

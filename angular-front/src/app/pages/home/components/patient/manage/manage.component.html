@@ -44,16 +44,8 @@
               <div class="selectArea">
                 <label for="area">Seleccionar área: </label>
 
-                <select
-                  id="area"
-                  name="area"
-                  [(ngModel)]="selectedZone"
-                  (ngModelChange)="onAreaChange($event)"
-                >
-                  <option
-                    *ngFor="let area of currentArea"
-                    [ngValue]="area.value"
-                  >
+                <select id="area" name="area" [(ngModel)]="selectedZone" (ngModelChange)="onAreaChange($event)">
+                  <option *ngFor="let area of currentArea" [ngValue]="area.value">
                     {{ area.value | enumToString : currentAreaType }}
                   </option>
                 </select>
