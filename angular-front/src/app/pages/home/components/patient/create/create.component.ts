@@ -115,8 +115,9 @@ export class CreatePatientComponent implements OnInit {
         this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
-        console.error('Error al registrar el paciente:', error);
         this.confirm('Error al registrar paciente. Inténtalo de nuevo.','error');
+        console.error('Error al registrar el paciente:', error);
+
       }
     );
   }
