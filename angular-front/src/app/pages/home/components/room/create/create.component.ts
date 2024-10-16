@@ -114,7 +114,7 @@ export class CreateComponent implements OnInit {
 
       this.roomService.postRoomData(roomData).subscribe({
         next: (data) => {
-          this.confirm('Habitación creada con éxito','succes');
+          this.confirm('Habitación creada con éxito','success');
           this.router.navigate(['/home']);
         },
         error: (error) => {

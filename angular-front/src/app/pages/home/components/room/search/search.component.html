@@ -42,16 +42,14 @@
           />
         </mat-form-field>
 
-        <fieldset>
-          <mat-form-field appearance="outline">
-            <mat-label for="availability">Disponibilidad</mat-label>
-            <mat-select id="availability" formControlName="availability">
-              <mat-option [value]="true">Sí</mat-option>
-              <mat-option [value]="false">No</mat-option>
-              <mat-option [value]="null">Todas</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </fieldset>
+        <mat-form-field appearance="outline">
+          <mat-label for="availability">Disponibilidad</mat-label>
+          <mat-select id="availability" formControlName="availability">
+            <mat-option [value]="true">Sí</mat-option>
+            <mat-option [value]="false">No</mat-option>
+            <mat-option [value]="null">Todas</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </mat-card-content>
     <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">

@@ -90,11 +90,11 @@ export class SearchPatientComponent {
     });
   }
 
-  /*ngOnInit(): void {
+  ngOnInit(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patients = data;
     });
-  }*/
+  }
 
   openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -132,4 +132,5 @@ export class SearchPatientComponent {
   toggleDisplay() {
     this.isVisible = true;
   }
+
 }

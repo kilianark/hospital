@@ -64,7 +64,7 @@ export class CreatePatientComponent implements OnInit {
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDni()]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()]],
       cip: ['', [CustomValidators.validCip()]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
@@ -111,18 +111,19 @@ export class CreatePatientComponent implements OnInit {
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
         console.log('Paciente registrado:', response);
-        //this.confirm();
+        this.confirm('Paciente registrado con éxito','success');
         this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
         console.error('Error al registrar el paciente:', error);
+        this.confirm('Error al registrar paciente. Inténtalo de nuevo.','error');
       }
     );
   }
 
-  confirm() {
-    let dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage('Paciente Registrado');
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 
   //canviar en algún momento
