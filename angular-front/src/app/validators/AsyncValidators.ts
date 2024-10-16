@@ -15,6 +15,16 @@ export class AsyncValidators {
         };
     }
 
+    // Comprueba que el cip no exista ya en la bd
+    static checkCip(patientService: PatientService): AsyncValidatorFn {
+        return (control: AbstractControl): Observable<ValidationErrors | null> => {
+            return control.value ? patientService.checkCipExists(control.value).pipe(
+                map((CipExists: boolean) => (CipExists ? { CipExists: true } : null)),
+                catchError(() => of(null))
+            ) : of(null);
+        }
+    }
+
 
 
 

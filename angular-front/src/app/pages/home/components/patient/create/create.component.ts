@@ -61,12 +61,12 @@ export class CreatePatientComponent implements OnInit {
 
   ) {
     this.patientForm = this.formBuilder.group({
-      patientCode: ['', [Validators.required]],
+      patientCode: ['0', [Validators.required]],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
       dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService)]],
-      cip: ['', [CustomValidators.validCip()]],
+      cip: ['', [CustomValidators.validCip()], [AsyncValidators.checkCip(this.patientService)]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],

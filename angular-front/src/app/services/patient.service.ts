@@ -80,4 +80,9 @@ export class PatientService {
     return this.http.get<boolean>(url);
   }
 
+  checkCipExists(cip: string): Observable<boolean> {
+    const url = `${this.url}?Cip=${cip}`;
+    return this.http.get<boolean>(url);
+  }
+
 }

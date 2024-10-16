@@ -117,6 +117,8 @@
         <input matInput formControlName="cip" placeholder="ABCD 00000000" />
         @if(patientForm.get('cip')?.hasError('invalidCIP')) {
         <mat-error>El CIP debe ser válido</mat-error>
+        } @else if(patientForm.get('cip')?.hasError('CipExists')) {
+        <mat-error>Este CIP ya está registrado</mat-error>
         }
       </mat-form-field>
 
