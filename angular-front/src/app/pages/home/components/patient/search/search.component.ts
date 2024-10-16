@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 
@@ -29,7 +29,8 @@ export class SearchPatientComponent {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
-  zona: string = '';
+
+  showSelect: boolean = false;
 
   patientStatus = Object.keys(HospitalZone)
     .filter(
@@ -44,9 +45,15 @@ export class SearchPatientComponent {
     private patientService: PatientService,
     private translator: TranslateService
   ) {
+
     this.translator.use('es');
 
+    setTimeout(() => {
+      this.showSelect = true;
+    }, 100);
+
     this.patientForm = this.formBuilder.group({
+      status: [HospitalZone.Inactivo],
       patientCode: [this.patientCode],
       name: [this.name],
       surname1: [this.surname1],
@@ -54,9 +61,8 @@ export class SearchPatientComponent {
       dni: [this.dni],
       cip: [this.cip],
       phone: [this.phone],
-      zona: [this.zona],
     });
-
+    
     this.patientForm.get('patientCode')?.valueChanges.subscribe((value) => {
       this.patientCode = value;
     });
@@ -85,16 +91,12 @@ export class SearchPatientComponent {
       this.phone = value;
     });
 
-    this.patientForm.get('zona')?.valueChanges.subscribe((value) => {
-      this.zona = value;
-    });
   }
 
-  /*ngOnInit(): void {
-    this.patientService.getPatientData().subscribe((data) => {
-      this.patients = data;
-    });
-  }*/
+  ngOnInit(): void {
+
+  }
+  
 
   openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {

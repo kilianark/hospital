@@ -9,13 +9,8 @@
     <mat-card-content>
       <div class="credentials">
         <mat-form-field appearance="outline">
-          <mat-label>Código:</mat-label>
-          <input
-            matInput
-            type="text"
-            id="patientID"
-            formControlName="patientCode"
-          />
+          <mat-label for = "patientCode">Código:</mat-label>
+          <input matInput type="text" id="patientCode" formControlName="patientCode"/>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -59,10 +54,10 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label for="status">Estado: </mat-label>
-          <mat-select id="status" name="status" formControlName="status">
-              <mat-option *ngFor="let status of patientStatus" [value]="status.value">
-                  {{ status.value | enumToString: 'HOSPITAL_ZONE' }}
-              </mat-option>
+          <mat-select id="status" name="status" formControlName="status" *ngIf="showSelect">
+            <mat-option *ngFor="let status of patientStatus" [value]="status.value">
+              {{ status.value | enumToString : "HOSPITAL_ZONE" }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
