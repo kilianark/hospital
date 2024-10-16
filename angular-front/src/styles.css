@@ -22,7 +22,7 @@ app-sidebar {
   top: 81px;
   box-sizing: border-box;
   height: calc(100vh - 81px);
-  overflow-y: auto; /* es pot treure si no arribem a tindre una barra lateral llarga de llista */
+  overflow-y: hidden; /* es pot treure si no arribem a tindre una barra lateral llarga de llista */
 }
 app-sidebar::-webkit-scrollbar {
   display: none;
