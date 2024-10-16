@@ -188,12 +188,12 @@ export class ManagePatientComponent {
     this.patientService.putPatientData(this.patient).subscribe((data) => {});
 
     console.log('Estat Actualitzat:');
-    this.confirm();
+    this.confirm('Paciente actualizado con éxito','success');
     this.router.navigate(['/home']);
   }
 
-  confirm() {
-    let dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage('Estado Actualizado');
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 }

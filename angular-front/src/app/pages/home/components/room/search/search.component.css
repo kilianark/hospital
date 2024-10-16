@@ -131,14 +131,21 @@ td button {
   }
   .credentials {
     display: grid;
-    grid-template-columns: 18vw 65vw;
+    grid-template-columns: 45vw 45vw;
     grid-template-rows: auto auto;
     gap: 10px;
-    max-width: 950px;
+  }
+  button {
+    width: 25vw;
+    height: 8vw;
   }
 }
 @media screen and (max-width: 480px) {
   .credentials {
-    grid-template-columns: 25vw 65vw;
+    grid-template-columns: 45vw 45vw;
+  }
+  button {
+    width: 40vw;
+    height: 7vh;
   }
 }
