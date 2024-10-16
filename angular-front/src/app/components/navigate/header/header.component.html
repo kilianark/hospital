@@ -1,10 +1,33 @@
-<header>  
-    <div class="Management">
-        <button class="DashboardButton" routerLink="/home">
-            <img src="/assets/LogoMedicaPlus.png" alt="error de carga" width=45px height=45px />
-            {{title}}
-        </button>
-        <!-- BOTONES HEADER A COMPLETAR
+<header>
+  <div (click)="onClick()" class="btn">
+    <mat-toolbar>
+      <button
+        mat-icon-button
+        id="menu"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        id="notMenu"
+        aria-label="Example icon-button with menu icon"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+  <div class="Management">
+    <button class="DashboardButton" routerLink="/home">
+      <img
+        src="/assets/LogoMedicaPlus.png"
+        alt="error de carga"
+        width="45px"
+        height="45px"
+      />
+      {{ title }}
+    </button>
+    <!-- BOTONES HEADER A COMPLETAR
          
         <button class="Emergencies">
             <span>{{nav1}}</span>
@@ -13,20 +36,35 @@
             <span>{{nav2}}</span>
         </button> 
         -->
-    </div>
+  </div>
 
-    <div class="Worker">
-        <label class="WorkerName">
-            anroma45362
-        </label>
-        <button class="WorkerSettings" (click)="toggleMenu()">
-            <img src="/assets/UserIcon.png" alt="error de carga" width="30px" height="30px">
-        </button>
-        <div *ngIf="isMenuOpen" class="dropdown-menu">
-            <ul>
-                <li><button href="#Profile" routerLink="/home/profile">Mi perfil</button></li>
-                <li><button href="#Logout" routerLink="/login">Cerrar sesión <img src="/assets/logout_logo.png" alt="error de carga" width="50px" height="30px"></button></li>
-            </ul>
-        </div>
+  <div class="Worker">
+    <label class="WorkerName"> anroma45362 </label>
+    <button class="WorkerSettings" (click)="toggleMenu()">
+      <img
+        src="/assets/UserIcon.png"
+        alt="error de carga"
+        width="30px"
+        height="30px"
+      />
+    </button>
+    <div *ngIf="isMenuOpen" class="dropdown-menu">
+      <ul>
+        <li>
+          <button href="#Profile" routerLink="/home/profile">Mi perfil</button>
+        </li>
+        <li>
+          <button href="#Logout" routerLink="/login">
+            Cerrar sesión
+            <img
+              src="/assets/logout_logo.png"
+              alt="error de carga"
+              width="50px"
+              height="30px"
+            />
+          </button>
+        </li>
+      </ul>
     </div>
+  </div>
 </header>

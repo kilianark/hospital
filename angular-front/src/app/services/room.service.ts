@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { RoomInterface } from '../pages/home/interfaces/room.interface';
+import { RoomInterface } from '../interfaces/room.interface';
 import { Observable } from 'rxjs';
-import { BedInterface } from '../interfaces/bed.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class RoomService {
     return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
   }
 
-  searchRooms(room_number: number | null, floor: number | null, area: string, capacity: number | null, availability: boolean | null): Observable<RoomInterface[]> {
+  searchRooms(room_number: number | null, floor: number | null, zone: number,area: string, capacity: number | null, availability: boolean | null): Observable<RoomInterface[]> {
     let params = new HttpParams();
 
     if (room_number !== null) {
@@ -36,6 +36,9 @@ export class RoomService {
     }
     if (floor !== null) {
         params = params.set('Floor', floor.toString());
+    }
+    if(zone != null) {
+      params = params.set('Zone', zone.toString());
     }
     if (area) {
         params = params.set('Area', area);
@@ -50,5 +53,10 @@ export class RoomService {
     return this.http.get<RoomInterface[]>(this.url, { params });
   }
 
+  checkRoomNumberExists(room_number: number): Observable<boolean>{
+
+    return this.http.get<boolean>((`${this.url}/exists/${room_number}`));
+    //this.url + '/exists/' + room_number
+  }
 
 }

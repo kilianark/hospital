@@ -1,4 +1,9 @@
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -7,33 +12,46 @@ import { countries } from '../../store/country-data.store';
 import { Country } from '../../interfaces/country.interface';
 import { PatientInterface } from '../../interfaces/patient.interface';
 import { PatientService } from '../../services/patient.service';
-
+import { pdfGeneratorService } from '../../services/pdfGenerator.service';
 
 @Component({
   selector: 'app-record',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './record.component.html',
-  styleUrls: ['./record.component.css']
+  styleUrls: ['./record.component.css'],
 })
 export class RecordComponent implements OnInit {
   isEditable: boolean = false;
   public countries: Country[] = countries;
   patientForm: FormGroup;
-  public patientSurname : string = "Hola";
-  patientResp! : PatientInterface;
+  public patientSurname: string = 'Hola';
+  patientResp!: PatientInterface;
 
-  patient: PatientInterface[] = [
+  patient: PatientInterface[] = [];
 
+  camps: string[] = [
+    'dni',
+    'cip',
+    'name',
+    'birth',
+    'surname1',
+    'surname2',
+    'phone',
+    'email',
+    'country',
+    'emergencyContact',
+    'gender',
+    'address',
   ];
 
-  camps: string[] = ['dni', 'cip', 'name', 'birth', 'surname1', 'surname2', 'phone', 'email', 'country',
-                    'emergencyContact', 'gender', 'address'] 
-  
-  constructor(@Inject(MAT_DIALOG_DATA) public data: number, private formBuilder: FormBuilder, private patientService: PatientService) {
-
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: number,
+    private formBuilder: FormBuilder,
+    private patientService: PatientService,
+    private pdfGeneratorService: pdfGeneratorService
+  ) {
     this.patientForm = this.formBuilder.group({
-      
       name: ['', [Validators.required]],
       surname1: ['', [Validators.required]],
       surname2: [''],
@@ -45,10 +63,9 @@ export class RecordComponent implements OnInit {
       cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
       email: ['', [Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      
+
       patientCode: [''],
-      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]]
-      
+      emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
     });
 
     this.patientForm.get('patientCode')?.disable();
@@ -56,12 +73,11 @@ export class RecordComponent implements OnInit {
       this.patientForm.get(value)?.disable();
     }
 
-    this.patientService.getPatientData(data).subscribe(data => {
-      this.patient = data.map(patient => ({
+    this.patientService.getPatientData(data).subscribe((data) => {
+      this.patient = data.map((patient) => ({
         ...patient,
-        birthDate: new Date(patient.birthDate) 
+        birthDate: new Date(patient.birthDate),
       }));
-      
 
       this.patientForm.patchValue({
         name: this.patient[0].name,
@@ -75,67 +91,66 @@ export class RecordComponent implements OnInit {
         cip: this.patient[0].cip,
         email: this.patient[0].email,
         phone: this.patient[0].phone,
-        
+
         patientCode: this.patient[0].patientCode,
-        emergencyContact:this.patient[0].emergencyContact
-        
+        emergencyContact: this.patient[0].emergencyContact,
       });
 
-      this.patientForm.get('name')?.valueChanges.subscribe(value => {
+      this.patientForm.get('name')?.valueChanges.subscribe((value) => {
         this.patient[0].name = value;
       });
-      this.patientForm.get('surname1')?.valueChanges.subscribe(value => {
+      this.patientForm.get('surname1')?.valueChanges.subscribe((value) => {
         this.patient[0].surname1 = value;
       });
-      this.patientForm.get('surname2')?.valueChanges.subscribe(value => {
+      this.patientForm.get('surname2')?.valueChanges.subscribe((value) => {
         this.patient[0].surname2 = value;
       });
-      this.patientForm.get('gender')?.valueChanges.subscribe(value => {
-        this.patient[0].gender = value;
+      this.patientForm.get('gender')?.valueChanges.subscribe((value) => {
+        this.patientForm.get('gender')?.value;
+
       });
-      this.patientForm.get('birth')?.valueChanges.subscribe(value => {
+      this.patientForm.get('birth')?.valueChanges.subscribe((value) => {
         this.patient[0].birthDate = value;
       });
-      this.patientForm.get('country')?.valueChanges.subscribe(value => {
+      this.patientForm.get('country')?.valueChanges.subscribe((value) => {
         this.patient[0].country = value;
       });
-      this.patientForm.get('address')?.valueChanges.subscribe(value => {
+      this.patientForm.get('address')?.valueChanges.subscribe((value) => {
         this.patient[0].address = value;
       });
-      this.patientForm.get('dni')?.valueChanges.subscribe(value => {
+      this.patientForm.get('dni')?.valueChanges.subscribe((value) => {
         this.patient[0].dni = value;
       });
-      this.patientForm.get('cip')?.valueChanges.subscribe(value => {
+      this.patientForm.get('cip')?.valueChanges.subscribe((value) => {
         this.patient[0].cip = value;
       });
-      this.patientForm.get('email')?.valueChanges.subscribe(value => {
+      this.patientForm.get('email')?.valueChanges.subscribe((value) => {
         this.patient[0].email = value;
       });
-      this.patientForm.get('phone')?.valueChanges.subscribe(value => {
+      this.patientForm.get('phone')?.valueChanges.subscribe((value) => {
         this.patient[0].phone = value;
       });
-      this.patientForm.get('emergencyContact')?.valueChanges.subscribe(value => {
-        this.patient[0].emergencyContact = value;
-      });
-
-    })
+      this.patientForm
+        .get('emergencyContact')
+        ?.valueChanges.subscribe((value) => {
+          this.patient[0].emergencyContact = value;
+        });
+    });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
   onSubmit() {
-    this.patientService.putPatientData(this.patient[0]).subscribe(data => {
+    this.patientService.putPatientData(this.patient[0]).subscribe((data) => {
       this.patientResp = data;
     });
     this.togleIsEditable();
   }
 
-  togleIsEditable(){
+  togleIsEditable() {
     this.isEditable = !this.isEditable;
 
-    if(this.isEditable){
+    if (this.isEditable) {
       for (const value of this.camps) {
         this.patientForm.get(value)?.enable();
       }
@@ -147,4 +162,7 @@ export class RecordComponent implements OnInit {
     }
   }
 
+  generatePDF() {
+    this.pdfGeneratorService.generatePDF(this.patientForm.value);
+  }
 }

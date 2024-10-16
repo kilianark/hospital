@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <legend id="titleBed">{{ title }} {{ roomId }}</legend>
+    <legend id="titleBed">{{ title }} {{ room.roomNumber }}</legend>
     <div class="table-wrapper">
       <table>
         <thead>
@@ -16,18 +16,15 @@
             <th class="inTableBed">Disponibilidad</th>
             <th class="inTableBed">Paciente</th>
             <th class="inTableBed">Código Paciente</th>
-            <th class="inTableBed">Ficha</th>
-            <th class="inTableBed">Gestionar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let bed of beds" class="file-click">
-            <td>{{ bed.BedCode }}</td>
-            <td>{{ bed.Availability ? "Sí" : "No" }}</td>
-            <!-- <td>{{ bed.atient?.name }} {{ bed.patient?.surname1 }}</td> -->
-            <!-- <td>{{ bed.patient?.id }}</td> -->
-            <td>botón ficha</td>
-            <td>botón gestión pte</td>
+              <td>{{ bed.bedCode }}</td>
+              <td>{{ bed.availability ? "Sí" : "No" }}</td>
+              <!-- els registres de llits pot apareixer sense pacient, ja que es la llista de llits d'una habitació -->
+              <td>{{ getPatientByBedId(bed.id)?.name || 'Sin paciente' }} {{ getPatientByBedId(bed.id)?.surname1 || '' }}</td>
+              <td>{{ getPatientByBedId(bed.id)?.patientCode || 'N/A' }}</td>
           </tr>
         </tbody>
       </table>

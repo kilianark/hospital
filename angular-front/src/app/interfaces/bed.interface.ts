@@ -1,6 +1,6 @@
 export interface BedInterface {
     id : number;
-    BedCode: string;
-    RoomId: number;
-    Availability: boolean;
+    bedCode: string;
+    roomId: number;
+    availability: boolean;
 }

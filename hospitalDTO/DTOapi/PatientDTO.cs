@@ -6,7 +6,7 @@ namespace hospitalDTO.DTOapi {
         public string? Surname2 { get; set; }
         public required string Dni { get; set; }
         public required int Age { get; set; }
-        public required DateOnly BirthDate { get; set; }
+        public required DateTime BirthDate { get; set; }
         public required string Country { get; set; }
         public string? Address {get; set;}
         public required string Phone {get; set; }
@@ -17,5 +17,6 @@ namespace hospitalDTO.DTOapi {
         public required string Status { get; set; }
         public string? Reason { get; set; }
         public int? BedId { get; set; }
+        public int? RoomId { get; set; }
     }
 }

@@ -7,4 +7,5 @@ public class Patient : Person
     public required string Status { get; set; }
     public string? Reason { get; set; }
     public int? BedId { get; set; }
+    public int? RoomId { get; set; }
 }

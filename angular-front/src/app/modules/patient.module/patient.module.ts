@@ -9,16 +9,31 @@ import { ManagePatientComponent } from '../../pages/home/components/patient/mana
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient.service';
 
-
 import { RequiredComponent } from '../../components/required/required.component';
-import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
+import { SharedModule } from '../../shared/shared.module';
+
+// Custom validators
+import { CustomValidators } from '../../validators/CustomValidators';
+
+// Angular Material Modules
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
+
 
 @NgModule({
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
     SearchPatientComponent,
-    EnumToStringPipe
   ],
   imports: [
     CommonModule,
@@ -26,8 +41,20 @@ import { EnumToStringPipe } from '../../pipe/enum-to-string.pipe';
     FormsModule,
     PatientRoutingModule,
     RequiredComponent,
-    
+    SharedModule,
+
+    // Angular Material imports
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+
   ],
   providers: [provideHttpClient()],
 })
-export class PatientModule {}
+export class PatientModule { }

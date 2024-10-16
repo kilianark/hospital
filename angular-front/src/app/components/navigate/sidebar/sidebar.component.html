@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sidebar Nav</title>
-        <link rel="stylesheet" href="sidebar.component.css">
-    </head>
-    <body class="sidebar">
-        <label><b>Gestión de pacientes</b></label>
-        <ul>
-            <li><a class="submit" type="button" routerLink="/home/patient/create">Crear</a></li>
-            <li><a class="submit" type="button" routerLink="/home/patient/search">Buscar</a></li>
-        </ul>
-
-        <label><b>Gestión de habitaciones</b></label>
-        <ul>
-            <li><a class="submit" type="button" routerLink="/home/room/search">Buscar</a></li>
-            <!-- out of service(temporally)
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar Nav</title>
+    <link rel="stylesheet" href="sidebar.component.css" />
+  </head>
+  <body class="sidebar" id="sidebarTS">
+    <div class="columna">
+      <label><b>Gestión de pacientes</b></label>
+      <ul>
+        <li>
+          <a class="submit" type="button" routerLink="/home/patient/create"
+            >Crear</a
+          >
+        </li>
+        <li>
+          <a class="submit" type="button" routerLink="/home/patient/search"
+            >Buscar</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="columna">
+      <label><b>Gestión de habitaciones</b></label>
+      <ul>
+        <li>
+          <a class="submit" type="button" routerLink="/home/room/create"
+            >Crear</a
+          >
+        </li>
+        <li>
+          <a class="submit" type="button" routerLink="/home/room/search"
+            >Buscar</a
+          >
+        </li>
+        <!-- out of service(temporally)
             <li><a class="submit" type="submit" routerLink="/search-bed">Buscar Cama</a></li>-->
-        </ul>
-    </body>
+      </ul>
+    </div>
+  </body>
 </html>

@@ -4,50 +4,72 @@ body {
   position: sticky;
 }
 
-button{
+button {
   background-color: lightblue;
   cursor: pointer;
   border-radius: 8px;
-  box-shadow: 2px 2px 4px black
+  box-shadow: 2px 2px 4px black;
 }
 
-.title{
+.title {
   display: flex;
+  font-size: 1.2em;
   font-weight: bold;
   margin-left: 50px;
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
-
 .grid-layout {
-  display: grid;
-  gap: 100px; /* Espacio entre las imágenes */
-  grid-template-columns: 1fr 1fr; /* Tres columnas iguales */
-  width: 50%;
-  height: 50%;
-  align-content: center;
+  display: flex;
+  gap: 100px; /* Espacio entre las /* Tres columnas iguales */
+  align-items: center;
   opacity: 0.8;
-  margin-left: 260px;
+  justify-content: center;
 }
 
-.grid-layout div{
-text-align: center;
+.grid-layout div {
+  text-align: center;
+  width: 20vw;
+  height: 20vw;
 }
 
-.grid-layout img {
-  width: 100%;
+.grid-layout button {
   height: 100%;
-  display: block;
+  width: 100%;
   border-radius: 5%;
 }
-
-.grid-layout img.patient {
-  grid-column: 1;
-  grid-row: 1;
+.grid-layout img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
-.grid-layout img.room {
-  grid-column: 2;
-  grid-row: 1;
+@media screen and (max-width: 768px) {
+  body {
+    margin: 0px;
+  }
+  .grid-layout {
+    display: flex;
+    width: 100%;
+    align-content: center;
+    height: 300%;
+    justify-content: center;
+    vertical-align: middle;
+    flex-direction: column;
+  }
+
+  .grid-layout div {
+    vertical-align: middle;
+    width: 30vw;
+    height: 30vw;
+  }
+  .title {
+    padding-top: 5%;
+    font-size: 1.3em;
+    margin-bottom: 10%;
+    margin-left: 0;
+    justify-content: center;
+    text-align: center;
+  }
 }

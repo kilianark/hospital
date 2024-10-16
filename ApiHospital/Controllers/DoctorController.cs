@@ -77,7 +77,7 @@ namespace ApiHospital.Controllers
 
             if (BirthDate.HasValue)
             {
-                query = query.Where(d => d.BirthDate == BirthDate.Value);
+                //query = query.Where(d => d.BirthDate == BirthDate.Value);
             }
 
             if (!string.IsNullOrEmpty(Country))
