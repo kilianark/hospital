@@ -31,12 +31,7 @@ export class ManagePatientComponent {
 
   HospitalZone = HospitalZone;
 
-  selectedZone:
-    | AmbulatoryArea
-    | HospitalizedArea
-    | UrgencyArea
-    | OperatingRoomArea
-    | null = null;
+  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
 
   currentArea;
   currentAreaType: string;
@@ -82,7 +77,7 @@ export class ManagePatientComponent {
         !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea]))
     )
     .map((key) => ({
-      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea],
+      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea]
     }));
   //
 
