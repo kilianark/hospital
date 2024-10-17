@@ -117,7 +117,6 @@ export class CreatePatientComponent implements OnInit {
   }
 
   confirm(message: string, type: string) {
-  confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
   }
