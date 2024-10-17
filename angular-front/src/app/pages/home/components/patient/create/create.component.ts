@@ -23,10 +23,7 @@ console.info('Angular CDK version', CDK_VERSION.full);
 console.info('Angular Material version', MAT_VERSION.full);
 
 bootstrapApplication(RequiredComponent, {
-  providers: [
-    provideAnimations(),
-    provideHttpClient(),
-  ],
+  providers: [provideAnimations(), provideHttpClient()],
 }).catch((err) => console.error(err));
 
 @Injectable({
@@ -38,6 +35,7 @@ bootstrapApplication(RequiredComponent, {
   styleUrls: ['./create.component.css'],
 })
 export class CreatePatientComponent implements OnInit {
+  title = 'Crear Paciente:';
   patientForm: FormGroup;
   public countries: Country[] = countries;
   public patients: PatientInterface[] = [];
@@ -47,18 +45,20 @@ export class CreatePatientComponent implements OnInit {
   today: Date = new Date();
 
   // Fecha mínima: 150 años antes de la fecha actual
-  minDateBirth: Date = new Date(this.today.getFullYear() - 150, this.today.getMonth(), this.today.getDate());
+  minDateBirth: Date = new Date(
+    this.today.getFullYear() - 150,
+    this.today.getMonth(),
+    this.today.getDate()
+  );
 
   // Fecha máxima: hoy
   maxDateBirth: Date = new Date();
-
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private patientService: PatientService // Inyectar el servicio
-
   ) {
     this.patientForm = this.formBuilder.group({
       patientCode: ['0', [Validators.required]],
@@ -80,7 +80,7 @@ export class CreatePatientComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onSubmit() {
     if (this.patientForm.invalid) return;
@@ -103,16 +103,20 @@ export class CreatePatientComponent implements OnInit {
       (response) => {
         console.log('Paciente registrado:', response);
         this.confirm('Paciente registrado con éxito', 'success');
+        this.confirm('Paciente registrado con éxito', 'success');
         this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
-        this.confirm('Error al registrar paciente. Inténtalo de nuevo.','error');
+        this.confirm(
+          'Error al registrar paciente. Inténtalo de nuevo.',
+          'error'
+        );
         console.error('Error al registrar el paciente:', error);
-
       }
     );
   }
 
+  confirm(message: string, type: string) {
   confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
@@ -124,5 +128,4 @@ export class CreatePatientComponent implements OnInit {
       patientCode: this.patientCode,
     });
   }
-
 }
