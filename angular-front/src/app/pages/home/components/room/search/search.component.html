@@ -85,7 +85,20 @@
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
               <td>{{ room.zone | enumToString : "HOSPITAL_ZONE" }}</td>
-              <td>{{ room.area }}</td>
+
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">
+                {{ room.area | enumToString : "AMBULATORY_AREA" }}
+              </td>
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Hospitalizacion">
+                {{ room.area | enumToString : "HOSPITALIZED_AREA" }}
+              </td>
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Urgencias">
+                {{ room.area | enumToString : "URGENCY_AREA" }}
+              </td>
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Quirofano">
+                {{ room.area | enumToString : "OPERATING_AREA" }}
+              </td>
+              
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
             </tr>

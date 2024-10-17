@@ -3,6 +3,7 @@ import { RoomService } from '../../../../../services/room.service';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 
 @Component({
 	selector: 'app-search-room',
@@ -14,6 +15,8 @@ export class SearchRoomComponent {
 	rooms: RoomInterface[] = [];
 	roomForm: FormGroup;
 	isVisible: boolean = false;
+
+	HospitalZone = HospitalZone;
 
   	constructor( private router: Router, private formBuilder: FormBuilder, private roomService: RoomService) {
 		this.roomForm = this.formBuilder.group({
