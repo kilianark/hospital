@@ -50,7 +50,10 @@ namespace ApiHospital.Controllers
             if (!string.IsNullOrEmpty(Area))  query = query.Where(r => r.Area.StartsWith(Area));
 
 
-            if (Floor.HasValue) query = query.Where(r => r.Floor == Floor.Value);
+            if (Floor.HasValue)
+            {
+                query = query.Where(r => r.Floor == Floor.Value);
+            }
 
             if (Availability.HasValue) query = query.Where(r => r.Availability == Availability.Value);
 

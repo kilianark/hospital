@@ -15,6 +15,7 @@ import { VERSION as CDK_VERSION } from '@angular/cdk';
 import { VERSION as MAT_VERSION } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { CustomValidators } from '../../../../../validators/CustomValidators';
+import { AsyncValidators } from '../../../../../validators/AsyncValidators';
 
 
 
@@ -22,10 +23,7 @@ console.info('Angular CDK version', CDK_VERSION.full);
 console.info('Angular Material version', MAT_VERSION.full);
 
 bootstrapApplication(RequiredComponent, {
-  providers: [
-    provideAnimations(),
-    provideHttpClient(),
-  ],
+  providers: [provideAnimations(), provideHttpClient()],
 }).catch((err) => console.error(err));
 
 @Injectable({
@@ -37,6 +35,7 @@ bootstrapApplication(RequiredComponent, {
   styleUrls: ['./create.component.css'],
 })
 export class CreatePatientComponent implements OnInit {
+  title = 'Crear Paciente:';
   patientForm: FormGroup;
   public countries: Country[] = countries;
   public patients: PatientInterface[] = [];
@@ -46,26 +45,28 @@ export class CreatePatientComponent implements OnInit {
   today: Date = new Date();
 
   // Fecha mínima: 150 años antes de la fecha actual
-  minDateBirth: Date = new Date(this.today.getFullYear() - 150, this.today.getMonth(), this.today.getDate());
+  minDateBirth: Date = new Date(
+    this.today.getFullYear() - 150,
+    this.today.getMonth(),
+    this.today.getDate()
+  );
 
   // Fecha máxima: hoy
   maxDateBirth: Date = new Date();
-
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private patientService: PatientService // Inyectar el servicio
-
   ) {
     this.patientForm = this.formBuilder.group({
-      patientCode: ['', [Validators.required]],
+      patientCode: ['0', [Validators.required]],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDniOrNie()]],
-      cip: ['', [CustomValidators.validCip()]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService)]],
+      cip: ['', [CustomValidators.validCip()], [AsyncValidators.checkCip(this.patientService)]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
@@ -77,19 +78,9 @@ export class CreatePatientComponent implements OnInit {
 
     this.patientForm.get('patientCode')?.disable();
 
-    this.nextPatientCode()
-      .then((code: number) => {
-        this.patientCode = code;
-        this.patientForm.patchValue({
-          patientCode: this.patientCode,
-        });
-      })
-      .catch((error: Error) => {
-        console.log('MSG RANDOM');
-      });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onSubmit() {
     if (this.patientForm.invalid) return;
@@ -111,36 +102,23 @@ export class CreatePatientComponent implements OnInit {
     this.patientService.postPatientData(patientData).subscribe(
       (response) => {
         console.log('Paciente registrado:', response);
-        this.confirm('Paciente registrado con éxito','success');
+        this.confirm('Paciente registrado con éxito', 'success');
+        this.confirm('Paciente registrado con éxito', 'success');
         this.router.navigate(['/home/patient/manage', { id: response.id }]); //que envíe al manage de este paciente
       },
       (error) => {
-        this.confirm('Error al registrar paciente. Inténtalo de nuevo.','error');
+        this.confirm(
+          'Error al registrar paciente. Inténtalo de nuevo.',
+          'error'
+        );
         console.error('Error al registrar el paciente:', error);
-
       }
     );
   }
 
-  confirm(message: string,type:string) {
+  confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message,type);
-  }
-
-  //canviar en algún momento
-  async nextPatientCode(): Promise<number> {
-    return new Promise((resolve, reject) => {
-      this.patientService.getPatientData().subscribe(
-        (data) => {
-          this.patients = data;
-          if (!this.patients || this.patients.length < 1) resolve(1);
-          else resolve(this.patients[this.patients.length - 1].patientCode + 1);
-        },
-        (error) => {
-          reject(error);
-        }
-      );
-    });
+    dialogRef.componentInstance.setMessage(message, type);
   }
 
   resetForm() {
@@ -149,5 +127,4 @@ export class CreatePatientComponent implements OnInit {
       patientCode: this.patientCode,
     });
   }
-
 }

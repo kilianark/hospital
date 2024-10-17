@@ -107,7 +107,6 @@ export class RecordComponent implements OnInit {
       });
       this.patientForm.get('gender')?.valueChanges.subscribe((value) => {
         this.patientForm.get('gender')?.value;
-
       });
       this.patientForm.get('birth')?.valueChanges.subscribe((value) => {
         this.patient[0].birthDate = value;
@@ -138,7 +137,7 @@ export class RecordComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.patientService.putPatientData(this.patient[0]).subscribe((data) => {
@@ -163,7 +162,6 @@ export class RecordComponent implements OnInit {
   }
 
   generatePDF() {
-
     const doc = new jsPDF();
     let currentLine = 65;
     const lineSpacing = 10;
@@ -181,7 +179,6 @@ export class RecordComponent implements OnInit {
 
     //para esta función he tenido que modificar tsconfig.json:
     function addSection(title, content, currentCol, drawLine = false) {
-
       doc.setFont('helvetica', 'bold');
       doc.text(title, 16, currentCol);
 
@@ -274,8 +271,6 @@ export class RecordComponent implements OnInit {
     doc.text(`C. Emergencia: `, 117.5, 55);
     doc.setFont('helvetica', 'normal');
     doc.text(`${this.patientForm.get('emergencyContact')?.value}`, 155, 55);
-
-
 
     //cuando tengamos guardada la info sustituir el 'blabla' por un get.
     //Historial
