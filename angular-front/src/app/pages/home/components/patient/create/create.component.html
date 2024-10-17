@@ -1,5 +1,8 @@
+<head>
+  <title>Búsqueda habitaciones</title>
+</head>
 <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" novalidate>
-  <mat-card-title>Crear Paciente</mat-card-title>
+  <mat-card-title>{{ title }}</mat-card-title>
   <div id="void"></div>
   <!-- Codigo paciente -->
   <mat-form-field appearance="outline" id="patientCode">
@@ -20,7 +23,9 @@
         @if(patientForm.get('name')?.hasError('required')) {
         <mat-error>El nombre es obligatorio</mat-error>
         } @else if(patientForm.get('name')?.hasError('notBlank')) {
-        <mat-error>El campo no puede contener solo espacios en blanco</mat-error>
+        <mat-error
+          >El campo no puede contener solo espacios en blanco</mat-error
+        >
         }
       </mat-form-field>
 
@@ -31,7 +36,9 @@
         @if(patientForm.get('surname1')?.hasError('required')) {
         <mat-error>El apellido es obligatorio</mat-error>
         } @else if(patientForm.get('name')?.hasError('notBlank')) {
-        <mat-error>El campo no puede contener solo espacios en blanco</mat-error>
+        <mat-error
+          >El campo no puede contener solo espacios en blanco</mat-error
+        >
         }
       </mat-form-field>
 
