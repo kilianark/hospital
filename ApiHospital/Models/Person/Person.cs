@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiHospital.Models
 {
     public abstract class Person
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public required int Id { get; set; }
         public required string Name { get; set; }
         public required string Surname1 { get; set; }

@@ -144,14 +144,18 @@ export class ManagePatientComponent {
 
   updateArea() {
     if (this.patient.zone == HospitalZone.Ambulatorio) {
+    if (this.patient.zone == HospitalZone.Ambulatorio) {
       this.currentArea = this.ambulatoryArea;
       this.currentAreaType = 'AMBULATORY_AREA';
+    } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
     } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
       this.currentArea = this.hospitalizedArea;
       this.currentAreaType = 'HOSPITALIZED_AREA';
     } else if (this.patient.zone == HospitalZone.Urgencias) {
+    } else if (this.patient.zone == HospitalZone.Urgencias) {
       this.currentArea = this.urgencyArea;
       this.currentAreaType = 'URGENCY_AREA';
+    } else if (this.patient.zone == HospitalZone.Quirofano) {
     } else if (this.patient.zone == HospitalZone.Quirofano) {
       this.currentArea = this.operatingRoomArea;
       this.currentAreaType = 'OPERATING_AREA';
@@ -167,6 +171,7 @@ export class ManagePatientComponent {
           null,
           null,
           this.patient.zone,
+          this.patient.zone,
           area.toString(),
           null,
           null
@@ -179,6 +184,7 @@ export class ManagePatientComponent {
     this.showRoomList = !this.showRoomList;
     if (this.showRoomList) {
       this.roomService
+        .searchRooms(null, null, this.patient.zone, null, null, null)
         .searchRooms(null, null, this.patient.zone, null, null, null)
         .subscribe((data) => (this.rooms = data));
     }
