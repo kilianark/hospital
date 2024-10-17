@@ -24,7 +24,10 @@ body {
   max-width: 800px;
   margin-left: 7.5%;
 }
-
+#hist-pat {
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
 label {
   margin: 0px;
   font-size: 14px;
@@ -67,7 +70,7 @@ label {
   gap: 5vw;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 780px) {
   .form-col,
   .peu-form {
     grid-template-columns: 1fr;
@@ -91,6 +94,6 @@ label {
   vertical-align: middle;
 }
 
-#hist-pat{
+#hist-pat {
   color: #1e90ff;
 }
