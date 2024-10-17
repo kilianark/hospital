@@ -1,6 +1,7 @@
 body,
 .content {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  overflow: hidden;
 }
 legend {
   margin: 0px;
@@ -13,14 +14,16 @@ legend {
   font-weight: bold;
   padding-bottom: 2%;
 }
-
+.top {
+  padding-left: 2%;
+}
 .credentials {
   display: grid;
   padding-top: 4%;
   grid-template-columns: auto auto auto auto;
 }
 mat-form-field {
-  margin-right: 20px;
+  margin-right: 35px;
 }
 
 mat-card-title {
@@ -28,10 +31,9 @@ mat-card-title {
   font-size: 1.5em;
 }
 form {
+  width: 100%;
   padding-top: 3%;
-  padding-left: 2%;
   padding-bottom: 10px;
-  border-bottom: solid black;
 }
 form button {
   background-color: #333;
@@ -72,11 +74,17 @@ form button:hover {
 fieldset {
   border: none;
 }
+
 .table-wrapper {
-  width: 83vw;
+  width: 100%;
   height: 63.9vh;
-  overflow: auto;
   margin-left: 15px;
+}
+.container {
+  width: 98%;
+
+  overflow: scroll;
+  margin-bottom: 10px;
 }
 .table-wrapper::-webkit-scrollbar {
   display: none;
@@ -89,6 +97,10 @@ fieldset {
   position: sticky;
   top: 0;
   left: 0;
+}
+
+th {
+  margin-left: 10px;
 }
 thead {
   position: -webkit-sticky;
@@ -125,6 +137,9 @@ td button:hover {
     display: flex;
     flex-wrap: wrap;
   }
+  .container {
+    width: 90%;
+  }
   mat-form-field {
     margin-left: 10px;
   }
@@ -140,5 +155,8 @@ td button:hover {
 @media screen and (max-width: 480px) {
   .credentials {
     grid-template-columns: 48vw 48vw;
+  }
+  .container {
+    width: 65%;
   }
 }
