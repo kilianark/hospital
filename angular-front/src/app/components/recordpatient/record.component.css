@@ -70,13 +70,18 @@ label {
   gap: 5vw;
 }
 
-@media (max-width: 780px) {
+@media screen and (max-width: 780px) {
   .form-col,
   .peu-form {
     grid-template-columns: 1fr;
   }
 }
-
+.form-col {
+  font-size: 0.7em;
+  margin-left: 10px;
+  display: grid;
+  grid-template-columns: 12vw 20vw 15vw 20vw;
+}
 .grid-layout a {
   display: flex;
   align-items: center;
@@ -96,4 +101,19 @@ label {
 
 #hist-pat {
   color: #1e90ff;
+}
+@media screen and (max-width: 480px) {
+  .form-col {
+    font-size: 0.8em;
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: 25vw 43vw;
+    width: 100%;
+
+    row-gap: 25px;
+  }
+  #hist-pat {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 }
