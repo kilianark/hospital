@@ -53,7 +53,7 @@ export class SearchPatientComponent {
     }, 1);
 
     this.patientForm = this.formBuilder.group({
-      status: [HospitalZone.Inactivo],
+      status: [''],
       patientCode: [this.patientCode],
       name: [this.name],
       surname1: [this.surname1],
