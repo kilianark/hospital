@@ -23,7 +23,7 @@ export class CreateComponent implements OnInit {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
 
-  showSelect: boolean;
+  showSelect: boolean = false;
 
   hospitalZones = Object.keys(HospitalZone)
     .filter((key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
