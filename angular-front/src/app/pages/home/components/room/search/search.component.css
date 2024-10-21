@@ -76,7 +76,7 @@ fieldset {
 
 .table-wrapper {
   width: 95vw;
-  height: 63.9vh;
+  height: auto;
   overflow: auto;
   margin-left: 15px;
 }
