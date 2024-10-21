@@ -7,7 +7,7 @@ import { SearchPatientComponent } from '../../pages/home/components/patient/sear
 import { CreatePatientComponent } from '../../pages/home/components/patient/create/create.component';
 import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../shared/modules/shared.module';
 
 @NgModule({
   declarations: [

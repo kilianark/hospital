@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { MaterialModule } from "./material.module";
 
-import { EnumToStringPipe } from "../pipe/enum-to-string.pipe";
+import { EnumToStringPipe } from "../../pipe/enum-to-string.pipe";
 
 
 
