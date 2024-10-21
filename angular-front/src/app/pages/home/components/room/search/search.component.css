@@ -75,7 +75,7 @@ fieldset {
 }
 
 .table-wrapper {
-  width: 95vw;
+  width: 83vw;
   height: auto;
   overflow: auto;
   margin-left: 15px;
@@ -125,6 +125,9 @@ td button {
   content {
     display: flex;
     flex-wrap: wrap;
+  }
+  .table-wrapper {
+    width: 99vw;
   }
   form {
     padding-right: 2%;
