@@ -9,15 +9,6 @@ import { SearchRoomComponent } from '../../pages/home/components/room/search/sea
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 
-// Angular Material Modules
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-
 @NgModule({
   declarations: [
     BedComponent,
@@ -30,16 +21,6 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-        // Angular Material imports
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-
-
   ],
   providers: [provideHttpClient()]
 })
