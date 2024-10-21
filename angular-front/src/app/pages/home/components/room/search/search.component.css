@@ -76,7 +76,7 @@ fieldset {
 
 .table-wrapper {
   width: 83vw;
-  height: 63.9vh;
+  height: auto;
   overflow: auto;
   margin-left: 15px;
 }
@@ -126,6 +126,9 @@ td button {
     display: flex;
     flex-wrap: wrap;
   }
+  .table-wrapper {
+    width: 99vw;
+  }
   form {
     padding-right: 2%;
   }
@@ -135,6 +138,10 @@ td button {
     grid-template-rows: auto auto;
     gap: 10px;
   }
+  th,
+  td {
+    padding: 0 15px;
+  }
   button {
     width: 25vw;
     height: 8vw;
@@ -143,9 +150,5 @@ td button {
 @media screen and (max-width: 480px) {
   .credentials {
     grid-template-columns: 45vw 45vw;
-  }
-  button {
-    width: 40vw;
-    height: 7vh;
   }
 }
