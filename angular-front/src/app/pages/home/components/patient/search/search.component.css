@@ -137,6 +137,10 @@ td button:hover {
     display: flex;
     flex-wrap: wrap;
   }
+  th,
+  td {
+    padding: 0 15px;
+  }
   .container {
     width: 90%;
   }
@@ -157,6 +161,6 @@ td button:hover {
     grid-template-columns: 48vw 48vw;
   }
   .container {
-    width: 65%;
+    width: 99vw;
   }
 }
