@@ -8,11 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PatientModule } from '../patient.module/patient.module';
 
-import { provideHttpClient, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RoomModule } from '../room.module/room.module';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../shared/modules/shared.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
