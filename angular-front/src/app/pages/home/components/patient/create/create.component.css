@@ -60,6 +60,11 @@ button {
   .select {
     grid-template-columns: auto auto;
   }
+  button {
+    width: 40vw;
+    height: 7vh;
+  }
+
   .form-col {
     display: grid;
     grid-template-columns: 18vw 18vw 20vw 20vw;

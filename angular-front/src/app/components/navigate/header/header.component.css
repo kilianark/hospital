@@ -64,6 +64,7 @@ button:hover {
   border: 1px solid #ccc;
   box-shadow: 10px 10px 10px rgba(123, 0, 254, 0.1);
   padding: 0;
+  z-index: 4;
 }
 
 .dropdown-menu ul {
