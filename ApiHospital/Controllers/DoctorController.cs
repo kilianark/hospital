@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiHospital.Data;
 using ApiHospital.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiHospital.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorController : ControllerBase

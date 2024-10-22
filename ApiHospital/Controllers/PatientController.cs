@@ -13,9 +13,10 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiHospital.Controllers
-{
+{   
     [Route("api/Patients")]
     [ApiController]
     public class PatientController : ControllerBase
