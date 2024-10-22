@@ -151,3 +151,97 @@ td button {
     grid-template-columns: 45vw 45vw;
   }
 }
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.prev,
+.next {
+  margin: 0 5px; /* Espacio reducido entre los botones de navegación y los números */
+  flex: 0; /* Asegura que estos botones no crezcan */
+}
+
+.pagination {
+  display: inline-flex;
+  justify-content: center; /* Centra los números de página */
+  flex-grow: 0.3; /* Permite que el contenedor de paginación ocupe el espacio disponible */
+  margin: 0 10px; /* Reduce el espacio a los lados del contenedor de paginación */
+}
+
+.pagination button {
+  background-color: transparent;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+  border-radius: 4px;
+  padding: 5px 8px; /* Ajusta el tamaño del padding de los botones */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+.pagination button:hover:not(.active):not(:disabled) {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.pagination button:disabled {
+  color: #b0bec5;
+  border: none;
+  background-color: transparent;
+}
+
+.pagination button:focus {
+  outline: none;
+}
+
+.pagination button:first-child, .pagination button:last-child {
+  padding: 5px 10px; /* Ajusta el tamaño de las flechas */
+  font-weight: normal;
+}
+
+th {
+  cursor: pointer;
+  padding: 10px;
+  user-select: none;
+}
+
+th span {
+  margin-left: 5px;
+}
+
+th:hover {
+  background-color: #f1f1f1;
+}
+.loading-container {
+  width: 80%; /* Asegura que la barra no ocupe todo el ancho */
+  height: 10px; /* Cambia la altura para que sea más fina */
+  background-color: #e0e0e0; /* Color del fondo de la barra de carga */
+  border-radius: 5px; /* Bordes redondeados */
+  margin: 20px auto; /* Centra la barra en la página */
+  position: relative;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0; /* Inicia en 0% */
+  background-color: #4caf50; /* Color de la barra de carga */
+  border-radius: 5px; /* Bordes redondeados para la barra */
+  animation: loading 0.4s linear forwards; /* Animación de carga */
+}
+
+@keyframes loading {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%; /* Llena al 100% al finalizar */
+  }
+}

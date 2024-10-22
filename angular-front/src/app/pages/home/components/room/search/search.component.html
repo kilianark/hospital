@@ -72,7 +72,13 @@
   </form>
 
   <hr size="3px" color="black" style="width: 100vw" />
-  <div *ngIf="isVisible">
+  <div *ngIf="isLoading" class="loading-container">
+
+    <div class="loading-bar"></div>Cargando...
+  </div>
+
+
+  <div *ngIf="!isLoading &&isVisible">
     <ng-container *ngIf="rooms.length === 0; else roomTable">
       <legend style="margin-left: 3%">Habitación no encontrada</legend>
     </ng-container>
@@ -81,22 +87,55 @@
         <table>
           <thead>
             <tr>
-              <th>Número</th>
-              <th>Planta</th>
-              <th>Zona</th>
-              <th>Área</th>
-              <th>Capacidad</th>
-              <th>Disponible</th>
+              <th (click)="sortData('roomNumber')">
+                Número
+                <span *ngIf="sortField === 'roomNumber'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('floor')">
+                Planta
+                <span *ngIf="sortField === 'floor'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('zone')">
+                Zona
+                <span *ngIf="sortField === 'zone'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('area')">
+                Área
+                <span *ngIf="sortField === 'area'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('capacity')">
+                Capacidad
+                <span *ngIf="sortField === 'capacity'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('availability')">
+                Disponible
+                <span *ngIf="sortField === 'availability'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              *ngFor="let room of rooms"
-              (click)="goToRooms(room.id)"
-              class="file-click"
-            >
+            <tr *ngFor="let room of pagedRooms" (click)="goToRooms(room.id)" class="file-click">
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
+
               <td>{{ room.zone | enumToString : "HOSPITAL_ZONE" }}</td>
 
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">
@@ -116,10 +155,30 @@
               </td>
 
               <td>{{ room.capacity }}</td>
-              <td>{{ room.availability ? "Sí" : "No" }}</td>
+              <td>{{ room.availability ? 'Sí' : 'No' }}</td>
             </tr>
           </tbody>
         </table>
+
+        <div class="pagination-container">
+          <!-- Botón de flecha izquierda (anterior) -->
+          <button class="prev" (click)="prevPage()" [disabled]="currentPage === 1">&laquo;</button>
+
+          <!-- Números de página centrados -->
+          <div class="pagination">
+            <button (click)="goToPage(page)" *ngFor="let page of pageNumbers"
+                    [class.active]="page === currentPage"
+                    [disabled]="page === -1">
+              <ng-container *ngIf="page === -1">...</ng-container>
+              <ng-container *ngIf="page !== -1">{{ page }}</ng-container>
+            </button>
+          </div>
+
+          <!-- Botón de flecha derecha (siguiente) -->
+          <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">&raquo;</button>
+        </div>
+
+
       </div>
     </ng-template>
   </div>
