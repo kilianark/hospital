@@ -53,32 +53,34 @@
             <input matInput type="text" id="numSS" formControlName="cip" />
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label for="phone" class="telf">Teléfono:</mat-label>
-            <input matInput type="text" id="phone" formControlName="phone" />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label for="status">Estado: </mat-label>
-            <mat-select
-              id="status"
-              name="status"
-              formControlName="status"
-              *ngIf="showSelect"
-            >
-              <mat-option
-                *ngFor="let status of patientStatus"
-                [value]="status.value"
-              >
-                {{ status.value | enumToString : "HOSPITAL_ZONE" }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-      <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
-        Buscar
-      </button>
-    </form>
+        <mat-form-field appearance="outline">
+          <mat-label for="phone" class="telf">Teléfono:</mat-label>
+          <input matInput type="text" id="phone" formControlName="phone" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="status">Estado: </mat-label>
+          <mat-select id="status" name="status" formControlName="status" *ngIf="showSelect">
+            <mat-option value="" disabled selected>Seleccione un estado</mat-option>
+            <mat-option *ngFor="let status of patientStatus" [value]="status.value">
+              {{ status.value | enumToString : "HOSPITAL_ZONE" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
+      Buscar
+    </button>
+    <button type="reset" (click)="resetForm()">
+      Reiniciar
+    </button>
+  </form>
+  <br />
+  <div
+    [style.display]="isVisible ? 'block' : 'none'"
+    *ngIf="filteredPatients.length <= 0"
+  >
+    <legend style="margin-left: 3%">Paciente no encontrado</legend>
   </div>
 
   <hr size="3px" color="black" style="width: 100vw" />
@@ -93,7 +95,7 @@
   <legend style="margin-left: 3%">Paciente no encontrado</legend>
 </div>
 
-  <div class="table-wrapper" [style.display]="isVisible ? 'block' : 'none'" *ngIf="!isLoading &&patients.length > 0">
+  <div class="table-wrapper" [style.display]="isVisible ? 'block' : 'none'" *ngIf="!isLoading &&filteredPatients.length > 0">
     <table>
       <thead>
         <tr>
@@ -156,8 +158,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of pagedPatients" (click)="goToManage(patient.id)"
-        class="clickable-row">
+        <tr
+          *ngFor="let patient of filteredPatients"
+          (click)="goToManage(patient.id)"
+          class="clickable-row"
+        >
           <td>{{ patient.patientCode }}</td>
           <td>{{ patient.name }}</td>
           <td>{{ patient.surname1 }}</td>
