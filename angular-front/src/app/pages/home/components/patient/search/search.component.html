@@ -55,6 +55,7 @@
         <mat-form-field appearance="outline">
           <mat-label for="status">Estado: </mat-label>
           <mat-select id="status" name="status" formControlName="status" *ngIf="showSelect">
+            <mat-option value="" disabled selected>Seleccione un estado</mat-option>
             <mat-option *ngFor="let status of patientStatus" [value]="status.value">
               {{ status.value | enumToString : "HOSPITAL_ZONE" }}
             </mat-option>
@@ -65,18 +66,21 @@
     <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
       Buscar
     </button>
+    <button type="reset" (click)="resetForm()">
+      Reiniciar
+    </button>
   </form>
   <br />
   <div
     [style.display]="isVisible ? 'block' : 'none'"
-    *ngIf="patients.length <= 0"
+    *ngIf="filteredPatients.length <= 0"
   >
     <legend style="margin-left: 3%">Paciente no encontrado</legend>
   </div>
   <div
     class="table-wrapper"
     [style.display]="isVisible ? 'block' : 'none'"
-    *ngIf="patients.length > 0"
+    *ngIf="filteredPatients.length > 0"
   >
     <table>
       <thead>
@@ -91,7 +95,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let patient of patients"
+          *ngFor="let patient of filteredPatients"
           (click)="goToManage(patient.id)"
           class="clickable-row"
         >

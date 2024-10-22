@@ -8,7 +8,7 @@ export interface PatientInterface{
     surname2?: string;
     gender: string;
     birthDate: Date;
-    age: number; //* ??? meter en modelo? */
+    age: number;
     country: string;
     address?: string;
     dni: string;
