@@ -95,15 +95,9 @@ export class CreateComponentBed implements OnInit {
     }, 1);
 
     this.addBedForm = this.fb.group({
-      roomNumber: [
-        '',
-        [Validators.required],
-        [this.roomNumberValidator.bind(this)],
-      ],
-      capacity: ['', Validators.required],
-      zone: [this.actualZone, Validators.required],
-      area: [{ value: '', disabled: true }, Validators.required],
-      floor: [{ value: '', disabled: true }, Validators.required],
+      roomNumber: ['', [], [this.roomNumberValidator.bind(this)]],
+      zone: [this.actualZone],
+      area: [{ value: '', disabled: true }],
       availability: [false],
     });
   }
