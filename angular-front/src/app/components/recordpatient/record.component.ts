@@ -14,6 +14,7 @@ import { PatientInterface } from '../../interfaces/patient.interface';
 import { PatientService } from '../../services/patient.service';
 
 import { jsPDF } from 'jspdf';
+import { pdfGeneratorService } from '../../services/pdfGenerator.service';
 
 @Component({
   selector: 'app-record',
@@ -49,7 +50,8 @@ export class RecordComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
     private formBuilder: FormBuilder,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private pdfGeneratorService: pdfGeneratorService
   ) {
     this.patientForm = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -139,6 +141,10 @@ export class RecordComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  generatePatientPDF() {
+    this.pdfGeneratorService.generatePDF(this.patientForm.value);
+  }
+
   onSubmit() {
     this.patientService.putPatientData(this.patient[0]).subscribe((data) => {
       this.patientResp = data;
@@ -161,150 +167,4 @@ export class RecordComponent implements OnInit {
     }
   }
 
-  generatePDF() {
-    const doc = new jsPDF();
-    let currentLine = 65;
-    const lineSpacing = 10;
-    const maxLineWidth = 180;
-    const sectionSeparation = 20;
-
-    function formatDate(date) {
-      if (!date) return '';
-      const d = new Date(date);
-      const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const year = d.getFullYear();
-      return `${day}/${month}/${year}`;
-    }
-
-    //para esta función he tenido que modificar tsconfig.json:
-    function addSection(title, content, currentCol, drawLine = false) {
-      doc.setFont('helvetica', 'bold');
-      doc.text(title, 16, currentCol);
-
-      doc.setFont('helvetica', 'normal');
-      const line = doc.splitTextToSize(content, maxLineWidth);
-      doc.text(line, 16, currentCol + lineSpacing);
-
-      const lineHeight = line.length * lineSpacing;
-
-      if (drawLine) {
-        const linePosition = currentCol + lineHeight + 2;
-        doc.setLineWidth(0.5);
-        doc.setDrawColor(0);
-        doc.line(16, linePosition, 190, linePosition);
-
-        return linePosition;
-      }
-
-      return currentCol + sectionSeparation;
-    }
-
-    //Título
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Historia Clínica', 105, 20, { align: 'center' });
-
-    //Rectángulo
-    doc.setFontSize(12);
-    doc.setLineWidth(0.5);
-    doc.rect(10, 30, 190, 28);
-
-    //Nombre completo:
-    const surname1 = this.patientForm.get('surname1')?.value || '';
-    const surname2 = this.patientForm.get('surname2')?.value || '';
-    const name = this.patientForm.get('name')?.value || '';
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Nombre completo: `, 16, 35);
-    doc.setFont('helvetica', 'normal');
-
-    let startPosition = 65;
-
-    doc.text(surname1, startPosition, 35);
-    const surname1Width = doc.getTextWidth(surname1);
-    startPosition += surname1Width + 2;
-
-    doc.text(surname2 + ',', startPosition, 35);
-    const surname2Width = doc.getTextWidth(surname2);
-    startPosition += surname2Width + 2;
-
-    doc.text(name, startPosition, 35);
-
-    //Datos varios:
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Código paciente: `, 140, 35);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('patientCode')?.value}`, 180, 35);
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Fecha de nacimiento: `, 16, 40);
-    doc.setFont('helvetica', 'normal');
-    const birthDate = this.patientForm.get('birth')?.value;
-    doc.text(formatDate(birthDate), 65, 40);
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Sexo: `, 16, 45);
-    doc.setFont('helvetica', 'normal');
-    if (this.patientForm.get('gender')?.value == 'male') {
-      doc.text(`Hombre`, 65, 45);
-    } else {
-      doc.text(`Mujer`, 65, 45);
-    }
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Dirección: `, 16, 50);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('address')?.value}`, 65, 50);
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`CIP: `, 140, 50);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('cip')?.value}`, 155, 50);
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Teléfono: `, 16, 55);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('phone')?.value}`, 65, 55);
-
-    doc.setFont('helvetica', 'bold');
-    doc.text(`C. Emergencia: `, 117.5, 55);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`${this.patientForm.get('emergencyContact')?.value}`, 155, 55);
-
-    //cuando tengamos guardada la info sustituir el 'blabla' por un get.
-    //Historial
-    currentLine = addSection(
-      'Antecedentes médicos:',
-      'Varicela a los 10 años. Neumonía a los 20 años, tratada adecuadamente sin secuelas. Episodios de gastritis, tratados con medicamentos antiácidos, sin complicaciones ni hospitalizaciones.',
-      currentLine + lineSpacing
-    );
-
-    currentLine = addSection(
-      'Alergias:',
-      'Sin alergias medicamentosas o ambientales relevantes.',
-      currentLine + lineSpacing,
-      true
-    );
-
-    currentLine = addSection(
-      'Motivo de consulta:',
-      'El paciente acude a consulta refiriendo síntomas de tos seca persistente y fatiga desde hace aproximadamente dos semanas. No presenta fiebre ni dificultad respiratoria. La tos se ha intensificado por la noche, afectando su calidad de sueño.',
-      currentLine + lineSpacing
-    );
-
-    currentLine = addSection(
-      'Diagnóstico:',
-      'Tos seca idiopática: La tos seca puede ser idiopática, especialmente si no se identifican otros síntomas asociados. Podría estar relacionada con irritantes ambientales o sequedad del aire.',
-      currentLine + lineSpacing
-    );
-
-    currentLine = addSection(
-      'Plan terapéutico:',
-      'Augmentine 875/125mg 1 cada 8h durante 10 días. Paracetamol 1 gramo cada 8 horas si dolor. Dexketoprofeno 25mg: 1 comprimido cada 8 horas si persistencia de dolor. Alternar con Paracetamol. Dacortin 30mg en pauta descendente: 2 pastillas x 3 días, 1 pastilla x 2 días, 1/2 pastilla x 1 día',
-      currentLine + lineSpacing
-    );
-
-    doc.output('dataurlnewwindow');
-  }
 }

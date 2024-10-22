@@ -266,7 +266,7 @@ export class SearchPatientComponent implements OnInit {
 
     if (status && status !== '') {
       exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.zone) === String(status));//antes en number tenía string e iba. tb tengo string antes de patient.zone 
+        String(patient.zone) === String(status));
     }
 
     //campos búsqueda fuzzy:
