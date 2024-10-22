@@ -24,10 +24,15 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="zone">Zona:</mat-label>
-          <mat-select id="zone" formControlName="zone" *ngIf="showSelect" (selectionChange)="onZoneChange($event.value)">
+          <mat-select
+            id="zone"
+            formControlName="zone"
+            *ngIf="showSelect"
+            (selectionChange)="onZoneChange($event.value)"
+          >
             <mat-option disabled selected>Seleccione una zona</mat-option>
             <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
-              {{ zone.value | enumToString: "HOSPITAL_ZONE" }}
+              {{ zone.value | enumToString : "HOSPITAL_ZONE" }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -66,9 +71,8 @@
     </button>
   </form>
 
-  <br />
-   <!-- Barra de carga -->
-   <div *ngIf="isLoading" class="loading-container">
+  <hr size="3px" color="black" style="width: 100vw" />
+  <div *ngIf="isLoading" class="loading-container">
 
     <div class="loading-bar"></div>Cargando...
   </div>
@@ -137,7 +141,10 @@
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">
                 {{ room.area | enumToString : "AMBULATORY_AREA" }}
               </td>
-              <td class="tbcen" *ngIf="room.zone == HospitalZone.Hospitalizacion">
+              <td
+                class="tbcen"
+                *ngIf="room.zone == HospitalZone.Hospitalizacion"
+              >
                 {{ room.area | enumToString : "HOSPITALIZED_AREA" }}
               </td>
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Urgencias">
@@ -146,7 +153,7 @@
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Quirofano">
                 {{ room.area | enumToString : "OPERATING_AREA" }}
               </td>
-             
+
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? 'Sí' : 'No' }}</td>
             </tr>

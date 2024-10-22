@@ -7,10 +7,6 @@ import { countries } from '../../../../../store/country-data.store';
 import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
-import { RequiredComponent } from '../../../../../components/required/required.component';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { VERSION as CDK_VERSION } from '@angular/cdk';
 import { VERSION as MAT_VERSION } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
@@ -22,9 +18,6 @@ import { AsyncValidators } from '../../../../../validators/AsyncValidators';
 console.info('Angular CDK version', CDK_VERSION.full);
 console.info('Angular Material version', MAT_VERSION.full);
 
-bootstrapApplication(RequiredComponent, {
-  providers: [provideAnimations(), provideHttpClient()],
-}).catch((err) => console.error(err));
 
 @Injectable({
   providedIn: 'root',
