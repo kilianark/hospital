@@ -20,11 +20,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let bed of beds" class="file-click">
-              <td>{{ bed.bedCode }}</td>
-              <td>{{ bed.availability ? "Sí" : "No" }}</td>
-              <!-- els registres de llits pot apareixer sense pacient, ja que es la llista de llits d'una habitació -->
-              <td>{{ getPatientByBedId(bed.id)?.name || 'Sin paciente' }} {{ getPatientByBedId(bed.id)?.surname1 || '' }}</td>
-              <td>{{ getPatientByBedId(bed.id)?.patientCode || 'N/A' }}</td>
+            <td>{{ bed.bedCode }}</td>
+            <td>{{ bed.availability ? "Sí" : "No" }}</td>
+            <!-- els registres de llits pot apareixer sense pacient, ja que es la llista de llits d'una habitació -->
+            <td>
+              {{ getPatientByBedId(bed.id)?.name || "Sin paciente" }}
+              {{ getPatientByBedId(bed.id)?.surname1 || "" }}
+            </td>
+            <td>{{ getPatientByBedId(bed.id)?.patientCode || "N/A" }}</td>
           </tr>
         </tbody>
       </table>
