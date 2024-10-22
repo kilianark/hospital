@@ -3,58 +3,86 @@
 </head>
 <div class="content">
   <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
-    <legend>{{ title }}</legend>
-    <div class="credentials">
-      <label for="roomNumber">Número:</label>
-      <input type="number" id="roomNumber" formControlName="roomNumber" />
+    <mat-card-title> {{ title }}</mat-card-title>
 
-      <label for="floor">Planta:</label>
-      <input type="number" id="floor" formControlName="floor" />
+    <mat-card-content>
+      <div class="credentials">
+        <mat-form-field appearance="outline">
+          <mat-label for="roomNumber">Número:</mat-label>
+          <input
+            matInput
+            type="number"
+            id="roomNumber"
+            formControlName="roomNumber"
+          />
+        </mat-form-field>
 
-      <label for="zone">Zone:</label>
-      <input type="text" id="zone" formControlName="zone"/>
+        <mat-form-field appearance="outline">
+          <mat-label for="floor">Planta:</mat-label>
+          <input matInput type="number" id="floor" formControlName="floor" />
+        </mat-form-field>
 
-      <label for="area">Área:</label>
-      <input type="text" id="area" formControlName="area" />
+        <mat-form-field appearance="outline">
+          <mat-label for="zone">Zona:</mat-label>
+          <mat-select
+            id="zone"
+            formControlName="zone"
+            *ngIf="showSelect"
+            (selectionChange)="onZoneChange($event.value)"
+          >
+            <mat-option disabled selected>Seleccione una zona</mat-option>
+            <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
+              {{ zone.value | enumToString : "HOSPITAL_ZONE" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <label for="capacity">Capacidad:</label>
-      <input type="number" id="capacity" formControlName="capacity" />
+        <mat-form-field appearance="outline">
+          <mat-label for="area">Área:</mat-label>
+          <mat-select id="area" name="area" formControlName="area">
+            <mat-option *ngFor="let area of currentArea" [value]="area.value">
+              {{ area.value | enumToString : currentAreaType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <fieldset>
-        <div class="alinear">
-          <label for="availability">Disponible:</label>
-          <div class="filtre1">
-            <label for="available">Sí</label>
-            <input
-              type="radio"
-              name="availability"
-              id="available"
-              formControlName="availability"
-              value="true"
-            />
-          </div>
-          <div class="filtre2">
-            <label for="noAvailable" id="labelIngr">No</label>
-            <input
-              type="radio"
-              name="availability"
-              id="noAvailable"
-              formControlName="availability"
-              value="false"
-            />
-          </div>
-        </div>
-      </fieldset>
-    </div>
+        <mat-form-field appearance="outline">
+          <mat-label for="capacity">Capacidad:</mat-label>
+          <input
+            matInput
+            type="number"
+            id="capacity"
+            formControlName="capacity"
+          />
+        </mat-form-field>
 
-    <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
+        <mat-form-field appearance="outline">
+          <mat-label for="availability">Disponibilidad</mat-label>
+          <mat-select id="availability" formControlName="availability">
+            <mat-option [value]="true">Sí</mat-option>
+            <mat-option [value]="false">No</mat-option>
+            <mat-option [value]="null">Todas</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <button
+      type="submit"
+      id="botonBuscar"
+      (click)="onSubmit()"
+      (click)="toggleDisplay()"
+    >
       Buscar
     </button>
   </form>
 
-  <br />
+  <hr size="3px" color="black" style="width: 100vw" />
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-bar"></div>
+    Cargando...
+  </div>
 
-  <div *ngIf="isVisible">
+  <div *ngIf="!isLoading && isVisible">
     <ng-container *ngIf="rooms.length === 0; else roomTable">
       <legend style="margin-left: 3%">Habitación no encontrada</legend>
     </ng-container>
@@ -63,25 +91,115 @@
         <table>
           <thead>
             <tr>
-              <th>Número</th>
-              <th>Planta</th>
-              <th>Zone</th>
-              <th>Área</th>
-              <th>Capacidad</th>
-              <th>Disponible</th>
+              <th (click)="sortData('roomNumber')">
+                Número
+                <span *ngIf="sortField === 'roomNumber'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('floor')">
+                Planta
+                <span *ngIf="sortField === 'floor'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('zone')">
+                Zona
+                <span *ngIf="sortField === 'zone'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('area')">
+                Área
+                <span *ngIf="sortField === 'area'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('capacity')">
+                Capacidad
+                <span *ngIf="sortField === 'capacity'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
+              <th (click)="sortData('availability')">
+                Disponible
+                <span *ngIf="sortField === 'availability'">
+                  <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                  <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let room of rooms" (click)="goToRooms(room.id)" class="file-click">
+            <tr
+              *ngFor="let room of pagedRooms"
+              (click)="goToRooms(room.id)"
+              class="file-click"
+            >
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
-              <td>{{ room.zone }}</td>
-              <td>{{ room.area }}</td>
+
+              <td>{{ room.zone | enumToString : "HOSPITAL_ZONE" }}</td>
+
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">
+                {{ room.area | enumToString : "AMBULATORY_AREA" }}
+              </td>
+              <td
+                class="tbcen"
+                *ngIf="room.zone == HospitalZone.Hospitalizacion"
+              >
+                {{ room.area | enumToString : "HOSPITALIZED_AREA" }}
+              </td>
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Urgencias">
+                {{ room.area | enumToString : "URGENCY_AREA" }}
+              </td>
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Quirofano">
+                {{ room.area | enumToString : "OPERATING_AREA" }}
+              </td>
+
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
             </tr>
           </tbody>
         </table>
+
+        <div class="pagination-container">
+          <!-- Botón de flecha izquierda (anterior) -->
+          <button
+            class="prev"
+            (click)="prevPage()"
+            [disabled]="currentPage === 1"
+          >
+            &laquo;
+          </button>
+
+          <!-- Números de página centrados -->
+          <div class="pagination">
+            <button
+              (click)="goToPage(page)"
+              *ngFor="let page of pageNumbers"
+              [class.active]="page === currentPage"
+              [disabled]="page === -1"
+            >
+              <ng-container *ngIf="page === -1">...</ng-container>
+              <ng-container *ngIf="page !== -1">{{ page }}</ng-container>
+            </button>
+          </div>
+
+          <!-- Botón de flecha derecha (siguiente) -->
+          <button
+            class="next"
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+          >
+            &raquo;
+          </button>
+        </div>
       </div>
     </ng-template>
   </div>

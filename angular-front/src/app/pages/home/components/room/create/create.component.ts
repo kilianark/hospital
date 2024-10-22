@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomService } from '../../../../../services/room.service';
@@ -8,7 +8,11 @@ import { AmbulatoryArea } from '../../../../../enums/ambulatory-area.enum';
 import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
-import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../../../interfaces/room.interface';
+import { debounceTime, map, Observable } from 'rxjs';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-create',
@@ -19,52 +23,95 @@ export class CreateComponent implements OnInit {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
 
-  ambulatoryAreas = Object.keys(AmbulatoryArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
+  showSelect: boolean = false;
 
-  hospitalizedAreas = Object.keys(HospitalizedArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
+  hospitalZones = Object.keys(HospitalZone)
+    .filter((key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
+    .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
+  //
+  ambulatoryArea = Object.keys(AmbulatoryArea)
+    .filter((key) => !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea])))
+    .map((key) => ({ value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
+  //
+  hospitalizedArea = Object.keys(HospitalizedArea)
+    .filter((key) => !isNaN(Number(HospitalizedArea[key as keyof typeof HospitalizedArea])))
+    .map((key) => ({ value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
+  //
+  operatingRoomArea = Object.keys(OperatingRoomArea)
+    .filter((key) => !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea])))
+    .map((key) => ({ value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
+  //
+  urgencyArea = Object.keys(UrgencyArea)
+    .filter((key) => !isNaN(Number(UrgencyArea[key as keyof typeof UrgencyArea])))
+    .map((key) => ({ value: UrgencyArea[key as keyof typeof UrgencyArea] }));
+  //
+  
+  
+  actualZone: HospitalZone;
+  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
 
-  operatingRoomAreas = Object.keys(OperatingRoomArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
-
-  urgencyAreas = Object.keys(UrgencyArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
-
-  selectedZone: string | null = null;
+  currentArea;
+  currentAreaType: string;
 
   constructor(
     private fb: FormBuilder,
     private roomService: RoomService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private translator: TranslateService
   ) {
+
+    this.translator.use('es');
+
+    setTimeout(() => {
+      this.showSelect = true;
+    }, 1);
+
     this.addRoomForm = this.fb.group({
-      roomNumber: ['', Validators.required],
+      roomNumber: ['', [ Validators.required], [this.roomNumberValidator.bind(this)]],
       capacity: ['', Validators.required],
-      zone: ['', Validators.required],
+      zone: [this.actualZone, Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
       floor: [{ value: '', disabled: true }, Validators.required],
-      availability: ['']
+      availability: [false]
     });
+  }
+
+  roomNumberValidator(control: AbstractControl): Observable<{ [key:string]: boolean } | null > {
+
+    return this.roomService.checkRoomNumberExists(control.value).pipe(
+      debounceTime(500),
+      map((exists: boolean) => {
+        return exists ? { roomExists: true} : null;
+      })
+    );
   }
 
   ngOnInit(): void {}
 
-  onZoneChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const zoneValue = selectElement.value;
+  onZoneChange(zone: HospitalZone) {
+    this.actualZone = zone;
+    this.selectedZone = null;
 
-    this.selectedZone = zoneValue;
-
-    if (zoneValue) {
+    if (zone != HospitalZone.Inactivo){
+      this.updateArea();
       this.addRoomForm.get('area')?.enable();
-    } else {
-      this.addRoomForm.get('area')?.disable();
+    }
+  }
+
+  updateArea() {
+    if (this.actualZone == HospitalZone.Ambulatorio) {
+      this.currentArea = this.ambulatoryArea;
+      this.currentAreaType = 'AMBULATORY_AREA';
+    } else if (this.actualZone == HospitalZone.Hospitalizacion) {
+      this.currentArea = this.hospitalizedArea;
+      this.currentAreaType = 'HOSPITALIZED_AREA';
+    } else if (this.actualZone == HospitalZone.Urgencias) {
+      this.currentArea = this.urgencyArea;
+      this.currentAreaType = 'URGENCY_AREA';
+    } else if (this.actualZone == HospitalZone.Quirofano) {
+      this.currentArea = this.operatingRoomArea;
+      this.currentAreaType = 'OPERATING_AREA';
     }
   }
 
@@ -78,10 +125,6 @@ export class CreateComponent implements OnInit {
         this.addRoomForm.get('floor')?.enable();
       }
     }
-  }
-
-  onAvailabilityChange(value: boolean) {
-    this.addRoomForm.patchValue({ availability: value });
   }
 
   onSubmit() {
@@ -100,22 +143,23 @@ export class CreateComponent implements OnInit {
 
       this.roomService.postRoomData(roomData).subscribe({
         next: (data) => {
-          this.confirm('Habitación creada con éxito');
+          this.confirm('Habitación creada con éxito','success');
           this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Error al crear habitación:', error);
-          this.confirm('Error al crear la habitación. Inténtalo de nuevo.');
+          this.confirm('Error al crear la habitación. Inténtalo de nuevo.','error');
         }
       });
     } else {
       console.warn('El formulario no es válido:', this.addRoomForm.errors);
+      this.confirm('Error al crear la habitación. Inténtalo de nuevo.','warning');
     }
   }
 
-  confirm(message: string) {
+  confirm(message: string,type:string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message);
+    dialogRef.componentInstance.setMessage(message,type);
   }
 
   resetForm() {
@@ -124,18 +168,4 @@ export class CreateComponent implements OnInit {
     this.addRoomForm.get('area')?.disable();
   }
 
-  getAreasByZone(): Array<{ value: string, name: string }> {
-    switch (this.selectedZone) {
-      case 'Ambulatorio':
-        return this.ambulatoryAreas;
-      case 'Hospitalizado':
-        return this.hospitalizedAreas;
-      case 'Quirofano':
-        return this.operatingRoomAreas;
-      case 'Urgencias':
-        return this.urgencyAreas;
-      default:
-        return [];
-    }
-  }
 }

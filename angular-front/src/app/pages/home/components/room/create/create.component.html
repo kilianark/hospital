@@ -2,65 +2,81 @@
 <html>
 
 <head>
-    <title>Crear habitación</title>
+  <title>Crear habitación</title>
 </head>
 
 <body>
+  <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" novalidate>
+    <mat-card-title> {{ title }}</mat-card-title>
+    <mat-card-content>
+      <div class="form-row">
+        <!-- Número de habitación -->
 
-    <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()">
-        <div class="content">
-            <legend class="head">{{ title }}</legend>
-            <br />
-    
-            <div class="roomNumber">
-                <label for="roomNumber">Núm. Hab.:</label>
-                <input id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()" required />
-            </div>
-            <br />
-    
-            <div class="capacity">
-                <label for="capacity">Capacidad: </label>
-                <input id="capacity" formControlName="capacity" type="number" required />
-            </div>
-            <br />
-    
-            <div class="zone">
-                <label for="zone">Zona:</label>
-                <select id="zone" formControlName="zone" (change)="onZoneChange($event)">
-                    <option value="" disabled selected>Seleccione una zona</option>
-                    <option *ngFor="let area of ['Ambulatorio', 'Hospitalizado', 'Urgencias', 'Quirofano']" [value]="area"> {{ area }}</option>
-                </select>
-            </div>
-            <br />
-    
-            <div class="area">
-                <label for="area">Área:</label>
-                <select id="area" formControlName="area" [disabled]="!selectedZone">
-                    <option value="" disabled selected>Seleccione un área</option>
-                    <option *ngFor="let area of getAreasByZone()" [value]="area.value">{{ area.name }}</option>
-                </select>
-            </div>
-            <br />
-    
-            <div class="availability">
-                <label for="availability">Disponibilidad:</label>
-                <div class="select">
-                    <input id="availability-yes" type="radio" formControlName="availability" [value]="true" />
-                    <label class="select1" for="availability-yes">Sí</label>
-    
-                    <input id="availability-no" type="radio" formControlName="availability" [value]="false" />
-                    <label class="select2" for="availability-no">No</label>
-                </div>
-            </div>
-            <br />
-    
-            <div class="formButtons">
-                <input class="submit" type="submit" placeholder="Registrar" [disabled]="addRoomForm.invalid" />
-                <input class="reset" type="button" value="Reiniciar" (click)="resetForm()">
-            </div>
-        </div>
-    </form>
+        <mat-form-field appearance="outline">
 
+          <mat-label for="roomNumber">Núm. Hab.</mat-label>
+          <input matInput id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()"
+            required />
+
+          <mat-error *ngIf="addRoomForm.get('roomNumber')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+
+          <mat-error
+            *ngIf="addRoomForm.get('roomNumber')?.hasError('roomExists') && addRoomForm.get('roomNumber')?.touched">
+            Este número de habitación ya existe.
+          </mat-error>
+
+        </mat-form-field>
+
+        <!-- Capacidad -->
+        <mat-form-field appearance="outline">
+          <mat-label for="capacity">Capacidad</mat-label>
+          <input matInput id="capacity" formControlName="capacity" type="number" required />
+          <mat-error *ngIf="addRoomForm.get('capacity')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Zona -->
+        <mat-form-field appearance="outline" *ngIf="showSelect">
+          <mat-label for="zone">Zona</mat-label>
+          <mat-select id="zone" formControlName="zone"  (selectionChange)="onZoneChange($event.value)">
+            <mat-option disabled selected>Seleccione una zona</mat-option>
+            <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
+              {{ zone.value | enumToString: "HOSPITAL_ZONE" }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="addRoomForm.get('zone')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Area -->
+        <mat-form-field appearance="outline">
+          <mat-label for="area">Area</mat-label>
+          <mat-select id="area" name="area" formControlName="area">
+            <mat-option *ngFor="let area of currentArea" [value]="area.value">
+              {{ area.value | enumToString : currentAreaType }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="addRoomForm.get('area')?.hasError('required')">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="addRoomForm.invalid">
+        Registrar
+      </button>
+      <button mat-raised-button type="button" (click)="resetForm()">
+        Reiniciar
+      </button>
+    </mat-card-actions>
+  </form>
 </body>
 
 </html>

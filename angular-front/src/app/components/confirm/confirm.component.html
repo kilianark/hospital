@@ -1,8 +1,7 @@
-<div class="mat-dialog-container">
-    <div class="confirmation">
-        <p>{{getMessage()}}</p> <!--poner variable {{}} de mensaje -->
-    </div>
-    <div mat-dialog-actions>
-        <button matt-button class="close" (click)="closeDialog()">Cerrar</button>
-    </div>
+<div class="mat-dialog-container {{ getType() }}"> <!-- Clase dinámica según el tipo de notificación -->
+  <span class="notification-icon">{{ getIcon() }}</span> <!-- Icono dinámico -->
+  <div class="confirmation">
+    <p>{{ getMessage() }}</p> <!-- Mensaje dinámico -->
+  </div>
+  <button class="close-button" (click)="closeDialog()">&#10005;</button> <!-- Botón cerrar -->
 </div>

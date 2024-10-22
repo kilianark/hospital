@@ -1,37 +1,93 @@
-
+/* Estilo base del contenedor de la notificación */
 .mat-dialog-container {
-    position: fixed;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 15px;
-    align-items: center;
-    box-sizing: border-box;
-    cursor: pointer;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    margin-left: 10%;
+  position: fixed; /* Posicionada en un lugar fijo en la pantalla */
+  top: 20px; /* Parte superior */
+  right: 20px; /* Parte derecha */
+  width: 320px;
+  padding: 20px 15px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(20px);
+  animation: fadeIn 0.5s forwards, fadeOut 0.5s 4.5s forwards; /* Animación de entrada y salida */
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  color: #fff; /* Color del texto en blanco por defecto */
+}
 
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+/* Tipos de notificaciones con colores distintos */
+.mat-dialog-container.success {
+  background-color: #4CAF50; /* Verde para éxito */
+  border-left: 5px solid #388E3C;
 }
-.confirmation {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 5px;
+
+.mat-dialog-container.error {
+  background-color: #F44336; /* Rojo para errores */
+  border-left: 5px solid #D32F2F;
 }
-.mat-dialog-actions {
-    display: flex;
-    justify-content: flex-end;
+
+.mat-dialog-container.warning {
+  background-color: #FF9800; /* Naranja para advertencias */
+  border-left: 5px solid #F57C00;
 }
-p {
+
+
+
+/* Estilo del mensaje */
+.confirmation p {
+  font-size: 16px;
   margin: 0;
-  font-size: 1em;
+  padding-right: 30px; /* Espacio para el botón de cerrar */
+  flex-grow: 1;
 }
-/*body {
-    border-radius: 8px;
-}*/
-/*
-.full-width-dialog button:hover {
-  background-color: #0056b3;
-}*/
+
+/* Estilo del icono */
+.notification-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+/* Estilo del botón cerrar en la esquina superior derecha */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+/* Animación de entrada (fadeIn) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animación de salida (fadeOut) */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}

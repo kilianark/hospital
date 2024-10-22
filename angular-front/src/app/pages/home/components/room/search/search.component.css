@@ -1,7 +1,11 @@
 .content {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  overflow: hidden;
 }
-
+mat-card-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
 legend {
   margin: 0px;
   overflow: hidden;
@@ -16,9 +20,8 @@ legend {
 
 form {
   padding-top: 3%;
-  padding-left: 4%;
+  padding-left: 2%;
   padding-bottom: 10px;
-  border-bottom: solid black;
 }
 
 form button {
@@ -28,7 +31,6 @@ form button {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
-  margin-top: 10px;
   width: auto;
   text-transform: uppercase;
 }
@@ -39,10 +41,11 @@ form button:hover {
 
 .credentials {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  grid-template-rows: auto auto;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
   gap: 10px;
-  max-width: 950px;
+  margin-right: 2%;
+  margin-top: 3%;
 }
 
 .filtre1 {
@@ -61,28 +64,28 @@ form button:hover {
   max-width: 800px;
 }
 
-.alinear {
-  display: flex;
-  align-items: center;
-  font-style: italic;
-  gap: 4.3vw;
-  margin-top: -10px;
-  margin-bottom: -10px;
-  margin-left: -10px;
-}
-
 fieldset {
   border: none;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
-
+table {
+  display: block;
+  scrollbar-width: none;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
 .table-wrapper {
   width: 83vw;
-  height: 63.9vh;
+  height: auto;
   overflow: auto;
   margin-left: 15px;
 }
 
-.table-wrapper::-webkit-scrollbar {
+table::-webkit-scrollbar {
   display: none;
 }
 
@@ -127,19 +130,124 @@ td button {
     display: flex;
     flex-wrap: wrap;
   }
+  .table-wrapper {
+    width: 99vw;
+  }
   form {
     padding-right: 2%;
   }
   .credentials {
     display: grid;
-    grid-template-columns: 18vw 65vw;
+    grid-template-columns: 45vw 45vw;
     grid-template-rows: auto auto;
     gap: 10px;
-    max-width: 950px;
+  }
+  th,
+  td {
+    padding: 0 15px;
+  }
+  #botonBuscar {
+    width: 25vw;
+    height: 8vw;
   }
 }
 @media screen and (max-width: 480px) {
   .credentials {
-    grid-template-columns: 25vw 65vw;
+    grid-template-columns: 45vw 45vw;
+  }
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.prev,
+.next {
+  margin: 0 5px; /* Espacio reducido entre los botones de navegación y los números */
+  flex: 0; /* Asegura que estos botones no crezcan */
+}
+
+.pagination {
+  display: inline-flex;
+  justify-content: center; /* Centra los números de página */
+  flex-grow: 0.3; /* Permite que el contenedor de paginación ocupe el espacio disponible */
+  margin: 0 10px; /* Reduce el espacio a los lados del contenedor de paginación */
+}
+
+.pagination button {
+  background-color: transparent;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+  border-radius: 4px;
+  padding: 5px 8px; /* Ajusta el tamaño del padding de los botones */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button.active {
+  background-color: #1976d2;
+  color: white;
+}
+
+.pagination button:hover:not(.active):not(:disabled) {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.pagination button:disabled {
+  color: #b0bec5;
+  border: none;
+  background-color: transparent;
+}
+
+.pagination button:focus {
+  outline: none;
+}
+
+.pagination button:first-child,
+.pagination button:last-child {
+  padding: 5px 10px; /* Ajusta el tamaño de las flechas */
+  font-weight: normal;
+}
+
+th {
+  cursor: pointer;
+  padding: 10px;
+  user-select: none;
+}
+
+th span {
+  margin-left: 5px;
+}
+
+th:hover {
+  background-color: #f1f1f1;
+}
+.loading-container {
+  width: 80%; /* Asegura que la barra no ocupe todo el ancho */
+  height: 10px; /* Cambia la altura para que sea más fina */
+  background-color: #e0e0e0; /* Color del fondo de la barra de carga */
+  border-radius: 5px; /* Bordes redondeados */
+  margin: 20px auto; /* Centra la barra en la página */
+  position: relative;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0; /* Inicia en 0% */
+  background-color: #4caf50; /* Color de la barra de carga */
+  border-radius: 5px; /* Bordes redondeados para la barra */
+  animation: loading 0.4s linear forwards; /* Animación de carga */
+}
+
+@keyframes loading {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%; /* Llena al 100% al finalizar */
   }
 }

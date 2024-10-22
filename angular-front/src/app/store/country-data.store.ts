@@ -206,7 +206,6 @@ export var countries: Country [] = [
     { code:"ZA", name:"Sudáfrica" },
     { code:"GS", name:"Georgia del Sur y las Islas Sandwich del Sur" },
     { code:"SS", name:"Sudán del Sur" },
-    { code:"ES", name:"España" },
     { code:"LK", name:"Sri Lanka" },
     { code:"SD", name:"Sudán" },
     { code:"SR", name:"Surinam" },

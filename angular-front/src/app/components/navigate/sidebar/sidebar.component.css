@@ -74,7 +74,7 @@ body {
   }
   body {
     display: flex;
-    position: sticky;
+    position: fixed;
   }
   .sidebar label {
     font-size: 3.2vw;

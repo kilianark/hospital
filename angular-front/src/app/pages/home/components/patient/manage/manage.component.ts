@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { PatientStatus } from '../../../../../enums/patient-status.enum';
+import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { AmbulatoryArea } from '../../../../../enums/ambulatory-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
@@ -14,152 +14,187 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RoomInterface } from '../../../interfaces/room.interface';
+import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
+import { AssignRoom } from '../../../../../components/assignroom/assignroom.component';
 
 @Component({
-	selector: 'app-manage',
-	templateUrl: './manage.component.html',
-	styleUrls: ['./manage.component.css']
+  selector: 'app-manage',
+  templateUrl: './manage.component.html',
+  styleUrls: ['./manage.component.css'],
 })
-export class ManagePatientComponent implements OnInit {
-	title = 'Gestionar Estado:'
-	patientId!: number ;
-	patient!: PatientInterface;
-	statusForm: FormGroup;
+export class ManagePatientComponent {
+  title = 'Gestionar Estado:';
+  patientId!: number;
+  patient!: PatientInterface;
+  zoneForm: FormGroup;
 
-	selectedAmbulatory: AmbulatoryArea | null = null;
-	selectedHospitalized: HospitalizedArea | null = null;
-	selectedUrgency: UrgencyArea | null = null;
-	selectedOperatingRoom: OperatingRoomArea | null = null;
+  HospitalZone = HospitalZone;
 
-	showSelectRoom: boolean = false;
-	showRoomList: boolean = false;
-	showAreaA: boolean = false;
-	showAreaH: boolean = false;
-	showAreaU: boolean = false;
-	showAreaO: boolean = false;
+  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
 
-	rooms: RoomInterface[] = [];
+  currentArea;
+  currentAreaType: string;
 
-	patientStatus = Object.keys(PatientStatus)
-		.filter(key => !isNaN(Number(PatientStatus[key as keyof typeof PatientStatus])))
-		.map(key => ({value: PatientStatus[key as keyof typeof PatientStatus] }));
-	//
-	ambulatoryArea = Object.keys(AmbulatoryArea)
-		.filter(key => !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea])))
-		.map(key => ({value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
-	//
-	hospitalizedArea = Object.keys(HospitalizedArea)
-		.filter(key => !isNaN(Number(HospitalizedArea[key as keyof typeof HospitalizedArea])))
-		.map(key => ({value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
-	//
-	urgencyArea = Object.keys(UrgencyArea)
-		.filter(key => !isNaN(Number(UrgencyArea[key as keyof typeof UrgencyArea])))
-		.map(key => ({value: UrgencyArea[key as keyof typeof UrgencyArea] }));
-	//
-	operatingRoomArea = Object.keys(OperatingRoomArea)
-		.filter(key => !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea])))
-		.map(key => ({value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
+  showSelectRoom: boolean = false;
+  showRoomList: boolean = false;
 
-	//
-	constructor(private route: ActivatedRoute, private patientService: PatientService, private router: Router, public dialog: MatDialog, private formBuilder: FormBuilder, private translate: TranslateService, private roomService: RoomService) {
-		
-		this.translate.use('es');
-		
-		this.statusForm = this.formBuilder.group({
-			status: ['']
-		});
+  rooms: RoomInterface[] = [];
 
-		this.route.params.subscribe(params => {
-			this.patientId = +params['id'];
-			this.patientService.getPatientById(this.patientId).subscribe(data =>{
-				this.patient = data;
-			
-				this.statusForm.patchValue({
-					status: this.patient.status
-				});
-				if (this.patient.status != PatientStatus.Inactivo) {
-					this.showSelectRoom = true;
-					if (this.patient.status == PatientStatus.Ambulatorio) this.showAreaA = true;
-					if (this.patient.status == PatientStatus.Urgencias) this.showAreaU = true;
-					if (this.patient.status == PatientStatus.Quirofano) this.showAreaO = true;
-					if (this.patient.status == PatientStatus.Hospitalizado) this.showAreaH = true;
-					
-				}
-			})
-		});
-	}
+  patientStatus = Object.keys(HospitalZone)
+    .filter(
+      (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
+    )
+    .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
+  //
+  ambulatoryArea = Object.keys(AmbulatoryArea)
+    .filter(
+      (key) =>
+        !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea]))
+    )
+    .map((key) => ({
+      value: AmbulatoryArea[key as keyof typeof AmbulatoryArea],
+    }));
+  //
+  hospitalizedArea = Object.keys(HospitalizedArea)
+    .filter(
+      (key) =>
+        !isNaN(Number(HospitalizedArea[key as keyof typeof HospitalizedArea]))
+    )
+    .map((key) => ({
+      value: HospitalizedArea[key as keyof typeof HospitalizedArea],
+    }));
+  //
+  urgencyArea = Object.keys(UrgencyArea)
+    .filter(
+      (key) => !isNaN(Number(UrgencyArea[key as keyof typeof UrgencyArea]))
+    )
+    .map((key) => ({ value: UrgencyArea[key as keyof typeof UrgencyArea] }));
+  //
+  operatingRoomArea = Object.keys(OperatingRoomArea)
+    .filter(
+      (key) =>
+        !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea]))
+    )
+    .map((key) => ({
+      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea]
+    }));
+  //
 
-	ngOnInit(): void {
-	}
+  openDialog(patientCode: number) {
+    let popupRef = this.dialog.open(AssignRoom, {
+      width: '50%',
+      height: '80%',
+      maxWidth: '100vw',
+      panelClass: 'full-width-dialog',
+      data: patientCode,
+    });
+  }
 
-	onStatusChange(status: PatientStatus) {
-		this.patient.status = status;
+  constructor(
+    private route: ActivatedRoute,
+    private patientService: PatientService,
+    private router: Router,
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private roomService: RoomService
+  ) {
+    this.translate.use('es');
 
-		if (status != PatientStatus.Inactivo ) {
-			this.showSelectRoom = true;
+    this.zoneForm = this.formBuilder.group({
+      status: [''],
+    });
 
-			this.showAreaA = this.showAreaH = this.showAreaU = this.showAreaO = false;
-			switch (Number(status)) {
-				case (PatientStatus.Ambulatorio):
-					this.showAreaA = true;
-					break;
-				case (PatientStatus.Hospitalizado):
-					this.showAreaH = true;
-					break;
-				case (PatientStatus.Urgencias):
-					this.showAreaU = true;
-					break;
-				case (PatientStatus.Quirofano):
-					this.showAreaO = true;
-					break;
-				default:
-					console.log("Esto no furula");
-			}
-		} else this.showSelectRoom = false;	
-	}
+    this.route.params.subscribe((params) => {
+      this.patientId = +params['id'];
+      this.patientService.getPatientById(this.patientId).subscribe((data) => {
+        this.patient = data;
 
-	onAreaChangeA(area: AmbulatoryArea) {
-		this.selectedAmbulatory = area;
-		console.log('Area Seleccionada: ', area);
-	}
+        this.zoneForm.patchValue({ status: this.patient.zone });
+        if (this.patient.zone != HospitalZone.Inactivo)
+          this.showSelectRoom = true;
 
-	onAreaChangeH(area: HospitalizedArea) {
-		this.selectedHospitalized = area;
-		console.log('Area Seleccionada: ', area);
-	}
+        this.updateArea();
+      });
+    });
+  }
 
-	onAreaChangeU(area: UrgencyArea) {
-		this.selectedUrgency = area;
-		console.log('Area Seleccionada: ', area);
-	}
+  onStatusChange(zone: HospitalZone) {
+    this.patient.zone = zone;
+    this.selectedZone = null;
 
-	onAreaChangeO(area: OperatingRoomArea) {
-		this.selectedOperatingRoom = area;
-		console.log('Area Seleccionada: ', area);
-	}
+    if (zone != HospitalZone.Inactivo) {
+      this.showSelectRoom = true;
 
-	showDropDown() {
-		this.showRoomList = !this.showRoomList;
-		if(this.showRoomList) {
-			this.roomService.getRoomData().subscribe(data =>
-				this.rooms = data
-			);
-		}
-	}
-	
-	onSubmit() {
-		this.patientService.putPatientData(this.patient).subscribe(data => {
-		});
+      this.updateArea();
 
-		console.log('Estat Actualitzat:');
-		this.confirm();
-		this.router.navigate(['/home']);
-	}
+      if (this.showRoomList) {
+        this.roomService
+          .searchRooms(null, null, this.patient.zone, null, null, null)
+          .subscribe((data) => (this.rooms = data));
+      }
+    } else this.showSelectRoom = false;
+  }
 
-	confirm() {
-		let dialogRef = this.dialog.open(ConfirmComponent, {});
-		dialogRef.componentInstance.setMessage("Estado Actualizado");
-	}
+  updateArea() {
+    if (this.patient.zone == HospitalZone.Ambulatorio) {
+      if (this.patient.zone == HospitalZone.Ambulatorio) {
+        this.currentArea = this.ambulatoryArea;
+        this.currentAreaType = 'AMBULATORY_AREA';
+      } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
+      } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
+        this.currentArea = this.hospitalizedArea;
+        this.currentAreaType = 'HOSPITALIZED_AREA';
+      } else if (this.patient.zone == HospitalZone.Urgencias) {
+      } else if (this.patient.zone == HospitalZone.Urgencias) {
+        this.currentArea = this.urgencyArea;
+        this.currentAreaType = 'URGENCY_AREA';
+      } else if (this.patient.zone == HospitalZone.Quirofano) {
+      } else if (this.patient.zone == HospitalZone.Quirofano) {
+        this.currentArea = this.operatingRoomArea;
+        this.currentAreaType = 'OPERATING_AREA';
+      }
+    }
+  }
+
+  onAreaChange(
+    area: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea
+  ) {
+    if (this.showRoomList) {
+      this.roomService
+        .searchRooms(
+          null,
+          null,
+          this.patient.zone,
+          area.toString(),
+          null,
+          null
+        )
+        .subscribe((data) => (this.rooms = data));
+    }
+  }
+
+  showDropDown() {
+    this.showRoomList = !this.showRoomList;
+    if (this.showRoomList) {
+      this.roomService
+        .searchRooms(null, null, this.patient.zone, null, null, null)
+        .subscribe((data) => (this.rooms = data));
+    }
+  }
+
+  onSubmit() {
+    this.patientService.putPatientData(this.patient).subscribe((data) => { });
+
+    console.log('Estat Actualitzat:');
+    this.confirm('Paciente actualizado con éxito', 'success');
+    this.router.navigate(['/home']);
+  }
+
+  confirm(message: string, type: string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message, type);
+  }
 }
+

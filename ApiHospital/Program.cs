@@ -22,7 +22,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
-builder.Services.AddDbContext<HospitalContext>(opt => opt.UseInMemoryDatabase("hospitalContext"));
+builder.Services.AddDbContext<HospitalContext>(opt => opt.UseOracle(builder.Configuration.GetConnectionString("HospitalController")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 /*
   "AllowedHosts": "*",

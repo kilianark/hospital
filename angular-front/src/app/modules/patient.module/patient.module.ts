@@ -1,48 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 
 import { PatientRoutingModule } from './patient-routing.module';
 import { SearchPatientComponent } from '../../pages/home/components/patient/search/search.component';
 import { CreatePatientComponent } from '../../pages/home/components/patient/create/create.component';
 import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PatientService } from '../../services/patient.service';
-
-import { RequiredComponent } from '../../components/required/required.component';
-import { SharedModule } from '../../shared/shared.module';
-
-// Angular Material Modules
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-
+import { SharedModule } from '../../shared/modules/shared.module';
+import { PatientFormComponent } from '../../shared/components/patient-form/patient-form.component';
 @NgModule({
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
-    SearchPatientComponent
+    SearchPatientComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     PatientRoutingModule,
-    RequiredComponent,
     SharedModule,
+    PatientFormComponent
 
-    // Angular Material imports
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
   ],
   providers: [provideHttpClient()],
 })

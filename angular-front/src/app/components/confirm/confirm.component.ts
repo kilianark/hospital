@@ -1,29 +1,52 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialogRef} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirm',
-  standalone: true,
-  imports: [],
   templateUrl: './confirm.component.html',
-  styleUrl: './confirm.component.css'
+  standalone: true,
+  styleUrls: ['./confirm.component.css']
 })
-export class ConfirmComponent {
-  private message: string = "";
+export class ConfirmComponent implements OnInit {
+  private message: string = '';
+  private type: string = 'warning'; // Por defecto será 'info'
 
-  constructor(public dialogRef: MatDialogRef<ConfirmComponent>, private router: Router) {}
+  constructor(public dialogRef: MatDialogRef<ConfirmComponent>) {}
 
-  setMessage(messageString: string): void {
+  setMessage(messageString: string, type: string = ''): void {
     this.message = messageString;
+    this.type = type;
   }
 
   getMessage(): string {
     return this.message;
   }
 
+  getType(): string {
+    return this.type;
+  }
+
+  getIcon(): string {
+    switch (this.type) {
+      case 'success':
+        return '✔'; // Icono de éxito
+      case 'error':
+        return '✖'; // Icono de error
+      case 'warning':
+        default:
+          return '⚠'; // Icono de advertencia
+       // Icono de información
+    }
+  }
+
   closeDialog(): void {
     this.dialogRef.close();
-    //this.router.navigate(['/home']);
+  }
+
+  ngOnInit(): void {
+    // Cerrar el diálogo automáticamente después de 5 segundos
+    setTimeout(() => {
+      this.closeDialog();
+    }, 2000); // 5 segundos
   }
 }
