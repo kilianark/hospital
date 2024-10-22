@@ -20,19 +20,18 @@ export class SearchPatientComponent implements OnInit {
 
   patients: PatientInterface[] = [];
   filteredPatients: PatientInterface[] = [];
+
   fuseName: Fuse<PatientInterface> | null = null;
   fuseSurname1: Fuse<PatientInterface> | null = null;
   fuseSurname2: Fuse<PatientInterface> | null = null;
+
   pageNumbers: number[] = [];
-
   isLoading = false;
-
   sortField: string = 'name'; // Campo por defecto para ordenar
   sortDirection: SortDirection = 'asc'; // Dirección de orden por defecto
-
   // Variables para la paginación
   currentPage: number = 1;
-  itemsPerPage: number = 1;
+  itemsPerPage: number = 5;
   totalPages: number = 0;
 
   patientForm: FormGroup;
@@ -47,6 +46,7 @@ export class SearchPatientComponent implements OnInit {
   status: string = '';
   bedId: number = 0;
 
+  isVisible: boolean = false;
   showSelect: boolean = false;
 
   patientStatus = Object.keys(HospitalZone)
@@ -92,21 +92,12 @@ export class SearchPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.patientService.getPatientData().subscribe((data) => {
       this.patients = data.map (patient => ({
         ...patient,
         status: patient.zone
       }));
-
-      this.currentPage = 1;
-      this.totalPages = Math.ceil(this.patients.length / this.itemsPerPage);
-      this.generatePageNumbers();
-      this.updatePagedPatients();
-
-      this.isLoading = false; // Finaliza el estado de carga
-      this.isVisible = this.patients.length > 0; // Muestra los resultados si hay pacientes
-      
-      this.filteredPatients = this.patients;
 
       this.fuseName = new Fuse(this.patients, {
         keys: ['name'],
@@ -123,12 +114,13 @@ export class SearchPatientComponent implements OnInit {
         threshold: 0.3,
       });
 
-    },
+    });
+    /*
     (error) => {
       console.error('Error al buscar pacientes:', error);
       this.isLoading = false; // Finaliza el estado de carga incluso en caso de error
       this.isVisible = false; // No muestra los resultados si ocurre un error
-    });
+    });*/
   }
 
   updatePagedPatients() {
@@ -294,6 +286,7 @@ export class SearchPatientComponent implements OnInit {
 
     this.filteredPatients = exactFilteredPatients;
     this.isVisible = true;
+    this.isLoading = false;
   }
 
   openDialog(patientId: number) {
@@ -321,7 +314,6 @@ export class SearchPatientComponent implements OnInit {
     this.isVisible = false;
   }
 
-  isVisible: boolean = false;
   toggleDisplay() {
     this.isVisible = true;
   }
