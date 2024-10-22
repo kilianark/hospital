@@ -8,7 +8,7 @@ import { CreatePatientComponent } from '../../pages/home/components/patient/crea
 import { ManagePatientComponent } from '../../pages/home/components/patient/manage/manage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
-
+import { PatientFormComponent } from '../../shared/components/patient-form/patient-form.component';
 @NgModule({
   declarations: [
     CreatePatientComponent,
@@ -21,6 +21,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
     FormsModule,
     PatientRoutingModule,
     SharedModule,
+    PatientFormComponent
 
   ],
   providers: [provideHttpClient()],
