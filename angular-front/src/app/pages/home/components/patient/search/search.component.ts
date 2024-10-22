@@ -285,8 +285,14 @@ export class SearchPatientComponent implements OnInit {
     }
 
     this.filteredPatients = exactFilteredPatients;
-    this.isVisible = true;
     this.isLoading = false;
+    this.isVisible = this.filteredPatients.length > 0;
+
+    this.currentPage = 1; // Reinicia la página actual al buscar
+    this.totalPages = Math.ceil(this.filteredPatients.length / this.itemsPerPage);
+    this.updatePagedPatients();
+
+    
   }
 
   openDialog(patientId: number) {
