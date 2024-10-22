@@ -16,7 +16,7 @@ import { DoctorService } from '../../../../services/doctor.service';
 })
 export class ProfileComponent {
   profileForm: FormGroup;
-  
+
   constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private doctorService : DoctorService) {
     this.profileForm = this.formBuilder.group({
       dni: [this.doctor.dni, [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
@@ -36,7 +36,7 @@ export class ProfileComponent {
 
   public countries: Country[] = countries;
 
-  
+
   doctor: DoctorInterface = {
 
     id: 2,
@@ -62,12 +62,12 @@ export class ProfileComponent {
     if(this.profileForm.invalid) return;
 
     console.log('Perfil actualizado');
-    this.confirm();
+    this.confirm('Cambios guardados correctamente', 'success');;
   }
 
-  confirm() {
-    let dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage("Perfil Actualizado")
+  confirm(message: string, type: string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message, type);
   }
 
 }

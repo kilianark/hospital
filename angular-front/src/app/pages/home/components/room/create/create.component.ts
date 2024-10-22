@@ -23,29 +23,32 @@ export class CreateComponent implements OnInit {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
 
+  showSelect: boolean = false;
+
   hospitalZones = Object.keys(HospitalZone)
     .filter((key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
     .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
-
-  ambulatoryAreas = Object.keys(AmbulatoryArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
-
-  hospitalizedAreas = Object.keys(HospitalizedArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
-
-  operatingRoomAreas = Object.keys(OperatingRoomArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
-
-  urgencyAreas = Object.keys(UrgencyArea)
-    .filter(key => isNaN(Number(key)))
-    .map(key => ({ value: key, name: key }));
-
-  selectedZone: string | null = null;
-
-  showSelect: boolean;
+  //
+  ambulatoryArea = Object.keys(AmbulatoryArea)
+    .filter((key) => !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea])))
+    .map((key) => ({ value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
+  //
+  hospitalizedArea = Object.keys(HospitalizedArea)
+    .filter((key) => !isNaN(Number(HospitalizedArea[key as keyof typeof HospitalizedArea])))
+    .map((key) => ({ value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
+  //
+  operatingRoomArea = Object.keys(OperatingRoomArea)
+    .filter((key) => !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea])))
+    .map((key) => ({ value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
+  //
+  urgencyArea = Object.keys(UrgencyArea)
+    .filter((key) => !isNaN(Number(UrgencyArea[key as keyof typeof UrgencyArea])))
+    .map((key) => ({ value: UrgencyArea[key as keyof typeof UrgencyArea] }));
+  //
+  
+  
+  actualZone: HospitalZone;
+  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
 
   currentArea;
   currentAreaType: string;
@@ -67,7 +70,7 @@ export class CreateComponent implements OnInit {
     this.addRoomForm = this.fb.group({
       roomNumber: ['', [ Validators.required], [this.roomNumberValidator.bind(this)]],
       capacity: ['', Validators.required],
-      zone: ['', Validators.required],
+      zone: [this.actualZone, Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
       floor: [{ value: '', disabled: true }, Validators.required],
       availability: [false]
@@ -86,23 +89,30 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onZoneChange(event: any) {
-    const zoneValue = event.value;
+  onZoneChange(zone: HospitalZone) {
+    this.actualZone = zone;
+    this.selectedZone = null;
 
-    this.selectedZone = zoneValue;
-
-    if (zoneValue) {
+    if (zone != HospitalZone.Inactivo){
+      this.updateArea();
       this.addRoomForm.get('area')?.enable();
-    } else {
-      this.addRoomForm.get('area')?.disable();
     }
+  }
 
-    this.addRoomForm.get('roomNumber')?.statusChanges.subscribe(status => {
-      console.log('Estado de roomNumber:', status);
-      console.log('Errores de roomNumber:', this.addRoomForm.get('roomNumber')?.errors);
-    });
-
-
+  updateArea() {
+    if (this.actualZone == HospitalZone.Ambulatorio) {
+      this.currentArea = this.ambulatoryArea;
+      this.currentAreaType = 'AMBULATORY_AREA';
+    } else if (this.actualZone == HospitalZone.Hospitalizacion) {
+      this.currentArea = this.hospitalizedArea;
+      this.currentAreaType = 'HOSPITALIZED_AREA';
+    } else if (this.actualZone == HospitalZone.Urgencias) {
+      this.currentArea = this.urgencyArea;
+      this.currentAreaType = 'URGENCY_AREA';
+    } else if (this.actualZone == HospitalZone.Quirofano) {
+      this.currentArea = this.operatingRoomArea;
+      this.currentAreaType = 'OPERATING_AREA';
+    }
   }
 
   firstNumToFloor() {
@@ -158,18 +168,4 @@ export class CreateComponent implements OnInit {
     this.addRoomForm.get('area')?.disable();
   }
 
-  getAreasByZone(): Array<{ value: string, name: string }> {
-    switch (this.selectedZone) {
-      case 'Ambulatorio':
-        return this.ambulatoryAreas;
-      case 'Hospitalizado':
-        return this.hospitalizedAreas;
-      case 'Quirofano':
-        return this.operatingRoomAreas;
-      case 'Urgencias':
-        return this.urgencyAreas;
-      default:
-        return [];
-    }
-  }
 }

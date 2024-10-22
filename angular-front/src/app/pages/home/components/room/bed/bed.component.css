@@ -1,5 +1,6 @@
 .content {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  overflow: hidden;
 }
 
 legend {
@@ -20,9 +21,9 @@ body {
 }
 
 .table-wrapper {
-  width: 83vw;
-  height: 63.9vh;
-  overflow: auto;
+  width: 100%;
+  height: auto;
+  margin-left: 15px;
 }
 
 .table-wrapper::-webkit-scrollbar {
@@ -31,6 +32,13 @@ body {
 
 .table-wrapper table {
   border-collapse: collapse;
+}
+
+.table-wrapper table thead {
+  position: -webkit-sticky; /* Safari... */
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 thead {
@@ -45,6 +53,27 @@ td {
   width: 200px;
 }
 
-.file-click:hover {
-  background-color: #f5f5f5;
+td button {
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 768px) {
+  content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  body {
+    margin: 0px;
+  }
+  .table-wrapper {
+    width: 99vw;
+  }
+}
+th,
+td {
+  padding: 0 15px;
 }

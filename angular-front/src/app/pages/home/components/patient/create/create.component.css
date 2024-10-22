@@ -23,8 +23,12 @@ mat-card-content {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-
 mat-card-title {
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  font-weight: bold;
+  font-size: 1.5em;
+}
+legend {
   font-weight: bold;
   font-size: 1.5em;
 }
@@ -56,6 +60,11 @@ button {
   .select {
     grid-template-columns: auto auto;
   }
+  button {
+    width: 40vw;
+    height: 7vh;
+  }
+
   .form-col {
     display: grid;
     grid-template-columns: 18vw 18vw 20vw 20vw;

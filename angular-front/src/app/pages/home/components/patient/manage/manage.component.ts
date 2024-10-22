@@ -31,12 +31,7 @@ export class ManagePatientComponent {
 
   HospitalZone = HospitalZone;
 
-  selectedZone:
-    | AmbulatoryArea
-    | HospitalizedArea
-    | UrgencyArea
-    | OperatingRoomArea
-    | null = null;
+  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
 
   currentArea;
   currentAreaType: string;
@@ -82,7 +77,7 @@ export class ManagePatientComponent {
         !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea]))
     )
     .map((key) => ({
-      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea],
+      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea]
     }));
   //
 
@@ -144,17 +139,22 @@ export class ManagePatientComponent {
 
   updateArea() {
     if (this.patient.zone == HospitalZone.Ambulatorio) {
-      this.currentArea = this.ambulatoryArea;
-      this.currentAreaType = 'AMBULATORY_AREA';
-    } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
-      this.currentArea = this.hospitalizedArea;
-      this.currentAreaType = 'HOSPITALIZED_AREA';
-    } else if (this.patient.zone == HospitalZone.Urgencias) {
-      this.currentArea = this.urgencyArea;
-      this.currentAreaType = 'URGENCY_AREA';
-    } else if (this.patient.zone == HospitalZone.Quirofano) {
-      this.currentArea = this.operatingRoomArea;
-      this.currentAreaType = 'OPERATING_AREA';
+      if (this.patient.zone == HospitalZone.Ambulatorio) {
+        this.currentArea = this.ambulatoryArea;
+        this.currentAreaType = 'AMBULATORY_AREA';
+      } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
+      } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
+        this.currentArea = this.hospitalizedArea;
+        this.currentAreaType = 'HOSPITALIZED_AREA';
+      } else if (this.patient.zone == HospitalZone.Urgencias) {
+      } else if (this.patient.zone == HospitalZone.Urgencias) {
+        this.currentArea = this.urgencyArea;
+        this.currentAreaType = 'URGENCY_AREA';
+      } else if (this.patient.zone == HospitalZone.Quirofano) {
+      } else if (this.patient.zone == HospitalZone.Quirofano) {
+        this.currentArea = this.operatingRoomArea;
+        this.currentAreaType = 'OPERATING_AREA';
+      }
     }
   }
 
@@ -185,15 +185,16 @@ export class ManagePatientComponent {
   }
 
   onSubmit() {
-    this.patientService.putPatientData(this.patient).subscribe((data) => {});
+    this.patientService.putPatientData(this.patient).subscribe((data) => { });
 
     console.log('Estat Actualitzat:');
-    this.confirm('Paciente actualizado con éxito','success');
+    this.confirm('Paciente actualizado con éxito', 'success');
     this.router.navigate(['/home']);
   }
 
-  confirm(message: string,type:string) {
+  confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message,type);
+    dialogRef.componentInstance.setMessage(message, type);
   }
 }
+

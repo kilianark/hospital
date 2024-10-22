@@ -14,7 +14,7 @@ export class PatientService {
 
 
 
-  getPatientData (patientCode?: number, Name?: string, Surname1?: string, 
+  getPatientData(patientCode?: number, Name?: string, Surname1?: string,
     Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, BedId?: number, Ingresados?: boolean): Observable<PatientInterface[]> {
     let params = new HttpParams();
     if (patientCode != null && patientCode != undefined && patientCode != 0) {
@@ -53,23 +53,36 @@ export class PatientService {
       params = params.set('BedId', BedId);
     }
 
-    if(Ingresados) {
+    if (Ingresados) {
       params = params.set('Ingresados', Ingresados);
     }
 
-    return this.http.get<PatientInterface[]>(this.url, {params});
+    return this.http.get<PatientInterface[]>(this.url, { params });
   }
 
-  getPatientById (patientId: number): Observable<PatientInterface>{  
+  getPatientById(patientId: number): Observable<PatientInterface> {
     return this.http.get<PatientInterface>(this.url + '/' + patientId);
   }
 
-  postPatientData (patient: PatientInterface): Observable<PatientInterface> {
+  postPatientData(patient: PatientInterface): Observable<PatientInterface> {
     return this.http.post<PatientInterface>(this.url, patient);
   }
 
-  putPatientData (patient: PatientInterface): Observable<PatientInterface> {
+  putPatientData(patient: PatientInterface): Observable<PatientInterface> {
     return this.http.put<PatientInterface>(this.url + '/' + patient.id, patient);
+  }
+
+
+
+  // Comprovaciones de campos especificos
+  checkDniExists(dni: string): Observable<boolean> {
+    const url = `${this.url}?Dni=${dni}`;
+    return this.http.get<boolean>(url);
+  }
+
+  checkCipExists(cip: string): Observable<boolean> {
+    const url = `${this.url}?Cip=${cip}`;
+    return this.http.get<boolean>(url);
   }
 
 }

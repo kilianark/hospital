@@ -1,6 +1,9 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { EnumToStringPipe } from "../pipe/enum-to-string.pipe";
+
+import { MaterialModule } from "./material.module";
+
+import { EnumToStringPipe } from "../../pipe/enum-to-string.pipe";
 
 
 
@@ -11,9 +14,11 @@ declarations: [
 ],
 imports: [
     CommonModule,
+    MaterialModule
 ],
 exports: [
-    EnumToStringPipe
+    EnumToStringPipe,
+    MaterialModule
 ]
 })
 
