@@ -45,6 +45,7 @@ form button {
   margin-top: 10px;
   width: auto;
   text-transform: uppercase;
+  margin-right: 10px;
 }
 form button:hover {
   background-color: cadetblue;
@@ -74,7 +75,12 @@ form button:hover {
 fieldset {
   border: none;
 }
-
+table {
+  display: block;
+  scrollbar-width: none;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
 .table-wrapper {
   width: 100%;
   height: auto;
@@ -86,7 +92,7 @@ fieldset {
   overflow: scroll;
   margin-bottom: 10px;
 }
-.table-wrapper::-webkit-scrollbar {
+table::-webkit-scrollbar {
   display: none;
 }
 .table-wrapper table {
@@ -215,7 +221,8 @@ td button:hover {
   outline: none;
 }
 
-.pagination button:first-child, .pagination button:last-child {
+.pagination button:first-child,
+.pagination button:last-child {
   padding: 5px 10px; /* Ajusta el tamaño de las flechas */
   font-weight: normal;
 }
@@ -280,18 +287,19 @@ th:hover {
   background-color: #f1f1f1;
 }
 
-th span.asc, th span.desc {
+th span.asc,
+th span.desc {
   font-size: 12px;
   position: absolute;
   right: 10px;
 }
 
 th span.asc::before {
-  content: '▲';
+  content: "▲";
 }
 
 th span.desc::before {
-  content: '▼';
+  content: "▼";
 }
 .loading-container {
   width: 80%; /* Asegura que la barra no ocupe todo el ancho */

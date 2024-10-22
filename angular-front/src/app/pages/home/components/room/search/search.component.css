@@ -72,7 +72,12 @@ fieldset {
   padding: 0;
   width: 100%;
 }
-
+table {
+  display: block;
+  scrollbar-width: none;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
 .table-wrapper {
   width: 83vw;
   height: auto;
@@ -80,7 +85,7 @@ fieldset {
   margin-left: 15px;
 }
 
-.table-wrapper::-webkit-scrollbar {
+table::-webkit-scrollbar {
   display: none;
 }
 
@@ -141,7 +146,7 @@ td button {
   td {
     padding: 0 15px;
   }
-  button {
+  #botonBuscar {
     width: 25vw;
     height: 8vw;
   }
@@ -202,7 +207,8 @@ td button {
   outline: none;
 }
 
-.pagination button:first-child, .pagination button:last-child {
+.pagination button:first-child,
+.pagination button:last-child {
   padding: 5px 10px; /* Ajusta el tamaño de las flechas */
   font-weight: normal;
 }

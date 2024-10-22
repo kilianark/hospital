@@ -59,7 +59,7 @@ export class CustomValidators {
       if (!cip) return null;
 
       // Verificar que el CIP tiene la longitud correcta
-      if (!cip || !/^[A-Z]{4} \d{8}$/.test(cip)) {
+      if (!cip || !/^[A-Z]{4} \d{10}$/.test(cip)) {
         return { invalidCIP: true }; // Formato no válido
       }
 
