@@ -290,6 +290,7 @@ export class SearchPatientComponent implements OnInit {
 
     this.currentPage = 1; // Reinicia la página actual al buscar
     this.totalPages = Math.ceil(this.filteredPatients.length / this.itemsPerPage);
+    this.generatePageNumbers();
     this.updatePagedPatients();
 
     
