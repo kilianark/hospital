@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
@@ -20,6 +20,7 @@ export class SearchPatientComponent implements OnInit {
 
   patients: PatientInterface[] = [];
   filteredPatients: PatientInterface[] = [];
+  allFilteredPatients: PatientInterface[] = [];
 
   fuseName: Fuse<PatientInterface> | null = null;
   fuseSurname1: Fuse<PatientInterface> | null = null;
@@ -94,7 +95,7 @@ export class SearchPatientComponent implements OnInit {
   ngOnInit(): void {
 
     this.patientService.getPatientData().subscribe((data) => {
-      this.patients = data.map (patient => ({
+      this.patients = data.map(patient => ({
         ...patient,
         status: patient.zone
       }));
@@ -126,10 +127,11 @@ export class SearchPatientComponent implements OnInit {
   updatePagedPatients() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.filteredPatients = this.patients.slice(startIndex, endIndex);
+    this.filteredPatients = this.allFilteredPatients.slice(startIndex, endIndex);
   }
   // Generar los números de página
   generatePageNumbers() {
+
     const totalVisiblePages = 3; // Número máximo de páginas visibles
     const halfRange = Math.floor(totalVisiblePages / 2);
 
@@ -198,7 +200,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   sortPatients() {
-    this.patients.sort((a, b) => {
+    this.allFilteredPatients.sort((a, b) => {
       let comparison = 0;
 
       if (typeof a[this.sortField] === 'string') {
@@ -261,39 +263,40 @@ export class SearchPatientComponent implements OnInit {
         String(patient.zone) === String(status));
     }
 
+    let fuzzyFilteredPatients = exactFilteredPatients;
+
     //campos búsqueda fuzzy:
 
     if (this.fuseName && name) {
       const fuzzyResultsName = this.fuseName.search(name);
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
         fuzzyResultsName.some((result) => result.item === patient)
       );
     }
 
     if (this.fuseSurname1 && surname1) {
       const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
         fuzzyResultsSurname1.some((result) => result.item === patient)
       );
     }
 
     if (this.fuseSurname2 && surname2) {
       const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
         fuzzyResultsSurname2.some((result) => result.item === patient)
       );
     }
 
-    this.filteredPatients = exactFilteredPatients;
-    this.isLoading = false;
-    this.isVisible = this.filteredPatients.length > 0;
+    this.allFilteredPatients = fuzzyFilteredPatients;
+    this.isVisible = this.allFilteredPatients.length > 0;
 
     this.currentPage = 1; // Reinicia la página actual al buscar
-    this.totalPages = Math.ceil(this.filteredPatients.length / this.itemsPerPage);
+    this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
     this.generatePageNumbers();
     this.updatePagedPatients();
 
-    
+    this.isLoading = false;
   }
 
   openDialog(patientId: number) {
