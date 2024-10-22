@@ -13,6 +13,7 @@ export function initKeycloak (keycloak: KeycloakService) {
         checkLoginIframe: false
       },
       enableBearerInterceptor: true,
+      loadUserProfileAtStartUp: true,
       bearerPrefix: 'Bearer',
     });
 }

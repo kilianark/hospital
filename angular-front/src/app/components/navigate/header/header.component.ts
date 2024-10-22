@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { KeycloakService } from 'keycloak-angular';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,6 +38,7 @@ export class HeaderComponent
   extends SidebarComponent
   implements OnInit, OnDestroy
 {
+  username;
   title = 'MedicaPlus';
   nav1 = 'Urgencias';
   nav2 = 'Consultas';
@@ -78,6 +80,11 @@ export class HeaderComponent
         this.isMenuOpen = false;
       }
     });
+
+   this.username = this.keycloak.getUsername();
+   let userDetails = this.keycloak.loadUserProfile();
+   console.log(userDetails);
+    
   }
 
   ngOnDestroy() {}
