@@ -235,7 +235,7 @@ export class SearchPatientComponent implements OnInit {
 
 
   searchPatients() {
-    this.isLoading = true; // Comienza el estado de carga
+    
     this.isVisible = false; // Oculta los resultados anteriores
     //campos fuzzy
     const name = this.patientForm.get('name')?.value || '';
@@ -310,7 +310,6 @@ export class SearchPatientComponent implements OnInit {
     this.generatePageNumbers();
     this.updatePagedPatients();
 
-
   }
 
   openDialog(patientId: number) {
@@ -343,9 +342,8 @@ export class SearchPatientComponent implements OnInit {
     this.searchPatients();
     // Retrasa la ejecución de searchPatients
     setTimeout(() => {
- this.isLoading = false;
+      this.isLoading = false;
     }, 100); // Retraso de 500 ms (medio segundo) antes de ejecutar la búsqueda
-
   }
 
   resetForm() {
