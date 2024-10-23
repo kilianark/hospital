@@ -38,7 +38,7 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- Zona -->
+        <!-- Zona 
         <mat-form-field appearance="outline" *ngIf="showSelect">
           <mat-label for="zone">Zona</mat-label>
           <mat-select id="zone" formControlName="zone"  (selectionChange)="onZoneChange($event.value)">
@@ -51,8 +51,9 @@
             Este campo es obligatorio.
           </mat-error>
         </mat-form-field>
-
-        <!-- Area -->
+        -->
+        
+        <!-- Area 
         <mat-form-field appearance="outline">
           <mat-label for="area">Area</mat-label>
           <mat-select id="area" name="area" formControlName="area">
@@ -64,6 +65,12 @@
             Este campo es obligatorio.
           </mat-error>
         </mat-form-field>
+        -->
+
+        <app-select-pipe
+          [form]="addRoomForm"
+          [showError]="false">
+        </app-select-pipe>
 
       </div>
     </mat-card-content>

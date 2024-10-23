@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crear Cama</title>
+  </head>
+
+  <body>
+    <form [formGroup]="addBedForm" (ngSubmit)="onSubmit()" novalidate>
+      <mat-card-title> {{ title }}</mat-card-title>
+      <mat-card-content>
+        <div class="form-row">
+          <mat-form-field appearance="outline" id="bedCode">
+            <mat-label>Codigo cama</mat-label>
+            <input
+              matInput
+              formControlName="bedCode"
+              type="number"
+              required
+              bedCode.disabled
+            />
+          </mat-form-field>
+          <!-- Número de habitación -->
+
+          <mat-form-field appearance="outline">
+            <mat-label for="roomNumber">Núm. Hab.</mat-label>
+            <input
+              matInput
+              id="roomNumber"
+              type="number"
+              formControlName="roomNumber"
+              (input)="firstNumToFloor()"
+            />
+          </mat-form-field>
+
+          <!-- Capacidad -->
+
+          <!-- Zona -->
+          <mat-form-field appearance="outline" *ngIf="showSelect">
+            <mat-label for="zone">Zona</mat-label>
+            <mat-select
+              id="zone"
+              formControlName="zone"
+              (selectionChange)="onZoneChange($event.value)"
+            >
+              <mat-option disabled selected>Seleccione una zona</mat-option>
+              <mat-option
+                *ngFor="let zone of hospitalZones"
+                [value]="zone.value"
+              >
+                {{ zone.value | enumToString : "HOSPITAL_ZONE" }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Area -->
+          <mat-form-field appearance="outline">
+            <mat-label for="area">Area</mat-label>
+            <mat-select id="area" name="area" formControlName="area">
+              <mat-option *ngFor="let area of currentArea" [value]="area.value">
+                {{ area.value | enumToString : currentAreaType }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="addBedForm.invalid"
+        >
+          Registrar
+        </button>
+        <button mat-raised-button type="button" (click)="resetForm()">
+          Reiniciar
+        </button>
+      </mat-card-actions>
+    </form>
+  </body>
+</html>

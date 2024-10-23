@@ -14,9 +14,7 @@ legend {
   font-weight: bold;
   padding-bottom: 2%;
 }
-.top {
-  padding-left: 2%;
-}
+
 .credentials {
   display: grid;
   padding-top: 4%;
@@ -34,6 +32,7 @@ form {
   width: 100%;
   padding-top: 3%;
   padding-bottom: 10px;
+  margin-left: 2%;
 }
 form button {
   background-color: #333;
@@ -315,7 +314,7 @@ th span.desc::before {
   width: 0; /* Inicia en 0% */
   background-color: #4caf50; /* Color de la barra de carga */
   border-radius: 5px; /* Bordes redondeados para la barra */
-  animation: loading 0.4s linear forwards; /* Animación de carga */
+  animation: loading 0.1s linear forwards; /* Animación de carga */
 }
 
 @keyframes loading {
