@@ -33,6 +33,7 @@ form button {
   border-radius: 5px;
   width: auto;
   text-transform: uppercase;
+  margin-right: 10px;
 }
 
 form button:hover {

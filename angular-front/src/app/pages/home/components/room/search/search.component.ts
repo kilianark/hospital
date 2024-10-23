@@ -21,9 +21,6 @@ export class SearchRoomComponent {
 	roomForm: FormGroup;
 	isVisible: boolean = false;
 
-
-
-
   isLoading = false;
 
   pagedRooms: RoomInterface[] = [];  // Habitaciones en la página actual
@@ -240,9 +237,6 @@ export class SearchRoomComponent {
         );
     }
 
-
-
-
 	goToRooms(roomId: number) {
 		if (roomId !== undefined) {
 			this.router.navigate(['/home/room/beds', roomId]);
@@ -251,6 +245,11 @@ export class SearchRoomComponent {
 			console.log('No hay camas asignadas a esta habitación.');
 		}
 	}
+
+  resetForm() {
+    this.roomForm.reset();
+    this.isVisible = false;
+  }
 
 	toggleDisplay() {
 		this.isVisible = true;
