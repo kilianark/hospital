@@ -19,7 +19,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="zone">Zona:</mat-label>
-          <mat-select id="zone" formControlName="zone" *ngIf="showSelect"
+          <mat-select id="zone" formControlName="zone" 
             (selectionChange)="onZoneChange($event.value)">
             <mat-option disabled selected>Seleccione una zona</mat-option>
             <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
@@ -30,7 +30,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="area">Área:</mat-label>
-          <mat-select id="area" name="area" formControlName="area">
+          <mat-select id="area" formControlName="area">
             <mat-option *ngFor="let area of currentArea" [value]="area.value">
               {{ area.value | enumToString : currentAreaType }}
             </mat-option>

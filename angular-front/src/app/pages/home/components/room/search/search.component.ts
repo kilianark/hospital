@@ -173,22 +173,51 @@ export class SearchRoomComponent {
     this.actualZone = zone;
     this.selectedZone = null;
 
-    if (zone != HospitalZone.Inactivo) this.updateArea();
+    if (zone !== HospitalZone.Inactivo){
+      this.updateArea();
+    } 
+
+    this.roomForm.get('area').reset();
+    this.currentArea = this.getAreaByZone(zone);
+  }
+
+  getAreaByZone(zone: HospitalZone): any[] {
+    switch(zone) {
+      case HospitalZone.Ambulatorio:
+        return this.ambulatoryArea;
+      case HospitalZone.Hospitalizacion:
+        return this.hospitalizedArea;
+      case HospitalZone.Urgencias:
+        return this.urgencyArea;
+      case HospitalZone.Quirofano:
+        return this.operatingRoomArea;
+      default:
+        return [];
+    }
   }
 
   updateArea() {
-    if (this.actualZone == HospitalZone.Ambulatorio) {
-      this.currentArea = this.ambulatoryArea;
-      this.currentAreaType = 'AMBULATORY_AREA';
-    } else if (this.actualZone == HospitalZone.Hospitalizacion) {
-      this.currentArea = this.hospitalizedArea;
-      this.currentAreaType = 'HOSPITALIZED_AREA';
-    } else if (this.actualZone == HospitalZone.Urgencias) {
-      this.currentArea = this.urgencyArea;
-      this.currentAreaType = 'URGENCY_AREA';
-    } else if (this.actualZone == HospitalZone.Quirofano) {
-      this.currentArea = this.operatingRoomArea;
-      this.currentAreaType = 'OPERATING_AREA';
+    switch (this.actualZone) {
+      case HospitalZone.Ambulatorio:
+        this.currentArea = this.ambulatoryArea;
+        this.currentAreaType = 'AMBULATORY_AREA';
+        break;
+      case HospitalZone.Hospitalizacion:
+        this.currentArea = this.hospitalizedArea;
+        this.currentAreaType = 'HOSPITALIZED_AREA';
+        break;
+      case HospitalZone.Urgencias:
+        this.currentArea = this.urgencyArea;
+        this.currentAreaType = 'URGENCY_AREA';
+        break;
+      case HospitalZone.Quirofano:
+        this.currentArea = this.operatingRoomArea;
+        this.currentAreaType = 'OPERATING_AREA';
+        break;
+      default:
+        this.currentArea = [];
+        this.currentAreaType = '';
+        break;
     }
   }
 
@@ -201,8 +230,10 @@ export class SearchRoomComponent {
     const floor = searchFilters.floor ? parseInt(searchFilters.floor) : null;
     const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity) : null;
     const availability = searchFilters.availability !== null ? searchFilters.availability : null;
+    const zone = searchFilters.zone ? searchFilters.zone : null;
+    const area = searchFilters.area ? searchFilters.area : null;
     // Llamada al servicio para buscar habitaciones
-    this.roomService.searchRooms(roomNumber, floor, searchFilters.area, searchFilters.zone, capacity, availability)
+    this.roomService.searchRooms(roomNumber, floor, zone, area, capacity, availability)
       .subscribe(
         (rooms: RoomInterface[]) => {
           this.rooms = rooms;
