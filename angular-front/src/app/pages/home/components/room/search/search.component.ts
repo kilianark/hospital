@@ -22,13 +22,13 @@ export class SearchRoomComponent {
   isVisible: boolean = false;
 
   isLoading = false;
-  pagedRooms: RoomInterface[] = []; // Habitaciones en la página actual
+  pagedRooms: RoomInterface[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 0;
   pageNumbers: number[] = [];
 
-  sortField: string = 'roomNumber'; // Campo por defecto para ordenar
+  sortField: string = 'roomNumber';
   sortDirection: 'asc' | 'desc' = 'asc';
 
   HospitalZone = HospitalZone;
@@ -71,8 +71,6 @@ export class SearchRoomComponent {
       this.showSelect = true;
     }, 1);
 
-
-
     this.roomForm = this.formBuilder.group({
       roomNumber: [''],
       floor: [''],
@@ -90,7 +88,7 @@ export class SearchRoomComponent {
       this.sortRooms();
     });
   }
-  // Lógica de ordenación
+
   sortData(field: string) {
     if (this.sortField === field) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -121,30 +119,27 @@ export class SearchRoomComponent {
   }
 
   generatePageNumbers() {
-    const totalDisplayedPages = 5; // Número máximo de botones visibles
+    const totalDisplayedPages = 5;
     this.pageNumbers = [];
 
     if (this.totalPages <= totalDisplayedPages) {
-      // Mostrar todas las páginas si son pocas
       for (let i = 1; i <= this.totalPages; i++) {
         this.pageNumbers.push(i);
       }
     } else {
-      // Si la página actual está cerca del inicio, mostrar las primeras páginas y los tres puntos antes de la última
+    
       if (this.currentPage <= 3) {
         this.pageNumbers = [1, 2, 3, -1, this.totalPages];
       }
-      // Si la página actual está cerca del final, mostrar las primeras páginas con tres puntos antes de las últimas páginas
       else if (this.currentPage >= this.totalPages - 2) {
         this.pageNumbers = [1, -1, this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages];
       }
-      // Si la página actual está en algún lugar en el medio, mostrar las páginas cercanas a la actual con tres puntos antes y después
       else {
         this.pageNumbers = [1, -1, this.currentPage - 1, this.currentPage, this.currentPage + 1, -1, this.totalPages];
       }
     }
   }
-  // Ir a una página específica
+
   goToPage(page: number) {
     if (page !== -1 && page !== this.currentPage) {
       this.currentPage = page;
@@ -152,7 +147,7 @@ export class SearchRoomComponent {
       this.generatePageNumbers();
     }
   }
-  // Cambiar a la página anterior
+
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -160,7 +155,7 @@ export class SearchRoomComponent {
       this.generatePageNumbers();
     }
   }
-  // Cambiar a la página siguiente
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -222,8 +217,8 @@ export class SearchRoomComponent {
   }
 
   onSubmit() {
-    this.isLoading = true; // Comienza el estado de carga
-    this.isVisible = false; // Oculta los resultados anteriores
+    this.isLoading = true;
+    this.isVisible = false;
 
     const searchFilters = this.roomForm.value;
     const roomNumber = searchFilters.roomNumber ? parseInt(searchFilters.roomNumber) : null;
