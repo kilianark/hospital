@@ -89,31 +89,6 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onZoneChange(zone: HospitalZone) {
-    this.actualZone = zone;
-    this.selectedZone = null;
-
-    if (zone != HospitalZone.Inactivo){
-      this.updateArea();
-      this.addRoomForm.get('area')?.enable();
-    }
-  }
-
-  updateArea() {
-    if (this.actualZone == HospitalZone.Ambulatorio) {
-      this.currentArea = this.ambulatoryArea;
-      this.currentAreaType = 'AMBULATORY_AREA';
-    } else if (this.actualZone == HospitalZone.Hospitalizacion) {
-      this.currentArea = this.hospitalizedArea;
-      this.currentAreaType = 'HOSPITALIZED_AREA';
-    } else if (this.actualZone == HospitalZone.Urgencias) {
-      this.currentArea = this.urgencyArea;
-      this.currentAreaType = 'URGENCY_AREA';
-    } else if (this.actualZone == HospitalZone.Quirofano) {
-      this.currentArea = this.operatingRoomArea;
-      this.currentAreaType = 'OPERATING_AREA';
-    }
-  }
 
   firstNumToFloor() {
     const roomNumberValue = this.addRoomForm.get('roomNumber')?.value;

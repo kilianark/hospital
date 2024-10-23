@@ -8,6 +8,7 @@ import { SearchRoomComponent } from '../../pages/home/components/room/search/sea
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { CreateComponentBed } from '../../pages/home/components/room/bed/create/create.component';
+import { SelectPipeComponent } from '../../shared/components/select-pipe/select-pipe.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CreateComponentBed } from '../../pages/home/components/room/bed/create/
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
+    SelectPipeComponent
   ],
   providers: [provideHttpClient()],
 })
