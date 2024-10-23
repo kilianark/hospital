@@ -85,7 +85,7 @@
     </form>
     <div
       [style.display]="isVisible ? 'block' : 'none'"
-      *ngIf="filteredPatients.length <= 0"
+      *ngIf="filteredPatients.length <= 0&& !isLoading"
     >
       <legend>Paciente no encontrado</legend>
     </div>
@@ -196,7 +196,7 @@
         >
           &laquo;
         </button>
-      
+
         <!-- Números de página centrados -->
         <div class="pagination">
           <button
@@ -209,7 +209,7 @@
             <ng-container *ngIf="page !== -1">{{ page }}</ng-container>
           </button>
         </div>
-      
+
         <!-- Botón de flecha derecha (siguiente) -->
         <button
           class="next"

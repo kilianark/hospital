@@ -224,6 +224,8 @@ export class SearchPatientComponent implements OnInit {
 
 
   searchPatients() {
+    this.isLoading = true; // Comienza el estado de carga
+    this.isVisible = false; // Oculta los resultados anteriores
     //campos fuzzy
     const name = this.patientForm.get('name')?.value || '';
     const surname1 = this.patientForm.get('surname1')?.value || '';
@@ -289,6 +291,7 @@ export class SearchPatientComponent implements OnInit {
     }
 
     this.allFilteredPatients = fuzzyFilteredPatients;
+
     this.isVisible = this.allFilteredPatients.length > 0;
 
     this.currentPage = 1; // Reinicia la página actual al buscar
@@ -296,7 +299,7 @@ export class SearchPatientComponent implements OnInit {
     this.generatePageNumbers();
     this.updatePagedPatients();
 
-    this.isLoading = false;
+
   }
 
   openDialog(patientId: number) {
@@ -314,9 +317,14 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isLoading = true; // Comienza el estado de carga
-    this.isVisible = false; // Oculta los resultados anteriores
+    // Activa el estado de carga
+    this.isLoading = true;
     this.searchPatients();
+    // Retrasa la ejecución de searchPatients
+    setTimeout(() => {
+ this.isLoading = false;
+    }, 100); // Retraso de 500 ms (medio segundo) antes de ejecutar la búsqueda
+
   }
 
   resetForm() {
