@@ -28,7 +28,7 @@ export class SearchRoomComponent {
 
   pagedRooms: RoomInterface[] = [];  // Habitaciones en la página actual
   currentPage: number = 1;
-  itemsPerPage: number = 1;
+  itemsPerPage: number = 5;
   totalPages: number = 0;
   pageNumbers: number[] = [];
 
