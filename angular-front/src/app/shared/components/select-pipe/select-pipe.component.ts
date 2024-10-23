@@ -1,4 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../modules/shared.module';
 import { HospitalZone } from '../../../enums/hospital-zones.enum';
 import { AmbulatoryArea } from '../../../enums/ambulatory-area.enum';
@@ -11,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-select-pipe',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, CommonModule],
   templateUrl: './select-pipe.component.html',
   styleUrl: './select-pipe.component.css'
 })
@@ -47,10 +48,18 @@ export class SelectPipeComponent implements OnInit {
   currentArea;
   currentAreaType: string;
 
+  showSelect: boolean = false;
+
   constructor(private translator: TranslateService) {}
 
   ngOnInit(): void {
       this.translator.use('es');
+
+      setTimeout(() => {
+        this.showSelect = true;
+      }, 1);
+
+      this.form.get('area')?.disable();
   }
 
   onZoneChange(zone: HospitalZone) {
@@ -61,6 +70,7 @@ export class SelectPipeComponent implements OnInit {
       this.updateArea(zone);
       this.form.get('area')?.enable();
     }
+    else this.form.get('area')?.disable();
   }
 
   updateArea(zone: HospitalZone) {
