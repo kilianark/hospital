@@ -115,14 +115,25 @@ export class SearchPatientComponent implements OnInit {
         threshold: 0.3,
       });
 
+      this.patientService.patientUpdated$.subscribe((updatedPatient: PatientInterface) => {
+        this.updatePatientInList(updatedPatient);
+      })
     });
-    /*
-    (error) => {
-      console.error('Error al buscar pacientes:', error);
-      this.isLoading = false; // Finaliza el estado de carga incluso en caso de error
-      this.isVisible = false; // No muestra los resultados si ocurre un error
-    });*/
   }
+  updatePatientInList(updatedPatient: PatientInterface) {
+    const index = this.patients.findIndex(p => p.id === updatedPatient.id);
+    if (index !== -1) {
+      this.patients[index] = updatedPatient;
+      this.filteredPatients[index] = updatedPatient;
+      this.updatePagedPatients();
+    }
+  }
+  /*
+  (error) => {
+    console.error('Error al buscar pacientes:', error);
+    this.isLoading = false; // Finaliza el estado de carga incluso en caso de error
+    this.isVisible = false; // No muestra los resultados si ocurre un error
+  });*/
 
   updatePagedPatients() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -306,6 +317,16 @@ export class SearchPatientComponent implements OnInit {
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
       data: patientId,
+    });
+
+
+    popupRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.patientService.getPatientData().subscribe((data) => {
+          this.patients = data;
+          this.searchPatients();
+        });
+      }
     });
   }
 

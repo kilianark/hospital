@@ -7,13 +7,13 @@ import {
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { countries } from '../../store/country-data.store';
 import { Country } from '../../interfaces/country.interface';
 import { PatientInterface } from '../../interfaces/patient.interface';
 import { PatientService } from '../../services/patient.service';
 
-import { jsPDF } from 'jspdf';
 import { pdfGeneratorService } from '../../services/pdfGenerator.service';
 
 @Component({
@@ -51,7 +51,8 @@ export class RecordComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: number,
     private formBuilder: FormBuilder,
     private patientService: PatientService,
-    private pdfGeneratorService: pdfGeneratorService
+    private pdfGeneratorService: pdfGeneratorService,
+    private dialogRef: MatDialogRef<RecordComponent>
   ) {
     this.patientForm = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -148,8 +149,21 @@ export class RecordComponent implements OnInit {
   onSubmit() {
     this.patientService.putPatientData(this.patient[0]).subscribe((data) => {
       this.patientResp = data;
+  
+      this.dialogRef.close(true); 
     });
+  
     this.togleIsEditable();
+    this.savePatient();
+    
+  }
+
+  savePatient() {
+    if (this.patient.length > 0) {
+      this.patientService.notifyPatientUpdated(this.patient[0]);
+    } else {
+      console.error("No patient data available to save.");
+    }
   }
 
   togleIsEditable() {
