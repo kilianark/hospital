@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BedService } from '../../../../../../services/bed.service';
@@ -15,7 +17,7 @@ import { HospitalizedArea } from '../../../../../../enums/hospitalized-area.enum
 import { OperatingRoomArea } from '../../../../../../enums/operatingRoom-area.enum';
 import { UrgencyArea } from '../../../../../../enums/urgency-area.enum';
 import { RoomInterface } from '../../../../../../interfaces/room.interface';
-import { debounceTime, map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HospitalZone } from '../../../../../../enums/hospital-zones.enum';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -95,6 +97,7 @@ export class CreateComponentBed implements OnInit {
     }, 1);
 
     this.addBedForm = this.fb.group({
+      bedCode: ['', [], [this.roomNumberValidator.bind(this)]],
       roomNumber: ['', [], [this.roomNumberValidator.bind(this)]],
       zone: [this.actualZone],
       area: [{ value: '', disabled: true }],
@@ -107,9 +110,28 @@ export class CreateComponentBed implements OnInit {
   ): Observable<{ [key: string]: boolean } | null> {
     return this.roomService.checkRoomNumberExists(control.value).pipe(
       debounceTime(500),
-      map((exists: boolean) => {
-        return exists ? { roomExists: true } : null;
-      })
+      switchMap((exists: boolean) => {
+        if (exists) {
+          console.log(control.value);
+          return this.roomService
+            .searchRooms(control.value, null, null, null, null, null)
+            .pipe(
+              map((data: RoomInterface[]) => {
+                console.log(data);
+                if (data && data.length > 0) {
+                  this.actualZone = data[0].zone;
+                  this.currentArea = data[0].area;
+                  return null;
+                }
+                return { roomNumberExists: true };
+              }),
+              catchError(() => of(null))
+            );
+        } else {
+          return of({ roomNumberExists: true });
+        }
+      }),
+      catchError(() => of(null))
     );
   }
 

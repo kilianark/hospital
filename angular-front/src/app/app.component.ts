@@ -8,6 +8,7 @@ import { SidebarComponent } from './components/navigate/sidebar/sidebar.componen
 
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { SharedModule } from './shared/modules/shared.module';
 
 
 
@@ -19,8 +20,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
    templateUrl: './app.component.html',
    styleUrls: [],
    standalone: true,
-   imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, CommonModule, HeaderComponent, SidebarComponent],
-   
+   imports: [RouterOutlet, RouterLink, RouterLinkActive, LoginComponent, CommonModule, HeaderComponent, SidebarComponent, SharedModule],
+
 })
 
 export class AppComponent {

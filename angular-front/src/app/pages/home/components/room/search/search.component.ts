@@ -22,8 +22,7 @@ export class SearchRoomComponent {
   isVisible: boolean = false;
 
   isLoading = false;
-
-  pagedRooms: RoomInterface[] = [];  // Habitaciones en la página actual
+  pagedRooms: RoomInterface[] = []; // Habitaciones en la página actual
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 0;
@@ -72,6 +71,8 @@ export class SearchRoomComponent {
       this.showSelect = true;
     }, 1);
 
+
+
     this.roomForm = this.formBuilder.group({
       roomNumber: [''],
       floor: [''],
@@ -110,7 +111,6 @@ export class SearchRoomComponent {
       }
       return this.sortDirection === 'asc' ? comparison : -comparison;
     });
-
     this.updatePagedRooms();
   }
 
@@ -271,4 +271,4 @@ export class SearchRoomComponent {
   toggleDisplay() {
     this.isVisible = true;
   }
-}
+  }
