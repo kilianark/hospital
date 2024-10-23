@@ -82,9 +82,6 @@ export class HeaderComponent
     });
 
    this.username = this.keycloak.getUsername();
-   let userDetails = this.keycloak.loadUserProfile();
-   console.log(userDetails);
-    
   }
 
   ngOnDestroy() {}

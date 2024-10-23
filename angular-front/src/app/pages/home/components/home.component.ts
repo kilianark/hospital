@@ -9,18 +9,7 @@ import { KeycloakService } from 'keycloak-angular';
     styleUrl: './home.component.css',
   })
 
-export class HomeComponent implements OnInit {
-  patients: PatientInterface[];
+export class HomeComponent {
   title = 'MedicaPlus';
-  constructor(private service: PatientService, private keycloak: KeycloakService) {
-    service.getPatientData().subscribe(data => {
-      this.patients = data
-  });
-  }
-  
-  ngOnInit(): void {
-    console.log(this.keycloak.getUsername());
-    let userDetails = this.keycloak.loadUserProfile();
-    console.log(userDetails);
-  }
+
 }
