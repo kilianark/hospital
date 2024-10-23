@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { PatientInterface } from '../interfaces/patient.interface';
 
 @Injectable({
@@ -83,6 +83,13 @@ export class PatientService {
   checkCipExists(cip: string): Observable<boolean> {
     const url = `${this.url}?Cip=${cip}`;
     return this.http.get<boolean>(url);
+  }
+
+  //Actualizar paciente en searchPatient tras editar en recordComponent
+  private patientUpdatedSource = new Subject<PatientInterface>();
+  patientUpdated$ = this.patientUpdatedSource.asObservable();
+  notifyPatientUpdated (patient: PatientInterface){
+    this.patientUpdatedSource.next(patient);
   }
 
 }
