@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SelectPipeComponent implements OnInit {
 
   @Input() form: FormGroup;
-  @Input() create: boolean;
+  @Input() showError: boolean = false;
 
   hospitalZones = Object.keys(HospitalZone)
     .filter((key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
