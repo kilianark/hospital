@@ -235,7 +235,7 @@ export class SearchPatientComponent implements OnInit {
 
 
   searchPatients() {
-    
+
     this.isVisible = false; // Oculta los resultados anteriores
     //campos fuzzy
     const name = this.patientForm.get('name')?.value || '';
@@ -303,14 +303,18 @@ export class SearchPatientComponent implements OnInit {
 
     this.allFilteredPatients = fuzzyFilteredPatients;
 
+    if (this.currentPage === 1) {
+      this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
+      this.generatePageNumbers();
+      this.updatePagedPatients();
+    } else {
+      this.updatePagedPatients();
+    }
+
     this.isVisible = this.allFilteredPatients.length > 0;
-
-    this.currentPage = 1; // Reinicia la página actual al buscar
-    this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
-    this.generatePageNumbers();
-    this.updatePagedPatients();
-
   }
+
+
 
   openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -325,7 +329,11 @@ export class SearchPatientComponent implements OnInit {
     popupRef.afterClosed().subscribe((result) => {
       if (result) {
         this.patientService.getPatientData().subscribe((data) => {
-          this.patients = data;
+          this.patients = data.map(patient => ({
+            ...patient,
+            status: patient.zone
+          }));
+
           this.searchPatients();
         });
       }
