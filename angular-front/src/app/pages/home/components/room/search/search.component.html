@@ -9,7 +9,12 @@
       <div class="credentials">
         <mat-form-field appearance="outline">
           <mat-label for="roomNumber">Número:</mat-label>
-          <input matInput type="number" id="roomNumber" formControlName="roomNumber" />
+          <input
+            matInput
+            type="number"
+            id="roomNumber"
+            formControlName="roomNumber"
+          />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -19,8 +24,11 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="zone">Zona:</mat-label>
-          <mat-select id="zone" formControlName="zone" 
-            (selectionChange)="onZoneChange($event.value)">
+          <mat-select
+            id="zone"
+            formControlName="zone"
+            (selectionChange)="onZoneChange($event.value)"
+          >
             <mat-option disabled selected>Seleccione una zona</mat-option>
             <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
               {{ zone.value | enumToString : "HOSPITAL_ZONE" }}
@@ -39,7 +47,12 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="capacity">Capacidad:</mat-label>
-          <input matInput type="number" id="capacity" formControlName="capacity" />
+          <input
+            matInput
+            type="number"
+            id="capacity"
+            formControlName="capacity"
+          />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -52,10 +65,17 @@
         </mat-form-field>
       </div>
     </mat-card-content>
-    <button type="submit" id="botonBuscar" (click)="onSubmit()" (click)="toggleDisplay()">
+    <button
+      type="submit"
+      id="botonBuscar"
+      (click)="onSubmit()"
+      (click)="toggleDisplay()"
+    >
       Buscar
     </button>
-    <button type="reset" (click)="resetForm()">Reiniciar</button>
+    <button type="reset" id="botonBuscar" (click)="resetForm()">
+      Reiniciar
+    </button>
   </form>
 
   <hr size="3px" color="black" style="width: 100vw" />
@@ -118,7 +138,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let room of pagedRooms" (click)="goToRooms(room.id)" class="file-click">
+            <tr
+              *ngFor="let room of pagedRooms"
+              (click)="goToRooms(room.id)"
+              class="file-click"
+            >
               <td>{{ room.roomNumber }}</td>
               <td>{{ room.floor }}</td>
 
@@ -127,7 +151,10 @@
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Ambulatorio">
                 {{ room.area | enumToString : "AMBULATORY_AREA" }}
               </td>
-              <td class="tbcen" *ngIf="room.zone == HospitalZone.Hospitalizacion">
+              <td
+                class="tbcen"
+                *ngIf="room.zone == HospitalZone.Hospitalizacion"
+              >
                 {{ room.area | enumToString : "HOSPITALIZED_AREA" }}
               </td>
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Urgencias">
@@ -145,21 +172,33 @@
 
         <div class="pagination-container">
           <!-- Botón de flecha izquierda (anterior) -->
-          <button class="prev" (click)="prevPage()" [disabled]="currentPage === 1">
+          <button
+            class="prev"
+            (click)="prevPage()"
+            [disabled]="currentPage === 1"
+          >
             &laquo;
           </button>
 
           <!-- Números de página centrados -->
           <div class="pagination">
-            <button (click)="goToPage(page)" *ngFor="let page of pageNumbers" [class.active]="page === currentPage"
-              [disabled]="page === -1">
+            <button
+              (click)="goToPage(page)"
+              *ngFor="let page of pageNumbers"
+              [class.active]="page === currentPage"
+              [disabled]="page === -1"
+            >
               <ng-container *ngIf="page === -1">...</ng-container>
               <ng-container *ngIf="page !== -1">{{ page }}</ng-container>
             </button>
           </div>
 
           <!-- Botón de flecha derecha (siguiente) -->
-          <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          <button
+            class="next"
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+          >
             &raquo;
           </button>
         </div>

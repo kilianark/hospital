@@ -36,35 +36,63 @@ export class SearchRoomComponent {
   showSelect: boolean;
 
   hospitalZones = Object.keys(HospitalZone)
-    .filter((key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone])))
+    .filter(
+      (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
+    )
     .map((key) => ({ value: HospitalZone[key as keyof typeof HospitalZone] }));
   //
   ambulatoryArea = Object.keys(AmbulatoryArea)
-    .filter((key) => !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea])))
-    .map((key) => ({ value: AmbulatoryArea[key as keyof typeof AmbulatoryArea] }));
+    .filter(
+      (key) =>
+        !isNaN(Number(AmbulatoryArea[key as keyof typeof AmbulatoryArea]))
+    )
+    .map((key) => ({
+      value: AmbulatoryArea[key as keyof typeof AmbulatoryArea],
+    }));
   //
   hospitalizedArea = Object.keys(HospitalizedArea)
-    .filter((key) => !isNaN(Number(HospitalizedArea[key as keyof typeof HospitalizedArea])))
-    .map((key) => ({ value: HospitalizedArea[key as keyof typeof HospitalizedArea] }));
+    .filter(
+      (key) =>
+        !isNaN(Number(HospitalizedArea[key as keyof typeof HospitalizedArea]))
+    )
+    .map((key) => ({
+      value: HospitalizedArea[key as keyof typeof HospitalizedArea],
+    }));
   //
   operatingRoomArea = Object.keys(OperatingRoomArea)
-    .filter((key) => !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea])))
-    .map((key) => ({ value: OperatingRoomArea[key as keyof typeof OperatingRoomArea] }));
+    .filter(
+      (key) =>
+        !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea]))
+    )
+    .map((key) => ({
+      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea],
+    }));
   //
   urgencyArea = Object.keys(UrgencyArea)
-    .filter((key) => !isNaN(Number(UrgencyArea[key as keyof typeof UrgencyArea])))
+    .filter(
+      (key) => !isNaN(Number(UrgencyArea[key as keyof typeof UrgencyArea]))
+    )
     .map((key) => ({ value: UrgencyArea[key as keyof typeof UrgencyArea] }));
   //
 
   actualZone: HospitalZone;
 
-  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
+  selectedZone:
+    | AmbulatoryArea
+    | HospitalizedArea
+    | UrgencyArea
+    | OperatingRoomArea
+    | null = null;
 
   currentArea;
   currentAreaType: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private roomService: RoomService, private translator: TranslateService) {
-
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private roomService: RoomService,
+    private translator: TranslateService
+  ) {
     this.translator.use('es');
 
     setTimeout(() => {
@@ -132,10 +160,25 @@ export class SearchRoomComponent {
         this.pageNumbers = [1, 2, 3, -1, this.totalPages];
       }
       else if (this.currentPage >= this.totalPages - 2) {
-        this.pageNumbers = [1, -1, this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages];
+        this.pageNumbers = [
+          1,
+          -1,
+          this.totalPages - 3,
+          this.totalPages - 2,
+          this.totalPages - 1,
+          this.totalPages,
+        ];
       }
       else {
-        this.pageNumbers = [1, -1, this.currentPage - 1, this.currentPage, this.currentPage + 1, -1, this.totalPages];
+        this.pageNumbers = [
+          1,
+          -1,
+          this.currentPage - 1,
+          this.currentPage,
+          this.currentPage + 1,
+          -1,
+          this.totalPages,
+        ];
       }
     }
   }
@@ -168,16 +211,16 @@ export class SearchRoomComponent {
     this.actualZone = zone;
     this.selectedZone = null;
 
-    if (zone !== HospitalZone.Inactivo){
+    if (zone !== HospitalZone.Inactivo) {
       this.updateArea();
-    } 
+    }
 
     this.roomForm.get('area').reset();
     this.currentArea = this.getAreaByZone(zone);
   }
 
   getAreaByZone(zone: HospitalZone): any[] {
-    switch(zone) {
+    switch (zone) {
       case HospitalZone.Ambulatorio:
         return this.ambulatoryArea;
       case HospitalZone.Hospitalizacion:
@@ -221,14 +264,20 @@ export class SearchRoomComponent {
     this.isVisible = false;
 
     const searchFilters = this.roomForm.value;
-    const roomNumber = searchFilters.roomNumber ? parseInt(searchFilters.roomNumber) : null;
+    const roomNumber = searchFilters.roomNumber
+      ? parseInt(searchFilters.roomNumber)
+      : null;
     const floor = searchFilters.floor ? parseInt(searchFilters.floor) : null;
-    const capacity = searchFilters.capacity ? parseInt(searchFilters.capacity) : null;
-    const availability = searchFilters.availability !== null ? searchFilters.availability : null;
+    const capacity = searchFilters.capacity
+      ? parseInt(searchFilters.capacity)
+      : null;
+    const availability =
+      searchFilters.availability !== null ? searchFilters.availability : null;
     const zone = searchFilters.zone ? searchFilters.zone : null;
     const area = searchFilters.area ? searchFilters.area : null;
     // Llamada al servicio para buscar habitaciones
-    this.roomService.searchRooms(roomNumber, floor, zone, area, capacity, availability)
+    this.roomService
+      .searchRooms(roomNumber, floor, zone, area, capacity, availability)
       .subscribe(
         (rooms: RoomInterface[]) => {
           this.rooms = rooms;
@@ -266,4 +315,4 @@ export class SearchRoomComponent {
   toggleDisplay() {
     this.isVisible = true;
   }
-  }
+}
