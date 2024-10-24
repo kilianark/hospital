@@ -39,7 +39,8 @@
         </mat-form-field>
 
         <app-select-pipe
-          [form]="addRoomForm"
+          [zone]="addRoomForm.get('zone')"
+          [area]="addRoomForm.get('area')"
           [showError]="false">
         </app-select-pipe>
 

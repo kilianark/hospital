@@ -6,19 +6,25 @@ import { AmbulatoryArea } from '../../../enums/ambulatory-area.enum';
 import { HospitalizedArea } from '../../../enums/hospitalized-area.enum';
 import { OperatingRoomArea } from '../../../enums/operatingRoom-area.enum';
 import { UrgencyArea } from '../../../enums/urgency-area.enum';
-import { FormGroup } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select-pipe',
   standalone: true,
-  imports: [SharedModule, CommonModule],
+  imports: [SharedModule, CommonModule, ReactiveFormsModule],
   templateUrl: './select-pipe.component.html',
   styleUrl: './select-pipe.component.css'
 })
 export class SelectPipeComponent implements OnInit {
 
-  @Input() form: FormGroup;
+  @Input() zone: AbstractControl;
+  getZoneFormControl(): FormControl { return this.zone as FormControl; }
+
+  @Input() area: AbstractControl;
+  getAreaFormControl(): FormControl { return this.area as FormControl; }
+
   @Input() showError: boolean = false;
 
   hospitalZones = Object.keys(HospitalZone)
@@ -59,21 +65,21 @@ export class SelectPipeComponent implements OnInit {
       this.showSelect = true;
     }, 1);
 
-    this.form.get('area')?.disable();
+    this.area.disable();
   }
 
   onZoneChange(zone: HospitalZone) {
     this.actualZone = zone;
     this.selectedZone = null;
 
-    if (zone !== HospitalZone.Inactivo) {
+    if (zone != HospitalZone.Inactivo) {
       this.updateArea(zone);
-      this.form.get('area')?.enable();
+      this.area.enable();
     }
     else {
-      this.form.get('area')?.reset();
-      this.form.get('area')?.disable();
-
+      this.area.reset();
+      this.area.disable();
+      this.area.setValue=null;
       this.currentArea = []; 
       this.currentAreaType = '';
     }
