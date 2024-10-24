@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ApiHospital.Data;
 using ApiHospital.Models;
@@ -26,31 +27,38 @@ namespace ApiHospital.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Bed
+        // GET: api/Beds
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bed>>> GetBeds(
+        public async Task<ActionResult<IEnumerable<Bed>>> GetAllBeds(
             [FromQuery] int? RoomId = null,
             [FromQuery] bool? availability = null
         )
         {
             IQueryable<Bed> query = _context.Beds;
 
-            if (RoomId.HasValue) 
-            {
-                query = query.Where(b => b.RoomId == RoomId.Value);
-            }
-
-            if (availability.HasValue)
-            {
-                query = query.Where(b => b.Availability == availability.Value);
-            }
+            query = ApplyFilter(query, RoomId, r => r.RoomId == RoomId!.Value);
+            query = ApplyFilter(query, availability, a => a.Availability == availability.Value);
 
             return await query.ToListAsync();
         }
 
-        // GET: api/Bed/5
+        private IQueryable<T> ApplyFilter<T>(
+            IQueryable<T> query,
+            object? filterValue,
+            Expression<Func<T, bool>> filterExpression
+        )
+        {
+            if (filterValue != null)
+            {
+                query = query.Where(filterExpression);
+            }
+
+            return query;
+        }
+
+        // GET: api/Beds/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Bed>> GetBed(int id)
+        public async Task<ActionResult<Bed>> GetBedById(int id)
         {
             var bed = await _context.Beds.FindAsync(id);
 
@@ -62,8 +70,7 @@ namespace ApiHospital.Controllers
             return bed;
         }
 
-        // PUT: api/Bed/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Beds/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBed(int id, BedDTO bedDTO)
         {
@@ -74,7 +81,9 @@ namespace ApiHospital.Controllers
 
             var bed = await _context.Beds.FindAsync(id);
             if (bed == null)
+            {
                 return NotFound();
+            }
 
             _mapper.Map(bedDTO, bed);
 
@@ -88,17 +97,13 @@ namespace ApiHospital.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
         }
 
-        // POST: api/Bed
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Beds
         [HttpPost]
         public async Task<ActionResult<Bed>> PostBed(BedDTO bedDTO)
         {
@@ -107,13 +112,14 @@ namespace ApiHospital.Controllers
             {
                 return BadRequest("Room doesn't exist");
             }
+
             _context.Beds.Add(bed);
             await _context.SaveChangesAsync();
 
-            return Created($"/beds/{bed.Id}", bed);
+            return CreatedAtAction(nameof(GetBedById), new { id = bed.Id }, bed);
         }
 
-        // DELETE: api/Bed/5
+        // DELETE: api/Beds/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBed(int id)
         {
@@ -131,29 +137,33 @@ namespace ApiHospital.Controllers
 
         // PATCH: api/Beds/5
         [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchBed(
+        public async Task<IActionResult> PatchBedById(
             int id,
             [FromBody] JsonPatchDocument<Bed> patchDocument
         )
         {
             if (patchDocument == null)
+            {
                 return BadRequest();
+            }
 
             var bed = await _context.Beds.FindAsync(id);
 
             if (bed == null)
+            {
                 return NotFound();
+            }
 
             patchDocument.ApplyTo(bed, ModelState);
 
-            bool isValidPatch = TryValidateModel(bed);
-
-            if (!isValidPatch)
+            if (!TryValidateModel(bed))
+            {
                 return BadRequest(ModelState);
+            }
 
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(bed);
         }
 
         private bool BedExists(int id)
