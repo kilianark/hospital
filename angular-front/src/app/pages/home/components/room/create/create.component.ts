@@ -75,6 +75,9 @@ export class CreateComponent implements OnInit {
       floor: [{ value: '', disabled: true }, Validators.required],
       availability: [false]
     });
+    this.addRoomForm.patchValue({
+      zone: HospitalZone.Inactivo
+    });
   }
 
   roomNumberValidator(control: AbstractControl): Observable<{ [key:string]: boolean } | null > {

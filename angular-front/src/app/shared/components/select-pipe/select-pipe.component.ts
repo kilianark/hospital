@@ -50,31 +50,37 @@ export class SelectPipeComponent implements OnInit {
 
   showSelect: boolean = false;
 
-  constructor(private translator: TranslateService) {}
+  constructor(private translator: TranslateService) { }
 
   ngOnInit(): void {
-      this.translator.use('es');
+    this.translator.use('es');
 
-      setTimeout(() => {
-        this.showSelect = true;
-      }, 1);
+    setTimeout(() => {
+      this.showSelect = true;
+    }, 1);
 
-      this.form.get('area')?.disable();
+    this.form.get('area')?.disable();
   }
 
   onZoneChange(zone: HospitalZone) {
     this.actualZone = zone;
     this.selectedZone = null;
 
-    if (zone != HospitalZone.Inactivo){
+    if (zone !== HospitalZone.Inactivo) {
       this.updateArea(zone);
       this.form.get('area')?.enable();
     }
-    else this.form.get('area')?.disable();
+    else {
+      this.form.get('area')?.reset();
+      this.form.get('area')?.disable();
+
+      this.currentArea = []; 
+      this.currentAreaType = '';
+    }
   }
 
   updateArea(zone: HospitalZone) {
-    switch(zone) {
+    switch (zone) {
       case HospitalZone.Ambulatorio:
         this.currentArea = this.ambulatoryArea;
         this.currentAreaType = 'AMBULATORY_AREA';

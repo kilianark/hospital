@@ -15,7 +15,7 @@
 <!-- Area -->
 <mat-form-field appearance="outline">
     <mat-label for="area">Area</mat-label>
-    <mat-select id="area" name="area" formControlName="area">
+    <mat-select id="area" name="area" formControlName="area" [disabled]="form.get('area')?.disabled">
         <mat-option *ngFor="let area of currentArea" [value]="area.value">
             {{ area.value | enumToString : currentAreaType }}
         </mat-option>
