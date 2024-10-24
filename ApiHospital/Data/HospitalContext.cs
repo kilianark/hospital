@@ -24,6 +24,7 @@ namespace ApiHospital.Data
         public DbSet<Patient> Patients { get; set; } = null!;
         public DbSet<Person> Persons { get; set; } = null!;
         public DbSet<Doctor> Doctors { get; set; } = null!;
+        public DbSet<Doctor> Workers { get; set; } = null!;        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +36,19 @@ namespace ApiHospital.Data
             
             modelBuilder.Entity<Patient>()
                 .HasBaseType<Person>();
+            
+            modelBuilder.Entity<Worker>()
+                .HasBaseType<Person>();
+            
+            modelBuilder.Entity<Doctor>()
+                .HasBaseType<Worker>();
 
+            modelBuilder.Entity<Worker>()
+                .ToTable("Workers");
+            
+            modelBuilder.Entity<Doctor>()
+                .ToTable("Doctors");
+            
             modelBuilder
                 .Entity<Bed>()
                 .HasOne<Patient>()

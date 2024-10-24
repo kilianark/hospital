@@ -269,13 +269,10 @@ export class SearchPatientComponent implements OnInit {
     }
     this.allFilteredPatients = fuzzyFilteredPatients;
 
-    if (this.currentPage === 1) {
-      this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
-      this.generatePageNumbers();
-      this.updatePagedPatients();
-    } else {
-      this.updatePagedPatients();
-    }
+    this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
+    this.generatePageNumbers();
+    this.updatePagedPatients();
+
     this.isVisible = this.allFilteredPatients.length > 0;
   }
 
