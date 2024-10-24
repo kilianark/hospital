@@ -155,7 +155,7 @@ export class SearchRoomComponent {
         this.pageNumbers.push(i);
       }
     } else {
-    
+
       if (this.currentPage <= 3) {
         this.pageNumbers = [1, 2, 3, -1, this.totalPages];
       }
