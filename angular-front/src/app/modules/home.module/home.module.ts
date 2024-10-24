@@ -44,4 +44,4 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
   ],
 })
-export class HomeModule {}
+export class HomeModule { }

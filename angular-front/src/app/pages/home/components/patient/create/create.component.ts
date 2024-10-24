@@ -1,19 +1,12 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component'; /* Missatge que confirma que la petició ha sigut correcte */
 import { Router } from '@angular/router';
-import { countries } from '../../../../../store/country-data.store';
-import { Country } from '../../../../../interfaces/country.interface';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { VERSION as CDK_VERSION } from '@angular/cdk';
 import { VERSION as MAT_VERSION } from '@angular/material/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
-import { CustomValidators } from '../../../../../validators/CustomValidators';
-import { AsyncValidators } from '../../../../../validators/AsyncValidators';
-import { PatientFormComponent } from '../../../../../shared/components/patient-form/patient-form.component';
-
 
 
 console.info('Angular CDK version', CDK_VERSION.full);

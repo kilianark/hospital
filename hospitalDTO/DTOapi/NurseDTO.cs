@@ -1,6 +1,6 @@
 namespace hospitalDTO.DTOapi {
-    public class DoctorDTO {
-    public required int DoctorCode {get; set;}
+    public class NurseDTO {
+    public required int NurseCode {get; set;}
     public required string Name { get; set; }
     public required string Surname1 { get; set; }
     public string? Surname2 { get; set; }

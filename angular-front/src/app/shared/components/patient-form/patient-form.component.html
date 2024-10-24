@@ -4,18 +4,12 @@
     <ng-container *ngIf="!isEditMode">
         <mat-card-title>{{ "Crear Paciente" }}</mat-card-title>
         <div id="void"></div>
-        <!--
-        <mat-form-field appearance="outline" id="patientCode">
-            <mat-label>Codigo paciente</mat-label>
-            <input matInput formControlName="patientCode" required patientCode.disabled />
-        </mat-form-field>
-        -->
         <mat-card-content>
             <div class="form-row">
                 <!-- Nombre -->
                 <mat-form-field appearance="outline">
                     <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="name" required />
+                    <input matInput formControlName="name" />
                     @if(patientForm.get('name')?.hasError('required')) {
                     <mat-error>El nombre es obligatorio</mat-error>
                     } @else if(patientForm.get('name')?.hasError('notBlank')) {
@@ -26,7 +20,7 @@
                 <!-- Primer Apellido -->
                 <mat-form-field appearance="outline">
                     <mat-label>Apellido 1</mat-label>
-                    <input matInput formControlName="surname1" required />
+                    <input matInput formControlName="surname1" />
                     @if(patientForm.get('surname1')?.hasError('required')) {
                     <mat-error>El apellido es obligatorio</mat-error>
                     } @else if(patientForm.get('name')?.hasError('notBlank')) {
@@ -41,9 +35,9 @@
                 </mat-form-field>
 
                 <!-- DNI -->
-                <mat-form-field appearance="outline" id="dni">
+                <mat-form-field appearance="outline">
                     <mat-label>DNI/NIE</mat-label>
-                    <input matInput formControlName="dni" placeholder="00000000A" required />
+                    <input matInput formControlName="dni" placeholder="00000000A" />
                     @if(patientForm.get('dni')?.hasError('required')) {
                     <mat-error>El DNI/NIE es obligatorio</mat-error>
                     } @else if(patientForm.get('dni')?.hasError('invalidDNI')) {
@@ -56,7 +50,7 @@
                 <!-- Teléfono -->
                 <mat-form-field appearance="outline">
                     <mat-label>Teléfono</mat-label>
-                    <input matInput type="tel" formControlName="phone" placeholder="123456789" required />
+                    <input matInput type="tel" formControlName="phone" placeholder="123456789" />
                     <mat-icon matSuffix>phone</mat-icon>
                     @if(patientForm.get('phone')?.hasError('required')) {
                     <mat-error>El teléfono es obligatorio</mat-error>
@@ -79,7 +73,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Fecha de Nacimiento</mat-label>
                     <input matInput type="date" formControlName="birthDate" placeholder="DD/MM/YYYY"
-                        [min]="minDateBirth" [max]="maxDateBirth" required />
+                        [min]="minDateBirth" [max]="maxDateBirth" />
                     <mat-icon matSuffix>today</mat-icon>
                     @if(patientForm.get('birthDate')?.hasError('required')) {
                     <mat-error>La fecha de nacimiento es obligatoria</mat-error>
@@ -94,7 +88,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Nacionalidad</mat-label>
                     <mat-select formControlName="country">
-                        <mat-option *ngFor="let country of countries" [value]="country.name">
+                        <mat-option matInput *ngFor="let country of countries" [value]="country.name">
                             {{ country.name }}
                         </mat-option>
                     </mat-select>
@@ -106,7 +100,7 @@
                 <!-- Sexo -->
                 <mat-form-field appearance="outline">
                     <mat-label>Género</mat-label>
-                    <mat-select formControlName="gender" required>
+                    <mat-select formControlName="gender">
                         <mat-option value="male">Masculino</mat-option>
                         <mat-option value="female">Femenino</mat-option>
                     </mat-select>
@@ -155,3 +149,158 @@
     </ng-container>
 
     <!-- Template para Edición -->
+    <ng-container *ngIf="isEditMode">
+        <mat-card-title>{{ "Editar Paciente" }}</mat-card-title>
+        <div id="void"></div>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Codigo paciente</mat-label>
+            <input matInput formControlName="patientCode" />
+        </mat-form-field>
+
+        <mat-card-content>
+            <div class="form-row">
+                <!-- Nombre -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" />
+                    @if(patientForm.get('name')?.hasError('required')) {
+                    <mat-error>El nombre es obligatorio</mat-error>
+                    } @else if(patientForm.get('name')?.hasError('notBlank')) {
+                    <mat-error>El campo no puede contener solo espacios en blanco</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Primer Apellido -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido 1</mat-label>
+                    <input matInput formControlName="surname1" />
+                    @if(patientForm.get('surname1')?.hasError('required')) {
+                    <mat-error>El apellido es obligatorio</mat-error>
+                    } @else if(patientForm.get('name')?.hasError('notBlank')) {
+                    <mat-error>El campo no puede contener solo espacios en blanco</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Segundo Apellido -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellido 2</mat-label>
+                    <input matInput formControlName="surname2" />
+                </mat-form-field>
+
+                <!-- DNI -->
+                <mat-form-field appearance="outline">
+                    <mat-label>DNI/NIE</mat-label>
+                    <input matInput formControlName="dni" placeholder="00000000A" />
+                    @if(patientForm.get('dni')?.hasError('required')) {
+                    <mat-error>El DNI/NIE es obligatorio</mat-error>
+                    } @else if(patientForm.get('dni')?.hasError('invalidDNI')) {
+                    <mat-error>El DNI/NIE tiene que ser válido</mat-error>
+                    } @else if(patientForm.get('dni')?.hasError('dniExists')) {
+                    <mat-error>Este DNI/NIE ya está registrado</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Teléfono -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput type="tel" formControlName="phone" placeholder="123456789" />
+                    <mat-icon matSuffix>phone</mat-icon>
+                    @if(patientForm.get('phone')?.hasError('required')) {
+                    <mat-error>El teléfono es obligatorio</mat-error>
+                    } @else if(patientForm.get('phone')?.invalid) {
+                    <mat-error>El teléfono debe ser válido</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Teléfono Contacto emergencia -->
+                <mat-form-field appearance="outline">
+                    <mat-label>C. Emergencia</mat-label>
+                    <input matInput type="tel" formControlName="emergencyContact" placeholder="123456789" />
+                    <mat-icon matSuffix>phone</mat-icon>
+                    @if(patientForm.get('phone')?.invalid) {
+                    <mat-error>El teléfono debe ser válido</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Fecha de Nacimiento -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input matInput type="date" formControlName="birthDate" placeholder="DD/MM/YYYY"
+                        [min]="minDateBirth" [max]="maxDateBirth" />
+                    <mat-icon matSuffix>today</mat-icon>
+                    @if(patientForm.get('birthDate')?.hasError('required')) {
+                    <mat-error>La fecha de nacimiento es obligatoria</mat-error>
+                    } @else if(patientForm.get('birthDate')?.hasError('minDate')) {
+                    <mat-error>La fecha no puede ser anterior a 150 años</mat-error>
+                    } @else if(patientForm.get('birthDate')?.hasError('maxDate')) {
+                    <mat-error>La fecha de nacimiento no puede ser futura</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Nacionalidad -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Nacionalidad</mat-label>
+                    <mat-select formControlName="country">
+                        <mat-option matInput *ngFor="let country of countries" [value]="country.name">
+                            {{ country.name }}
+                        </mat-option>
+                    </mat-select>
+                    @if(patientForm.get('country')?.hasError('required')) {
+                    <mat-error>Tienes que seleccionar un país de nacionalidad</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Sexo -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Género</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="male">Masculino</mat-option>
+                        <mat-option value="female">Femenino</mat-option>
+                    </mat-select>
+                    @if(patientForm.get('gender')?.hasError('required')) {
+                    <mat-error>El género es obligatorio</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- CIP -->
+                <mat-form-field appearance="outline">
+                    <mat-label>CIP</mat-label>
+                    <input matInput formControlName="cip" placeholder="ABCD 00000000" />
+                    @if(patientForm.get('cip')?.hasError('invalidCIP')) {
+                    <mat-error>El CIP debe ser válido</mat-error>
+                    } @else if(patientForm.get('cip')?.hasError('CipExists')) {
+                    <mat-error>Este CIP ya está registrado</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="email" />
+                    <mat-icon matSuffix>email</mat-icon>
+                    @if (patientForm.get('email').invalid) {
+                    <mat-error>El email debe ser válido</mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Direccion -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput formControlName="address" />
+                </mat-form-field>
+            </div>
+
+            <mat-card-actions>
+                <button mat-raised-button color="primary" class="submit" type="submit" [disabled]="patientForm.invalid">
+                    Guardar
+                </button>
+                <button class="reset" mat-raised-button type="button" (click)="resetForm()">
+                    Limpiar
+                </button>
+            </mat-card-actions>
+        </mat-card-content>
+    </ng-container>
+
+
+</form>

@@ -16,7 +16,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatNativeDateModule,
+    MatDialogModule
   ],
   exports: [
     MatFormFieldModule,
@@ -28,6 +37,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatNativeDateModule,
     MatDialogModule
-  ]
+  ],
 })
 export class MaterialModule { }

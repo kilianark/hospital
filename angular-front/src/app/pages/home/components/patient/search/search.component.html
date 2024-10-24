@@ -85,9 +85,9 @@
     </form>
     <div
       [style.display]="isVisible ? 'block' : 'none'"
-      *ngIf="filteredPatients.length <= 0"
+      *ngIf="filteredPatients.length <= 0&& !isLoading"
     >
-      <legend style="margin-left: 3%">Paciente no encontrado</legend>
+      <legend>Paciente no encontrado</legend>
     </div>
 
     <hr size="3px" color="black" style="width: 100vw" />
@@ -97,14 +97,6 @@
       <div class="loading-bar"></div>
       Cargando...
     </div>
-
-    <!-- Paciente no encontrado -->
-    <!-- quitar para q no salga nada al iniciar <div
-      [style.display]="!isLoading && !isVisible"
-      *ngIf="!isLoading && !isVisible"
-    >
-      <legend style="margin-left: 3%">Paciente no encontrado</legend>
-    </div> -->
 
     <div
       class="table-wrapper"
@@ -195,7 +187,7 @@
         </tbody>
       </table>
 
-      <div class="pagination-container">
+      <div class="pagination-container" *ngIf="totalPages > 1">
         <!-- Botón de flecha izquierda (anterior) -->
         <button
           class="prev"

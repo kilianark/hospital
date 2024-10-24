@@ -39,8 +39,8 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Email = null,
             [FromQuery] string? CIP = null,
             [FromQuery] string? Gender = null,
-            [FromQuery] string? User = null,
-            [FromQuery] string? WorkerType = null,
+            [FromQuery] string? Username = null,
+            [FromQuery] string? Worktype = null,
             [FromQuery] string? Speciality = null
         )
         {
@@ -101,14 +101,14 @@ namespace ApiHospital.Controllers
                 query = query.Where(d => d.Gender.StartsWith(Gender));
             }
 
-            if (!string.IsNullOrEmpty(User))
+            if (!string.IsNullOrEmpty(Username))
             {
-                query = query.Where(d => d.User.StartsWith(User));
+                query = query.Where(d => d.Username.StartsWith(Username));
             }
 
-            if (!string.IsNullOrEmpty(WorkerType))
+            if (!string.IsNullOrEmpty(Worktype))
             {
-                query = query.Where(d => d.WorkerType.StartsWith(WorkerType));
+                query = query.Where(d => d.Worktype.StartsWith(Worktype));
             }
 
             if (!string.IsNullOrEmpty(Speciality))

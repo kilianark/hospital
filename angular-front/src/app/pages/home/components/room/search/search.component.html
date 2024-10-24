@@ -27,7 +27,6 @@
           <mat-select
             id="zone"
             formControlName="zone"
-            *ngIf="showSelect"
             (selectionChange)="onZoneChange($event.value)"
           >
             <mat-option disabled selected>Seleccione una zona</mat-option>
@@ -39,7 +38,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label for="area">Área:</mat-label>
-          <mat-select id="area" name="area" formControlName="area">
+          <mat-select id="area" formControlName="area">
             <mat-option *ngFor="let area of currentArea" [value]="area.value">
               {{ area.value | enumToString : currentAreaType }}
             </mat-option>
@@ -61,7 +60,6 @@
           <mat-select id="availability" formControlName="availability">
             <mat-option [value]="true">Sí</mat-option>
             <mat-option [value]="false">No</mat-option>
-            <mat-option [value]="null">Todas</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -73,6 +71,9 @@
       (click)="toggleDisplay()"
     >
       Buscar
+    </button>
+    <button type="reset" id="botonBuscar" (click)="resetForm()">
+      Reiniciar
     </button>
   </form>
 

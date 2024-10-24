@@ -33,6 +33,7 @@ form button {
   border-radius: 5px;
   width: auto;
   text-transform: uppercase;
+  margin-right: 10px;
 }
 
 form button:hover {
@@ -240,7 +241,7 @@ th:hover {
   width: 0; /* Inicia en 0% */
   background-color: #4caf50; /* Color de la barra de carga */
   border-radius: 5px; /* Bordes redondeados para la barra */
-  animation: loading 0.4s linear forwards; /* Animación de carga */
+  animation: loading 0.1s linear forwards; /* Animación de carga */
 }
 
 @keyframes loading {

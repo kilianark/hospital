@@ -9,6 +9,16 @@
       <mat-card-title> {{ title }}</mat-card-title>
       <mat-card-content>
         <div class="form-row">
+          <mat-form-field appearance="outline" id="bedCode">
+            <mat-label>Codigo cama</mat-label>
+            <input
+              matInput
+              formControlName="bedCode"
+              type="number"
+              required
+              bedCode.disabled
+            />
+          </mat-form-field>
           <!-- Número de habitación -->
 
           <mat-form-field appearance="outline">

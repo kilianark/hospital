@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, NgModule, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../modules/shared.module';
@@ -8,14 +8,20 @@ import { Country } from '../../../interfaces/country.interface';
 import { PatientService } from '../../../services/patient.service';
 import { CustomValidators } from '../../../validators/CustomValidators';
 import { AsyncValidators } from '../../../validators/AsyncValidators';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 
 @Component({
   selector: 'app-patient-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SharedModule],
+  imports: [CommonModule, ReactiveFormsModule, SharedModule, MatInputModule, MatSelectModule],
   templateUrl: './patient-form.component.html',
   styleUrls: ['./patient-form.component.css'],
+  providers: [
+    { provide: MatFormFieldControl, useExisting: PatientFormComponent }
+  ]
 })
 export class PatientFormComponent implements OnInit {
   @Input() isEditMode: boolean = false; // Determina si es para edición o creación
@@ -39,7 +45,7 @@ export class PatientFormComponent implements OnInit {
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService)]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService, this.patientData?.dni)]],
       cip: ['', [CustomValidators.validCip()], [AsyncValidators.checkCip(this.patientService)]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
@@ -50,9 +56,16 @@ export class PatientFormComponent implements OnInit {
       gender: ['', [Validators.required]]
     });
 
-    if (this.isEditMode) {
-      // Si estamos en modo edición, habilitamos el formulario para edición
-      this.patientForm.enable();
+    // Cargar los datos del paciente en el formulario si existen
+    if (this.patientData) {
+      this.patientForm.patchValue(this.patientData);
+    }
+  }
+
+  // Detectar cambios en los datos del paciente para actualizar el formulario
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['patientData'] && this.patientData) {
+      this.patientForm.patchValue(this.patientData);
     }
   }
 
