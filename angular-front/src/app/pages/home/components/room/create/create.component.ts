@@ -72,8 +72,12 @@ export class CreateComponent implements OnInit {
       capacity: ['', Validators.required],
       zone: [this.actualZone, Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
+      
       floor: [{ value: '', disabled: true }, Validators.required],
       availability: [false]
+    });
+    this.addRoomForm.patchValue({
+      zone: HospitalZone.Inactivo
     });
   }
 

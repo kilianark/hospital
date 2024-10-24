@@ -38,37 +38,9 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- Zona 
-        <mat-form-field appearance="outline" *ngIf="showSelect">
-          <mat-label for="zone">Zona</mat-label>
-          <mat-select id="zone" formControlName="zone"  (selectionChange)="onZoneChange($event.value)">
-            <mat-option disabled selected>Seleccione una zona</mat-option>
-            <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
-              {{ zone.value | enumToString: "HOSPITAL_ZONE" }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="addRoomForm.get('zone')?.hasError('required')">
-            Este campo es obligatorio.
-          </mat-error>
-        </mat-form-field>
-        -->
-        
-        <!-- Area 
-        <mat-form-field appearance="outline">
-          <mat-label for="area">Area</mat-label>
-          <mat-select id="area" name="area" formControlName="area">
-            <mat-option *ngFor="let area of currentArea" [value]="area.value">
-              {{ area.value | enumToString : currentAreaType }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="addRoomForm.get('area')?.hasError('required')">
-            Este campo es obligatorio.
-          </mat-error>
-        </mat-form-field>
-        -->
-
         <app-select-pipe
-          [form]="addRoomForm"
+          [zone]="addRoomForm.get('zone')"
+          [area]="addRoomForm.get('area')"
           [showError]="false">
         </app-select-pipe>
 
