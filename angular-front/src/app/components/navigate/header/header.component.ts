@@ -36,8 +36,9 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class HeaderComponent
   extends SidebarComponent
-  implements OnInit, OnDestroy
+  implements OnInit
 {
+  doctorID;
   username;
   title = 'MedicaPlus';
   nav1 = 'Urgencias';
@@ -82,12 +83,16 @@ export class HeaderComponent
     });
 
    this.username = this.keycloak.getUsername();
+   let userdetails = this.keycloak.loadUserProfile()  
+   console.log(userdetails)
   }
-
-  ngOnDestroy() {}
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  goToProfile(doctorId: number) {
+    this.router.navigate(['/home/profile', { id: doctorId }]);
   }
 
   logout() {
