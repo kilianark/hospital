@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
 
@@ -72,7 +72,7 @@ export class CreateComponent implements OnInit {
       capacity: ['', Validators.required],
       zone: [this.actualZone, Validators.required],
       area: [{ value: '', disabled: true }, Validators.required],
-      
+
       floor: [{ value: '', disabled: true }, Validators.required],
       availability: [false]
     });
@@ -90,8 +90,6 @@ export class CreateComponent implements OnInit {
       })
     );
   }
-
-  ngOnInit(): void {}
 
 
   firstNumToFloor() {
@@ -117,7 +115,6 @@ export class CreateComponent implements OnInit {
         area: this.addRoomForm.value.area,
         zone: this.addRoomForm.value.zone,
       };
-
       console.log('datos hab:', roomData);
 
       this.roomService.postRoomData(roomData).subscribe({

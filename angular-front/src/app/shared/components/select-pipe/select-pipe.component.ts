@@ -6,7 +6,7 @@ import { AmbulatoryArea } from '../../../enums/ambulatory-area.enum';
 import { HospitalizedArea } from '../../../enums/hospitalized-area.enum';
 import { OperatingRoomArea } from '../../../enums/operatingRoom-area.enum';
 import { UrgencyArea } from '../../../enums/urgency-area.enum';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -74,14 +74,13 @@ export class SelectPipeComponent implements OnInit {
 
     if (zone != HospitalZone.Inactivo) {
       this.updateArea(zone);
+      this.area.setValidators(Validators.required);
       this.area.enable();
     }
     else {
       this.area.reset();
+      this.area.clearValidators();
       this.area.disable();
-      this.area.setValue=null;
-      this.currentArea = []; 
-      this.currentAreaType = '';
     }
   }
 
