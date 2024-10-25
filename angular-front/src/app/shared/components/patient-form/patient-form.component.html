@@ -165,6 +165,11 @@
             <input matInput formControlName="patientCode" />
         </mat-form-field>
 
+        <button id="hist-pat" (click)="generatePatientPDF()">
+            <span>Historial médico</span>
+            <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
+        </button>
+
         <mat-card-content>
             <div class="form-row">
                 <!-- Nombre -->

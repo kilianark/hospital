@@ -11,6 +11,7 @@ import { AsyncValidators } from '../../../validators/AsyncValidators';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { pdfGeneratorService } from '../../../services/pdfGenerator.service';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class PatientFormComponent implements OnInit {
   public isEditable: boolean = false; // Controla si el formulario es editable
 
 
-  constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
+  constructor(private formBuilder: FormBuilder, private patientService: PatientService, private pdfGeneratorService: pdfGeneratorService) {
     const today = new Date();
     this.minDateBirth = new Date(today.getFullYear() - 150, today.getMonth(), today.getDate());
     this.maxDateBirth = today;
@@ -80,6 +81,10 @@ export class PatientFormComponent implements OnInit {
     if (this.isEditMode) {
       this.toggleFormFields();
     }
+  }
+
+  generatePatientPDF() {
+    this.pdfGeneratorService.generatePDF(this.patientForm.value);
   }
 
   // Detectar cambios en los datos del paciente para actualizar el formulario
