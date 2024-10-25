@@ -162,6 +162,9 @@
               <td class="tbcen" *ngIf="room.zone == HospitalZone.Quirofano">
                 {{ room.area | enumToString : "OPERATING_AREA" }}
               </td>
+              <td class="tbcen" *ngIf="room.zone == HospitalZone.Inactivo">
+                -
+              </td>
 
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
