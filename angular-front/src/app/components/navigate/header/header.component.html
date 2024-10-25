@@ -45,7 +45,7 @@
       class="WorkerName"
       (click)="toggleMenu()"
     >
-      anroma45362
+      {{ username }}
     </label>
     <button name="workerSet" class="WorkerSettings" (click)="toggleMenu()">
       <img
@@ -58,10 +58,10 @@
     <div *ngIf="isMenuOpen" class="dropdown-menu">
       <ul>
         <li>
-          <button href="#Profile" routerLink="/home/profile">Mi perfil</button>
+          <button href="#Profile" (click)="goToProfile(doctorID)">Mi perfil</button>
         </li>
         <li>
-          <button href="#Logout" routerLink="/login">
+          <button href="#Logout" (click)="logout()">
             Cerrar sesión
             <img
               src="/assets/logout_logo.png"

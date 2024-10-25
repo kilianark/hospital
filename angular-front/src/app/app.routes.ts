@@ -13,8 +13,8 @@ export const routes: Routes = [
       import('./modules/home.module/home.module').then((m) => m.HomeModule), // Lazy load del módulo Home
   },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({

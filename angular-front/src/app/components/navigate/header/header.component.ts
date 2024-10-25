@@ -17,6 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { KeycloakService } from 'keycloak-angular';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -34,8 +36,10 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 })
 export class HeaderComponent
   extends SidebarComponent
-  implements OnInit, OnDestroy
+  implements OnInit
 {
+  doctorID : number;
+  username;
   title = 'MedicaPlus';
   nav1 = 'Urgencias';
   nav2 = 'Consultas';
@@ -46,7 +50,8 @@ export class HeaderComponent
   constructor(
     private elRef: ElementRef,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private readonly keycloak: KeycloakService
   ) {
     super();
   }
@@ -76,11 +81,23 @@ export class HeaderComponent
         this.isMenuOpen = false;
       }
     });
-  }
 
-  ngOnDestroy() {}
+   this.username = this.keycloak.getUsername();
+   this.keycloak.loadUserProfile().then((profile) => {
+    this.doctorID = profile.attributes['doctorID'][0];
+    console.log(this.doctorID);
+    })
+  }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  goToProfile(doctorId: number) {
+    this.router.navigate(['/home/profile', { id: doctorId }]);
+  }
+
+  logout() {
+    this.keycloak.logout("http://localhost:4200/home");
   }
 }

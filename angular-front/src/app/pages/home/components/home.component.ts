@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PatientService } from '../../../services/patient.service';
+import { PatientInterface } from '../../../interfaces/patient.interface';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'app-home',
@@ -8,4 +11,5 @@ import { Component } from '@angular/core';
 
 export class HomeComponent {
   title = 'MedicaPlus';
+
 }

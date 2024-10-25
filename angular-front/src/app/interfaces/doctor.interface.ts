@@ -5,7 +5,7 @@ export interface DoctorInterface{
     surname1: string;
     surname2?: string;
     gender: string;
-    birthdate: Date;
+    birthDate: Date;
     age: number; //* ??? meter en modelo? */
     country: string;
     address?: string;
@@ -14,10 +14,10 @@ export interface DoctorInterface{
     email?: string;
     phone: number;
 
-    user: string;
+    username: string;
     doctor_code: number;
 
-    worker_type: string;
+    worktype: string;
     speciality: string;
     
 }
