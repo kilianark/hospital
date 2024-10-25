@@ -38,7 +38,7 @@ export class HeaderComponent
   extends SidebarComponent
   implements OnInit
 {
-  doctorID;
+  doctorID : number;
   username;
   title = 'MedicaPlus';
   nav1 = 'Urgencias';
@@ -83,8 +83,10 @@ export class HeaderComponent
     });
 
    this.username = this.keycloak.getUsername();
-   let userdetails = this.keycloak.loadUserProfile()  
-   console.log(userdetails)
+   this.keycloak.loadUserProfile().then((profile) => {
+    this.doctorID = profile.attributes['doctorID'][0];
+    console.log(this.doctorID);
+    })
   }
 
   toggleMenu() {

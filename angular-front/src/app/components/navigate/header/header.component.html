@@ -58,7 +58,7 @@
     <div *ngIf="isMenuOpen" class="dropdown-menu">
       <ul>
         <li>
-          <button href="#Profile" routerLink="/home/profile">Mi perfil</button>
+          <button href="#Profile" (click)="goToProfile(doctorID)">Mi perfil</button>
         </li>
         <li>
           <button href="#Logout" (click)="logout()">

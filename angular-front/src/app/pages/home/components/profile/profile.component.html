@@ -34,8 +34,8 @@
                 <div>
                     <label for="gender">Sexo</label>
                     <select id="gender" formControlName="gender">
-                        <option value="man">Hombre</option>
-                        <option value="woman">Mujer</option>
+                        <option value="male">Hombre</option>
+                        <option value="female">Mujer</option>
                     </select>
                 </div>
                 <div>
@@ -53,7 +53,6 @@
                 <div>
                     <label for="country">Nacionalidad</label>
                     <select id="country" name="country" formControlName="country">
-                        <option>Select Country</option>
                         <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
                     </select>
                 </div>
@@ -65,16 +64,16 @@
                     <input class="readonly" type="text" id="speciality" formControlName="speciality" readonly value="Doctor - Cardiología">
                 </div>
                 <div>
-                    <label for="user">Usuario</label>
-                    <input class="readonly" type="text" id="user" formControlName="user" readonly>
+                    <label for="username">Usuario</label>
+                    <input class="readonly" type="text" id="username" formControlName="username" readonly>
                 </div>
                 <div>
                     <label for="passw">Contraseña</label>
-                    <input type="password" id="passw" formControlName="passw">
+                    <input type="password" id="passw">
                 </div>
                 <div>
                     <label for="validatepassw">Validar Contraseña</label>
-                    <input type="password" id="validatepassw" formControlName="validatepassw">
+                    <input type="password" id="validatepassw">
                 </div>
             </div>
             <input class="sumbitButton" type="submit" value="Guardar Datos">

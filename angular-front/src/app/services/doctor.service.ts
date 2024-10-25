@@ -13,8 +13,13 @@ export class DoctorService {
   constructor (private http: HttpClient) { }
 
 
-  getDoctorData() : Observable<DoctorInterface[]> {
-    return this.http.get<DoctorInterface[]>(this.url);
+  getDoctorData(doctorCode : number) : Observable<DoctorInterface[]> {
+    let params = new HttpParams();
+    if (doctorCode != null && doctorCode != undefined && doctorCode != 0) {
+      params = params.set('doctorCode', doctorCode);
+    }
+    return this.http.get<DoctorInterface[]>(this.url, { params });
+    
   }
 
   getDoctorById(id: number) : Observable<DoctorInterface> {
