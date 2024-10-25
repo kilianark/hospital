@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
 import { AssignRoom } from '../../../../../components/assignroom/assignroom.component';
-
+import { BedInterface } from '../../../../../interfaces/bed.interface';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -31,14 +31,20 @@ export class ManagePatientComponent {
 
   HospitalZone = HospitalZone;
 
-  selectedZone: AmbulatoryArea | HospitalizedArea | UrgencyArea | OperatingRoomArea | null = null;
+  selectedZone:
+    | AmbulatoryArea
+    | HospitalizedArea
+    | UrgencyArea
+    | OperatingRoomArea
+    | null = null;
 
   currentArea;
   currentAreaType: string;
 
   showSelectRoom: boolean = false;
   showRoomList: boolean = false;
-
+  beds: BedInterface[] = [];
+  bedId!: number;
   rooms: RoomInterface[] = [];
 
   patientStatus = Object.keys(HospitalZone)
@@ -77,13 +83,13 @@ export class ManagePatientComponent {
         !isNaN(Number(OperatingRoomArea[key as keyof typeof OperatingRoomArea]))
     )
     .map((key) => ({
-      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea]
+      value: OperatingRoomArea[key as keyof typeof OperatingRoomArea],
     }));
   //
 
   openDialog(patientCode: number) {
     let popupRef = this.dialog.open(AssignRoom, {
-      width: '50%',
+      width: '60%',
       height: '80%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
@@ -163,14 +169,7 @@ export class ManagePatientComponent {
   ) {
     if (this.showRoomList) {
       this.roomService
-        .searchRooms(
-          null,
-          null,
-          this.patient.zone,
-          area.toString(),
-          null,
-          null
-        )
+        .searchRooms(null, null, this.patient.zone, area.toString(), null, null)
         .subscribe((data) => (this.rooms = data));
     }
   }
@@ -185,7 +184,7 @@ export class ManagePatientComponent {
   }
 
   onSubmit() {
-    this.patientService.putPatientData(this.patient).subscribe((data) => { });
+    this.patientService.putPatientData(this.patient).subscribe((data) => {});
 
     console.log('Estat Actualitzat:');
     this.confirm('Paciente actualizado con éxito', 'success');
@@ -196,5 +195,11 @@ export class ManagePatientComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
   }
+  assignBed(bedId:number){
+    this.beds.find((bed)=> bed.id === bedId).availability =false;
+    this.patient.bedId=this.bedId;
+    console.log('Cama asignada: ');
+    this.confirm('Paciente actualizado con éxito', 'success');
+    this.router.navigate(['/home']);
+  }
 }
-

@@ -1,79 +1,162 @@
-.content {
+/* Global Styles */
+html {
+  margin-left: 2%;
+}
+body {
+  margin-left: 5%;
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  height: auto;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  justify-content: flex-end;
+}
+
+.content {
   overflow: hidden;
 }
 
 legend {
+
+  margin-left: 5%;
   margin-bottom: 15px;
-  overflow: hidden;
   font-size: 24px;
   text-align: left;
   letter-spacing: 0px;
   line-height: 31px;
-  white-space: pre-line;
   font-weight: bold;
-  padding-bottom: 2%;
+  color: #333;
+  padding-bottom: 1%;
 }
 
-body {
-  margin-left: 125px;
-  margin-top: 120px;
-}
-
+/* Table Wrapper */
 .table-wrapper {
-  width: 100%;
-  height: auto;
-  margin-left: 15px;
+  width: 63.36%;
+  margin-left: 6%;
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .table-wrapper::-webkit-scrollbar {
   display: none;
 }
 
-.table-wrapper table {
+/* Table Styles */
+table {
   border-collapse: collapse;
-}
-
-.table-wrapper table thead {
-  position: -webkit-sticky; /* Safari... */
-  position: sticky;
-  top: 0;
-  left: 0;
+  table-layout: auto;
 }
 
 thead {
-  position: -webkit-sticky;
   position: sticky;
-  background-color: #ffffff;
+  top: 0;
+  background-color: #333;
+  color: white;
+  z-index: 10;
 }
 
-td {
+thead th {
+  padding: 15px;
   text-align: center;
-  height: 50px;
-  width: 200px;
+  font-weight: bold;
 }
 
+tbody td {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Mensaje de no camas disponibles */
+.no-beds-message {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #ff0000; /* Rojo para destacar */
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/* Responsive Table for smaller screens */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 60px 10px 0 10px;
+  }
+
+  .table-wrapper {
+    width: 100vw;
+    margin-left: 0;
+  }
+
+  table thead th,
+  table tbody td {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* Button Styles */
 td button {
   background-color: #333;
   color: white;
   border: none;
+  padding: 8px 12px;
   cursor: pointer;
   border-radius: 5px;
   text-transform: uppercase;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
 }
-@media screen and (max-width: 768px) {
-  content {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  body {
-    margin: 0px;
-  }
-  .table-wrapper {
-    width: 99vw;
-  }
+
+td button:hover {
+  background-color: #555;
 }
-th,
-td {
+
+td button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Table Cell Layout */
+th, td {
   padding: 0 15px;
+  vertical-align: middle;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+/* Scrollable Table */
+.table-wrapper table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 1000;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ApiHospital.Data;
 using ApiHospital.Models;
@@ -18,7 +19,6 @@ namespace ApiHospital.Controllers
     public class RoomController : ControllerBase
     {
         private readonly HospitalContext _context;
-
         private readonly IMapper _mapper;
 
         public RoomController(HospitalContext context, IMapper mapper)
@@ -27,9 +27,9 @@ namespace ApiHospital.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Room
+        // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms(
+        public async Task<ActionResult<IEnumerable<Room>>> GetAllRooms(
             [FromQuery] int? RoomNumber = null,
             [FromQuery] int? Capacity = null,
             [FromQuery] string? Zone = null,
@@ -41,44 +41,38 @@ namespace ApiHospital.Controllers
         {
             IQueryable<Room> query = _context.Rooms;
 
-            if (RoomNumber.HasValue) query = query.Where(r => r.RoomNumber == RoomNumber.Value);
-
-            if (Capacity.HasValue) query = query.Where(r => r.Capacity == Capacity.Value);
-
-            if (!string.IsNullOrEmpty(Zone)) query = query.Where(r => r.Zone.StartsWith(Zone));
-
-            if (!string.IsNullOrEmpty(Area))  query = query.Where(r => r.Area.StartsWith(Area));
-
-
-            if (Floor.HasValue)
-            {
-                query = query.Where(r => r.Floor == Floor.Value);
-            }
-
-            if (Availability.HasValue) query = query.Where(r => r.Availability == Availability.Value);
-
-            if (BedId.HasValue)
-            {
-                return Ok(query.ToList());
-                /*query = from room in query
-                        join bed in _context.Beds on room.Id equals bed.RoomId
-                        where bed.Id == BedId.Value
-                        select room;*/
-
-                //query = query.Where(r => r.Beds.Any(b => b.Id == BedId.Value));
-            }
+            query = ApplyFilter(query, RoomNumber, r => r.RoomNumber == RoomNumber!.Value);
+            query = ApplyFilter(query, Capacity, r => r.Capacity == Capacity);
+            query = ApplyFilter(query, Zone, r => !string.IsNullOrWhiteSpace(Zone) && r.Zone.ToLower().StartsWith(Zone.ToLower()));
+            query = ApplyFilter(query, Area, r => !string.IsNullOrWhiteSpace(Area) && r.Area.ToLower().StartsWith(Area.ToLower())); // Cambié Surname1 a Area
+            query = ApplyFilter(query, Floor, r => r.Floor == Floor);
+            query = ApplyFilter(query, Availability, r => r.Availability == Availability);
+            query = ApplyFilter(query, BedId, r => r.Beds.Any(b => b.Id == BedId));
 
             return await query.ToListAsync();
         }
 
-        // GET: api/Room/5
+        private IQueryable<T> ApplyFilter<T>(
+            IQueryable<T> query,
+            object? filterValue,
+            Expression<Func<T, bool>> filterExpression
+        )
+        {
+            if (filterValue != null)
+            {
+                query = query.Where(filterExpression);
+            }
+
+            return query;
+        }
+
+        // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
             var room = await _context
-                .Rooms.Include(Room => Room.Beds)
-                .Where(Room => Room.Id == id)
-                .FirstOrDefaultAsync();
+                .Rooms.Include(r => r.Beds)
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if (room == null)
             {
@@ -88,21 +82,15 @@ namespace ApiHospital.Controllers
             return room;
         }
 
+        // GET: api/Rooms/exists/101
+        [HttpGet("exists/{roomNumber}")]
+        public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
+        {
+            var exists = await _context.Rooms.AnyAsync(r => r.RoomNumber == roomNumber);
+            return Ok(exists);
+        }
 
-//COMPROBAR SI NÚMERO DE HABITACIÓN EXISTE:
-
-
-[HttpGet("exists/{roomNumber}")]
-public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
-{
-    var exists = await _context.Rooms.AnyAsync(r => r.RoomNumber == roomNumber);
-    return Ok(exists);
-}
-
-
-
-        // PUT: api/Room/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Rooms/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int id, RoomDTO roomDTO)
         {
@@ -113,7 +101,9 @@ public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
 
             var room = await _context.Rooms.FindAsync(id);
             if (room == null)
+            {
                 return NotFound();
+            }
 
             _mapper.Map(roomDTO, room);
 
@@ -136,19 +126,23 @@ public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
             return NoContent();
         }
 
-        // POST: api/Room
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Rooms
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(RoomDTO roomDTO)
         {
+            if (await _context.Rooms.AnyAsync(r => r.RoomNumber == roomDTO.RoomNumber))
+            {
+                return BadRequest("Room number already exists.");
+            }
+
             var room = _mapper.Map<Room>(roomDTO);
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
 
-            return Created($"/rooms/{room.Id}", room);
+            return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, room);
         }
 
-        // DELETE: api/Room/5
+        // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
@@ -172,23 +166,27 @@ public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
         )
         {
             if (patchDocument == null)
+            {
                 return BadRequest();
+            }
 
             var room = await _context.Rooms.FindAsync(id);
 
             if (room == null)
+            {
                 return NotFound();
+            }
 
             patchDocument.ApplyTo(room, ModelState);
 
-            bool isValidPatch = TryValidateModel(room);
-
-            if (!isValidPatch)
+            if (!TryValidateModel(room))
+            {
                 return BadRequest(ModelState);
+            }
 
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(room);
         }
 
         private bool RoomExists(int id)
