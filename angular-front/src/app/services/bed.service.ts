@@ -13,7 +13,7 @@ export class BedService {
   constructor(private http: HttpClient) { }
 
   getBedData(roomId?: number, Availability?: boolean) : Observable<BedInterface[]> {
-    let params = new HttpParams(); 
+    let params = new HttpParams();
     if (roomId != null && roomId != 0) {
       params = params.set('roomId', roomId)
     }
@@ -34,5 +34,9 @@ export class BedService {
   getBedsByRoomId(roomId: number): Observable<BedInterface[]> {
     return this.http.get<BedInterface[]>(`${this.url}/room/${roomId}`);
   }
-  
+  deleteBed(bedId: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${bedId}`);
+  }
+
+
 }
