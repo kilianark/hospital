@@ -1,24 +1,24 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { catchError, map, debounceTime, switchMap } from 'rxjs/operators';
+import { catchError, map, debounceTime, switchMap, first } from 'rxjs/operators';
 import { PatientService } from '../services/patient.service';
 
 export class AsyncValidators {
 
     // Comprueba que el dni no exista ya en la bd
-    static checkDni(patientService: PatientService, currentDni?: string) {
-        return (control: AbstractControl) => {
+    static checkDni(patientService: PatientService, patientCode?: number): AsyncValidatorFn {
+        return (control: AbstractControl): Observable<ValidationErrors | null> => {
             const dni = control.value;
 
-            // Si el DNI es el mismo que el actual, no hacemos la validación
-            if (currentDni && dni === currentDni) {
-                return of(null);  // Validación pasa
+            if (!dni) {
+                return of(null);  // Si el campo DNI está vacío, no hacer la validación
             }
 
-            // Aquí sigue la validación para otros DNIs
-            return patientService.checkDniExists(dni).pipe(
-                map(dniExists => dniExists ? { dniExists: true } : null),
-                catchError(() => of(null))
+            return of(dni).pipe(
+                debounceTime(300),  // Dar tiempo para evitar múltiples llamadas innecesarias
+                switchMap(() => patientService.checkDniExists(dni, patientCode)),  // Llamar al servicio pasando el DNI y el patientCode
+                map(dniExists => dniExists ? { dniExists: true } : null),  // Si el DNI existe pero es de otro paciente, mostrar el error
+                catchError(() => of(null))  // En caso de error, considerar que la validación pasó
             );
         };
     }

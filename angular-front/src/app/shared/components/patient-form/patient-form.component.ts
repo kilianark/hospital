@@ -32,6 +32,8 @@ export class PatientFormComponent implements OnInit {
   public countries: Country[] = countries;
   public minDateBirth: Date;
   public maxDateBirth: Date;
+  public isEditable: boolean = false; // Controla si el formulario es editable
+
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
     const today = new Date();
@@ -40,44 +42,101 @@ export class PatientFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.isEditMode) {
+      // Llamar al servicio para obtener el próximo patientCode como número
+      this.patientService.getNextPatientCode().subscribe(nextPatientCode => {
+        this.patientForm.patchValue({ patientCode: nextPatientCode });
+      });
+    }
+
     this.patientForm = this.formBuilder.group({
-      patientCode: [{ value: '0', disabled: true }, [Validators.required]],
+      patientCode: [{ value: '', disabled: true }, [Validators.required]],
+      id: [{ value: '', disabled: true }, [Validators.required]],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService, this.patientData?.dni)]],
-      cip: ['', [CustomValidators.validCip()], [AsyncValidators.checkCip(this.patientService)]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], /*[AsyncValidators.checkDni(this.patientService, this.patientData?.patientCode)]*/],
+      cip: ['', [CustomValidators.validCip()], /*[AsyncValidators.checkCip(this.patientService)]*/],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', [Validators.email]],
       country: ['', [Validators.required]],
       emergencyContact: ['', [Validators.pattern(/^\d{9}$/)]],
       address: [''],
-      gender: ['', [Validators.required]]
+      gender: ['', [Validators.required]],
+      zone: [''],
+      hospital: ['']
     });
-
-    // Cargar los datos del paciente en el formulario si existen
+    // Formatear la fecha antes de llenar el formulario
     if (this.patientData) {
-      this.patientForm.patchValue(this.patientData);
+      const formattedDate = this.formatDate(this.patientData.birthDate);
+      this.patientForm.patchValue({
+        ...this.patientData,
+        birthDate: formattedDate
+      });
+    }
+
+    // Si estamos en edición, deshabilitar los campos inicialmente
+    if (this.isEditMode) {
+      this.toggleFormFields();
     }
   }
 
   // Detectar cambios en los datos del paciente para actualizar el formulario
   ngOnChanges(changes: SimpleChanges) {
     if (changes['patientData'] && this.patientData) {
-      this.patientForm.patchValue(this.patientData);
+      this.fillFormWithPatientData();
+      this.toggleFormFields();
     }
   }
 
   onSubmit() {
     if (this.patientForm.valid) {
-      this.formSubmit.emit(this.patientForm.value);
+      this.formSubmit.emit(this.patientForm.getRawValue());  // getRawValue() para incluir los campos deshabilitados
+
+      // Notificar al servicio sobre la actualización
+      this.patientService.notifyPatientUpdated(this.patientForm.getRawValue());
     }
   }
 
   resetForm() {
-    this.patientForm.reset();
-    this.patientForm.patchValue({ patientCode: '0' });
+    const currentPatientCode = this.patientForm.get('patientCode')?.value;  // Guardar el valor actual de patientCode
+    this.patientForm.reset();  // Limpiar todos los campos del formulario
+
+    // Volver a establecer el valor de patientCode después de hacer reset
+    this.patientForm.patchValue({ patientCode: currentPatientCode });
+
     this.formReset.emit();
+  }
+
+  // Alternar el modo de edición
+  toggleEditMode() {
+    this.isEditable = !this.isEditable;
+    this.toggleFormFields();
+  }
+
+  // Habilitar o deshabilitar los campos del formulario
+  toggleFormFields() {
+    if (this.isEditable) {
+      this.patientForm.enable(); // Habilitar todos los campos
+      this.patientForm.get('patientCode')?.disable(); // Mantener el patientCode deshabilitado
+    } else {
+      this.patientForm.disable(); // Deshabilitar todos los campos
+      this.patientForm.get('patientCode')?.disable(); // Asegurar que el patientCode sigue deshabilitado
+    }
+  }
+
+  fillFormWithPatientData() {
+    const formattedDate = this.formatDate(this.patientData.birthDate);
+    this.patientForm.patchValue({
+      ...this.patientData,
+      birthDate: formattedDate,
+      id: this.patientData.id  // Asegúrate de pasar también el id
+    });
+  }
+
+  // Formatear fecha para quitar la parte de hora
+  formatDate(date: string): string {
+    return date ? date.split('T')[0] : '';
   }
 }

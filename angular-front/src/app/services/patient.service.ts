@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, catchError, map, of } from 'rxjs';
 import { PatientInterface } from '../interfaces/patient.interface';
 
 @Injectable({
@@ -69,15 +69,40 @@ export class PatientService {
   }
 
   putPatientData(patient: PatientInterface): Observable<PatientInterface> {
-    return this.http.put<PatientInterface>(this.url + '/' + patient.id, patient);
+    return this.http.put<PatientInterface>(`${this.url}/${patient.id}`, patient); // Correcta inclusión de ID
+  }
+
+  // Obtener el proximo patientCode
+  getNextPatientCode(): Observable<number> {
+    return this.getPatientData().pipe(
+      map(patients => {
+        if (patients && patients.length > 0) {
+          // Obtener el último paciente ordenado por código (asegurarse de que 'patientCode' sea un número)
+          const lastPatient = patients.sort((a, b) => b.patientCode - a.patientCode)[0];
+          // Retornar el próximo código de paciente
+          return lastPatient ? lastPatient.patientCode + 1 : 1;  // Incrementar el último código
+        } else {
+          return 1;  // Si no hay pacientes, empieza por 1
+        }
+      })
+    );
   }
 
 
 
   // Comprovaciones de campos especificos
-  checkDniExists(dni: string): Observable<boolean> {
-    const url = `${this.url}?Dni=${dni}`;
-    return this.http.get<boolean>(url);
+  checkDniExists(dni: string, excludePatientCode?: number): Observable<boolean> {
+    const url = `${this.url}`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de pacientes
+    return this.http.get<PatientInterface[]>(url, { params: { dni } }).pipe(
+      map(patients => {
+        if (excludePatientCode) {
+          // Filtrar el paciente actual si se proporciona un código
+          patients = patients.filter(p => p.patientCode !== excludePatientCode);
+        }
+        return patients.length > 0;  // Si queda algún paciente con ese DNI, el DNI ya existe
+      }),
+      catchError(() => of(false))  // En caso de error, retornamos que no existe para no bloquear la validación
+    );
   }
 
   checkCipExists(cip: string): Observable<boolean> {
@@ -88,7 +113,7 @@ export class PatientService {
   //Actualizar paciente en searchPatient tras editar en recordComponent
   private patientUpdatedSource = new Subject<PatientInterface>();
   patientUpdated$ = this.patientUpdatedSource.asObservable();
-  notifyPatientUpdated (patient: PatientInterface){
+  notifyPatientUpdated(patient: PatientInterface) {
     this.patientUpdatedSource.next(patient);
   }
 
