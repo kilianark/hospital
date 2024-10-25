@@ -6,9 +6,10 @@ form {
   padding-top: 3%;
   display: grid;
   grid-template-columns: 33% 33% 33.33333%;
-  margin-left: 10px;
+  margin-left: 100px;
   grid-template-rows: 12vh 55vh 5vh;
 }
+
 #hist-pat{
   height: 8vh;
   align-items: center;
