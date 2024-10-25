@@ -9,87 +9,126 @@ import { PatientService } from '../../../../../services/patient.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
+
 @Component({
   selector: 'app-bed',
   templateUrl: './bed.component.html',
-  styleUrl: './bed.component.css'
+  styleUrl: './bed.component.css',
 })
 export class BedComponent implements OnInit {
   title = 'Gestión de camas: Habitación ';
-  // id rebut -> obté valor per route
-  roomId: number | null = null;  
-  // data per convenció reb l'instància (RoomInf)
+  roomId: number | null = null;
   room!: RoomInterface;
-  // obtenim tot el llistar d'interfaces de llit
   beds: BedInterface[] = [];
-  // obtenim el bedId desde el bedService
-  bedId!: number; // tinc que obtenir els ID beds per la llista de beds
-
-  // contindrà llista d'interface de pacients
+  bedId!: number;
   patients: PatientInterface[] = [];
   patient!: PatientInterface;
 
-  // quan rebem una data interface de paciente d'allà obtenim, id, nomSur, i el codiPatient. 
-  
+  selectedBed: BedInterface | null = null; // Para la cama seleccionada
+  isEditModalOpen: boolean = false; // Para controlar la apertura del modal
 
   constructor(
-      public dialog: MatDialog, 
-      private route: ActivatedRoute, 
-      private patientService: PatientService,
-      private bedService: BedService, 
-      private roomService: RoomService
-    ) {}
-
-  openDialog(patientCode: number) {
-    let popupRef = this.dialog.open(RecordComponent, {
-      width: '80%',
-      height: '100%',
-      maxWidth: '100vw',
-      panelClass: 'full-width-dialog',
-      data: patientCode,
-    });
-  }
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private patientService: PatientService,
+    private bedService: BedService,
+    private roomService: RoomService
+  ) {}
 
   ngOnInit() {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
-  
+
     if (this.roomId) {
-      console.log('ID de la habitación:', this.roomId);
-      
-      this.roomService.getRoomById(this.roomId).subscribe(data =>{
+      this.roomService.getRoomById(this.roomId).subscribe((data) => {
         this.room = data;
       });
-  
-      // Cargar las camas usando el servicio, filtrando por idRoom, no posem disponibilitat perquè volem mostrar tots els llits
+
       this.bedService.getBedData(this.roomId).subscribe(
         (beds: BedInterface[]) => {
           this.beds = beds;
-          console.log('Camas obtenidas:', this.beds);
         },
-        error => {
+        (error) => {
           console.error('Error al cargar camas:', error);
         }
       );
 
-      //this.bedService.get
-
-      // orden de paràmetros, bedid no correspon a patientcode
-      this.patientService.getPatientData(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.bedId)
-      .subscribe(
-        (patients: PatientInterface[]) => {
+      this.patientService
+        .getPatientData(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.bedId)
+        .subscribe(
+          (patients: PatientInterface[]) => {
             this.patients = patients;
-            console.log('Pacientes obtenido:', this.patient);
-        },
-        error => {
+          },
+          (error) => {
             console.error('Error al cargar paciente:', error);
-        }
-      );
+          }
+        );
     }
-  };
-  // En tu componente .ts
+  }
+
+  // Devuelve el paciente asignado a una cama o null si no hay paciente
   getPatientByBedId(bedId: number): PatientInterface | null {
-    return this.patients.find(patient => patient.bedId === bedId) || null;
+    return this.patients.find((patient) => patient.bedId === bedId) || null;
+  }
+
+  // Abrir el formulario de edición
+  editBed(bed: BedInterface) {
+    this.selectedBed = { ...bed }; // Clonamos el objeto cama para editarlo sin afectar el original
+    this.isEditModalOpen = true; // Abrimos el modal de edición
+  }
+
+  // Abrir el formulario de creación de cama
+  openCreateBedModal() {
+    this.selectedBed = {
+      id: 0, // Esto indica que estamos creando una nueva cama
+      bedCode: '',
+      roomId: this.roomId!,
+      availability: true // O cualquier valor predeterminado que desees
+    };
+    this.isEditModalOpen = true;
+  }
+
+  // Guardar cambios o crear nueva cama
+  saveBed() {
+    if (this.selectedBed) {
+      if (this.selectedBed.id === 0) {
+        // Crear nueva cama
+        this.bedService.postBedData(this.selectedBed).subscribe(
+          (newBed) => {
+            this.beds.push(newBed); // Agregamos la nueva cama a la lista
+            this.isEditModalOpen = false; // Cerramos el modal
+            this.selectedBed = null; // Limpiamos la cama seleccionada
+          },
+          (error) => {
+            console.error('Error al crear la cama:', error);
+          }
+        );
+      } else {
+        // Actualizar cama existente
+        const index = this.beds.findIndex(b => b.id === this.selectedBed!.id);
+        if (index !== -1) {
+          this.beds[index] = { ...this.selectedBed }; // Actualizamos la cama en la lista
+        }
+        this.isEditModalOpen = false; // Cerramos el modal
+        this.selectedBed = null; // Limpiamos la cama seleccionada
+      }
+    }
+  }
+
+  // Cancelar la edición o creación
+  cancelEdit() {
+    this.isEditModalOpen = false; // Cierra el modal sin guardar cambios
+    this.selectedBed = null; // Limpiamos la cama seleccionada
+  }
+
+  // Eliminar una cama
+  deleteBed(bed: BedInterface) {
+    const patient = this.getPatientByBedId(bed.id);
+    if (!patient) {
+      if (confirm('¿Estás seguro de que deseas eliminar esta cama?')) {
+        this.bedService.deleteBed(bed.id).subscribe(() => {
+          this.beds = this.beds.filter((b) => b.id !== bed.id); // Actualiza la lista de camas
+        });
+      }
+    }
   }
 }
-
-  

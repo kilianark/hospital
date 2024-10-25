@@ -8,29 +8,65 @@
 
   <body>
     <legend id="titleBed">{{ title }} {{ room.roomNumber }}</legend>
+
+   <!-- Botón para crear una nueva cama -->
+<button (click)="openCreateBedModal()">Crear cama</button>
+
     <div class="table-wrapper">
-      <table>
+      <table *ngIf="beds.length > 0">
         <thead>
           <tr>
-            <th class="inTableBed">Núm.</th>
+            <th class="inTableBed">Cod.</th>
             <th class="inTableBed">Disponibilidad</th>
             <th class="inTableBed">Paciente</th>
             <th class="inTableBed">Código Paciente</th>
+            <th class="inTableBed">Acciones</th> <!-- Nueva columna para los botones -->
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let bed of beds" class="file-click">
             <td>{{ bed.bedCode }}</td>
             <td>{{ bed.availability ? "Sí" : "No" }}</td>
-            <!-- els registres de llits pot apareixer sense pacient, ja que es la llista de llits d'una habitació -->
             <td>
               {{ getPatientByBedId(bed.id)?.name || "Sin paciente" }}
               {{ getPatientByBedId(bed.id)?.surname1 || "" }}
             </td>
             <td>{{ getPatientByBedId(bed.id)?.patientCode || "N/A" }}</td>
+            <td>
+              <!-- Botón de editar -->
+              <button (click)="editBed(bed)">Editar</button>
+
+              <!-- Botón de eliminar, solo habilitado si no hay paciente -->
+              <button (click)="deleteBed(bed)" [disabled]="getPatientByBedId(bed.id)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
+
+      <!-- Mensaje si no hay camas -->
+      <div *ngIf="beds.length === 0" class="no-beds-message">
+        <p>No hay camas disponibles para esta habitación.</p>
+      </div>
     </div>
+
+    <!-- Formulario modal para editar o crear una cama -->
+<div *ngIf="isEditModalOpen" class="modal">
+  <h2 *ngIf="selectedBed?.id === 0">Crear cama</h2>
+  <h2 *ngIf="selectedBed?.id !== 0">Editar cama</h2>
+
+  <form (ngSubmit)="saveBed()">
+    <label for="bedCode">Código de cama:</label>
+    <input id="bedCode" [(ngModel)]="selectedBed.bedCode" name="bedCode" required />
+
+    <label for="roomId">ID de habitación:</label>
+    <input id="roomId" [(ngModel)]="selectedBed.roomId" name="roomId" required />
+
+    <label for="availability">Disponibilidad:</label>
+    <input id="availability" type="checkbox" [(ngModel)]="selectedBed.availability" name="availability" />
+
+    <button type="submit">{{ selectedBed?.id === 0 ? 'Crear' : 'Guardar' }}</button>
+    <button type="button" (click)="cancelEdit()">Cancelar</button>
+  </form>
+</div>
   </body>
 </html>

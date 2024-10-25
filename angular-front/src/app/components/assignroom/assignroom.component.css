@@ -10,10 +10,63 @@
 .mat-card-content {
   padding: 16px;
 }
+mat-card-title {
+  margin-bottom: 20px;
+}
 legend {
+  display: grid;
   font-size: 1.8em;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-content: center;
   margin: 30px;
 }
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+}
+.tituloMenu {
+  font-weight: bold;
+}
+.objectFit {
+  display: flex;
+  width: 100%;
+}
 mat-card {
+  height: 40vh;
   margin-right: 10px;
+  width: 25vw;
+  overflow-wrap: break-word;
+}
+.buttonCSS {
+  padding-left: 4%;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 2px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 150px;
+  text-transform: uppercase;
+}
+button:hover {
+  background-color: cadetblue;
+}
+@media screen and (max-width: 480px) {
+  #grided {
+    grid-template-columns: 50vw;
+  }
+  mat-card {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  legend {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
 }
