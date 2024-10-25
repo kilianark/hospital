@@ -1,5 +1,5 @@
 <!-- Zona -->
-<mat-form-field appearance="outline" *ngIf="showSelect">
+<mat-form-field class="zoneLabel" appearance="outline" *ngIf="showSelect">
     <mat-label for="zone">Zona</mat-label>
     <mat-select id="zone" [formControl]="getZoneFormControl()"  (selectionChange)="onZoneChange($event.value)">
         <mat-option disabled selected>Seleccione una zona</mat-option>
@@ -13,7 +13,7 @@
 </mat-form-field>
 
 <!-- Area -->
-<mat-form-field appearance="outline">
+<mat-form-field class="areaLabel" appearance="outline">
     <mat-label for="area">Area</mat-label>
     <mat-select id="area" name="area" [formControl]="getAreaFormControl()">
         <mat-option *ngFor="let area of currentArea" [value]="area.value">

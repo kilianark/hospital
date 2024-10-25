@@ -30,7 +30,7 @@
         </mat-form-field>
 
         <!-- Capacidad -->
-        <mat-form-field appearance="outline">
+        <mat-form-field  id="capacidad" appearance="outline">
           <mat-label for="capacity">Capacidad</mat-label>
           <input matInput id="capacity" formControlName="capacity" type="number" required />
           <mat-error *ngIf="addRoomForm.get('capacity')?.hasError('required')">

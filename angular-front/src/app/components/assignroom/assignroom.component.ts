@@ -32,7 +32,7 @@ export class AssignRoom implements OnInit {
   beds: BedInterface[] = [];
   // obtenim el bedId desde el bedService
   bedId!: number; // tinc que obtenir els ID beds per la llista de beds
-
+  thisIsDisabled: boolean =false;
   // contindrà llista d'interface de pacients
   patients: PatientInterface[] = [];
   patient!: PatientInterface;
@@ -46,16 +46,6 @@ export class AssignRoom implements OnInit {
     private bedService: BedService,
     private roomService: RoomService
   ) {}
-
-  openDialog(patientCode: number) {
-    let popupRef = this.dialog.open(RecordComponent, {
-      width: '80%',
-      height: '100%',
-      maxWidth: '100vw',
-      panelClass: 'full-width-dialog',
-      data: patientCode,
-    });
-  }
 
   ngOnInit() {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
@@ -101,11 +91,17 @@ export class AssignRoom implements OnInit {
           (error) => {
             console.error('Error al cargar paciente:', error);
           }
-        );
+        )
+        if(this.patient!=null){
+          this.thisIsDisabled = true;
+        };
     }
   }
   // En tu componente .ts
   getPatientByBedId(bedId: number): PatientInterface | null {
     return this.patients.find((patient) => patient.bedId === bedId) || null;
   }
+  assignBed(bedId:number){
+
+   }
 }

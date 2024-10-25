@@ -17,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
 import { AssignRoom } from '../../../../../components/assignroom/assignroom.component';
-
+import { BedInterface } from '../../../../../interfaces/bed.interface';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -43,7 +43,8 @@ export class ManagePatientComponent {
 
   showSelectRoom: boolean = false;
   showRoomList: boolean = false;
-
+  beds: BedInterface[] = [];
+  bedId!: number;
   rooms: RoomInterface[] = [];
 
   patientStatus = Object.keys(HospitalZone)
@@ -193,5 +194,12 @@ export class ManagePatientComponent {
   confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
+  }
+  assignBed(bedId:number){
+    this.beds.find((bed)=> bed.id === bedId).availability =false;
+    this.patient.bedId=this.bedId;
+    console.log('Cama asignada: ');
+    this.confirm('Paciente actualizado con éxito', 'success');
+    this.router.navigate(['/home']);
   }
 }
