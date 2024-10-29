@@ -46,9 +46,12 @@ export class SearchPatientComponent implements OnInit {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
+  hospital: string [] = []; //Array para selección múltiple
 
   isVisible: boolean = false;
   showSelect: boolean = false;
+
+  hospitals = ["H1", "H2"]; //H1 GoldenFold - H2 Faro
 
   patientStatus = Object.keys(HospitalZone)
     .filter(
@@ -70,6 +73,7 @@ export class SearchPatientComponent implements OnInit {
     }, 1);
 
     this.patientForm = this.formBuilder.group({
+      hospital: [[]], //esto permite selección múltiple
       status: [null],
       patientCode: [this.patientCode],
       name: [this.name],
@@ -81,6 +85,7 @@ export class SearchPatientComponent implements OnInit {
     });
 
     this.patientForm.valueChanges.subscribe((formValues) => {
+      this.hospital = formValues.hospital;
       this.patientCode = formValues.patientCode;
       this.name = formValues.name;
       this.surname1 = formValues.surname1;
@@ -223,6 +228,7 @@ export class SearchPatientComponent implements OnInit {
     const patientCode = this.patientForm.get('patientCode')?.value || '';
     const phone = this.patientForm.get('phone')?.value || '';
     const status = this.patientForm.get('status')?.value || '';
+    const selectedHospitals: string[] = this.patientForm.get('hospital')?.value || [];
 
     let exactFilteredPatients = this.patients;
 
@@ -246,6 +252,11 @@ export class SearchPatientComponent implements OnInit {
       exactFilteredPatients = exactFilteredPatients.filter((patient) =>
         String(patient.zone) === String(status));
     }
+    if (selectedHospitals.length > 0) {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        selectedHospitals.includes(patient.hospital)
+      );
+    } 
 
     let fuzzyFilteredPatients = exactFilteredPatients;
 

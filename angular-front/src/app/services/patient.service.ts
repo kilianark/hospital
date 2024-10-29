@@ -15,8 +15,10 @@ export class PatientService {
 
 
   getPatientData(patientCode?: number, Name?: string, Surname1?: string,
-    Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, BedId?: number, Ingresados?: boolean): Observable<PatientInterface[]> {
+    Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, BedId?: number, Ingresados?: boolean, Hospital?: string): Observable<PatientInterface[]> {
+    
     let params = new HttpParams();
+
     if (patientCode != null && patientCode != undefined && patientCode != 0) {
       params = params.set('patientCode', patientCode);
     }
@@ -56,6 +58,11 @@ export class PatientService {
     if (Ingresados) {
       params = params.set('Ingresados', Ingresados);
     }
+
+    if (Hospital != null && Hospital.trim() !== "") {
+      params = params.set('Hospital', Hospital);
+    }
+    
 
     return this.http.get<PatientInterface[]>(this.url, { params });
   }

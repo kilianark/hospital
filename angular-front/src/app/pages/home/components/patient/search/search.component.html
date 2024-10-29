@@ -8,14 +8,20 @@
       <mat-card-title> {{ title }}</mat-card-title>
       <mat-card-content>
         <div class="credentials">
+
+          <mat-form-field appearance="outline">
+            <mat-label for="hospital">Hospital:</mat-label>
+            <mat-select id="hospital" formControlName="hospital" multiple>
+              <mat-option value="" disabled selected>Seleccione uno o varios hospitales</mat-option>
+              <mat-option *ngFor="let hospital of hospitals" [value]="hospital">
+                {{ hospital }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <mat-form-field appearance="outline">
             <mat-label for="patientCode">Código:</mat-label>
-            <input
-              matInput
-              type="text"
-              id="patientCode"
-              formControlName="patientCode"
-            />
+            <input matInput type="text" id="patientCode" formControlName="patientCode" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -25,22 +31,12 @@
 
           <mat-form-field appearance="outline">
             <mat-label for="surname1">Apellido 1:</mat-label>
-            <input
-              matInput
-              type="text"
-              id="surname1"
-              formControlName="surname1"
-            />
+            <input matInput type="text" id="surname1" formControlName="surname1" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label for="surname2">Apellido 2:</mat-label>
-            <input
-              matInput
-              type="text"
-              id="surname2"
-              formControlName="surname2"
-            />
+            <input matInput type="text" id="surname2" formControlName="surname2" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -57,21 +53,12 @@
             <mat-label for="phone" class="telf">Teléfono:</mat-label>
             <input matInput type="text" id="phone" formControlName="phone" />
           </mat-form-field>
+
           <mat-form-field appearance="outline">
             <mat-label for="status">Estado: </mat-label>
-            <mat-select
-              id="status"
-              name="status"
-              formControlName="status"
-              *ngIf="showSelect"
-            >
-              <mat-option value="" disabled selected
-                >Seleccione un estado</mat-option
-              >
-              <mat-option
-                *ngFor="let status of patientStatus"
-                [value]="status.value"
-              >
+            <mat-select id="status" name="status" formControlName="status" *ngIf="showSelect">
+              <mat-option value="" disabled selected>Seleccione un estado</mat-option>
+              <mat-option *ngFor="let status of patientStatus" [value]="status.value">
                 {{ status.value | enumToString : "HOSPITAL_ZONE" }}
               </mat-option>
             </mat-select>
@@ -83,10 +70,7 @@
       </button>
       <button type="reset" (click)="resetForm()">Reiniciar</button>
     </form>
-    <div
-      [style.display]="isVisible ? 'block' : 'none'"
-      *ngIf="filteredPatients.length <= 0&& !isLoading"
-    >
+    <div [style.display]="isVisible ? 'block' : 'none'" *ngIf="filteredPatients.length <= 0&& !isLoading">
       <legend>Paciente no encontrado</legend>
     </div>
 
@@ -98,14 +82,18 @@
       Cargando...
     </div>
 
-    <div
-      class="table-wrapper"
-      [style.display]="isVisible ? 'block' : 'none'"
-      *ngIf="!isLoading && filteredPatients.length > 0"
-    >
+    <div class="table-wrapper" [style.display]="isVisible ? 'block' : 'none'"
+      *ngIf="!isLoading && filteredPatients.length > 0">
       <table>
         <thead>
           <tr>
+            <th (click)="sortData('hospital')">
+              Hospital
+              <span *ngIf="sortField === 'hospital'">
+                <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+              </span>
+            </th>
             <th (click)="sortData('patientCode')">
               Código Paciente
               <span *ngIf="sortField === 'patientCode'">
@@ -165,11 +153,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let patient of filteredPatients"
-            (click)="goToManage(patient.id)"
-            class="clickable-row"
-          >
+          <tr *ngFor="let patient of filteredPatients" (click)="goToManage(patient.id)" class="clickable-row">
+            <td>{{ patient.hospital }}</td>
             <td>{{ patient.patientCode }}</td>
             <td>{{ patient.name }}</td>
             <td>{{ patient.surname1 }}</td>
@@ -189,33 +174,21 @@
 
       <div class="pagination-container" *ngIf="totalPages > 1">
         <!-- Botón de flecha izquierda (anterior) -->
-        <button
-          class="prev"
-          (click)="prevPage()"
-          [disabled]="currentPage === 1"
-        >
+        <button class="prev" (click)="prevPage()" [disabled]="currentPage === 1">
           &laquo;
         </button>
 
         <!-- Números de página centrados -->
         <div class="pagination">
-          <button
-            (click)="goToPage(page)"
-            *ngFor="let page of pageNumbers"
-            [class.active]="page === currentPage"
-            [disabled]="page === -1"
-          >
+          <button (click)="goToPage(page)" *ngFor="let page of pageNumbers" [class.active]="page === currentPage"
+            [disabled]="page === -1">
             <ng-container *ngIf="page === -1">...</ng-container>
             <ng-container *ngIf="page !== -1">{{ page }}</ng-container>
           </button>
         </div>
 
         <!-- Botón de flecha derecha (siguiente) -->
-        <button
-          class="next"
-          (click)="nextPage()"
-          [disabled]="currentPage === totalPages"
-        >
+        <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">
           &raquo;
         </button>
       </div>
