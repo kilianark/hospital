@@ -7,7 +7,7 @@ import { PatientInterface } from '../interfaces/patient.interface';
   providedIn: 'root'
 })
 export class PatientService {
-  private url = "http//localhost:5124/api/Patients"
+  private url = "http://localhost:5124/api/Patients"
 
 
   constructor(private http: HttpClient) { }
@@ -16,7 +16,7 @@ export class PatientService {
 
   getPatientData(patientCode?: number, Name?: string, Surname1?: string,
     Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, BedId?: number, Ingresados?: boolean, Hospital?: string): Observable<PatientInterface[]> {
-    
+
     let params = new HttpParams();
 
     if (patientCode != null && patientCode != undefined && patientCode != 0) {
@@ -62,7 +62,7 @@ export class PatientService {
     if (Hospital != null && Hospital.trim() !== "") {
       params = params.set('Hospital', Hospital);
     }
-    
+
 
     return this.http.get<PatientInterface[]>(this.url, { params });
   }
