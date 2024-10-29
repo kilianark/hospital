@@ -7,7 +7,7 @@ import { BedInterface } from '../interfaces/bed.interface';
   providedIn: 'root'
 })
 export class BedService {
-  private url = "https://localhost:7138/api/Beds"
+  private url = "http://localhost:5124/api/Beds"
 
 
   constructor(private http: HttpClient) { }

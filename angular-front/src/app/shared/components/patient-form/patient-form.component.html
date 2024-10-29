@@ -158,17 +158,18 @@
     <!-- Template para Edición -->
     <ng-container *ngIf="isEditMode">
         <mat-card-title>{{ "Editar Paciente" }}</mat-card-title>
-        <div id="void"></div>
+
+
+        <button id="hist-pat" (click)="generatePatientPDF()">
+            <span>Historial médico</span>
+            <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
+        </button>
 
         <mat-form-field appearance="outline">
             <mat-label>Codigo paciente</mat-label>
             <input matInput formControlName="patientCode" />
         </mat-form-field>
 
-        <button id="hist-pat" (click)="generatePatientPDF()">
-            <span>Historial médico</span>
-            <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
-        </button>
 
         <mat-card-content>
             <div class="form-row">

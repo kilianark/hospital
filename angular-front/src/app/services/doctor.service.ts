@@ -8,7 +8,7 @@ import { DoctorInterface } from '../interfaces/doctor.interface';
 })
 
 export class DoctorService {
-  private url = "https://localhost:7138/api/Doctor"
+  private url = "http://localhost:5124/api/Doctor"
 
   constructor (private http: HttpClient) { }
 
