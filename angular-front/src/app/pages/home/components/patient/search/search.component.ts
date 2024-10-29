@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
+import { Hospital } from '../../../../../enums/hospital.enum';
 
 @Component({
   selector: 'app-search-patient',
@@ -51,7 +52,7 @@ export class SearchPatientComponent implements OnInit {
   isVisible: boolean = false;
   showSelect: boolean = false;
 
-  hospitals = ["H1", "H2"]; //H1 GoldenFold - H2 Faro
+  hospitals = Object.values(Hospital); //H1 GoldenFold - H2 Faro - H0 Ambos - ENUM
 
   patientStatus = Object.keys(HospitalZone)
     .filter(

@@ -62,9 +62,10 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
 
-            if (Hospital != null && Hospital.Count > 0)
+            if (Hospital != null && Hospital.Any(h => !string.IsNullOrWhiteSpace(h)))
             {
-                query = query.Where(p => Hospital.Contains(p.Hospital, StringComparer.OrdinalIgnoreCase));
+                var lowerCaseHospitals = Hospital.Select(h => h.ToLower()).ToList();
+                query = query.Where(p => lowerCaseHospitals.Contains(p.Hospital.ToLower()));
             }
 
             // Ejecuta la consulta y retorna el resultado
