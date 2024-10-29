@@ -45,7 +45,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Zone,
             [FromQuery] int? BedId,
             [FromQuery] bool? Ingresados,
-            [FromQuery] List<string>? Hospital
+            [FromQuery] string? Hospital
         )
         {
             IQueryable<Patient> query = _context.Patients;
@@ -62,10 +62,9 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
 
-            if (Hospital != null && Hospital.Any(h => !string.IsNullOrWhiteSpace(h)))
+            if (!string.IsNullOrWhiteSpace(Hospital))
             {
-                var lowerCaseHospitals = Hospital.Select(h => h.ToLower()).ToList();
-                query = query.Where(p => lowerCaseHospitals.Contains(p.Hospital.ToLower()));
+                query = query.Where(p => p.Hospital.ToLower() == Hospital.ToLower());
             }
 
             // Ejecuta la consulta y retorna el resultado

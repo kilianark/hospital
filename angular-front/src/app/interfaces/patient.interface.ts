@@ -1,4 +1,5 @@
 import { HospitalZone } from "../enums/hospital-zones.enum";
+import { Hospital } from "../enums/hospital.enum";
 
 export interface PatientInterface{
 
@@ -21,5 +22,5 @@ export interface PatientInterface{
     zone: HospitalZone | null;
     reason?: string;
     bedId?: number;
-    hospital: string;
+    hospital: Hospital;
 }

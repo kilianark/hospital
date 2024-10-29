@@ -52,7 +52,8 @@ export class SearchPatientComponent implements OnInit {
   isVisible: boolean = false;
   showSelect: boolean = false;
 
-  hospitals = Object.values(Hospital); //H1 GoldenFold - H2 Faro - H0 Ambos - ENUM
+  hospitals = ['H1', 'H2', 'H0'];
+  //hospitals = Object.values(Hospital); //H1 GoldenFold - H2 Faro - H0 Compartido - ENUM
 
   patientStatus = Object.keys(HospitalZone)
     .filter(
@@ -219,74 +220,98 @@ export class SearchPatientComponent implements OnInit {
 
   searchPatients() {
 
-    this.isVisible = false;
-
-    const name = this.patientForm.get('name')?.value || '';
-    const surname1 = this.patientForm.get('surname1')?.value || '';
-    const surname2 = this.patientForm.get('surname2')?.value || '';
-    const dni = this.patientForm.get('dni')?.value || '';
-    const cip = this.patientForm.get('cip')?.value || '';
-    const patientCode = this.patientForm.get('patientCode')?.value || '';
-    const phone = this.patientForm.get('phone')?.value || '';
-    const status = this.patientForm.get('status')?.value || '';
-    const selectedHospitals: string[] = this.patientForm.get('hospital')?.value || [];
-
-    let exactFilteredPatients = this.patients;
-
-    if (dni) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.dni) === (dni));
+      this.isVisible = false;
+    
+      const name = this.patientForm.get('name')?.value || '';
+      const surname1 = this.patientForm.get('surname1')?.value || '';
+      const surname2 = this.patientForm.get('surname2')?.value || '';
+      const dni = this.patientForm.get('dni')?.value || '';
+      const cip = this.patientForm.get('cip')?.value || '';
+      const patientCode = this.patientForm.get('patientCode')?.value || '';
+      const phone = this.patientForm.get('phone')?.value || '';
+      const status = this.patientForm.get('status')?.value || '';
+      const selectedHospitals: string[] = this.patientForm.get('hospital')?.value || []; // Obtiene los hospitales seleccionados
+    
+      let exactFilteredPatients = this.patients;
+    
+      // Filtrando por DNI
+      if (dni) {
+        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+          String(patient.dni) === dni
+        );
+      }
+      // Filtrando por CIP
+      if (cip) {
+        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+          String(patient.cip) === cip
+        );
+      }
+      // Filtrando por teléfono
+      if (phone) {
+        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+          String(patient.phone) === phone
+        );
+      }
+      // Filtrando por código de paciente
+      if (patientCode) {
+        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+          String(patient.patientCode) === patientCode
+        );
+      }
+      // Filtrando por estado (zona)
+      if (status && status !== '') {
+        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+          String(patient.zone) === String(status)
+        );
+      }
+      // // Filtrando por hospitales seleccionados
+      if (selectedHospitals.length > 0) {
+        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+          selectedHospitals.includes(patient.hospital) // Esto ahora buscará H1, H2 o H0 directamente
+        );
+      }
+      // if (selectedHospitals.length > 0) {
+      //   exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+      //     selectedHospitals.includes(patient.hospital)
+      //   );
+      // }
+    
+      let fuzzyFilteredPatients = exactFilteredPatients;
+    
+      // Filtrando por nombre usando Fuse.js
+      if (this.fuseName && name) {
+        const fuzzyResultsName = this.fuseName.search(name);
+        fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
+          fuzzyResultsName.some((result) => result.item === patient)
+        );
+      }
+      // Filtrando por apellido 1
+      if (this.fuseSurname1 && surname1) {
+        const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
+        fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
+          fuzzyResultsSurname1.some((result) => result.item === patient)
+        );
+      }
+      // Filtrando por apellido 2
+      if (this.fuseSurname2 && surname2) {
+        const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
+        fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
+          fuzzyResultsSurname2.some((result) => result.item === patient)
+        );
+      }
+    
+      // Guardar resultados finales filtrados
+      this.allFilteredPatients = fuzzyFilteredPatients;
+    
+      // Actualizar total de páginas y pacientes filtrados
+      this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
+      this.generatePageNumbers();
+      this.updatePagedPatients();
+    
+      this.isVisible = this.allFilteredPatients.length > 0; // Mostrar u ocultar resultados
     }
-    if (cip) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.cip) === (cip));
-    }
-    if (phone) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.phone) === (phone));
-    }
-    if (patientCode) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.patientCode) === patientCode);
-    }
-    if (status && status !== '') {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.zone) === String(status));
-    }
-    if (selectedHospitals.length > 0) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        selectedHospitals.includes(patient.hospital)
-      );
-    } 
-
-    let fuzzyFilteredPatients = exactFilteredPatients;
-
-    if (this.fuseName && name) {
-      const fuzzyResultsName = this.fuseName.search(name);
-      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-        fuzzyResultsName.some((result) => result.item === patient)
-      );
-    }
-    if (this.fuseSurname1 && surname1) {
-      const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
-      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-        fuzzyResultsSurname1.some((result) => result.item === patient)
-      );
-    }
-    if (this.fuseSurname2 && surname2) {
-      const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
-      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-        fuzzyResultsSurname2.some((result) => result.item === patient)
-      );
-    }
-    this.allFilteredPatients = fuzzyFilteredPatients;
-
-    this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
-    this.generatePageNumbers();
-    this.updatePagedPatients();
-
-    this.isVisible = this.allFilteredPatients.length > 0;
-  }
+    
+  
 
   openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
