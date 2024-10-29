@@ -83,14 +83,15 @@
       </button>
       <button type="reset" (click)="resetForm()">Reiniciar</button>
     </form>
+    
+    <hr size="3px" color="black" style="width: 100vw" />
     <div
       [style.display]="isVisible ? 'block' : 'none'"
       *ngIf="filteredPatients.length <= 0&& !isLoading"
     >
-      <legend>Paciente no encontrado</legend>
+      <legend style="margin-left: 3%">Paciente no encontrado</legend>
     </div>
 
-    <hr size="3px" color="black" style="width: 100vw" />
 
     <!-- Barra de carga -->
     <div *ngIf="isLoading" class="loading-container">

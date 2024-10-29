@@ -17,12 +17,11 @@ legend {
 
 .credentials {
   display: grid;
-  padding-top: 4%;
+  padding-top: 3%;
   grid-template-columns: auto auto auto auto;
+  gap:10px;
 }
-mat-form-field {
-  margin-right: 35px;
-}
+
 
 mat-card-title {
   font-weight: bold;
