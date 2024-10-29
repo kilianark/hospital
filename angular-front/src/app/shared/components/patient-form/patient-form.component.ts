@@ -52,6 +52,7 @@ export class PatientFormComponent implements OnInit {
 
     this.patientForm = this.formBuilder.group({
       patientCode: [{ value: '', disabled: true }, [Validators.required]],
+      id: [{ value: '0', disabled: true }, [Validators.required]],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],

@@ -73,9 +73,11 @@ export class pdfGeneratorService {
         const surname1Width = doc.getTextWidth(surname1);
         startPosition += surname1Width + 2;
 
+        if(patientForm.surname2 != null){
         doc.text(surname2 + ',', startPosition, 35);
         const surname2Width = doc.getTextWidth(surname2);
         startPosition += surname2Width + 2;
+        }
 
         doc.text(name, startPosition, 35);
 
@@ -88,8 +90,9 @@ export class pdfGeneratorService {
         doc.setFont('helvetica', 'bold');
         doc.text(`Fecha de nacimiento: `, 16, 40);
         doc.setFont('helvetica', 'normal');
-        const birthDate = patientForm.birth;
-        doc.text(formatDate(birthDate), 65, 40);
+        const birthDate = formatDate(patientForm.birthDate);
+        doc.text(birthDate, 65, 40);
+        
 
         doc.setFont('helvetica', 'bold');
         doc.text(`Sexo: `, 16, 45);
@@ -103,12 +106,16 @@ export class pdfGeneratorService {
         doc.setFont('helvetica', 'bold');
         doc.text(`Dirección: `, 16, 50);
         doc.setFont('helvetica', 'normal');
+        if (patientForm.address != null){
         doc.text(`${patientForm.address}`, 65, 50);
+        }
 
         doc.setFont('helvetica', 'bold');
         doc.text(`CIP: `, 140, 50);
         doc.setFont('helvetica', 'normal');
+        if (patientForm.cip != null){
         doc.text(`${patientForm.cip}`, 155, 50);
+        }
 
         doc.setFont('helvetica', 'bold');
         doc.text(`Teléfono: `, 16, 55);
@@ -118,8 +125,9 @@ export class pdfGeneratorService {
         doc.setFont('helvetica', 'bold');
         doc.text(`C. Emergencia: `, 117.5, 55);
         doc.setFont('helvetica', 'normal');
+        if(patientForm.emergencyContact != null){
         doc.text(`${patientForm.emergencyContact}`, 155, 55);
-
+        }
 
 
         //cuando tengamos guardada la info sustituir el 'blabla'
