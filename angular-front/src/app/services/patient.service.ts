@@ -7,7 +7,7 @@ import { PatientInterface } from '../interfaces/patient.interface';
   providedIn: 'root'
 })
 export class PatientService {
-  private url = "https://localhost:7138/api/Patients"
+  private url = "http//localhost:5124/api/Patients"
 
 
   constructor(private http: HttpClient) { }
