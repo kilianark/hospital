@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ApiHospital.Controllers
-{   
+{
     [Authorize(Roles = "ADMIN")]
     [Route("api/Patients")]
     [ApiController]
@@ -44,7 +44,8 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Phone,
             [FromQuery] string? Zone,
             [FromQuery] int? BedId,
-            [FromQuery] bool? Ingresados
+            [FromQuery] bool? Ingresados,
+            [FromQuery] List<string>? Hospital
         )
         {
             IQueryable<Patient> query = _context.Patients;
@@ -60,6 +61,11 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Zone, p => !string.IsNullOrWhiteSpace(Zone) && p.Zone.ToLower().StartsWith(Zone.ToLower()));
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
+
+            if (Hospital != null && Hospital.Count > 0)
+            {
+                query = query.Where(p => Hospital.Contains(p.Hospital, StringComparer.OrdinalIgnoreCase));
+            }
 
             // Ejecuta la consulta y retorna el resultado
             var patients = await query.ToListAsync();
