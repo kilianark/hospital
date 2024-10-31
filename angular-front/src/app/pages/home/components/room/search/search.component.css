@@ -85,6 +85,9 @@ table {
   height: auto;
   overflow: auto;
   margin-left: 15px;
+  border-collapse: collapse;
+  display: grid;
+  justify-content: center;
 }
 
 table::-webkit-scrollbar {

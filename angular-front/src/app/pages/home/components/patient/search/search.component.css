@@ -18,11 +18,10 @@ legend {
 .credentials {
   display: grid;
   padding-top: 3%;
-  grid-template-columns: auto auto auto ;
-  gap:10px;
-  margin-right:4%;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+  margin-right: 4%;
 }
-
 
 mat-card-title {
   font-weight: bold;
@@ -84,6 +83,9 @@ table {
   width: 100%;
   height: auto;
   margin-left: 15px;
+  border-collapse: collapse;
+  display: grid;
+  justify-content: center;
 }
 .container {
   width: 98%;
