@@ -5,13 +5,12 @@ body,
 form {
   padding-top: 3%;
   display: grid;
-  grid-template-columns: 33% 33% 33.33333%;
+  grid-template-columns: 33.33333% 33.33333% 33.33333%;
   margin-left: 100px;
   grid-template-rows: 8vh 55vh 5vh;
 }
 
 .form-row {
-  padding-top: 2%;
   display: grid;
   grid-template-columns: auto auto auto;
 }
