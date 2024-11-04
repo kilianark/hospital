@@ -159,7 +159,6 @@
     <ng-container *ngIf="isEditMode">
         <mat-card-title>{{ "Editar Paciente" }}</mat-card-title>
 
-
         <button id="hist-pat" (click)="generatePatientPDF()">
             <span>Historial médico</span>
             <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
@@ -316,8 +315,8 @@
                         [disabled]="patientForm.invalid">
                         Guardar
                     </button>
-                    <button class="reset" mat-raised-button type="button" (click)="resetForm()">
-                        Limpiar
+                    <button class="reset" mat-raised-button type="button" (click)="discardForm()">
+                        Descartar cambios
                     </button>
                 </div>
             </mat-card-actions>

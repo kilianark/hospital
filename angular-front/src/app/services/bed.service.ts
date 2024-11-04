@@ -22,7 +22,9 @@ export class BedService {
     }
     return this.http.get<BedInterface[]>(this.url, {params});
   }
-
+  putBedData(bed: BedInterface): Observable<BedInterface> {
+    return this.http.put<BedInterface>(`${this.url}/${bed.id}`, bed);
+  }
   getBedDataById(bedId: number) : Observable<BedInterface> {
     return this.http.get<BedInterface>(this.url + '/' + bedId);
   }

@@ -31,6 +31,7 @@ form button {
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
+  margin-top: 10px;
   width: auto;
   text-transform: uppercase;
   margin-right: 10px;
@@ -84,6 +85,9 @@ table {
   height: auto;
   overflow: auto;
   margin-left: 15px;
+  border-collapse: collapse;
+  display: grid;
+  justify-content: center;
 }
 
 table::-webkit-scrollbar {
@@ -146,10 +150,6 @@ td button {
   th,
   td {
     padding: 0 15px;
-  }
-  #botonBuscar {
-    width: 25vw;
-    height: 8vw;
   }
 }
 @media screen and (max-width: 480px) {

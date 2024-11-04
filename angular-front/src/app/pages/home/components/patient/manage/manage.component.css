@@ -53,6 +53,12 @@ input {
   width: 150px;
   text-transform: uppercase;
 }
+#assignar {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  margin-left: 0;
+}
 button:hover {
   background-color: cadetblue;
 }

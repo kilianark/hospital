@@ -19,6 +19,8 @@ export class RoomService {
   getRoomById(roomId: number): Observable<RoomInterface>{
     return this.http.get<RoomInterface>(this.url + '/' + roomId );
   }
+  getAllRooms(): Observable<RoomInterface[]> {
+    return this.getRoomData(); }
 
   postRoomData (room: RoomInterface): Observable<RoomInterface> {
     return this.http.post<RoomInterface>(this.url, room);
