@@ -52,10 +52,13 @@ export class SearchPatientComponent implements OnInit {
   isVisible: boolean = false;
   showSelect: boolean = false;
 
-  hospitals = ['H1', 'H2', 'H0'];
-  //hospitals = Object.values(Hospital); //H1 GoldenFold - H2 Faro - H0 Compartido - ENUM
+  hospitals = Object.keys(Hospital).map(key => ({
+    value: key,
+    hospitalName: Hospital[key as keyof typeof Hospital]
+  }));
 
-  patientStatus = Object.keys(HospitalZone)
+
+  patientStatus = Object.keys(HospitalZone) 
     .filter(
       (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
     )
@@ -230,69 +233,63 @@ export class SearchPatientComponent implements OnInit {
       const patientCode = this.patientForm.get('patientCode')?.value || '';
       const phone = this.patientForm.get('phone')?.value || '';
       const status = this.patientForm.get('status')?.value || '';
-      const selectedHospitals: string[] = this.patientForm.get('hospital')?.value || []; // Obtiene los hospitales seleccionados
+      const selectedHospitals: string[] = this.patientForm.get('hospital')?.value.map(hospital => hospital.value) || [];
+
     
       let exactFilteredPatients = this.patients;
     
-      // Filtrando por DNI
       if (dni) {
         exactFilteredPatients = exactFilteredPatients.filter((patient) =>
           String(patient.dni) === dni
         );
       }
-      // Filtrando por CIP
+
       if (cip) {
         exactFilteredPatients = exactFilteredPatients.filter((patient) =>
           String(patient.cip) === cip
         );
       }
-      // Filtrando por teléfono
+
       if (phone) {
         exactFilteredPatients = exactFilteredPatients.filter((patient) =>
           String(patient.phone) === phone
         );
       }
-      // Filtrando por código de paciente
+
       if (patientCode) {
         exactFilteredPatients = exactFilteredPatients.filter((patient) =>
           String(patient.patientCode) === patientCode
         );
       }
-      // Filtrando por estado (zona)
+
       if (status && status !== '') {
         exactFilteredPatients = exactFilteredPatients.filter((patient) =>
           String(patient.zone) === String(status)
         );
       }
-      // // Filtrando por hospitales seleccionados
+
       if (selectedHospitals.length > 0) {
         exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          selectedHospitals.includes(patient.hospital) // Esto ahora buscará H1, H2 o H0 directamente
+          selectedHospitals.includes(patient.hospital)
         );
       }
-      // if (selectedHospitals.length > 0) {
-      //   exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-      //     selectedHospitals.includes(patient.hospital)
-      //   );
-      // }
     
       let fuzzyFilteredPatients = exactFilteredPatients;
     
-      // Filtrando por nombre usando Fuse.js
       if (this.fuseName && name) {
         const fuzzyResultsName = this.fuseName.search(name);
         fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
           fuzzyResultsName.some((result) => result.item === patient)
         );
       }
-      // Filtrando por apellido 1
+
       if (this.fuseSurname1 && surname1) {
         const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
         fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
           fuzzyResultsSurname1.some((result) => result.item === patient)
         );
       }
-      // Filtrando por apellido 2
+
       if (this.fuseSurname2 && surname2) {
         const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
         fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
@@ -300,15 +297,13 @@ export class SearchPatientComponent implements OnInit {
         );
       }
     
-      // Guardar resultados finales filtrados
       this.allFilteredPatients = fuzzyFilteredPatients;
-    
-      // Actualizar total de páginas y pacientes filtrados
+      console.log('Hospitals selected:', this.patientForm.get('hospital')?.value);
       this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
       this.generatePageNumbers();
       this.updatePagedPatients();
     
-      this.isVisible = this.allFilteredPatients.length > 0; // Mostrar u ocultar resultados
+      this.isVisible = this.allFilteredPatients.length > 0;
     }
     
   
@@ -342,6 +337,7 @@ export class SearchPatientComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.searchPatients();
+    
     setTimeout(() => {
       this.isLoading = false;
     }, 100);

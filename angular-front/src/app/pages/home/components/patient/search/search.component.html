@@ -10,11 +10,11 @@
         <div class="credentials">
 
           <mat-form-field appearance="outline">
-            <mat-label for="hospital">Hospital:</mat-label>
-            <mat-select id="hospital" formControlName="hospital" multiple>
-              <mat-option value="" disabled selected>Seleccione uno o varios hospitales</mat-option>
+            <mat-label>Hospital:</mat-label>
+            <mat-select formControlName="hospital" multiple>
+              <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
               <mat-option *ngFor="let hospital of hospitals" [value]="hospital">
-                {{ hospital }}
+                {{ hospital.hospitalName }}
               </mat-option>
             </mat-select>
           </mat-form-field>

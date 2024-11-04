@@ -62,9 +62,18 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
 
-            if (!string.IsNullOrWhiteSpace(Hospital))
+            // Mapea los nombres de hospitales a sus abreviaturas
+            var hospitalMapping = new Dictionary<string, string>
             {
-                query = query.Where(p => p.Hospital.ToLower() == Hospital.ToLower());
+                { "GoldenFold", "H1" },
+                { "Faro", "H2" },
+                { "Compartido", "H0" }
+            };
+
+            if (!string.IsNullOrEmpty(Hospital) && hospitalMapping.ContainsKey(Hospital))
+            {
+                string mappedHospital = hospitalMapping[Hospital];
+                query = ApplyFilter(query, mappedHospital, p => p.Hospital == mappedHospital);
             }
 
             // Ejecuta la consulta y retorna el resultado
