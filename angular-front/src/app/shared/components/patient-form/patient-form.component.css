@@ -7,7 +7,7 @@ form {
   display: grid;
   grid-template-columns: 33.33333% 33.33333% 33.33333%;
   margin-left: 100px;
-  grid-template-rows: 6vh 55vh 5vh;
+  grid-template-rows: 12vh 55vh 5vh;
 }
 
 #hist-pat {
