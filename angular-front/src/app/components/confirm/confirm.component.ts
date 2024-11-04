@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class ConfirmComponent implements OnInit {
   private message: string = '';
-  private type: string = 'warning'; // Por defecto será 'info'
+  private type: string = 'warning'; 
 
   constructor(public dialogRef: MatDialogRef<ConfirmComponent>) {}
 

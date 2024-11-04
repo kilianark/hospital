@@ -1,162 +1,144 @@
-/* Global Styles */
-html {
-  margin-left: 2%;
+html{
+  margin-left: 6.7%;
 }
+/* Estilos generales */
 body {
-  margin-left: 5%;
-  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
-  height: auto;
+  font-family: Arial, sans-serif;
   background-color: #ffffff;
-  box-sizing: border-box;
-  justify-content: flex-end;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
 }
 
-.content {
+/* Estilos del encabezado */
+.header {
+  color: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+#titleBed {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Botón de crear cama */
+.create-bed-button {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-bed-button:hover {
+  background-color: #45a049; /* Verde más oscuro */
+}
+
+/* Estilos de la tabla */
+.table-wrapper {
+  margin-top: 20px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-legend {
-
-  margin-left: 5%;
-  margin-bottom: 15px;
-  font-size: 24px;
-  text-align: left;
-  letter-spacing: 0px;
-  line-height: 31px;
-  font-weight: bold;
-  color: #333;
-  padding-bottom: 1%;
-}
-
-/* Table Wrapper */
-.table-wrapper {
-  width: 63.36%;
-  margin-left: 6%;
-  max-height: 70vh;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-/* Table Styles */
 table {
+  width: 100%;
   border-collapse: collapse;
-  table-layout: auto;
 }
 
-thead {
-  position: sticky;
-  top: 0;
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+th {
   background-color: #333;
-  color: white;
-  z-index: 10;
+  color: #ffffff;
 }
 
-thead th {
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
+tbody tr:hover {
+  background-color: #444;
 }
 
-tbody td {
-  text-align: center;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-/* Mensaje de no camas disponibles */
+/* Mensaje cuando no hay camas */
 .no-beds-message {
   text-align: center;
   padding: 20px;
-  font-size: 18px;
-  color: #ff0000; /* Rojo para destacar */
-  border-top: 1px solid #ddd;
-  background-color: #fff;
 }
 
-/* Responsive Table for smaller screens */
-@media screen and (max-width: 768px) {
-  body {
-    padding: 60px 10px 0 10px;
-  }
-
-  .table-wrapper {
-    width: 100vw;
-    margin-left: 0;
-  }
-
-  table thead th,
-  table tbody td {
-    padding: 10px;
-    font-size: 14px;
-  }
-}
-
-/* Button Styles */
-td button {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-  text-transform: uppercase;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-  margin: 0 5px;
-}
-
-td button:hover {
-  background-color: #555;
-}
-
-td button[disabled] {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Table Cell Layout */
-th, td {
-  padding: 0 15px;
-  vertical-align: middle;
-  word-wrap: break-word;
-  max-width: 200px;
-}
-
-/* Scrollable Table */
-.table-wrapper table {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  z-index: 1000;
-}
-
+/* Estilos del modal */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
 }
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  width: 400px;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+.modal h2 {
+  margin-top: 0;
+  color: #333; /* Color del texto del encabezado */
+}
+
+.modal label {
+  display: block;
+  margin-top: 10px;
+  color: #333; /* Color del texto de las etiquetas */
+}
+
+.modal input, .modal select {
+  width: calc(100% - 20px); /* Ajusta el ancho restando el padding */
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px;
+  background-color: #f9f9f9; /* Fondo gris claro */
+  color: #333; /* Color del texto */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+.modal button {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background-color: #45a049; /* Verde más oscuro */
+}
+
