@@ -8,10 +8,15 @@ namespace ApiHospital.Data
     {
         public MapperProfile()
         {
+            CreateMap<Administrator, AdministratorDTO>().ReverseMap();
             CreateMap<Bed, BedDTO>().ReverseMap();
+            CreateMap<Consultation, ConsultationDTO>().ReverseMap();
+            CreateMap<Doctor, DoctorDTO>().ReverseMap();
+            CreateMap<Hospital, HospitalDTO>().ReverseMap();
+            CreateMap<Move, MoveDTO>().ReverseMap();
+            CreateMap<Nurse, NurseDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();
             CreateMap<Room, RoomDTO>().ReverseMap();
-            CreateMap<Doctor, DoctorDTO>().ReverseMap();
         }
     }
 }
