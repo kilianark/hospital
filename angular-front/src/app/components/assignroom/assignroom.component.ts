@@ -24,20 +24,14 @@ import { RecordComponent } from '../../components/recordpatient/record.component
 })
 export class AssignRoom implements OnInit {
   title = 'Gestión de camas: Habitación ';
-  // id rebut -> obté valor per route
   roomId: number;
-  // data per convenció reb l'instància (RoomInf)
   room!: RoomInterface;
-  // obtenim tot el llistar d'interfaces de llit
   beds: BedInterface[] = [];
-  // obtenim el bedId desde el bedService
-  bedId!: number; // tinc que obtenir els ID beds per la llista de beds
+  bedId!: number; 
   thisIsDisabled: boolean =false;
-  // contindrà llista d'interface de pacients
   patients: PatientInterface[] = [];
   patient!: PatientInterface;
 
-  // quan rebem una data interface de paciente d'allà obtenim, id, nomSur, i el codiPatient.
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: number,
