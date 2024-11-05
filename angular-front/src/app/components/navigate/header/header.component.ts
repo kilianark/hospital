@@ -85,7 +85,6 @@ export class HeaderComponent
    this.username = this.keycloak.getUsername();
    this.keycloak.loadUserProfile().then((profile) => {
     this.doctorID = profile.attributes['doctorID'][0];
-    console.log(this.doctorID);
     })
   }
 
