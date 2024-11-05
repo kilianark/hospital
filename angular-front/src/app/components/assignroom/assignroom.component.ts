@@ -50,12 +50,15 @@ export class AssignRoom implements OnInit {
   ngOnInit() {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
 
+    console.log(this.roomId);
+
     if (this.roomId) {
       console.log('ID de la habitación:', this.roomId);
 
       this.roomService.getRoomById(this.roomId).subscribe((data) => {
         this.room = data;
       });
+      console.error('No completa el getRoomById');
 
       // Cargar las camas usando el servicio, filtrando por idRoom, no posem disponibilitat perquè volem mostrar tots els llits
       this.bedService.getBedData(this.roomId).subscribe(
