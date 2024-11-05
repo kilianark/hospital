@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace ApiHospital.Controllers
 {
@@ -18,11 +19,13 @@ namespace ApiHospital.Controllers
     [ApiController]
     public class DoctorController : ControllerBase
     {
-        private readonly HospitalContext _context;
+    private readonly HospitalContext _context;
+        private readonly IMapper _mapper;
 
-        public DoctorController(HospitalContext context)
+        public DoctorController(HospitalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Doctors
