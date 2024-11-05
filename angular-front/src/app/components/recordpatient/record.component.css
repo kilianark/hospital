@@ -16,6 +16,11 @@ body {
   white-space: pre-line;
 }
 
+.close-button {
+  margin-top: 1%;
+  margin-left: 3%;
+}
+
 .form-col {
   display: grid;
   grid-template-columns: 10vw 20vw 15vw 20vw;
