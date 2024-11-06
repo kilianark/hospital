@@ -45,7 +45,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Zone,
             [FromQuery] int? BedId,
             [FromQuery] bool? Ingresados,
-            [FromQuery] string? Hospital
+            [FromQuery] int? Hospital
         )
         {
             IQueryable<Patient> query = _context.Patients;
@@ -61,9 +61,9 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Zone, p => !string.IsNullOrWhiteSpace(Zone) && p.Zone.ToLower().StartsWith(Zone.ToLower()));
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
-
+            query = ApplyFilter(query, Hospital, p => p.Hospital == Hospital!.Value);
             // Mapea los nombres de hospitales a sus abreviaturas
-            var hospitalMapping = new Dictionary<string, string>
+           /* var hospitalMapping = new Dictionary<string, string>
             {
                 { "GoldenFold", "H1" },
                 { "Faro", "H2" },
@@ -74,7 +74,7 @@ namespace ApiHospital.Controllers
             {
                 string mappedHospital = hospitalMapping[Hospital];
                 query = ApplyFilter(query, mappedHospital, p => p.Hospital == mappedHospital);
-            }
+            }*/
 
             // Ejecuta la consulta y retorna el resultado
             var patients = await query.ToListAsync();

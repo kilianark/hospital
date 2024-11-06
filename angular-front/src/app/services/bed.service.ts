@@ -34,7 +34,11 @@ export class BedService {
   }
 
   getBedsByRoomId(roomId: number): Observable<BedInterface[]> {
-    return this.http.get<BedInterface[]>(`${this.url}/room/${roomId}`);
+    let params = new HttpParams();
+    if (roomId != null && roomId != 0) {
+      params = params.set('roomId', roomId)
+    }
+    return this.http.get<BedInterface[]>(this.url, {params});
   }
   deleteBed(bedId: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${bedId}`);

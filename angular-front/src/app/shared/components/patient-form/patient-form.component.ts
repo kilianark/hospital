@@ -103,7 +103,6 @@ export class PatientFormComponent implements OnInit {
     if (this.patientData) {
       const formattedDate = this.formatDate(this.patientData.birthDate);
       this.patientForm.patchValue({ ...this.patientData, birthDate: formattedDate });
-    } else {
       this.patientService.getNextPatientCode().subscribe(nextPatientCode => {
         this.patientForm.patchValue({ patientCode: nextPatientCode });
       });

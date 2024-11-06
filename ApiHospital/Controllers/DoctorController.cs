@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace ApiHospital.Controllers
 {
@@ -18,11 +19,13 @@ namespace ApiHospital.Controllers
     [ApiController]
     public class DoctorController : ControllerBase
     {
-        private readonly HospitalContext _context;
+    private readonly HospitalContext _context;
+        private readonly IMapper _mapper;
 
-        public DoctorController(HospitalContext context)
+        public DoctorController(HospitalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Doctors
@@ -37,7 +40,9 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Email = null,
             [FromQuery] string? Username = null,
             [FromQuery] string? Worktype = null,
-            [FromQuery] string? Speciality = null
+            [FromQuery] string? Speciality = null,
+            [FromQuery] int? Hospital = null
+
         )
         {
             IQueryable<Doctor> query = _context.Doctors;
@@ -52,6 +57,8 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Username, d => !string.IsNullOrEmpty(Username) && d.Username.ToLower().StartsWith(Username.ToLower()));
             query = ApplyFilter(query, Worktype, d => !string.IsNullOrEmpty(Worktype) && d.Worktype.ToLower().StartsWith(Worktype.ToLower()));
             query = ApplyFilter(query, Speciality, d => !string.IsNullOrEmpty(Speciality) && d.Speciality.ToLower().StartsWith(Speciality.ToLower()));
+            query = ApplyFilter(query, Hospital, d => d.Hospital == Hospital!.Value);
+
 
             return await query.ToListAsync();
         }
