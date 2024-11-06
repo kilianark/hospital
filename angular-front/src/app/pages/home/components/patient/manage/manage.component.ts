@@ -87,13 +87,13 @@ export class ManagePatientComponent {
     }));
   //
 
-  openDialog(patientCode: number) {
+  openDialog(roomId: number) {
     let popupRef = this.dialog.open(AssignRoom, {
       width: '60%',
       height: '80%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientCode,
+      data: roomId,
     });
   }
 

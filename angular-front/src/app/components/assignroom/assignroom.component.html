@@ -10,35 +10,27 @@
     <div id="hero">
       <div id="grided">
         <legend>Camas</legend>
-        <mat-card *ngFor="let bed of beds" class="card" appearance="outlined">
-          <mat-card-header>
-            <mat-card-title class="tituloMenu"
-              >{{ title }}: {{ bed.bedCode }}</mat-card-title
-            >
-          </mat-card-header>
-          <mat-card-content>
-            <div class="objectFit">
-              <p class="tituloMenu">Disponibilidad:</p>
-              <p>
-                {{ bed.availability ? "Libre" : "Ocupada" }}
-              </p>
-            </div>
-            <div class="objectFit">
-              <p class="tituloMenu">Paciente:</p>
-              <p>
-                {{ getPatientByBedId(bed.id)?.name || "-" }}
-                {{ getPatientByBedId(bed.id)?.surname1 || "" }}
-              </p>
-            </div>
-            <div class="objectFit">
-              <p class="tituloMenu">Codigo paciente:</p>
-              <p>
-                {{ getPatientByBedId(bed.id)?.patientCode || "-" }}
-              </p>
-            </div>
-            <button (click)="assignBed(bed.id)" [disabled]="thisIsDisabled" class="buttonCSS" id="assignar">ASIGNAR</button>
-          </mat-card-content>
-        </mat-card>
+        <table id="tabliña">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Disponibilidad</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bed of beds">
+              <td class="tbcen">{{ bed.bedCode }}</td>
+              <td class="tbcen">{{ bed.availability }}</td>
+
+              <td>
+                <button class="buttonCSS" id="assignar">
+                  ASIGNAR
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </body>

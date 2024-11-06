@@ -36,10 +36,10 @@
             <td>{{ getPatientByBedId(bed.id)?.patientCode || "N/A" }}</td>
             <td>
               <!-- Botón de editar -->
-              <button (click)="editBed(bed)">Editar</button>
+              <button class="buttonCSS" (click)="editBed(bed)">Editar</button>
 
               <!-- Botón de eliminar, solo habilitado si no hay paciente -->
-              <button
+              <button class="buttonCSS"
                 (click)="deleteBed(bed)"
                 [disabled]="getPatientByBedId(bed.id)"
               >
