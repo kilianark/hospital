@@ -27,6 +27,7 @@ export class PatientFormComponent implements OnInit {
 
   // Inputs & Outputs
   @Input() isEditMode: boolean = false;
+  @Input() patientCode: number;
   @Input() patientData: any = {};
   @Output() formSubmit = new EventEmitter<any>();
   @Output() formReset = new EventEmitter<void>();
@@ -86,8 +87,8 @@ export class PatientFormComponent implements OnInit {
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], /*[AsyncValidators.checkDni(this.patientService, this.patientData?.patientCode)]*/],
-      cip: ['', [CustomValidators.validCip()], /*[AsyncValidators.checkCip(this.patientService)]*/],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidators.checkDni(this.patientService, this.patientCode)]],
+      cip: ['', [CustomValidators.validCip()], [AsyncValidators.checkCip(this.patientService, this.patientCode)]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', Validators.email],
