@@ -106,6 +106,7 @@ export class PatientService {
     const url = `${this.url}`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de pacientes
     return this.http.get<PatientInterface[]>(url, { params: { dni } }).pipe(
       map(patients => {
+        
         if (excludePatientCode) {
           // Filtrar el paciente actual si se proporciona un código
           patients = patients.filter(p => p.patientCode !== excludePatientCode);
@@ -116,9 +117,19 @@ export class PatientService {
     );
   }
 
-  checkCipExists(cip: string): Observable<boolean> {
-    const url = `${this.url}?Cip=${cip}`;
-    return this.http.get<boolean>(url);
+  checkCipExists(cip: string, excludePatientCode: number): Observable<boolean> {
+    const url = `${this.url}`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de pacientes
+    return this.http.get<PatientInterface[]>(url, { params: { cip } }).pipe(
+      map(patients => {
+        
+        if (excludePatientCode) {
+          // Filtrar el paciente actual si se proporciona un código
+          patients = patients.filter(p => p.patientCode !== excludePatientCode);
+        }
+        return patients.length > 0;  // Si queda algún paciente con ese CIP, el CIP ya existe
+      }),
+      catchError(() => of(false))  // En caso de error, retornamos que no existe para no bloquear la validación
+    );
   }
 
   //Actualizar paciente en searchPatient tras editar en recordComponent

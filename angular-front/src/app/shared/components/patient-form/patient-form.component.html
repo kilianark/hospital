@@ -5,6 +5,17 @@
         <mat-card-title>{{ "Crear Paciente" }}</mat-card-title>
         <div id="void"></div>
 
+        <!-- Hospital -->
+        <mat-form-field appearance="outline">
+            <mat-label>Hospital</mat-label>
+            <mat-select formControlName="hospital">
+                <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+                    {{ hospital.hospitalName }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="patientForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
+        </mat-form-field>
+
         <!-- patientCode -->
         <mat-form-field appearance="outline">
             <mat-label>Codigo paciente</mat-label>
@@ -164,6 +175,18 @@
             <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
         </button>
 
+        <!-- Hospital -->
+        <mat-form-field appearance="outline">
+            <mat-label>Hospital</mat-label>
+            <mat-select formControlName="hospital">
+                <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+                    {{ hospital.hospitalName }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="patientForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
+        </mat-form-field>
+
+        <!-- Patient Code -->
         <mat-form-field appearance="outline">
             <mat-label>Codigo paciente</mat-label>
             <input matInput formControlName="patientCode" />

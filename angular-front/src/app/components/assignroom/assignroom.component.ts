@@ -49,7 +49,7 @@ export class AssignRoom implements OnInit {
         this.room = data[0];
       });
 
-      this.bedService.getBedData(this.roomId).subscribe((data) => {
+      this.bedService.getBedsByRoomId(this.roomId).subscribe((data) => {
           this.beds = data;
           console.log('Camas obtenidas:', this.beds);
       });
