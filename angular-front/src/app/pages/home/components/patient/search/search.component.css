@@ -136,6 +136,11 @@ td button:hover {
   background-color: cadetblue;
 }
 
+.td-cont-left{
+  text-align: left;
+  padding-left: 30px;
+}
+
 .clickable-row {
   cursor: pointer;
 }
