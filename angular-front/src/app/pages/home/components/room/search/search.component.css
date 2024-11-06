@@ -6,6 +6,12 @@ mat-card-title {
   font-size: 1.5em;
   font-weight: bold;
 }
+app-select-pipe{
+  grid-column-start: 1;
+  grid-column-end:3;
+  display: grid;
+  grid-template-columns: auto auto;
+}
 legend {
   margin: 0px;
   overflow: hidden;

@@ -21,13 +21,22 @@
           <mat-label for="floor">Planta:</mat-label>
           <input matInput type="number" id="floor" formControlName="floor" />
         </mat-form-field>
-
+        <mat-form-field appearance="outline">
+          <mat-label for="capacity">Capacidad:</mat-label>
+          <input
+            matInput
+            type="number"
+            id="capacity"
+            formControlName="capacity"
+          />
+        </mat-form-field>
         <!-- zona + area -->
         <app-select-pipe
           [zone]="roomForm.get('zone')"
           [area]="roomForm.get('area')"
           [showError]="false">
         </app-select-pipe>
+        
 
         <!--
         <mat-form-field appearance="outline">
@@ -54,15 +63,7 @@
         </mat-form-field>
         -->
         
-        <mat-form-field appearance="outline">
-          <mat-label for="capacity">Capacidad:</mat-label>
-          <input
-            matInput
-            type="number"
-            id="capacity"
-            formControlName="capacity"
-          />
-        </mat-form-field>
+
 
         <mat-form-field appearance="outline">
           <mat-label for="availability">Disponibilidad</mat-label>
