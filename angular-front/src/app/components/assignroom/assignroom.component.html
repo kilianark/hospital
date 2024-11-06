@@ -15,13 +15,20 @@
             <tr>
               <th>Code</th>
               <th>Disponibilidad</th>
+              <th>Paciente</th>
+              <th>Código Paciente</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let bed of beds">
-              <td class="tbcen">{{ bed.bedCode }}</td>
-              <td class="tbcen">{{ bed.availability ? "Libre" : "Ocupada" }}</td>
-
+              <td>{{ bed.bedCode }}</td>
+              <td>{{ bed.availability ? "Sí" : "No" }}</td>
+              <td>
+                {{ getPatientByBedId(bed.id)?.name || "Sin paciente" }}
+                {{ getPatientByBedId(bed.id)?.surname1 || "" }}
+              </td>
+              <td>{{ getPatientByBedId(bed.id)?.patientCode || "N/A" }}</td>
               <td>
                 <button (click)="assignBed(bedId)" class="buttonCSS" id="assignar">
                   ASIGNAR

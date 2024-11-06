@@ -61,6 +61,7 @@ export class AssignRoom implements OnInit {
   getPatientByBedId(bedId: number): PatientInterface | null {
     return this.patients.find((patient) => patient.bedId === bedId) || null;
   }
+  
   assignBed(bedId:number){
   
   }
