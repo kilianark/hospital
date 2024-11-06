@@ -32,16 +32,16 @@ namespace ApiHospital.Controllers
         public async Task<ActionResult<IEnumerable<MoveDTO>>> GetAllMoves(
             [FromQuery] int? id = null,
             [FromQuery] int? PatientId = null,
-            [FromQuery] string? Hospital_CodeO = null,
-            [FromQuery] string? Hospital_CodeD = null,
+            [FromQuery] int? Hospital_CodeO = null,
+            [FromQuery] int? Hospital_CodeD = null,
             [FromQuery] DateTime? Date = null)
         {
             IQueryable<Move> query = _context.Moves;
 
             query = ApplyFilter(query, id, m => m.Id == id!.Value);
             query = ApplyFilter(query, PatientId, m => m.Patient_id == PatientId.Value);
-            query = ApplyFilter(query, Hospital_CodeO, m => m.Hospital_codeO != null && m.Hospital_codeO.ToLower().StartsWith(Hospital_CodeO.ToLower()));
-            query = ApplyFilter(query, Hospital_CodeD, m => m.Hospital_codeD != null && m.Hospital_codeD.ToLower().StartsWith(Hospital_CodeD.ToLower()));
+            query = ApplyFilter(query, Hospital_CodeO, m => m.Hospital_codeO == Hospital_CodeO!.Value);
+            query = ApplyFilter(query, Hospital_CodeD, m => m.Hospital_codeD == Hospital_CodeD!.Value);
             query = ApplyFilter(query, Date, m => m.Date.Date == Date.Value.Date);
 
             var result = await query.ToListAsync();

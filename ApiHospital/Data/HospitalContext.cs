@@ -28,7 +28,9 @@ namespace ApiHospital.Data
         public DbSet<Nurse> Nurses { get; set; } = null!;
         public DbSet<Administrator> Administrators { get; set; } = null!;   
         public DbSet<Consultation> Consultations { get; set; } = null!; 
-        public DbSet<Move> Moves { get; set; } = null!;    
+        public DbSet<Move> Moves { get; set; } = null!;   
+        public DbSet<Hospital> Hospitals { get; set; } = null!;
+        
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

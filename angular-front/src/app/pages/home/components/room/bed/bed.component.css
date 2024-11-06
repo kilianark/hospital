@@ -4,8 +4,6 @@ html{
 /* Estilos generales */
 body {
   font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #ffffff;
   margin: 0;
   padding: 20px;
 }
@@ -27,48 +25,101 @@ body {
 
 /* Botón de crear cama */
 .create-bed-button {
-  background-color: #4CAF50; /* Verde */
-  color: white;
-  border: none;
-  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 5px;
+  box-sizing: border-box;
   cursor: pointer;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: rgb(76, 217, 100);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  border: 0px;
+  margin-right: 20px;
 }
-
 .create-bed-button:hover {
   background-color: #45a049; /* Verde más oscuro */
 }
 
 /* Estilos de la tabla */
-.table-wrapper {
-  margin-top: 20px;
-  background-color: #2a2a2a;
-  border-radius: 8px;
-  overflow: hidden;
+form {
+  padding-top: 3%;
+  padding-bottom: 10px;
 }
+input {
+  margin-left: 4%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.table-wrapper {
+  padding-left: 4%;
+  width: 80vw;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+.table-wrapper input[readonly] {
+  background-color: #f0f0f0;
+  color: #963333;
+  border: 1px solid #ccc;
+  font-style: italic;
+  border-radius: 2px;
+}
+legend {
+  margin: 0px;
+  overflow: hidden;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 31px;
+  white-space: pre-line;
+  font-weight: bold;
+  padding-bottom: 2%;
+  margin-bottom: 20px;
 
+  padding-left: 4%;
+}
+select {
+  padding-left: 4%;
+  padding: 5px;
+  width: 220px;
+}
 table {
+  padding-left: 4%;
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #444;
+table,
+th,
+td {
+  border: 1px solid #ccc;
 }
-
+th,
+td {
+  padding: 10px;
+}
 th {
-  background-color: #333;
-  color: #ffffff;
+  background-color: #f2f2f2;
 }
-
-tbody tr:hover {
-  background-color: #444;
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.buttonCSS {
+  padding-left: 4%;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 2px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  width: 60px;
+  text-transform: uppercase;
 }
 
 /* Mensaje cuando no hay camas */

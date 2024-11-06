@@ -17,6 +17,7 @@ namespace ApiHospital.Data
             CreateMap<Nurse, NurseDTO>().ReverseMap();
             CreateMap<Patient, PatientDTO>().ReverseMap();
             CreateMap<Room, RoomDTO>().ReverseMap();
+            CreateMap<Hospital, HospitalDTO>().ReverseMap();
         }
     }
 }
