@@ -40,7 +40,9 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Email = null,
             [FromQuery] string? Username = null,
             [FromQuery] string? Worktype = null,
-            [FromQuery] string? Speciality = null
+            [FromQuery] string? Speciality = null,
+            [FromQuery] int? Hospital = null
+
         )
         {
             IQueryable<Doctor> query = _context.Doctors;
@@ -55,6 +57,8 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Username, d => !string.IsNullOrEmpty(Username) && d.Username.ToLower().StartsWith(Username.ToLower()));
             query = ApplyFilter(query, Worktype, d => !string.IsNullOrEmpty(Worktype) && d.Worktype.ToLower().StartsWith(Worktype.ToLower()));
             query = ApplyFilter(query, Speciality, d => !string.IsNullOrEmpty(Speciality) && d.Speciality.ToLower().StartsWith(Speciality.ToLower()));
+            query = ApplyFilter(query, Hospital, d => d.Hospital == Hospital!.Value);
+
 
             return await query.ToListAsync();
         }
