@@ -3,7 +3,12 @@
     <!-- Template para Creación -->
     <ng-container *ngIf="!isEditMode">
         <mat-card-title>{{ "Crear Paciente" }}</mat-card-title>
-        <div id="void"></div>
+
+        <!-- patientCode -->
+        <mat-form-field appearance="outline">
+            <mat-label>Codigo paciente</mat-label>
+            <input matInput formControlName="patientCode" />
+        </mat-form-field>
 
         <!-- Hospital -->
         <mat-form-field appearance="outline">
@@ -16,11 +21,6 @@
             <mat-error *ngIf="patientForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
         </mat-form-field>
 
-        <!-- patientCode -->
-        <mat-form-field appearance="outline">
-            <mat-label>Codigo paciente</mat-label>
-            <input matInput formControlName="patientCode" />
-        </mat-form-field>
 
         <mat-card-content>
             <div class="form-row">
@@ -168,13 +168,13 @@
 
     <!-- Template para Edición -->
     <ng-container *ngIf="isEditMode">
+    <div id="divSep">
         <mat-card-title>{{ "Editar Paciente" }}</mat-card-title>
 
         <button id="hist-pat" (click)="generatePatientPDF()">
-            <span>Historial médico</span>
             <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
         </button>
-
+    </div>
         <!-- Hospital -->
         <mat-form-field appearance="outline">
             <mat-label>Hospital</mat-label>

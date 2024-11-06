@@ -95,8 +95,4 @@ button:hover {
     width: 100%;
     margin-bottom: 10px;
   }
-  legend {
-    grid-column-start: 1;
-    grid-column-end: 2;
-  }
 }
