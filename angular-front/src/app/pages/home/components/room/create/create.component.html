@@ -38,10 +38,11 @@
           </mat-error>
         </mat-form-field>
 
+        <!-- zona + area -->
         <app-select-pipe
           [zone]="addRoomForm.get('zone')"
           [area]="addRoomForm.get('area')"
-          [showError]="false">
+          [showError]="true">
         </app-select-pipe>
 
       </div>

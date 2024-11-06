@@ -22,6 +22,14 @@
           <input matInput type="number" id="floor" formControlName="floor" />
         </mat-form-field>
 
+        <!-- zona + area -->
+        <app-select-pipe
+          [zone]="roomForm.get('zone')"
+          [area]="roomForm.get('area')"
+          [showError]="true">
+        </app-select-pipe>
+
+        <!--
         <mat-form-field appearance="outline">
           <mat-label for="zone">Zona:</mat-label>
           <mat-select
@@ -44,7 +52,8 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
+        -->
+        
         <mat-form-field appearance="outline">
           <mat-label for="capacity">Capacidad:</mat-label>
           <input
