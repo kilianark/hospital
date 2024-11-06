@@ -21,32 +21,34 @@ namespace ApiHospital.Controllers
             _mapper = mapper;
         }
         // GET: api/Administrators
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Administrator>>> GetAdministrators(
-            [FromQuery] int? AdminCode = null,
-            [FromQuery] string? Name = null,
-            [FromQuery] string? Surname1 = null,
-            [FromQuery] string? Surname2 = null,
-            [FromQuery] string? Dni = null,
-            [FromQuery] string? Phone = null,
-            [FromQuery] string? Email = null,
-            [FromQuery] string? Username = null,
-            [FromQuery] string? Worktype = null
-        )
-        {
-            IQueryable<Administrator> query = _context.Administrators;
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Administrator>>> GetAdministrators(
+    [FromQuery] int? AdminCode = null,
+    [FromQuery] string? Name = null,
+    [FromQuery] string? Surname1 = null,
+    [FromQuery] string? Surname2 = null,
+    [FromQuery] string? Dni = null,
+    [FromQuery] string? Phone = null,
+    [FromQuery] string? Email = null,
+    [FromQuery] string? Username = null,
+    [FromQuery] string? Worktype = null,
+    [FromQuery] int? Hospital = null
+)
+{
+    IQueryable<Administrator> query = _context.Administrators.AsNoTracking();
 
-            query = ApplyFilter(query, AdminCode, admin => admin.AdminCode == AdminCode!.Value);
-            query = ApplyFilter(query, Name, d => !string.IsNullOrWhiteSpace(Name) && d.Name.ToLower().StartsWith(Name.ToLower()));
-            query = ApplyFilter(query, Surname1, d => !string.IsNullOrWhiteSpace(Surname1) && d.Surname1.ToLower().StartsWith(Surname1.ToLower()));
-            query = ApplyFilter(query, Surname2, d => !string.IsNullOrWhiteSpace(Surname2) && d.Surname2.ToLower().StartsWith(Surname2.ToLower()));
-            query = ApplyFilter(query, Dni, d => !string.IsNullOrWhiteSpace(Dni) && d.Dni.ToLower().StartsWith(Dni.ToLower()));
-            query = ApplyFilter(query, Phone, d => !string.IsNullOrWhiteSpace(Phone) && d.Phone.ToLower().StartsWith(Phone.ToLower()));
-            query = ApplyFilter(query, Email, d => !string.IsNullOrEmpty(Email) && d.Email.ToLower().StartsWith(Email.ToLower()));
-            query = ApplyFilter(query, Username, d => !string.IsNullOrEmpty(Username) && d.Username.ToLower().StartsWith(Username.ToLower()));
-            query = ApplyFilter(query, Worktype, d => !string.IsNullOrEmpty(Worktype) && d.Worktype.ToLower().StartsWith(Worktype.ToLower()));
-            return await query.ToListAsync();
-        }
+    query = ApplyFilter(query, AdminCode, a => a.AdminCode == AdminCode!.Value);
+    query = ApplyFilter(query, Name, a => !string.IsNullOrWhiteSpace(Name) && a.Name.ToLower().StartsWith(Name.ToLower()));
+    query = ApplyFilter(query, Surname1, a => !string.IsNullOrWhiteSpace(Surname1) && a.Surname1.ToLower().StartsWith(Surname1.ToLower()));
+    query = ApplyFilter(query, Surname2, a => !string.IsNullOrWhiteSpace(Surname2) && a.Surname2.ToLower().StartsWith(Surname2.ToLower()));
+    query = ApplyFilter(query, Dni, a => !string.IsNullOrWhiteSpace(Dni) && a.Dni.ToLower().StartsWith(Dni.ToLower()));
+    query = ApplyFilter(query, Phone, a => !string.IsNullOrWhiteSpace(Phone) && a.Phone.ToLower().StartsWith(Phone.ToLower()));
+    query = ApplyFilter(query, Email, a => !string.IsNullOrEmpty(Email) && a.Email.ToLower().StartsWith(Email.ToLower()));
+    query = ApplyFilter(query, Username, a => !string.IsNullOrEmpty(Username) && a.Username.ToLower().StartsWith(Username.ToLower()));
+    query = ApplyFilter(query, Worktype, a => !string.IsNullOrEmpty(Worktype) && a.Worktype.ToLower().StartsWith(Worktype.ToLower()));
+    query = ApplyFilter(query, Hospital, a => a.Hospital == Hospital!.Value);
+    return await query.ToListAsync();
+}
 
         private IQueryable<T> ApplyFilter<T>(
             IQueryable<T> query,
