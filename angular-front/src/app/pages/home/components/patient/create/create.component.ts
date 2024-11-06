@@ -30,7 +30,6 @@ export class CreatePatientComponent implements OnInit {
     const patient: PatientInterface = {
       ...patientData,
       zone: HospitalZone.Inactivo, // Zona por defecto
-      hospital: 'h1',
       bedId: null,
     };
 

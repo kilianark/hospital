@@ -5,10 +5,12 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { SharedModule } from '../../modules/shared.module';
 import { countries } from '../../../store/country-data.store';
 import { PatientService } from '../../../services/patient.service';
+import { HospitalService } from '../../../services/hospital.service';
 import { pdfGeneratorService } from '../../../services/pdfGenerator.service';
 import { CustomValidators } from '../../../validators/CustomValidators';
 import { AsyncValidators } from '../../../validators/AsyncValidators';
 import { Country } from '../../../interfaces/country.interface';
+import { HospitalInterface } from '../../../interfaces/hospital.interface';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class PatientFormComponent implements OnInit {
   // Form & Data
   public patientForm: FormGroup;
   public countries: Country[] = countries;
+  public hospitals: HospitalInterface[] = [];
   public isEditable: boolean = false;
 
   // Date range
@@ -42,6 +45,7 @@ export class PatientFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private hospitalService: HospitalService,
     private patientService: PatientService,
     private pdfGeneratorService: pdfGeneratorService
   ) {
@@ -53,6 +57,7 @@ export class PatientFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.loadHospitalsData();
     this.loadPatientData();
   }
 
@@ -91,7 +96,7 @@ export class PatientFormComponent implements OnInit {
       address: [''],
       gender: ['', Validators.required],
       zone: [''],
-      hospital: ['']
+      hospital: ['', Validators.required]
     });
   }
 
@@ -107,6 +112,13 @@ export class PatientFormComponent implements OnInit {
         this.patientForm.patchValue({ patientCode: nextPatientCode });
       });
     }
+  }
+
+  /* Carga los hospitales disponibles */
+  private loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
+    });
   }
 
   /* Restaura el formulario a los datos originales antes de editarlos */
