@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { SortDirection } from '@angular/material/sort';
@@ -78,7 +78,7 @@ export class SearchPatientComponent implements OnInit {
     }, 1);
 
     this.patientForm = this.formBuilder.group({
-      hospital: [[]], //esto permite selección múltiple
+      hospital: [[], {nonNullable: true}], //esto permite selección múltiple
       status: [null],
       patientCode: [this.patientCode],
       name: [this.name],
@@ -222,6 +222,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   searchPatients() {
+
 
       this.isVisible = false;
     
