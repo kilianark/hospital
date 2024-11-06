@@ -18,7 +18,6 @@ import { RecordComponent } from '../../components/recordpatient/record.component
   selector: 'app-record',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatChipsModule, MatProgressBarModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './assignroom.component.html',
   styleUrls: ['./assignroom.component.css'],
 })
@@ -52,50 +51,19 @@ export class AssignRoom implements OnInit {
         this.room = data[0];
       });
 
-      this.bedService.getBedData(this.roomId).subscribe(
-        (beds: BedInterface[]) => {
-          this.beds = beds;
+      this.bedService.getBedData(this.roomId).subscribe((data) => {
+          this.beds = data;
           console.log('Camas obtenidas:', this.beds);
-        },
-        (error) => {
-          console.error('Error al cargar camas:', error);
-        }
-      );
-
-      //this.bedService.get
-
-      // orden de paràmetros, bedid no correspon a patientcode
-      this.patientService
-        .getPatientData(
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          undefined,
-          this.bedId
-        )
-        .subscribe(
-          (patients: PatientInterface[]) => {
-            this.patients = patients;
-            console.log('Pacientes obtenido:', this.patient);
-          },
-          (error) => {
-            console.error('Error al cargar paciente:', error);
-          }
-        )
-        if(this.patient!=null){
-          this.thisIsDisabled = true;
-        };
+      });
+      
     }
   }
+
   // En tu componente .ts
   getPatientByBedId(bedId: number): PatientInterface | null {
     return this.patients.find((patient) => patient.bedId === bedId) || null;
   }
   assignBed(bedId:number){
-
-   }
+  
+  }
 }
