@@ -8,12 +8,10 @@ import { BedService } from '../../services/bed.service';
 import { PatientService } from '../../services/patient.service';
 import { Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { RecordComponent } from '../../components/recordpatient/record.component';
 @Component({
   selector: 'app-record',
   standalone: true,
