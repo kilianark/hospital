@@ -36,7 +36,7 @@
           <label for="assignRoom">Asignar habitación: </label>
           <input id="assignRoom" type="text" placeholder="00201" readonly />
           <button
-            class="buttonCSS"
+            class="buttonPP"
             type="button"
             id="seleccionarButton"
             (click)="showDropDown()"
@@ -117,7 +117,7 @@
                     <td class="tbcen">{{ room.availability }}</td>
                     <td>
                       <button
-                        class="buttonCSS"
+                        class="buttonPP"
                         (click)="openDialog(room.id)"
                         id="assignar"
                       >

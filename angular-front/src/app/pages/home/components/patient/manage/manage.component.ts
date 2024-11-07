@@ -144,19 +144,16 @@ export class ManagePatientComponent {
   }
 
   updateArea() {
-    if (this.patient.zone == HospitalZone.Ambulatorio) {
+    if (this.patient.zone != HospitalZone.Inactivo) {
       if (this.patient.zone == HospitalZone.Ambulatorio) {
         this.currentArea = this.ambulatoryArea;
         this.currentAreaType = 'AMBULATORY_AREA';
-      } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
-      } else if (this.patient.zone == HospitalZone.Hospitalizacion) {
+      }  else if (this.patient.zone == HospitalZone.Hospitalizacion) {
         this.currentArea = this.hospitalizedArea;
         this.currentAreaType = 'HOSPITALIZED_AREA';
-      } else if (this.patient.zone == HospitalZone.Urgencias) {
-      } else if (this.patient.zone == HospitalZone.Urgencias) {
+      }  else if (this.patient.zone == HospitalZone.Urgencias) {
         this.currentArea = this.urgencyArea;
         this.currentAreaType = 'URGENCY_AREA';
-      } else if (this.patient.zone == HospitalZone.Quirofano) {
       } else if (this.patient.zone == HospitalZone.Quirofano) {
         this.currentArea = this.operatingRoomArea;
         this.currentAreaType = 'OPERATING_AREA';

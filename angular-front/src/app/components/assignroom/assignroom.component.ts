@@ -63,6 +63,6 @@ export class AssignRoom implements OnInit {
   }
   
   assignBed(bedId:number){
-  
+    
   }
 }
