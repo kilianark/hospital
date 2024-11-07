@@ -12,6 +12,8 @@ import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { debounceTime, map, Observable } from 'rxjs';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { TranslateService } from '@ngx-translate/core';
+import { HospitalService } from '../../../../../services/hospital.service';
+import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 
 
 @Component({
@@ -19,9 +21,10 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
+  hospitals: HospitalInterface[] = [];
 
   showSelect: boolean = false;
 
@@ -58,7 +61,8 @@ export class CreateComponent {
     private roomService: RoomService,
     private router: Router,
     public dialog: MatDialog,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private hospitalService: HospitalService
   ) {
 
     this.translator.use('es');
@@ -74,10 +78,22 @@ export class CreateComponent {
       area: [{ value: '', disabled: true }, Validators.required],
 
       floor: [{ value: '', disabled: true }, Validators.required],
-      availability: [false]
+      availability: [false],
+      hospital: ['', Validators.required]
     });
     this.addRoomForm.patchValue({
       zone: HospitalZone.Inactivo
+    });
+    
+  }
+
+  ngOnInit(): void {
+    this.loadHospitalsData()
+  }
+
+  private loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
     });
   }
 
