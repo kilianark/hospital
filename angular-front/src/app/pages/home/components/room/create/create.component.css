@@ -25,6 +25,7 @@ app-select-pipe{
   grid-column-end:3;
   display: grid;
   grid-template-columns: auto auto;
+  margin-top: 10px;
 }
 
 button {
