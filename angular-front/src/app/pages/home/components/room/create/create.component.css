@@ -15,16 +15,15 @@ mat-card-title {
   font-size: 1.5em;
 }
 .form-row {
-  padding-top: 4%;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 50% 50%;
   margin-right: 20px;
 }
 app-select-pipe{
   grid-column-start: 1;
   grid-column-end:3;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 50% 50%;
   margin-top: 10px;
 }
 
@@ -33,7 +32,10 @@ button {
   height: 5vw;
   margin-right: 2vw;
 }
-#capacidad{
+#numHab{
+  margin-right: 10px;
+}
+#hospitalSelect {
   margin-left: 10px;
 }
 
@@ -45,6 +47,7 @@ button {
   .capacity,
   .zone,
   .area,
+  .hospital,
   .availability {
     grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
   }
