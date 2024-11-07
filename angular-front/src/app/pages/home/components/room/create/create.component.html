@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Crear habitación</title>
 </head>
 
 <body>
   <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" novalidate>
-    <mat-card-title> {{ title }}</mat-card-title>
+    <div class="form-row">
+      <mat-card-title id="hospitalSelect"> {{ title }}</mat-card-title>
+      <mat-form-field appearance="outline" >
+        <mat-label>Hospital</mat-label>
+        <mat-select formControlName="hospital">
+            <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+                {{ hospital.hospitalName }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addRoomForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
+      </mat-form-field>
+    </div>
+    
     <mat-card-content>
       <div class="form-row">
         <!-- Número de habitación -->
 
-        <mat-form-field appearance="outline">
+        <mat-form-field id="numHab" appearance="outline">
 
           <mat-label for="roomNumber">Núm. Hab.</mat-label>
           <input matInput id="roomNumber" type="number" formControlName="roomNumber" (input)="firstNumToFloor()"
