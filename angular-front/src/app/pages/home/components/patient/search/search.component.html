@@ -12,7 +12,7 @@
             <mat-label>Hospital:</mat-label>
             <mat-select formControlName="hospital" multiple>
               <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
-              <mat-option *ngFor="let hospital of hospitals" [value]="hospital">
+              <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
                 {{ hospital.hospitalName }}
               </mat-option>
             </mat-select>
@@ -188,7 +188,7 @@
             (click)="goToManage(patient.id)"
             class="clickable-row"
           >
-            <td>{{ patient.hospital }}</td>
+            <td>{{ getHospitalName(patient.hospital) }}</td>
             <td>{{ patient.patientCode }}</td>
             <td>{{ patient.name }}</td>
             <td>{{ patient.surname1 }}</td>
