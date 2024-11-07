@@ -1,0 +1,14 @@
+<!-- Zona -->
+<mat-form-field class="zoneLabel" appearance="outline" *ngIf="showSelect">
+    <mat-label for="zone">Zona</mat-label>
+    <mat-select id="zone" [formControl]="getZoneFormControl()"  >
+        <!--(selectionChange)="onZoneChange($event.value)"-->
+        <mat-option disabled selected>Seleccione una zona</mat-option>
+        <mat-option *ngFor="let zone of hospitalZones" [value]="zone.value">
+            {{ zone.value | enumToString: "HOSPITAL_ZONE" }}
+        </mat-option>
+    </mat-select>
+    <mat-error *ngIf="showError && zone.hasError('required')">
+        Este campo es obligatorio.
+    </mat-error>
+</mat-form-field>

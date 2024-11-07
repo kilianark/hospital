@@ -30,6 +30,17 @@ form {
   padding-bottom: 10px;
 }
 
+.formHeader {
+  display: grid;
+  grid-template-columns: 33.3333% 33.3333% 33.3333%;
+  margin-right: 2%;
+}
+
+#hospitalSelect {
+  grid-column: 3;
+  margin-left: 8px;
+}
+
 form button {
   background-color: #333;
   color: white;
@@ -53,7 +64,6 @@ form button:hover {
   grid-template-rows: auto auto auto;
   gap: 10px;
   margin-right: 2%;
-  margin-top: 3%;
 }
 
 .filtre1 {
