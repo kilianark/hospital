@@ -9,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
-import { Hospital } from '../../../../../enums/hospital.enum';
+import { HospitalService } from '../../../../../services/hospital.service';
+import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 
 @Component({
   selector: 'app-search-patient',
@@ -47,18 +48,14 @@ export class SearchPatientComponent implements OnInit {
   phone: string = '';
   status: string = '';
   bedId: number = 0;
-  hospital: string [] = []; //Array para selección múltiple
+  hospital: number = 0;
 
   isVisible: boolean = false;
   showSelect: boolean = false;
 
-  hospitals = Object.keys(Hospital).map(key => ({
-    value: key,
-    hospitalName: Hospital[key as keyof typeof Hospital]
-  }));
+  hospitals: HospitalInterface[] = [];
 
-
-  patientStatus = Object.keys(HospitalZone) 
+  patientStatus = Object.keys(HospitalZone)
     .filter(
       (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
     )
@@ -69,6 +66,7 @@ export class SearchPatientComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private patientService: PatientService,
+    private hospitalService: HospitalService,
     private translator: TranslateService
   ) {
     this.translator.use('es');
@@ -78,7 +76,7 @@ export class SearchPatientComponent implements OnInit {
     }, 1);
 
     this.patientForm = this.formBuilder.group({
-      hospital: [[], {nonNullable: true}], //esto permite selección múltiple
+      hospital: [[], { nonNullable: true }], //esto permite selección múltiple
       status: [null],
       patientCode: [this.patientCode],
       name: [this.name],
@@ -102,6 +100,8 @@ export class SearchPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.loadHospitalsData();
 
     this.patientService.getPatientData().subscribe((data) => {
       this.patients = data.map(patient => ({
@@ -129,6 +129,18 @@ export class SearchPatientComponent implements OnInit {
       })
     });
   }
+
+  loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
+    });
+  }
+
+  getHospitalName(hospitalCode: number): string {
+    const hospital = this.hospitals.find(h => h.hospitalCode === hospitalCode);
+    return hospital ? hospital.hospitalName : 'Desconocido';
+  }
+
   updatePatientInList(updatedPatient: PatientInterface) {
     const index = this.patients.findIndex(p => p.id === updatedPatient.id);
     if (index !== -1) {
@@ -224,90 +236,90 @@ export class SearchPatientComponent implements OnInit {
   searchPatients() {
 
 
-      this.isVisible = false;
-    
-      const name = this.patientForm.get('name')?.value || '';
-      const surname1 = this.patientForm.get('surname1')?.value || '';
-      const surname2 = this.patientForm.get('surname2')?.value || '';
-      const dni = this.patientForm.get('dni')?.value || '';
-      const cip = this.patientForm.get('cip')?.value || '';
-      const patientCode = this.patientForm.get('patientCode')?.value || '';
-      const phone = this.patientForm.get('phone')?.value || '';
-      const status = this.patientForm.get('status')?.value || '';
-      const selectedHospitals: string[] = this.patientForm.get('hospital')?.value.map(hospital => hospital.value) || [];
+    this.isVisible = false;
 
-    
-      let exactFilteredPatients = this.patients;
-    
-      if (dni) {
-        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          String(patient.dni) === dni
-        );
-      }
+    const name = this.patientForm.get('name')?.value || '';
+    const surname1 = this.patientForm.get('surname1')?.value || '';
+    const surname2 = this.patientForm.get('surname2')?.value || '';
+    const dni = this.patientForm.get('dni')?.value || '';
+    const cip = this.patientForm.get('cip')?.value || '';
+    const patientCode = this.patientForm.get('patientCode')?.value || '';
+    const phone = this.patientForm.get('phone')?.value || '';
+    const status = this.patientForm.get('status')?.value || '';
+    const selectedHospitals = this.patientForm.get('hospital')?.value.map(Number) || [];
 
-      if (cip) {
-        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          String(patient.cip) === cip
-        );
-      }
 
-      if (phone) {
-        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          String(patient.phone) === phone
-        );
-      }
+    let exactFilteredPatients = this.patients;
 
-      if (patientCode) {
-        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          String(patient.patientCode) === patientCode
-        );
-      }
-
-      if (status && status !== '') {
-        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          String(patient.zone) === String(status)
-        );
-      }
-
-      if (selectedHospitals.length > 0) {
-        exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-          selectedHospitals.includes(patient.hospital)
-        );
-      }
-    
-      let fuzzyFilteredPatients = exactFilteredPatients;
-    
-      if (this.fuseName && name) {
-        const fuzzyResultsName = this.fuseName.search(name);
-        fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-          fuzzyResultsName.some((result) => result.item === patient)
-        );
-      }
-
-      if (this.fuseSurname1 && surname1) {
-        const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
-        fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-          fuzzyResultsSurname1.some((result) => result.item === patient)
-        );
-      }
-
-      if (this.fuseSurname2 && surname2) {
-        const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
-        fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-          fuzzyResultsSurname2.some((result) => result.item === patient)
-        );
-      }
-    
-      this.allFilteredPatients = fuzzyFilteredPatients;
-      console.log('Hospitals selected:', this.patientForm.get('hospital')?.value);
-      this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
-      this.generatePageNumbers();
-      this.updatePagedPatients();
-    
-      this.isVisible = this.allFilteredPatients.length > 0;
+    if (dni) {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        String(patient.dni) === dni
+      );
     }
     
-  
+
+    if (cip) {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        String(patient.cip) === cip
+      );
+    }
+
+    if (phone) {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        String(patient.phone) === phone
+      );
+    }
+
+    if (patientCode) {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        String(patient.patientCode) === patientCode
+      );
+    }
+
+    if (status && status !== '') {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        String(patient.zone) === String(status)
+      );
+    }
+
+    if (selectedHospitals.length > 0) {
+      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
+        selectedHospitals.includes(patient.hospital)
+      );
+    }
+
+    let fuzzyFilteredPatients = exactFilteredPatients;
+
+    if (this.fuseName && name) {
+      const fuzzyResultsName = this.fuseName.search(name);
+      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
+        fuzzyResultsName.some((result) => result.item === patient)
+      );
+    }
+
+    if (this.fuseSurname1 && surname1) {
+      const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
+      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
+        fuzzyResultsSurname1.some((result) => result.item === patient)
+      );
+    }
+
+    if (this.fuseSurname2 && surname2) {
+      const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
+      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
+        fuzzyResultsSurname2.some((result) => result.item === patient)
+      );
+    }
+
+    this.allFilteredPatients = fuzzyFilteredPatients;
+    this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
+    this.generatePageNumbers();
+    this.updatePagedPatients();
+
+    this.isVisible = this.allFilteredPatients.length > 0;
+  }
+
+
 
   openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -338,7 +350,7 @@ export class SearchPatientComponent implements OnInit {
   onSubmit() {
     this.isLoading = true;
     this.searchPatients();
-    
+
     setTimeout(() => {
       this.isLoading = false;
     }, 100);
