@@ -68,6 +68,11 @@
             <input matInput type="text" id="phone" formControlName="phone" />
           </mat-form-field>
 
+          <app-select-zone
+            [zone]="patientForm.get('status')"
+            [showError]="true">
+          </app-select-zone>
+          <!--
           <mat-form-field appearance="outline">
             <mat-label for="status">Estado: </mat-label>
             <mat-select
@@ -87,6 +92,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          -->
         </div>
       </mat-card-content>
       <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
