@@ -24,7 +24,7 @@ import { HospitalInterface } from '../../../../../interfaces/hospital.interface'
 export class CreateComponent implements OnInit {
   title = 'Crear Habitación';
   addRoomForm: FormGroup;
-  public hospitals: HospitalInterface[] = [];
+  hospitals: HospitalInterface[] = [];
 
   showSelect: boolean = false;
 

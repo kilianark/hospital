@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../../../../../services/room.service';
 import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { Router } from '@angular/router';
@@ -9,19 +9,22 @@ import { AmbulatoryArea } from '../../../../../enums/ambulatory-area.enum';
 import { HospitalizedArea } from '../../../../../enums/hospitalized-area.enum';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
+import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
+import { HospitalService } from '../../../../../services/hospital.service';
 
 @Component({
   selector: 'app-search-room',
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
-export class SearchRoomComponent {
+export class SearchRoomComponent implements OnInit {
   title = 'Búsqueda Habitaciones:';
   rooms: RoomInterface[] = [];
   roomForm: FormGroup;
   isVisible: boolean = false;
 
   isLoading = false;
+  hospitals: HospitalInterface[] = [];
   pagedRooms: RoomInterface[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -91,7 +94,8 @@ export class SearchRoomComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private roomService: RoomService,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private hospitalService: HospitalService
   ) {
     this.translator.use('es');
 
@@ -106,6 +110,7 @@ export class SearchRoomComponent {
       area: [''],
       capacity: [''],
       availability: [''],
+      hospital: ['']
     });
   }
 
@@ -114,6 +119,15 @@ export class SearchRoomComponent {
       this.rooms = data;
       this.totalPages = Math.ceil(this.rooms.length / this.itemsPerPage);
       this.sortRooms();
+    });
+
+    this.loadHospitalsData();
+  }
+
+
+  private loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
     });
   }
 
