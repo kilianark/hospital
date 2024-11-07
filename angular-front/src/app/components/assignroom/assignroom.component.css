@@ -87,6 +87,18 @@ mat-card {
 button:hover {
   background-color: cadetblue;
 }
+@media screen and (max-width: 768px){
+legend{
+  font-size: 1.4em;
+}
+th,
+td {
+  font-size: 0.8em;
+}
+table{
+  width: 100%;
+}
+}
 @media screen and (max-width: 480px) {
   #grided {
     grid-template-columns: 50vw;
