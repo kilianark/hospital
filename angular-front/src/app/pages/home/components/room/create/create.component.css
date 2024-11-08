@@ -18,6 +18,7 @@ mat-card-title {
   display: grid;
   grid-template-columns: 50% 50%;
   margin-right: 20px;
+  margin-bottom: 10px;
 }
 app-select-pipe{
   grid-column-start: 1;

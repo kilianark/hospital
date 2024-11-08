@@ -4,19 +4,23 @@
 </head>
 <div class="content">
   <div class="top">
+
     <form [formGroup]="patientForm">
+      <div id="hospiEspacio">
       <mat-card-title> {{ title }}</mat-card-title>
+        <mat-form-field id="right" appearance="outline">
+        <mat-label>Hospital:</mat-label>
+        <mat-select formControlName="hospital" multiple>
+          <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
+          <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+            {{ hospital.hospitalName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
       <mat-card-content>
         <div class="credentials">
-          <mat-form-field appearance="outline">
-            <mat-label>Hospital:</mat-label>
-            <mat-select formControlName="hospital" multiple>
-              <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
-              <mat-option *ngFor="let hospital of hospitals" [value]="hospital">
-                {{ hospital.hospitalName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+
 
           <mat-form-field appearance="outline">
             <mat-label for="patientCode">Código:</mat-label>
@@ -68,6 +72,11 @@
             <input matInput type="text" id="phone" formControlName="phone" />
           </mat-form-field>
 
+          <app-select-zone
+            [zone]="patientForm.get('status')"
+            [showError]="true">
+          </app-select-zone>
+          <!--
           <mat-form-field appearance="outline">
             <mat-label for="status">Estado: </mat-label>
             <mat-select
@@ -87,6 +96,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          -->
         </div>
       </mat-card-content>
       <button type="submit" (click)="onSubmit()" (click)="toggleDisplay()">
@@ -188,7 +198,7 @@
             (click)="goToManage(patient.id)"
             class="clickable-row"
           >
-            <td>{{ patient.hospital }}</td>
+            <td>{{ getHospitalName(patient.hospital) }}</td>
             <td>{{ patient.patientCode }}</td>
             <td>{{ patient.name }}</td>
             <td>{{ patient.surname1 }}</td>

@@ -42,6 +42,13 @@
             formControlName="capacity"
           />
         </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label for="availability">Disponibilidad</mat-label>
+          <mat-select id="availability" formControlName="availability">
+            <mat-option [value]="true">Sí</mat-option>
+            <mat-option [value]="false">No</mat-option>
+          </mat-select>
+        </mat-form-field>
         <!-- zona + area -->
         <app-select-pipe
           [zone]="roomForm.get('zone')"
@@ -77,13 +84,7 @@
         
 
 
-        <mat-form-field appearance="outline">
-          <mat-label for="availability">Disponibilidad</mat-label>
-          <mat-select id="availability" formControlName="availability">
-            <mat-option [value]="true">Sí</mat-option>
-            <mat-option [value]="false">No</mat-option>
-          </mat-select>
-        </mat-form-field>
+
       </div>
     </mat-card-content>
     <button

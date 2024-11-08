@@ -9,6 +9,7 @@ import { ManagePatientComponent } from '../../pages/home/components/patient/mana
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { PatientFormComponent } from '../../shared/components/patient-form/patient-form.component';
+import { SelectZoneComponent } from "../../shared/components/select-zone/select-zone.component";
 @NgModule({
   declarations: [
     CreatePatientComponent,
@@ -21,9 +22,9 @@ import { PatientFormComponent } from '../../shared/components/patient-form/patie
     FormsModule,
     PatientRoutingModule,
     SharedModule,
-    PatientFormComponent
-
-  ],
+    PatientFormComponent,
+    SelectZoneComponent
+],
   providers: [provideHttpClient()],
 })
 export class PatientModule { }

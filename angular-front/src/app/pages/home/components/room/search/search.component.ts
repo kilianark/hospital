@@ -315,7 +315,7 @@ export class SearchRoomComponent implements OnInit {
 
   goToRooms(roomId: number) {
     if (roomId !== undefined) {
-      this.router.navigate(['/home/room/beds', roomId]);
+      this.router.navigate(['/home/room/manage', {id: roomId}]);
     } else {
       console.log(this.rooms[0]);
       console.log('No hay camas asignadas a esta habitación.');
