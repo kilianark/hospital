@@ -35,8 +35,8 @@ export class RoomService {
 
     if (Hospital && Hospital.length > 0) {
       Hospital.forEach(h => {
-          if (h.trim() !== "") {
-              params = params.append('Hospital', h.trim());
+          if (h !== null) {
+              params = params.append('Hospital', h);
           }
       });
     }

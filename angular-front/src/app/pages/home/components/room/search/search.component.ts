@@ -131,6 +131,11 @@ export class SearchRoomComponent implements OnInit {
     });
   }
 
+  getHospitalName(hospitalCode: number): string {
+    const hospital = this.hospitals.find(h => h.hospitalCode === hospitalCode);
+    return hospital ? hospital.hospitalName : 'Desconocido';
+  }
+
   sortData(field: string) {
     if (this.sortField === field) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -289,7 +294,7 @@ export class SearchRoomComponent implements OnInit {
       searchFilters.availability !== null ? searchFilters.availability : null;
     const zone = searchFilters.zone ? searchFilters.zone : null;
     const area = searchFilters.area ? searchFilters.area : null;
-    const selectedHospitals: string[] = this.roomForm.get('hospital')?.value.map(hospital => hospital.value) || [];
+    const selectedHospitals: string[] = this.roomForm.get('hospital')?.value.map(Number) || [];
     // Llamada al servicio para buscar habitaciones
     this.roomService
       .searchRooms(roomNumber, floor, zone, area, capacity, availability, selectedHospitals)
