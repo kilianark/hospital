@@ -38,6 +38,8 @@ export class PatientFormComponent implements OnInit {
   public hospitals: HospitalInterface[] = [];
   public isEditable: boolean = false;
 
+  private originalPatientData: any = {}; // Propiedad auxiliar
+
   // Date range
   public minDateBirth: Date;
   public maxDateBirth: Date;
@@ -55,7 +57,6 @@ export class PatientFormComponent implements OnInit {
     this.maxDateBirth = today;
   }
 
-
   ngOnInit(): void {
     this.initForm();
     this.loadHospitalsData();
@@ -64,6 +65,7 @@ export class PatientFormComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['patientData'] && this.patientData) {
+      this.originalPatientData = { ...this.patientData }; // Guardar copia de los datos originales
       this.fillFormWithPatientData();
       this.setFormFields();
     }
@@ -75,6 +77,13 @@ export class PatientFormComponent implements OnInit {
 
       // Notificar al servicio sobre la actualización
       this.patientService.notifyPatientUpdated(this.patientForm.getRawValue());
+
+      // Actualizar `originalPatientData` al último estado guardado
+      this.originalPatientData = { ...this.patientForm.getRawValue() };
+
+      // Cambia el modo editable si fuera necesario
+      this.isEditable = false;
+      this.setFormFields();
     }
   }
 
@@ -127,8 +136,10 @@ export class PatientFormComponent implements OnInit {
     // Limpia el formulario completamente
     this.patientForm.reset();
 
+    this.patientForm.patchValue({ ...this.originalPatientData, birthDate: this.formatDate(this.originalPatientData.birthDate) });
+
     // Recarga `patientData` para restaurar el estado original
-    this.loadPatientData();
+    //this.loadPatientData();
 
     // Cambia el modo editable si fuera necesario
     this.isEditable = false;
