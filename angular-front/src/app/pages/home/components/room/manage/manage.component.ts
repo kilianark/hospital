@@ -112,14 +112,20 @@ export class ManageComponent {
         const originalBedCode = this.beds.find(bed => bed.id === this.selectedBed!.id)?.bedCode;
 
         if (originalBedCode) {
-          // Mantener el número de habitación y solo permitir el cambio en la letra final
-          const roomCodePart = originalBedCode.slice(0, -1); // Parte que no se puede editar
+          // Mantener la parte fija del código (número de habitación) y solo permitir editar la última letra
+          const roomCodePart = originalBedCode.slice(0, -1); // Parte fija
           const newLetter = this.selectedBed.bedCode.slice(-1).toUpperCase();
+
+          // Validar que el nuevo carácter sea una letra
+          if (!/^[A-Z]$/.test(newLetter)) {
+            this.confirm('El código de cama debe terminar en una letra. Por favor, elija otro.', 'warning');
+            return;
+          }
 
           // Actualizar el código de cama con la nueva letra y la parte fija
           this.selectedBed.bedCode = `${roomCodePart}${newLetter}`;
         } else {
-          // En caso de nueva cama, convertir el código a mayúsculas
+          // En caso de crear una nueva cama, convertir el código a mayúsculas
           this.selectedBed.bedCode = this.selectedBed.bedCode.toUpperCase();
         }
 
@@ -164,6 +170,7 @@ export class ManageComponent {
         }
       }
     }
+
 
 
 
