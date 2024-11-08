@@ -127,7 +127,7 @@ export class PatientFormComponent implements OnInit {
   /* Carga los hospitales disponibles */
   private loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals;
+      this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
     });
   }
 
