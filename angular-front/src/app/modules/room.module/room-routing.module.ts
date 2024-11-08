@@ -2,16 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoomComponent } from '../../pages/home/components/room/room.component';
 import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
-import { BedComponent } from '../../pages/home/components/room/bed/bed.component';
 import { CreateComponent } from '../../pages/home/components/room/create/create.component';
-import { CreateComponentBed } from '../../pages/home/components/room/bed/create/create.component';
 
 const routes: Routes = [
   { path: '', component: RoomComponent },
   { path: 'search', component: SearchRoomComponent },
   { path: 'create', component: CreateComponent },
-  { path: 'beds/:id', component: BedComponent },
-  { path: 'createBed', component: CreateComponentBed },
 ];
 
 @NgModule({

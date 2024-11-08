@@ -110,7 +110,7 @@ export class SearchRoomComponent implements OnInit {
       area: [''],
       capacity: [''],
       availability: [''],
-      hospital: ['']
+      hospital: [[], {nonNullable: true}]
     });
   }
 
@@ -125,7 +125,7 @@ export class SearchRoomComponent implements OnInit {
   }
 
 
-  private loadHospitalsData(): void {
+  loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
     });
@@ -289,9 +289,10 @@ export class SearchRoomComponent implements OnInit {
       searchFilters.availability !== null ? searchFilters.availability : null;
     const zone = searchFilters.zone ? searchFilters.zone : null;
     const area = searchFilters.area ? searchFilters.area : null;
+    const selectedHospitals: string[] = this.roomForm.get('hospital')?.value.map(hospital => hospital.value) || [];
     // Llamada al servicio para buscar habitaciones
     this.roomService
-      .searchRooms(roomNumber, floor, zone, area, capacity, availability)
+      .searchRooms(roomNumber, floor, zone, area, capacity, availability, selectedHospitals)
       .subscribe(
         (rooms: RoomInterface[]) => {
           this.rooms = rooms;
