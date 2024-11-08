@@ -113,8 +113,8 @@ export class ManageComponent {
 
         if (originalBedCode) {
           // Mantener la parte fija del código (número de habitación) y solo permitir editar la última letra
-          const roomCodePart = originalBedCode.slice(0, -1); // Parte fija
-          const newLetter = this.selectedBed.bedCode.slice(-1).toUpperCase();
+          const roomCodePart = originalBedCode.slice(0, -1); // Parte fija (número de habitación)
+          const newLetter = this.selectedBed.bedCode.slice(-1).toUpperCase(); // Solo cambiar la letra final
 
           // Validar que el nuevo carácter sea una letra
           if (!/^[A-Z]$/.test(newLetter)) {
@@ -122,11 +122,12 @@ export class ManageComponent {
             return;
           }
 
-          // Actualizar el código de cama con la nueva letra y la parte fija
+          // Actualizar el código de cama con la nueva letra y la parte fija (número de habitación)
           this.selectedBed.bedCode = `${roomCodePart}${newLetter}`;
         } else {
-          // En caso de crear una nueva cama, convertir el código a mayúsculas
-          this.selectedBed.bedCode = this.selectedBed.bedCode.toUpperCase();
+          // Si se está creando una nueva cama, generar el código de cama (y asegurarse de que termina en letra)
+          const newLetter = this.generateBedCode(this.roomId!).slice(-1).toUpperCase(); // Solo obtener la última letra
+          this.selectedBed.bedCode = `${this.room.roomNumber}${newLetter}`;
         }
 
         const existingBed = this.beds.find(bed => bed.bedCode === this.selectedBed.bedCode);
@@ -145,7 +146,7 @@ export class ManageComponent {
               this.confirm('Cama creada perfectamente', 'success');
             },
             (error) => {
-              this.confirm('No se puede crear la cama. Codigo repetido', 'warning');
+              this.confirm('No se puede crear la cama. Código repetido', 'warning');
               console.error('Error al crear la cama:', error);
             }
           );
@@ -170,6 +171,7 @@ export class ManageComponent {
         }
       }
     }
+
 
 
 
