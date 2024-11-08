@@ -22,5 +22,5 @@ export interface PatientInterface{
     zone: HospitalZone | null;
     reason?: string;
     bedId?: number;
-    hospital: Hospital;
+    hospital: number;
 }

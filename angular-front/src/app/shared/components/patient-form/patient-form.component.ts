@@ -57,7 +57,6 @@ export class PatientFormComponent implements OnInit {
     this.maxDateBirth = today;
   }
 
-
   ngOnInit(): void {
     this.initForm();
     this.loadHospitalsData();
