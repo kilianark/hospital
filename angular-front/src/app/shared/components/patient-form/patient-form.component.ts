@@ -120,6 +120,10 @@ export class PatientFormComponent implements OnInit {
       this.patientForm.patchValue({ ...this.patientData, birthDate: formattedDate });
       this.patientService.getNextPatientCode().subscribe(nextPatientCode => {
         this.patientForm.patchValue({ patientCode: nextPatientCode });
+      },
+      error => {
+        this.patientForm.patchValue({patientCode : 1})  
+        console.log(error)
       });
     }
   }
