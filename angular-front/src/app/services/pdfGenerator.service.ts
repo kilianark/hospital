@@ -1,13 +1,18 @@
 import { Injectable } from "@angular/core";
 import jsPDF from 'jspdf';
-
+import { HospitalService } from "./hospital.service";
+import { HospitalInterface } from "../interfaces/hospital.interface";
+import { lastValueFrom } from "rxjs";
 @Injectable({
     providedIn: 'root',
 })
 export class pdfGeneratorService {
-    constructor() { }
 
-    generatePDF(patientForm: any) {
+    constructor(
+        private hospitalService: HospitalService,
+    ) { }
+
+    async generatePDF(patientForm: any) {
 
         const doc = new jsPDF();
         let currentLine = 65;
@@ -73,10 +78,10 @@ export class pdfGeneratorService {
         const surname1Width = doc.getTextWidth(surname1);
         startPosition += surname1Width + 2;
 
-        if(patientForm.surname2 != null){
-        doc.text(surname2 + ',', startPosition, 35);
-        const surname2Width = doc.getTextWidth(surname2);
-        startPosition += surname2Width + 2;
+        if (patientForm.surname2 != null) {
+            doc.text(surname2 + ',', startPosition, 35);
+            const surname2Width = doc.getTextWidth(surname2);
+            startPosition += surname2Width + 2;
         }
 
         doc.text(name, startPosition, 35);
@@ -92,7 +97,7 @@ export class pdfGeneratorService {
         doc.setFont('helvetica', 'normal');
         const birthDate = formatDate(patientForm.birthDate);
         doc.text(birthDate, 65, 40);
-        
+
 
         doc.setFont('helvetica', 'bold');
         doc.text(`Sexo: `, 16, 45);
@@ -103,18 +108,27 @@ export class pdfGeneratorService {
             doc.text(`Mujer`, 65, 45);
         }
 
+        // HOSPITAL:
+        doc.setFont('helvetica', 'bold');
+        doc.text(`Hospital: `, 130, 45);
+        doc.setFont('helvetica', 'normal');
+        const nombreHospital = await lastValueFrom(this.hospitalService.getHospitalNameByCode(patientForm.hospital));
+        doc.text(`${nombreHospital}`, 155, 45);
+
+
+
         doc.setFont('helvetica', 'bold');
         doc.text(`Dirección: `, 16, 50);
         doc.setFont('helvetica', 'normal');
-        if (patientForm.address != null){
-        doc.text(`${patientForm.address}`, 65, 50);
+        if (patientForm.address != null) {
+            doc.text(`${patientForm.address}`, 65, 50);
         }
 
         doc.setFont('helvetica', 'bold');
         doc.text(`CIP: `, 140, 50);
         doc.setFont('helvetica', 'normal');
-        if (patientForm.cip != null){
-        doc.text(`${patientForm.cip}`, 155, 50);
+        if (patientForm.cip != null) {
+            doc.text(`${patientForm.cip}`, 155, 50);
         }
 
         doc.setFont('helvetica', 'bold');
@@ -125,13 +139,12 @@ export class pdfGeneratorService {
         doc.setFont('helvetica', 'bold');
         doc.text(`C. Emergencia: `, 117.5, 55);
         doc.setFont('helvetica', 'normal');
-        if(patientForm.emergencyContact != null){
-        doc.text(`${patientForm.emergencyContact}`, 155, 55);
+        if (patientForm.emergencyContact != null) {
+            doc.text(`${patientForm.emergencyContact}`, 155, 55);
         }
 
-
         //cuando tengamos guardada la info sustituir el 'blabla'
-        
+
         //Historial
         currentLine = addSection(
             'Antecedentes médicos:',
@@ -165,5 +178,5 @@ export class pdfGeneratorService {
         );
 
         doc.output('dataurlnewwindow');
-    }
+    };
 }
