@@ -78,7 +78,7 @@ export class CreateComponent implements OnInit {
       area: [{ value: '', disabled: true }, Validators.required],
 
       floor: [{ value: '', disabled: true }, Validators.required],
-      availability: [false],
+      availability: [true],
       hospital: ['', Validators.required]
     });
     this.addRoomForm.patchValue({
