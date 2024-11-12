@@ -1,0 +1,36 @@
+.confirm-dialog {
+  width: 320px;
+  padding: 20px;
+  border-radius: 10px; /* Reducimos los bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+mat-card-content {
+  font-size: 16px;
+  margin-bottom: 20px; /* Mayor espacio entre el texto y los botones */
+  text-align: center;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  margin: 0 10px;
+}
+
+button[color="warn"] {
+  color: #f44336;
+}
+
+button[color="primary"] {
+  color: #1976d2;
+}
