@@ -11,6 +11,8 @@ import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { HospitalService } from '../../../../../services/hospital.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 
 @Component({
   selector: 'app-search-room',
@@ -94,6 +96,7 @@ export class SearchRoomComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private roomService: RoomService,
+    public dialog: MatDialog,
     private translator: TranslateService,
     private hospitalService: HospitalService
   ) {
@@ -206,7 +209,13 @@ export class SearchRoomComponent implements OnInit {
     this.isLoading = true;
     this.isVisible = false;
     this.roomService.deleteRoomData(room.id).subscribe(data => {
+      this.confirm("Habitacion " + room.roomNumber + " eliminada", "success");
       this.onSubmit();
+    },
+    error => {
+      this.confirm("Error al eliminar habitacion", "error")
+      this.isLoading = false;
+      this.isVisible = true;
     });
   }
 
@@ -342,5 +351,10 @@ export class SearchRoomComponent implements OnInit {
 
   toggleDisplay() {
     this.isVisible = true;
+  }
+
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 }
