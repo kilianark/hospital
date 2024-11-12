@@ -151,11 +151,20 @@ td button {
     display: flex;
     flex-wrap: wrap;
   }
+  .formHeader {
+    display: grid;
+    grid-template-columns:45vw  0px 46vw;
+    margin-left: 2px;
+    margin-right: 0px;  }
   .table-wrapper {
     width: 99vw;
   }
   form {
     padding-right: 2%;
+  }
+  app-select-pipe{
+    grid-column-start: 1;
+    grid-column-end:3;
   }
   .credentials {
     display: grid;
