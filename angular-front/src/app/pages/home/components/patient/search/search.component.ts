@@ -11,6 +11,8 @@ import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
+
 
 @Component({
   selector: 'app-search-patient',
@@ -256,7 +258,7 @@ export class SearchPatientComponent implements OnInit {
         String(patient.dni) === dni
       );
     }
-    
+
 
     if (cip) {
       exactFilteredPatients = exactFilteredPatients.filter((patient) =>
@@ -348,20 +350,26 @@ export class SearchPatientComponent implements OnInit {
   }
 
   deletePatient(patient: PatientInterface) {
-    this.patientService.deletePatientData(patient.id).subscribe(data => {
-      
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Eliminar Paciente',
+        message: `¿Estás seguro de que deseas eliminar al paciente ${patient.name} ${patient.surname1}?`
+      }
     });
 
-    this.patients.splice(this.patients.indexOf(patient, 1))
-
-    console.log(this.patients);
-    
-    this.isLoading = true;
-    this.searchPatients();
-
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 100);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // El usuario confirmó, procedemos a eliminar el paciente
+        this.patientService.deletePatientData(patient.id).subscribe(() => {
+          // Eliminamos el paciente de la lista
+          this.patients = this.patients.filter(p => p.id !== patient.id);
+          this.searchPatients();
+          console.log(`Paciente ${patient.name} ${patient.surname1} eliminado.`);
+        });
+      } else {
+        console.log('Eliminación cancelada.');
+      }
+    });
   }
 
   onSubmit() {
