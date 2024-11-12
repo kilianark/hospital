@@ -13,6 +13,7 @@ import { HospitalInterface } from '../../../../../interfaces/hospital.interface'
 import { HospitalService } from '../../../../../services/hospital.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-search-room',
@@ -97,7 +98,6 @@ export class SearchRoomComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private roomService: RoomService,
-    public dialog: MatDialog,
     private translator: TranslateService,
     private hospitalService: HospitalService
   ) {
