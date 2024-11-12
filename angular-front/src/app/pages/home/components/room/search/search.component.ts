@@ -11,9 +11,9 @@ import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { HospitalService } from '../../../../../services/hospital.service';
-import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-search-room',
@@ -363,5 +363,10 @@ export class SearchRoomComponent implements OnInit {
 
   toggleDisplay() {
     this.isVisible = true;
+  }
+
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 }

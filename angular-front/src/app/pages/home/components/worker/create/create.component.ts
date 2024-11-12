@@ -1,57 +1,56 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';  // Componente para mostrar confirmación
-import { Router } from '@angular/router';
-import { Worker } from '../../../../../interfaces/worker.interface';  // Usamos el nombre correcto aquí
-import { WorkerService } from '../../../../../services/worker.service';
-import { VERSION as CDK_VERSION } from '@angular/cdk';
-import { VERSION as MAT_VERSION } from '@angular/material/core';
-import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
-
-console.info('Angular CDK version', CDK_VERSION.full);
-console.info('Angular Material version', MAT_VERSION.full);
-
-@Injectable({
-  providedIn: 'root',
-})
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { countries } from '../../../../../store/country-data.store'; 
 @Component({
   selector: 'app-create-worker',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css'],
+  styleUrls: ['./create.component.css']
 })
 export class CreateWorkerComponent implements OnInit {
+  // Propiedad que indica si estamos en modo edición o creación
+  isEditMode: boolean = false;
 
-  constructor(
-    private router: Router,
-    public dialog: MatDialog,
-    private workerService: WorkerService
-  ) {}
+  // Formulario reactivo
+  workerForm: FormGroup;
 
-  ngOnInit(): void { }
+  // Propiedad para almacenar los países
+  countries = countries; // Asignamos los países importados a la propiedad `countries`
 
-  // Método que se ejecuta cuando el formulario es enviado
-  onFormSubmit(workerData: any) {
-    const worker: Worker = {
-      ...workerData,
-    };
-
-    // Dependiendo del tipo de trabajador (nurse, doctor, administrator), la URL cambiará
-    this.workerService.createWorker(worker).subscribe(
-      (response) => {
-        console.log('Trabajador registrado:', response);
-        this.confirm('Trabajador registrado con éxito', 'success');
-        this.router.navigate(['/home/worker/manage', { id: response.id }]);  // Redirige a la vista del trabajador
-      },
-      (error) => {
-        this.confirm('Error al registrar trabajador. Inténtalo de nuevo.', 'error');
-        console.error('Error al registrar el trabajador:', error);
-      }
-    );
+  // Constructor para inyectar el FormBuilder
+  constructor(private fb: FormBuilder) {
+    // Inicializar el formulario con validaciones
+    this.workerForm = this.fb.group({
+      name: ['', Validators.required],
+      surname1: ['', Validators.required],
+      surname2: [''],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Za-z]$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      birthDate: ['', Validators.required],
+      country: ['', Validators.required],
+      gender: ['', Validators.required],
+      worktype: ['', Validators.required],
+      address: [''],
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
-  // Método para mostrar el mensaje de confirmación
-  confirm(message: string, type: string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message, type);  // Muestra el mensaje de confirmación
+  ngOnInit(): void {
+    // Puedes controlar el valor de isEditMode según tus necesidades,
+    // por ejemplo, verificar si el trabajador ya existe o si se está creando un nuevo trabajador.
+    // Si tienes una lógica para editar, puedes establecerlo en true.
+    this.isEditMode = false; // Establece a 'false' si es un formulario de creación
+  }
+
+  // Método para crear un trabajador
+  createWorker(): void {
+    if (this.workerForm.valid) {
+      // Aquí manejas la lógica para crear el trabajador
+      console.log('Creando trabajador:', this.workerForm.value);
+    }
+  }
+
+  // Método para reiniciar el formulario
+  resetForm(): void {
+    this.workerForm.reset();
   }
 }
