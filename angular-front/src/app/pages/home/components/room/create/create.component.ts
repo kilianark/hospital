@@ -93,7 +93,7 @@ export class CreateComponent implements OnInit {
 
   private loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals;
+      this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
     });
   }
 
@@ -130,6 +130,7 @@ export class CreateComponent implements OnInit {
         availability: this.addRoomForm.value.availability,
         area: this.addRoomForm.value.area,
         zone: this.addRoomForm.value.zone,
+        hospital: this.addRoomForm.value.hospital
       };
       console.log('datos hab:', roomData);
 

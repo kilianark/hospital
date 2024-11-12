@@ -36,12 +36,12 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Area = null,
             [FromQuery] int? Floor = null,
             [FromQuery] bool? Availability = null,
-            [FromQuery] int? BedId = null
-            //[FromQuery] int? Hospital
+            [FromQuery] int? BedId = null,
+            [FromQuery] int?[] Hospital = null
         )
         {
             IQueryable<Room> query = _context.Rooms;
-
+            
             query = ApplyFilter(query, RoomNumber, r => r.RoomNumber == RoomNumber!.Value);
             query = ApplyFilter(query, Capacity, r => r.Capacity == Capacity);
             query = ApplyFilter(query, Zone, r => !string.IsNullOrWhiteSpace(Zone) && r.Zone.ToLower().StartsWith(Zone.ToLower()));
@@ -49,7 +49,7 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Floor, r => r.Floor == Floor);
             query = ApplyFilter(query, Availability, r => r.Availability == Availability);
             query = ApplyFilter(query, BedId, r => r.Beds.Any(b => b.Id == BedId));
-            //query = ApplyFilter(query, Hospital, n => n.Hospital == Hospital!.Value);
+            query = ApplyFilter(query, Hospital, r => Hospital.Contains(r.Hospital));
 
             return await query.ToListAsync();
         }

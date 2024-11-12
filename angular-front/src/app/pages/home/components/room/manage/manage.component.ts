@@ -98,18 +98,37 @@ export class ManageComponent {
 
       let letter = 'A';
 
-
       while (usedLetters.has(letter)) {
         letter = String.fromCharCode(letter.charCodeAt(0) + 1);
       }
 
-      return `${this.room.roomNumber}${letter}`;
+      return `${this.room.roomNumber}${letter}`.toUpperCase(); // Asegurarse de que el código sea mayúsculas
     }
 
 
     saveBed() {
       if (this.selectedBed) {
-        const isMovingToDifferentRoom = this.selectedBed.id !== 0 && this.selectedBed.roomId !== this.roomId;
+        // Obtener el código de cama original
+        const originalBedCode = this.beds.find(bed => bed.id === this.selectedBed!.id)?.bedCode;
+
+        if (originalBedCode) {
+          // Mantener la parte fija del código (número de habitación) y solo permitir editar la última letra
+          const roomCodePart = originalBedCode.slice(0, -1); // Parte fija (número de habitación)
+          const newLetter = this.selectedBed.bedCode.slice(-1).toUpperCase(); // Solo cambiar la letra final
+
+          // Validar que el nuevo carácter sea una letra
+          if (!/^[A-Z]$/.test(newLetter)) {
+            this.confirm('El código de cama debe terminar en una letra. Por favor, elija otro.', 'warning');
+            return;
+          }
+
+          // Actualizar el código de cama con la nueva letra y la parte fija (número de habitación)
+          this.selectedBed.bedCode = `${roomCodePart}${newLetter}`;
+        } else {
+          // Si se está creando una nueva cama, generar el código de cama (y asegurarse de que termina en letra)
+          const newLetter = this.generateBedCode(this.roomId!).slice(-1).toUpperCase(); // Solo obtener la última letra
+          this.selectedBed.bedCode = `${this.room.roomNumber}${newLetter}`;
+        }
 
         const existingBed = this.beds.find(bed => bed.bedCode === this.selectedBed.bedCode);
         if (existingBed && existingBed.id !== this.selectedBed.id) {
@@ -127,7 +146,7 @@ export class ManageComponent {
               this.confirm('Cama creada perfectamente', 'success');
             },
             (error) => {
-              this.confirm('Error al crear la cama', 'error');
+              this.confirm('No se puede crear la cama. Código repetido', 'warning');
               console.error('Error al crear la cama:', error);
             }
           );
@@ -139,17 +158,9 @@ export class ManageComponent {
               if (index !== -1) {
                 this.beds[index] = { ...this.selectedBed };
               }
-
-              if (isMovingToDifferentRoom) {
-                this.confirm(`Cama movida a la habitación perfectamente`, 'success');
-              } else {
-                this.confirm('Cama actualizada perfectamente', 'success');
-              }
-
+              this.confirm('Cama actualizada perfectamente', 'success');
               this.isEditModalOpen = false;
               this.selectedBed = null;
-
-
               this.loadBeds();
             },
             (error) => {
@@ -160,6 +171,10 @@ export class ManageComponent {
         }
       }
     }
+
+
+
+
 
     loadBeds() {
       this.bedService.getBedData(this.roomId!).subscribe(
@@ -188,12 +203,12 @@ export class ManageComponent {
     deleteBed(bed: BedInterface) {
       const patient = this.getPatientByBedId(bed.id);
       if (!patient) {
-        if (confirm('¿Estás seguro de que deseas eliminar esta cama?')) {
+
           this.bedService.deleteBed(bed.id).subscribe(() => {
             this.beds = this.beds.filter((b) => b.id !== bed.id);
             this.confirm('Cama eliminada perfectamente', 'success');
           });
-        }
+
       }
     }
 

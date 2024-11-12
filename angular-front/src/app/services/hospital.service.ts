@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HospitalInterface } from '../interfaces/hospital.interface';
 
 @Injectable({
@@ -9,7 +9,6 @@ import { HospitalInterface } from '../interfaces/hospital.interface';
 
 export class HospitalService {
     private apiUrl = "http://localhost:5124/api/Hospital"
-
     constructor(private http: HttpClient) { }
 
     // Método para obtener la lista de hospitales con filtros opcionales
@@ -29,6 +28,13 @@ export class HospitalService {
     // Método para obtener un hospital por ID
     getHospitalById(id: number): Observable<HospitalInterface> {
         return this.http.get<HospitalInterface>(`${this.apiUrl}/${id}`);
+    }
+
+    getHospitalNameByCode(hospitalCode: number): Observable<string> {
+        return this.http.get<HospitalInterface>(`${this.apiUrl}/${hospitalCode}`)
+            .pipe(
+                map(hospital => hospital.hospitalName || 'Desconocido')
+            );
     }
 
     // Método para agregar un nuevo hospital

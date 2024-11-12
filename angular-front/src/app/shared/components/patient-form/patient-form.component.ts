@@ -34,6 +34,7 @@ export class PatientFormComponent implements OnInit {
 
   // Form & Data
   public patientForm: FormGroup;
+  public formTitle: string = 'Ficha paciente';
   public countries: Country[] = countries;
   public hospitals: HospitalInterface[] = [];
   public isEditable: boolean = false;
@@ -120,14 +121,18 @@ export class PatientFormComponent implements OnInit {
       this.patientForm.patchValue({ ...this.patientData, birthDate: formattedDate });
       this.patientService.getNextPatientCode().subscribe(nextPatientCode => {
         this.patientForm.patchValue({ patientCode: nextPatientCode });
-      });
+      },
+        error => {
+          this.patientForm.patchValue({ patientCode: 1 })
+          console.log(error)
+        });
     }
   }
 
   /* Carga los hospitales disponibles */
   private loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals;
+      this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
     });
   }
 
@@ -142,8 +147,7 @@ export class PatientFormComponent implements OnInit {
     //this.loadPatientData();
 
     // Cambia el modo editable si fuera necesario
-    this.isEditable = false;
-    this.setFormFields();
+    this.toggleEditMode();
   }
 
   /* Reinicia el formulario dejando el patientCode intacto, todos los demas campos vacios */
@@ -157,6 +161,7 @@ export class PatientFormComponent implements OnInit {
   /** Alterna el modo de edición */
   toggleEditMode(): void {
     this.isEditable = !this.isEditable;
+    this.updateFormTitle();
     this.setFormFields();
   }
 
@@ -189,5 +194,14 @@ export class PatientFormComponent implements OnInit {
   /** Formatea la fecha eliminando la hora */
   private formatDate(date: string): string {
     return date ? date.split('T')[0] : '';
+  }
+
+  /** Cambia el titulo visible segun el modo */
+  private updateFormTitle(): void {
+    if (this.isEditMode) {
+      this.formTitle = this.isEditable ? 'Editar Paciente' : 'Ficha Paciente';
+    } else {
+      this.formTitle = 'Crear Paciente';
+    }
   }
 }

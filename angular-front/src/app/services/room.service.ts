@@ -30,8 +30,16 @@ export class RoomService {
     return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
   }
 
-  searchRooms(room_number?: number, floor?: number, zone?: number, area?: string, capacity?: number | null, availability?: boolean | null): Observable<RoomInterface[]> {
+  searchRooms(room_number?: number, floor?: number, zone?: number, area?: string, capacity?: number | null, availability?: boolean | null, Hospital?: string[]): Observable<RoomInterface[]> {
     let params = new HttpParams();
+
+    if (Hospital && Hospital.length > 0) {
+      Hospital.forEach(h => {
+          if (h !== null) {
+              params = params.append('Hospital', h);
+          }
+      });
+    }
 
     if (room_number != null) {
         params = params.set('RoomNumber', room_number.toString());

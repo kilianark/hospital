@@ -168,13 +168,14 @@
 
     <!-- Template para Edición -->
     <ng-container *ngIf="isEditMode">
-    <div id="divSep">
-        <mat-card-title>{{ "Editar Paciente" }}</mat-card-title>
+        <div id="divSep">
+            <mat-card-title>{{ this.formTitle }}</mat-card-title>
 
-        <button id="hist-pat" (click)="generatePatientPDF()">
-            <img class="pdflogo" src="assets/pdf_logo.png" alt="error de carga" width="30px" height="27px" />
-        </button>
-    </div>
+            <button *ngIf="!isEditable" mat-icon-button id="hist-pat" (click)="generatePatientPDF()"
+                aria-label="Generar PDF del paciente">
+                <mat-icon>picture_as_pdf</mat-icon>
+            </button>
+        </div>
         <!-- Hospital -->
         <mat-form-field appearance="outline">
             <mat-label>Hospital</mat-label>

@@ -7,7 +7,7 @@ namespace hospitalDTO.DTOapi {
         public string Area { get; set; } //psiquiatría, oncología............
         public required int Floor { get; set; } 
         public required bool Availability { get; set; }
-        //public required int Hospital { get; set; }
+        public required int Hospital { get; set; }
         public ICollection<BedDTO> Beds { get; } = new List<BedDTO>();
     }
 }
