@@ -11,6 +11,9 @@ import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { HospitalService } from '../../../../../services/hospital.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-search-room',
@@ -93,6 +96,7 @@ export class SearchRoomComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    public dialog: MatDialog,
     private roomService: RoomService,
     private translator: TranslateService,
     private hospitalService: HospitalService
@@ -110,7 +114,7 @@ export class SearchRoomComponent implements OnInit {
       area: [''],
       capacity: [''],
       availability: [''],
-      hospital: [[], {nonNullable: true}]
+      hospital: [[], { nonNullable: true }]
     });
   }
 
@@ -202,11 +206,28 @@ export class SearchRoomComponent implements OnInit {
     }
   }
 
-  deleteRoom(room : RoomInterface) {
-    this.isLoading = true;
-    this.isVisible = false;
-    this.roomService.deleteRoomData(room.id).subscribe(data => {
-      this.onSubmit();
+  deleteRoom(room: RoomInterface) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Eliminar Habitación',
+        message: `¿Estás seguro de que deseas eliminar la habitación ${room.roomNumber}?`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // El usuario confirmó, procedemos a eliminar la habitación
+        this.isLoading = true;
+        this.isVisible = false;
+
+        this.roomService.deleteRoomData(room.id).subscribe(() => {
+          this.onSubmit(); // Actualizamos la lista después de eliminar
+          console.log(`Habitación ${room.roomNumber} eliminada.`);
+          this.isLoading = false;
+        });
+      } else {
+        console.log('Eliminación cancelada.');
+      }
     });
   }
 
@@ -328,7 +349,7 @@ export class SearchRoomComponent implements OnInit {
 
   goToRooms(roomId: number) {
     if (roomId !== undefined) {
-      this.router.navigate(['/home/room/manage', {id: roomId}]);
+      this.router.navigate(['/home/room/manage', { id: roomId }]);
     } else {
       console.log(this.rooms[0]);
       console.log('No hay camas asignadas a esta habitación.');
@@ -342,5 +363,10 @@ export class SearchRoomComponent implements OnInit {
 
   toggleDisplay() {
     this.isVisible = true;
+  }
+
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 }
