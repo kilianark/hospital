@@ -199,6 +199,11 @@
 
               <td>{{ room.capacity }}</td>
               <td>{{ room.availability ? "Sí" : "No" }}</td>
+              <td (click)="$event.stopPropagation()">
+                <button mat-button (click)="deleteRoom(room)">
+                  Delete
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>

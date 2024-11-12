@@ -212,6 +212,11 @@
                 Abrir
               </button>
             </td>
+            <td (click)="$event.stopPropagation()">
+              <button mat-button (click)="deletePatient(patient)">
+                Delete
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

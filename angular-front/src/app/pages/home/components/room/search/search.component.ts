@@ -202,6 +202,14 @@ export class SearchRoomComponent implements OnInit {
     }
   }
 
+  deleteRoom(room : RoomInterface) {
+    this.isLoading = true;
+    this.isVisible = false;
+    this.roomService.deleteRoomData(room.id).subscribe(data => {
+      this.onSubmit();
+    });
+  }
+
   goToPage(page: number) {
     if (page !== -1 && page !== this.currentPage) {
       this.currentPage = page;

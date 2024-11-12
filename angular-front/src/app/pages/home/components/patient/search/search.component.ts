@@ -347,6 +347,23 @@ export class SearchPatientComponent implements OnInit {
     this.router.navigate(['/home/patient/manage', { id: patientId }]);
   }
 
+  deletePatient(patient: PatientInterface) {
+    this.patientService.deletePatientData(patient.id).subscribe(data => {
+      
+    });
+
+    this.patients.splice(this.patients.indexOf(patient, 1))
+
+    console.log(this.patients);
+    
+    this.isLoading = true;
+    this.searchPatients();
+
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 100);
+  }
+
   onSubmit() {
     this.isLoading = true;
     this.searchPatients();

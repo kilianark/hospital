@@ -83,6 +83,10 @@ export class PatientService {
     return this.http.put<PatientInterface>(`${this.url}/${patient.id}`, patient); // Correcta inclusión de ID
   }
 
+  deletePatientData(patientId: number): Observable<PatientInterface> {
+    return this.http.delete<PatientInterface>(`${this.url}/${patientId}`);
+  }
+
   // Obtener el proximo patientCode
   getNextPatientCode(): Observable<number> {
     return this.getPatientData().pipe(
