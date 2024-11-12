@@ -95,6 +95,7 @@ export class SearchRoomComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    public dialog: MatDialog,
     private roomService: RoomService,
     public dialog: MatDialog,
     private translator: TranslateService,
@@ -113,7 +114,7 @@ export class SearchRoomComponent implements OnInit {
       area: [''],
       capacity: [''],
       availability: [''],
-      hospital: [[], {nonNullable: true}]
+      hospital: [[], { nonNullable: true }]
     });
   }
 
@@ -205,17 +206,28 @@ export class SearchRoomComponent implements OnInit {
     }
   }
 
-  deleteRoom(room : RoomInterface) {
-    this.isLoading = true;
-    this.isVisible = false;
-    this.roomService.deleteRoomData(room.id).subscribe(data => {
-      this.confirm("Habitacion " + room.roomNumber + " eliminada", "success");
-      this.onSubmit();
-    },
-    error => {
-      this.confirm("Error al eliminar habitacion", "error")
-      this.isLoading = false;
-      this.isVisible = true;
+  deleteRoom(room: RoomInterface) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Eliminar Habitación',
+        message: `¿Estás seguro de que deseas eliminar la habitación ${room.roomNumber}?`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // El usuario confirmó, procedemos a eliminar la habitación
+        this.isLoading = true;
+        this.isVisible = false;
+
+        this.roomService.deleteRoomData(room.id).subscribe(() => {
+          this.onSubmit(); // Actualizamos la lista después de eliminar
+          console.log(`Habitación ${room.roomNumber} eliminada.`);
+          this.isLoading = false;
+        });
+      } else {
+        console.log('Eliminación cancelada.');
+      }
     });
   }
 
@@ -337,7 +349,7 @@ export class SearchRoomComponent implements OnInit {
 
   goToRooms(roomId: number) {
     if (roomId !== undefined) {
-      this.router.navigate(['/home/room/manage', {id: roomId}]);
+      this.router.navigate(['/home/room/manage', { id: roomId }]);
     } else {
       console.log(this.rooms[0]);
       console.log('No hay camas asignadas a esta habitación.');
