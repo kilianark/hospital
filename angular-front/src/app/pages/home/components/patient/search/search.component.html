@@ -32,10 +32,6 @@
             />
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label for="dni">DNI/NIE:</mat-label>
-            <input matInput type="text" id="dni" formControlName="dni" />
-          </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label for="name">Nombre:</mat-label>
@@ -62,6 +58,10 @@
             />
           </mat-form-field>
 
+          <mat-form-field appearance="outline">
+            <mat-label for="dni">DNI/NIE:</mat-label>
+            <input matInput type="text" id="dni" formControlName="dni" />
+          </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label for="numSS">CIP:</mat-label>
             <input matInput type="text" id="numSS" formControlName="cip" />
@@ -210,6 +210,11 @@
             <td (click)="$event.stopPropagation()">
               <button mat-button (click)="openDialog(patient.patientCode)">
                 Abrir
+              </button>
+            </td>
+            <td (click)="$event.stopPropagation()">
+              <button mat-button (click)="deletePatient(patient)">
+                Delete
               </button>
             </td>
           </tr>
