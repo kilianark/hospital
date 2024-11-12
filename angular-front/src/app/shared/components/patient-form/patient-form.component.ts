@@ -34,7 +34,7 @@ export class PatientFormComponent implements OnInit {
 
   // Form & Data
   public patientForm: FormGroup;
-  public formTitle: string = 'Ficha paciente';
+  public formTitle: string = 'Crear Paciente';
   public countries: Country[] = countries;
   public hospitals: HospitalInterface[] = [];
   public isEditable: boolean = false;
