@@ -30,6 +30,10 @@ export class RoomService {
     return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
   }
 
+  deleteRoomData (roomId: number): Observable<RoomInterface> {
+    return this.http.delete<RoomInterface>(this.url + '/' + roomId);
+  }
+
   searchRooms(room_number?: number, floor?: number, zone?: number, area?: string, capacity?: number | null, availability?: boolean | null, Hospital?: string[]): Observable<RoomInterface[]> {
     let params = new HttpParams();
 

@@ -1,0 +1,9 @@
+.confirm-dialog {
+    width: 300px;
+    text-align: center;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }

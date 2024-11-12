@@ -1,0 +1,10 @@
+<mat-card class="confirm-dialog">
+    <mat-card-title>{{ data.title }}</mat-card-title>
+    <mat-card-content>
+        <p>{{ data.message }}</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="warn" (click)="onConfirm()">Confirmar</button>
+    </mat-card-actions>
+</mat-card>
