@@ -4,6 +4,17 @@
   <ng-container *ngIf="!isEditMode">
       <mat-card-title>{{ "Crear Trabajador" }}</mat-card-title>
 
+        <!-- Hospital -->
+        <mat-form-field id="hospi" appearance="outline">
+          <mat-label>Hospital</mat-label>
+          <mat-select formControlName="hospital">
+              <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+                  {{ hospital.hospitalName }}
+              </mat-option>
+          </mat-select>
+          <mat-error *ngIf="workerForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
+      </mat-form-field>
+
       <!-- Nombre -->
       <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
@@ -77,7 +88,8 @@
               <mat-option value="nurse">Enfermero</mat-option>
               <mat-option value="administrator">Administrador</mat-option>
           </mat-select>
-      </mat-form-field>
+          <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El tipo de trabajador es obligatorio</mat-error>
+        </mat-form-field>
 
       <!-- Dirección -->
       <mat-form-field appearance="outline">
