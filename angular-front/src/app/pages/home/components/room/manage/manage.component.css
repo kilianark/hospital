@@ -118,10 +118,13 @@ tr:nth-child(even) {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 15px;
-  width: 60px;
+  width: 180px;
   text-transform: uppercase;
 }
-
+.modal input{
+  margin-left: 0px;
+  margin-bottom:10px;
+}
 /* Mensaje cuando no hay camas */
 .no-beds-message {
   text-align: center;
@@ -138,7 +141,18 @@ tr:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
 }
-
+#availability{
+  margin: 0;
+  width: auto;
+  align-self: end;
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+#horizontal{
+  display: flex;
+  flex-direction: row;
+}
 .modal {
   position: fixed;
   top: 50%;
@@ -152,7 +166,9 @@ tr:nth-child(even) {
   width: 400px;
   box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
-
+.modal form {
+  padding-top: 0%;
+}
 .modal h2 {
   margin-top: 0;
   color: #333; /* Color del texto del encabezado */
@@ -165,7 +181,7 @@ tr:nth-child(even) {
 }
 
 .modal input, .modal select {
-  width: calc(100% - 20px); /* Ajusta el ancho restando el padding */
+  width: 100%; /* Ajusta el ancho restando el padding */
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc; /* Borde gris claro */
@@ -187,9 +203,14 @@ tr:nth-child(even) {
   border-radius: 5px;
   margin-top: 10px;
   cursor: pointer;
+  width: 100%;
 }
 
 .modal button:hover {
   background-color: #45a049; /* Verde más oscuro */
 }
-
+@media screen and (max-width: 768px){
+  .table-wrapper{
+    overflow: scroll;
+  }
+}
