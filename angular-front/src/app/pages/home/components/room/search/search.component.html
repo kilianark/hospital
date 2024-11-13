@@ -83,10 +83,7 @@
   </form>
 
   <hr size="3px" color="black" style="width: 100vw" />
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="loading-bar"></div>
-    Cargando...
-  </div>
+  <app-spinner *ngIf="isLoading"></app-spinner>
 
   <div *ngIf="!isLoading && isVisible">
     <ng-container *ngIf="rooms.length === 0; else roomTable">
