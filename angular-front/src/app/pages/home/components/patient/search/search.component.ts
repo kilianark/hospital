@@ -11,11 +11,13 @@ import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
+import { SpinnerService } from '../../../../../services/spinner.service';
+import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component'
 
 @Component({
   selector: 'app-search-patient',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  styleUrls: ['./search.component.css']
 })
 export class SearchPatientComponent implements OnInit {
   title = 'Búsqueda Pacientes:';
@@ -27,9 +29,10 @@ export class SearchPatientComponent implements OnInit {
   fuseName: Fuse<PatientInterface> | null = null;
   fuseSurname1: Fuse<PatientInterface> | null = null;
   fuseSurname2: Fuse<PatientInterface> | null = null;
+  
+  isLoading = false; //barra
 
   pageNumbers: number[] = [];
-  isLoading = false;
   sortField: string = 'name';
   sortDirection: SortDirection = 'asc';
 
@@ -50,7 +53,7 @@ export class SearchPatientComponent implements OnInit {
   bedId: number = 0;
   hospital: number = 0;
 
-  isVisible: boolean = false;
+  isVisible: boolean = false;//barra
   showSelect: boolean = false;
 
   hospitals: HospitalInterface[] = [];
@@ -67,13 +70,17 @@ export class SearchPatientComponent implements OnInit {
     private router: Router,
     private patientService: PatientService,
     private hospitalService: HospitalService,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private spinnerService: SpinnerService
   ) {
     this.translator.use('es');
 
-    setTimeout(() => {
-      this.showSelect = true;
-    }, 1);
+    this.spinnerService.show();
+    this.isLoading = true;
+
+//    setTimeout(() => {
+//      this.showSelect = true;
+//    }, 1);
 
     this.patientForm = this.formBuilder.group({
       hospital: [[], { nonNullable: true }], //esto permite selección múltiple
@@ -235,7 +242,7 @@ export class SearchPatientComponent implements OnInit {
 
   searchPatients() {
 
-
+    this.spinnerService.show();
     this.isVisible = false;
 
     const name = this.patientForm.get('name')?.value || '';
@@ -316,10 +323,10 @@ export class SearchPatientComponent implements OnInit {
     this.generatePageNumbers();
     this.updatePagedPatients();
 
+    this.spinnerService.hide();
     this.isVisible = this.allFilteredPatients.length > 0;
+
   }
-
-
 
   openDialog(patientId: number) {
     let popupRef = this.dialog.open(RecordComponent, {
@@ -348,11 +355,11 @@ export class SearchPatientComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isLoading = true;
+    //this.isLoading = true; //barra
     this.searchPatients();
 
     setTimeout(() => {
-      this.isLoading = false;
+      this.isLoading = false; //barra
     }, 100);
   }
 

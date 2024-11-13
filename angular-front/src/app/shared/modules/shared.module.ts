@@ -4,11 +4,12 @@ import { NgModule } from "@angular/core";
 import { MaterialModule } from "./material.module";
 
 import { EnumToStringPipe } from "../../pipe/enum-to-string.pipe";
-
+import SpinnerComponent from "../components/spinner/spinner.component";
 
 @NgModule({
     declarations: [
         EnumToStringPipe,
+        SpinnerComponent
 
     ],
     imports: [
@@ -17,7 +18,8 @@ import { EnumToStringPipe } from "../../pipe/enum-to-string.pipe";
     ],
     exports: [
         EnumToStringPipe,
-        MaterialModule
+        MaterialModule,
+        SpinnerComponent
     ]
 })
 

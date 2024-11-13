@@ -11,6 +11,7 @@ import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 import { OperatingRoomArea } from '../../../../../enums/operatingRoom-area.enum';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { HospitalService } from '../../../../../services/hospital.service';
+import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-search-room',
@@ -23,7 +24,7 @@ export class SearchRoomComponent implements OnInit {
   roomForm: FormGroup;
   isVisible: boolean = false;
 
-  isLoading = false;
+  isLoading = false;//barra
   hospitals: HospitalInterface[] = [];
   pagedRooms: RoomInterface[] = [];
   currentPage: number = 1;
@@ -279,7 +280,7 @@ export class SearchRoomComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isLoading = true;
+    this.isLoading = true;//barra
     this.isVisible = false;
 
     const searchFilters = this.roomForm.value;
@@ -307,12 +308,12 @@ export class SearchRoomComponent implements OnInit {
           this.generatePageNumbers();
           this.updatePagedRooms();
           // Finaliza la carga y muestra los resultados
-          this.isLoading = false;
+          this.isLoading = false;//barra
           this.isVisible = true; // Asegura que se muestre el mensaje o los resultados
         },
         (error) => {
           console.error('Error al buscar habitaciones:', error);
-          this.isLoading = false;
+          this.isLoading = false;//barra
           this.isVisible = false; // No muestra los resultados en caso de error
         }
       );
