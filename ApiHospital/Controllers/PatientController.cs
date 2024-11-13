@@ -164,6 +164,9 @@ namespace ApiHospital.Controllers
             if (patient == null)
                 return NotFound();
 
+            if (patient.BedId != null)
+                return BadRequest();
+                
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
 

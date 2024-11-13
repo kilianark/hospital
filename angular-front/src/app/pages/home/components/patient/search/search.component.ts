@@ -14,6 +14,7 @@ import { HospitalInterface } from '../../../../../interfaces/hospital.interface'
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 import { SpinnerService } from '../../../../../services/spinner.service';
+import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 
 @Component({
   selector: 'app-search-patient',
@@ -360,6 +361,13 @@ export class SearchPatientComponent implements OnInit {
           this.patients = this.patients.filter(p => p.id !== patient.id);
           this.searchPatients();
           console.log(`Paciente ${patient.name} ${patient.surname1} eliminado.`);
+        }, 
+        error => {
+          if (error.status == 400) {
+            this.confirm(`Error al eliminar paciente, no se puede eliminar paciente con cama assignada.`, 'error');
+          } else {
+            this.confirm(`Error al eliminar paciente`, 'error');
+          }
         });
       } else {
         console.log('Eliminación cancelada.');
@@ -387,5 +395,10 @@ export class SearchPatientComponent implements OnInit {
 
   toggleDisplay() {
     this.isVisible = true;
+  }
+
+  confirm(message: string,type:string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message,type);
   }
 }
