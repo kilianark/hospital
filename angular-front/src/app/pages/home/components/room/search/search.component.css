@@ -252,28 +252,3 @@ th span {
 th:hover {
   background-color: #f1f1f1;
 }
-.loading-container {
-  width: 80%; /* Asegura que la barra no ocupe todo el ancho */
-  height: 10px; /* Cambia la altura para que sea más fina */
-  background-color: #e0e0e0; /* Color del fondo de la barra de carga */
-  border-radius: 5px; /* Bordes redondeados */
-  margin: 20px auto; /* Centra la barra en la página */
-  position: relative;
-}
-
-.loading-bar {
-  height: 100%;
-  width: 0; /* Inicia en 0% */
-  background-color: #4caf50; /* Color de la barra de carga */
-  border-radius: 5px; /* Bordes redondeados para la barra */
-  animation: loading 0.1s linear forwards; /* Animación de carga */
-}
-
-@keyframes loading {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%; /* Llena al 100% al finalizar */
-  }
-}

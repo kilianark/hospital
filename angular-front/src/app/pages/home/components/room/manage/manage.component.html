@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de camas</title>
-  </head>
 
-  <body>
-    <div class="header">
-      <legend id="titleBed">{{ title }} {{ room.roomNumber }}</legend>
-      <!-- Botón para crear una nueva cama -->
-      <button class="create-bed-button" (click)="openCreateBedModal()">Crear cama</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de camas</title>
+</head>
+
+<body>
+  <div class="header">
+    <legend id="titleBed">{{ title }} {{ room.roomNumber }}</legend>
+    <!-- Botón para crear una nueva cama -->
+    <button class="create-bed-button" (click)="openCreateBedModal()">Crear cama</button>
+  </div>
+
+  <div class="table-wrapper">
+    <table *ngIf="beds.length > 0">
+      <thead>
+        <tr>
+          <th class="inTableBed">Cod.</th>
+          <th class="inTableBed">Disponibilidad</th>
+          <th class="inTableBed">Paciente</th>
+          <th class="inTableBed">Código Paciente</th>
+          <th class="inTableBed">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bed of beds" class="file-click">
+          <td>{{ bed.bedCode }}</td>
+          <td>{{ bed.availability ? "Sí" : "No" }}</td>
+          <td>
+            {{ (getPatientByBedId(bed.id) | async)?.name || 'Sin paciente' }}
+            {{ (getPatientByBedId(bed.id) | async)?.surname1 || '' }}
+          </td>
+          <td>{{ (getPatientByBedId(bed.id)| async)?.patientCode || "N/A" }}</td>
+          <td>
+            <!-- Botón de editar -->
+            <button class="buttonCSS" (click)="editBed(bed)">Editar</button>
+
+            <!-- Botón de eliminar, solo habilitado si no hay paciente -->
+            <button class="buttonCSS" (click)="deleteBed(bed)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Mensaje si no hay camas -->
+    <div *ngIf="beds.length === 0" class="no-beds-message">
+      <p>No hay camas disponibles para esta habitación.</p>
     </div>
+  </div>
 
-    <div class="table-wrapper">
-      <table *ngIf="beds.length > 0">
-        <thead>
-          <tr>
-            <th class="inTableBed">Cod.</th>
-            <th class="inTableBed">Disponibilidad</th>
-            <th class="inTableBed">Paciente</th>
-            <th class="inTableBed">Código Paciente</th>
-            <th class="inTableBed">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let bed of beds" class="file-click">
-            <td>{{ bed.bedCode }}</td>
-            <td>{{ bed.availability ? "Sí" : "No" }}</td>
-            <td>  
-              {{ (getPatientByBedId(bed.id) | async)?.name || 'Sin paciente' }}
-              {{ (getPatientByBedId(bed.id) | async)?.surname1 || '' }}
-            </td>
-            <td>{{ (getPatientByBedId(bed.id)| async)?.patientCode || "N/A" }}</td>
-            <td>
-              <!-- Botón de editar -->
-              <button class="buttonCSS" (click)="editBed(bed)">Editar</button>
 
-              <!-- Botón de eliminar, solo habilitado si no hay paciente -->
-              <button class="buttonCSS"
-                (click)="deleteBed(bed)"
-                [disabled]="getPatientByBedId(bed.id)"
-              >
-                Eliminar
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
 
-      <!-- Mensaje si no hay camas -->
-      <div *ngIf="beds.length === 0" class="no-beds-message">
-        <p>No hay camas disponibles para esta habitación.</p>
-      </div>
-    </div>
 
-    <!-- Formulario modal para editar o crear una cama -->
-    <div *ngIf="isEditModalOpen" class="modal-overlay"></div>
-    <div *ngIf="isEditModalOpen" class="modal">
-      <h2 *ngIf="selectedBed?.id === 0">Crear cama</h2>
-      <h2 *ngIf="selectedBed?.id !== 0">Editar cama</h2>
+  <!-- Formulario modal para editar o crear una cama -->
+  <div *ngIf="isEditModalOpen" class="modal-overlay"></div>
+  <div *ngIf="isEditModalOpen" class="modal">
+    <h2 *ngIf="selectedBed?.id === 0">Crear cama</h2>
+    <h2 *ngIf="selectedBed?.id !== 0">Editar cama</h2>
 
       <form (ngSubmit)="saveBed()">
         <label for="bedCode">Código de cama:</label>
@@ -69,34 +70,38 @@
           name="bedCode"
           required
         />
-
-        <label for="availability">Disponibilidad:</label>
-        <input
-          id="availability"
-          type="checkbox"
-          [(ngModel)]="selectedBed.availability"
-          name="availability"
-        />
-
-
-        <div *ngIf="selectedBed?.id !== 0">
-          <label for="roomSelect">Mover a habitación:</label>
-          <select id="roomSelect" [(ngModel)]="selectedBed.roomId" name="roomId">
-            <option *ngFor="let room of rooms" [value]="room.id">
-              {{ room.roomNumber }}
-            </option>
-          </select>
-
-          <button type="button" (click)="moveBed(selectedBed?.roomId)">
-            Mover cama
-          </button>
+        <div id="horizontal">
+          <label for="availability">Disponibilidad:</label>
+          <input
+            id="availability"
+            type="checkbox"
+            [(ngModel)]="selectedBed.availability"
+            name="availability"
+          />
         </div>
 
-        <button type="submit">
-          {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
+      <div *ngIf="selectedBed?.id !== 0">
+        <label for="roomSelect">Mover a habitación:</label>
+        <select id="roomSelect" [(ngModel)]="selectedBed.roomId" name="roomId">
+          <option *ngFor="let room of rooms" [value]="room.id">
+            {{ room.roomNumber }}
+          </option>
+        </select>
+
+        <button type="button" (click)="moveBed(selectedBed?.roomId)">
+          Mover cama
         </button>
+      </div>
+
+      <button
+  style="margin-right: 10px;"
+  type="submit"
+  [disabled]="selectedBed?.id !== 0 "
+>
+  {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
+</button>
+
         <button type="button" (click)="cancelEdit()">Cancelar</button>
       </form>
     </div>
-  </body>
-</html>
+

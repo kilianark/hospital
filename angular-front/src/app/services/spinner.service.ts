@@ -6,13 +6,11 @@ export class SpinnerService {
 isLoading = signal<boolean>(false);
 
 
-public hide(){
+public hide() {
     this.isLoading.set(false);
-    console.log("hide");
 }
 
-public show(){
+public show() {
     this.isLoading.set(true);
-    console.log("show");
 }
 }
