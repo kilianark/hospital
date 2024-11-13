@@ -61,6 +61,7 @@ button {
 @media screen and (max-width: 480px) {
   mat-form-field {
     margin-right: 10px;
+    margin-bottom: 20px;
   }
   form {
     margin: 10px;

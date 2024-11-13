@@ -2,16 +2,16 @@
 
     <!-- Template para Creación -->
     <ng-container *ngIf="!isEditMode">
-        <mat-card-title>{{ "Crear Paciente" }}</mat-card-title>
+        <mat-card-title id="titulo">{{ "Crear Paciente" }}</mat-card-title>
 
         <!-- patientCode -->
-        <mat-form-field appearance="outline">
+        <mat-form-field id="codePati" appearance="outline">
             <mat-label>Codigo paciente</mat-label>
             <input matInput formControlName="patientCode" />
         </mat-form-field>
 
         <!-- Hospital -->
-        <mat-form-field appearance="outline">
+        <mat-form-field id="hospi" appearance="outline">
             <mat-label>Hospital</mat-label>
             <mat-select formControlName="hospital">
                 <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">

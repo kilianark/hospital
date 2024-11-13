@@ -29,10 +29,10 @@
             <td>{{ bed.bedCode }}</td>
             <td>{{ bed.availability ? "Sí" : "No" }}</td>
             <td>
-              {{ getPatientByBedId(bed.id)?.name || "Sin paciente" }}
-              {{ getPatientByBedId(bed.id)?.surname1 || "" }}
+              {{ (getPatientByBedId(bed.id) | async)?.name || 'Sin paciente' }}
+              {{ (getPatientByBedId(bed.id) | async)?.surname1 || '' }}
             </td>
-            <td>{{ getPatientByBedId(bed.id)?.patientCode || "N/A" }}</td>
+            <td>{{ (getPatientByBedId(bed.id)| async)?.patientCode || "N/A" }}</td>
             <td>
               <!-- Botón de editar -->
               <button class="buttonCSS" (click)="editBed(bed)">Editar</button>
@@ -69,15 +69,15 @@
           name="bedCode"
           required
         />
-
-        <label for="availability">Disponibilidad:</label>
-        <input
-          id="availability"
-          type="checkbox"
-          [(ngModel)]="selectedBed.availability"
-          name="availability"
-        />
-
+        <div id="horizontal">
+          <label for="availability">Disponibilidad:</label>
+          <input
+            id="availability"
+            type="checkbox"
+            [(ngModel)]="selectedBed.availability"
+            name="availability"
+          />
+        </div>
 
         <div *ngIf="selectedBed?.id !== 0">
           <label for="roomSelect">Mover a habitación:</label>
@@ -92,7 +92,7 @@
           </button>
         </div>
 
-        <button type="submit">
+        <button style="margin-right: 10px;" type="submit">
           {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
         </button>
         <button type="button" (click)="cancelEdit()">Cancelar</button>

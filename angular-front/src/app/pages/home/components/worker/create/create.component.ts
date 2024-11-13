@@ -1,57 +1,77 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';  // Componente para mostrar confirmación
-import { Router } from '@angular/router';
-import { Worker } from '../../../../../interfaces/worker.interface';  // Usamos el nombre correcto aquí
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WorkerService } from '../../../../../services/worker.service';
-import { VERSION as CDK_VERSION } from '@angular/cdk';
-import { VERSION as MAT_VERSION } from '@angular/material/core';
-import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
+import { HospitalService } from '../../../../../services/hospital.service';
+import { countries } from '../../../../../store/country-data.store';
+import { Worker } from '../../../../../interfaces/worker.interface';
+import { Router } from '@angular/router';
 
-console.info('Angular CDK version', CDK_VERSION.full);
-console.info('Angular Material version', MAT_VERSION.full);
-
-@Injectable({
-  providedIn: 'root',
-})
 @Component({
   selector: 'app-create-worker',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css'],
+  styleUrls: ['./create.component.css']
 })
 export class CreateWorkerComponent implements OnInit {
+  isEditMode: boolean = false;
+  workerForm: FormGroup;
+  countries = countries;
+  hospitals: any[] = []; // Nueva propiedad para almacenar hospitales
 
   constructor(
-    private router: Router,
-    public dialog: MatDialog,
-    private workerService: WorkerService
-  ) {}
-
-  ngOnInit(): void { }
-
-  // Método que se ejecuta cuando el formulario es enviado
-  onFormSubmit(workerData: any) {
-    const worker: Worker = {
-      ...workerData,
-    };
-
-    // Dependiendo del tipo de trabajador (nurse, doctor, administrator), la URL cambiará
-    this.workerService.createWorker(worker).subscribe(
-      (response) => {
-        console.log('Trabajador registrado:', response);
-        this.confirm('Trabajador registrado con éxito', 'success');
-        this.router.navigate(['/home/worker/manage', { id: response.id }]);  // Redirige a la vista del trabajador
-      },
-      (error) => {
-        this.confirm('Error al registrar trabajador. Inténtalo de nuevo.', 'error');
-        console.error('Error al registrar el trabajador:', error);
-      }
-    );
+    private fb: FormBuilder,
+    private workerService: WorkerService,
+    private hospitalService: HospitalService, // Inyecta HospitalService
+    private router: Router
+  ) {
+    // Inicia el formulario con los campos correspondientes
+    this.workerForm = this.fb.group({
+      name: ['', Validators.required],
+      surname1: ['', Validators.required],
+      surname2: [''],
+      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Za-z]$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      birthDate: ['', Validators.required],
+      country: ['', Validators.required],
+      gender: ['', Validators.required],
+      worktype: ['', Validators.required],
+      address: [''],
+      email: ['', [Validators.required, Validators.email]],
+      hospital: ['', Validators.required]  // Campo para seleccionar el hospital
+    });
   }
 
-  // Método para mostrar el mensaje de confirmación
-  confirm(message: string, type: string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {});
-    dialogRef.componentInstance.setMessage(message, type);  // Muestra el mensaje de confirmación
+  ngOnInit(): void {
+    // Llama al método para cargar hospitales cuando se inicializa el componente
+    this.loadHospitalsData();
+  }
+
+  private loadHospitalsData(): void {
+    // Llama al servicio para obtener la lista de hospitales
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0); // Filtra hospitales si es necesario
+      console.log(this.hospitals);  // Muestra la lista de hospitales en la consola
+    }, (error) => {
+      console.error('Error al cargar hospitales:', error);
+    });
+  }
+
+  createWorker(): void {
+    // Verifica que el formulario sea válido antes de enviarlo
+    if (this.workerForm.valid) {
+      const workerData: Worker = this.workerForm.value;  // Toma los datos del formulario
+      this.workerService.createWorker(workerData).subscribe(
+        (response) => {
+          console.log('Trabajador creado exitosamente:', response);
+          this.router.navigate(['/workers']); // Redirige a la lista de trabajadores
+        },
+        (error) => {
+          console.error('Error al crear trabajador:', error); // Muestra errores en la consola
+        }
+      );
+    }
+  }
+
+  resetForm(): void {
+    this.workerForm.reset(); // Resetea el formulario
   }
 }

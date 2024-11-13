@@ -89,14 +89,12 @@
     </form>
 
     <hr size="3px" color="black" style="width: 100vw" />
+
+    <app-spinner *ngIf="isLoading">
+    </app-spinner>
+
     <div [style.display]="isVisible ? 'block' : 'none'" *ngIf="filteredPatients.length <= 0 && !isLoading">
       <legend style="margin-left: 3%">Paciente no encontrado</legend>
-    </div>
-
-    <!-- Barra de carga -->
-    <div *ngIf="isLoading" class="loading-container">
-      <div class="loading-bar"></div>
-      Cargando...
     </div>
 
     <div class="table-wrapper" [style.display]="isVisible ? 'grid' : 'none'"

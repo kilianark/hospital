@@ -4,13 +4,13 @@ import { NgModule } from "@angular/core";
 import { MaterialModule } from "./material.module";
 
 import { EnumToStringPipe } from "../../pipe/enum-to-string.pipe";
-
 import { ConfirmDialogComponent } from "../components/confirm-dialog/confirm-dialog.component";
-
+import SpinnerComponent from "../components/spinner/spinner.component";
 
 @NgModule({
     declarations: [
         EnumToStringPipe,
+        SpinnerComponent
 
     ],
     imports: [
@@ -22,6 +22,7 @@ import { ConfirmDialogComponent } from "../components/confirm-dialog/confirm-dia
         EnumToStringPipe,
         MaterialModule,
         ConfirmDialogComponent,
+        SpinnerComponent
     ]
 })
 

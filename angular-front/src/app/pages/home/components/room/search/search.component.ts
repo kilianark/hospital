@@ -14,6 +14,8 @@ import { HospitalService } from '../../../../../services/hospital.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { SpinnerService } from '../../../../../services/spinner.service';
+import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-search-room',
@@ -26,7 +28,6 @@ export class SearchRoomComponent implements OnInit {
   roomForm: FormGroup;
   isVisible: boolean = false;
 
-  isLoading = false;
   hospitals: HospitalInterface[] = [];
   pagedRooms: RoomInterface[] = [];
   currentPage: number = 1;
@@ -92,6 +93,7 @@ export class SearchRoomComponent implements OnInit {
 
   currentArea;
   currentAreaType: string;
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -99,7 +101,8 @@ export class SearchRoomComponent implements OnInit {
     public dialog: MatDialog,
     private roomService: RoomService,
     private translator: TranslateService,
-    private hospitalService: HospitalService
+    private hospitalService: HospitalService,
+    private spinnerService: SpinnerService
   ) {
     this.translator.use('es');
 
@@ -316,6 +319,7 @@ export class SearchRoomComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinnerService.show();
     this.isLoading = true;
     this.isVisible = false;
 
@@ -343,16 +347,19 @@ export class SearchRoomComponent implements OnInit {
           this.totalPages = Math.ceil(this.rooms.length / this.itemsPerPage);
           this.generatePageNumbers();
           this.updatePagedRooms();
+          this.spinnerService.hide();
           // Finaliza la carga y muestra los resultados
-          this.isLoading = false;
+          this.isLoading = false;//barra
           this.isVisible = true; // Asegura que se muestre el mensaje o los resultados
         },
         (error) => {
           console.error('Error al buscar habitaciones:', error);
-          this.isLoading = false;
+          this.spinnerService.hide();
+          this.isLoading = false;//barra
           this.isVisible = false; // No muestra los resultados en caso de error
         }
       );
+      
   }
 
   goToRooms(roomId: number) {

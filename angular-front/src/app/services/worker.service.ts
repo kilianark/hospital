@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Worker } from '../interfaces/worker.interface';
@@ -14,35 +14,47 @@ export class WorkerService {
 
   // Crear un nuevo trabajador según su tipo
   createWorker(worker: Worker): Observable<Worker> {
-    switch (worker.worktype) {
-      case 'nurse':
-        return this.http.post<Worker>(`${this.apiUrl}/nurses`, worker).pipe(catchError(this.handleError));
-      case 'doctor':
-        return this.http.post<Worker>(`${this.apiUrl}/doctors`, worker).pipe(catchError(this.handleError));
-      case 'administrator':
-        return this.http.post<Worker>(`${this.apiUrl}/administrators`, worker).pipe(catchError(this.handleError));
-      default:
-        return throwError('Invalid worker type');
-    }
+    const endpoint = this.getWorkerEndpoint(worker.worktype);
+    if (!endpoint) return throwError(() => new Error('Invalid worker type'));
+
+    return this.http.post<Worker>(endpoint, worker).pipe(catchError(this.handleError));
   }
 
   // Obtener trabajadores de un tipo específico
   getWorkersByType(type: string): Observable<Worker[]> {
-    switch (type) {
+    const endpoint = this.getWorkerEndpoint(type);
+    if (!endpoint) return throwError(() => new Error('Invalid worker type'));
+
+    return this.http.get<Worker[]>(endpoint).pipe(catchError(this.handleError));
+  }
+
+  // Obtener el endpoint según el tipo de trabajador
+  private getWorkerEndpoint(worktype: string): string | null {
+    switch (worktype) {
       case 'nurse':
-        return this.http.get<Worker[]>(`${this.apiUrl}/nurses`).pipe(catchError(this.handleError));
+        return `${this.apiUrl}/nurses`;
       case 'doctor':
-        return this.http.get<Worker[]>(`${this.apiUrl}/doctors`).pipe(catchError(this.handleError));
+        return `${this.apiUrl}/doctors`;
       case 'administrator':
-        return this.http.get<Worker[]>(`${this.apiUrl}/administrators`).pipe(catchError(this.handleError));
+        return `${this.apiUrl}/administrators`;
       default:
-        return throwError('Invalid worker type');
+        return null;
     }
   }
 
   // Manejo de errores
-  private handleError(error: any) {
+  private handleError(error: HttpErrorResponse) {
     console.error('Ocurrió un error:', error);
-    return throwError('Algo salió mal, por favor intente de nuevo más tarde.');
+    let errorMessage = 'Algo salió mal, por favor intente de nuevo más tarde.';
+
+    if (error.error instanceof ErrorEvent) {
+      // Error del cliente o de red
+      errorMessage = `Error de red o cliente: ${error.error.message}`;
+    } else {
+      // Error del servidor
+      errorMessage = `Error del servidor: ${error.status} - ${error.message}`;
+    }
+
+    return throwError(() => new Error(errorMessage));
   }
 }
