@@ -5,17 +5,13 @@ import { SpinnerService } from "../../../services/spinner.service";
     selector: 'app-spinner',
     styleUrls: ['./spinner.component.css'],
     template: 
-    `<div class="spinner" *ngIf="isLoading()">
+    `<div class="spinner">
     </div>`,
 })
 
-export default class SpinnerComponent implements OnInit{
+export default class SpinnerComponent{
 
     private readonly spinnerSvc = inject(SpinnerService);
     isLoading = this.spinnerSvc.isLoading;
-
-    ngOnInit() {
-        console.log("SpinnerComponent loaded"); // Imprime cuando el componente se inicializa
-    }
 
 }

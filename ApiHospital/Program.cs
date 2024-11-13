@@ -3,6 +3,7 @@ using ApiHospital.Data;
 using hospitalDTO.DTOapi;
 using ApiHospital.Models;
 using ApiHospital.Shared;
+using ApiHospital.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
@@ -30,6 +31,7 @@ builder.Services.AddDbContext<HospitalContext>(opt => opt.UseOracle(builder.Conf
     "HospitalController": "User Id=system;Password=Th3Bl4ckB0ol5!;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=oscarrovira.com)(PORT=11521))))"
   }*/
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<RoomService>();
 builder.Services.AddSwaggerGen(cfg => 
 {
   cfg.CustomSchemaIds(type => type.ToString());

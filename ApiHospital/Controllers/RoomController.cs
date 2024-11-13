@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ApiHospital.Data;
 using ApiHospital.Models;
+using ApiHospital.Service;
 using AutoMapper;
 using hospitalDTO.DTOapi;
 using Microsoft.AspNetCore.Http;
@@ -21,10 +22,13 @@ namespace ApiHospital.Controllers
         private readonly HospitalContext _context;
         private readonly IMapper _mapper;
 
-        public RoomController(HospitalContext context, IMapper mapper)
+        private readonly RoomService _service;
+
+        public RoomController(HospitalContext context, IMapper mapper, RoomService service)
         {
             _context = context;
             _mapper = mapper;
+            _service = service;
         }
 
         // GET: api/Rooms
@@ -148,16 +152,7 @@ namespace ApiHospital.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
-            var room = await _context.Rooms.FindAsync(id);
-            if (room == null)
-            {
-                return NotFound();
-            }
-
-            _context.Rooms.Remove(room);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return await _service.DeleteRoom(id);
         }
 
         // PATCH: api/Rooms/5
