@@ -20,7 +20,10 @@ form {
   margin-right: 0;
   margin-left: 10px;
 }
-
+mat-card-actions{
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 .form-row {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -46,6 +49,10 @@ button {
   width: 9vw;
   height: 10vh;
   margin-right: 2vw;
+}
+#hospi{
+  grid-column-start:3 ;
+  grid-column-end: 4;
 }
 @media screen and (max-width: 768px) {
   form {

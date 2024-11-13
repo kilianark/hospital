@@ -14,7 +14,9 @@ legend {
   font-weight: bold;
   padding-bottom: 2%;
 }
-
+table{
+  margin-right: 20px;
+}
 .credentials {
   display: grid;
   padding-top: 10px;
