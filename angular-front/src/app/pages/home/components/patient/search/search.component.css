@@ -351,3 +351,13 @@ th span.desc::before {
     width: 100%; /* Llena al 100% al finalizar */
   }
 }
+
+.overlay {
+  position: fixed;  /* Asegura que esté en una posición fija */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);  /* Un fondo semi-transparente */
+  z-index: 9999;  /* Asegura que esté por encima de otros elementos */
+}

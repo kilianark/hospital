@@ -3,9 +3,10 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { KeycloakBearerInterceptor, KeycloakService } from 'keycloak-angular';
 import { initKeycloak } from './init/keycloak-init.factory';
+import { SpinnerInterceptor } from './shared/components/spinner/spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideAnimationsAsync(),
@@ -21,7 +22,7 @@ export const appConfig: ApplicationConfig = {
       multi: true
     },
     KeycloakService,
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([SpinnerInterceptor])),
   ]
 };
 

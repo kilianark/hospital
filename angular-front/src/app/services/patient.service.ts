@@ -8,12 +8,17 @@ import { PatientInterface } from '../interfaces/patient.interface';
 })
 export class PatientService {
   private url = "http://localhost:5124/api/Patients"
-
+  patients: PatientInterface[] = [];
 
   constructor(private http: HttpClient) { }
+  setPatients(patients: PatientInterface[]) {
+    this.patients = patients;
+  }
 
-
-
+  getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
+    const patient = this.patients.find(patient => patient.bedId === bedId) || null;
+    return of(patient); // Retorna un Observable para seguir con el patrón de suscripción
+  }
   getPatientData(patientCode?: number, Name?: string, Surname1?: string,
     Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, BedId?: number, Ingresados?: boolean, Hospital?: string[]): Observable<PatientInterface[]> {
 
@@ -110,7 +115,7 @@ export class PatientService {
     const url = `${this.url}`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de pacientes
     return this.http.get<PatientInterface[]>(url, { params: { dni } }).pipe(
       map(patients => {
-        
+
         if (excludePatientCode) {
           // Filtrar el paciente actual si se proporciona un código
           patients = patients.filter(p => p.patientCode !== excludePatientCode);
@@ -125,7 +130,7 @@ export class PatientService {
     const url = `${this.url}`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de pacientes
     return this.http.get<PatientInterface[]>(url, { params: { cip } }).pipe(
       map(patients => {
-        
+
         if (excludePatientCode) {
           // Filtrar el paciente actual si se proporciona un código
           patients = patients.filter(p => p.patientCode !== excludePatientCode);
@@ -142,5 +147,6 @@ export class PatientService {
   notifyPatientUpdated(patient: PatientInterface) {
     this.patientUpdatedSource.next(patient);
   }
+
 
 }
