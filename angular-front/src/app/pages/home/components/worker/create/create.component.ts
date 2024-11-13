@@ -1,24 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { countries } from '../../../../../store/country-data.store'; 
+import { WorkerService } from '../../../../../services/worker.service';
+import { HospitalService } from '../../../../../services/hospital.service';
+import { countries } from '../../../../../store/country-data.store';
+import { Worker } from '../../../../../interfaces/worker.interface';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-create-worker',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
 export class CreateWorkerComponent implements OnInit {
-  // Propiedad que indica si estamos en modo edición o creación
   isEditMode: boolean = false;
-
-  // Formulario reactivo
   workerForm: FormGroup;
+  countries = countries;
+  hospitals: any[] = []; // Nueva propiedad para almacenar hospitales
 
-  // Propiedad para almacenar los países
-  countries = countries; // Asignamos los países importados a la propiedad `countries`
-
-  // Constructor para inyectar el FormBuilder
-  constructor(private fb: FormBuilder) {
-    // Inicializar el formulario con validaciones
+  constructor(
+    private fb: FormBuilder,
+    private workerService: WorkerService,
+    private hospitalService: HospitalService, // Inyecta HospitalService
+    private router: Router
+  ) {
+    // Inicia el formulario con los campos correspondientes
     this.workerForm = this.fb.group({
       name: ['', Validators.required],
       surname1: ['', Validators.required],
@@ -30,27 +35,43 @@ export class CreateWorkerComponent implements OnInit {
       gender: ['', Validators.required],
       worktype: ['', Validators.required],
       address: [''],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      hospital: ['', Validators.required]  // Campo para seleccionar el hospital
     });
   }
 
   ngOnInit(): void {
-    // Puedes controlar el valor de isEditMode según tus necesidades,
-    // por ejemplo, verificar si el trabajador ya existe o si se está creando un nuevo trabajador.
-    // Si tienes una lógica para editar, puedes establecerlo en true.
-    this.isEditMode = false; // Establece a 'false' si es un formulario de creación
+    // Llama al método para cargar hospitales cuando se inicializa el componente
+    this.loadHospitalsData();
   }
 
-  // Método para crear un trabajador
+  private loadHospitalsData(): void {
+    // Llama al servicio para obtener la lista de hospitales
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0); // Filtra hospitales si es necesario
+      console.log(this.hospitals);  // Muestra la lista de hospitales en la consola
+    }, (error) => {
+      console.error('Error al cargar hospitales:', error);
+    });
+  }
+
   createWorker(): void {
+    // Verifica que el formulario sea válido antes de enviarlo
     if (this.workerForm.valid) {
-      // Aquí manejas la lógica para crear el trabajador
-      console.log('Creando trabajador:', this.workerForm.value);
+      const workerData: Worker = this.workerForm.value;  // Toma los datos del formulario
+      this.workerService.createWorker(workerData).subscribe(
+        (response) => {
+          console.log('Trabajador creado exitosamente:', response);
+          this.router.navigate(['/workers']); // Redirige a la lista de trabajadores
+        },
+        (error) => {
+          console.error('Error al crear trabajador:', error); // Muestra errores en la consola
+        }
+      );
     }
   }
 
-  // Método para reiniciar el formulario
   resetForm(): void {
-    this.workerForm.reset();
+    this.workerForm.reset(); // Resetea el formulario
   }
 }
