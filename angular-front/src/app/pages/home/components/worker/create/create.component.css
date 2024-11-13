@@ -7,7 +7,7 @@ form {
   display: grid;
   grid-template-columns: 33.33333% 33.33333% 33.33333%;
   margin-left: 100px;
-  grid-template-rows: auto 55vh 5vh;
+  grid-template-rows: auto auto auto auto;
 }
 #divSep{
   margin-top: 10px;
@@ -20,7 +20,10 @@ form {
   margin-right: 0;
   margin-left: 10px;
 }
-
+mat-card-actions{
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 .form-row {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -47,10 +50,14 @@ button {
   height: 10vh;
   margin-right: 2vw;
 }
+#hospi{
+  grid-column-start:3 ;
+  grid-column-end: 4;
+}
 @media screen and (max-width: 768px) {
   form {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 48vw 48vw;
     grid-template-rows: auto auto auto;
     margin-left: 10px;
     align-items: first baseline;

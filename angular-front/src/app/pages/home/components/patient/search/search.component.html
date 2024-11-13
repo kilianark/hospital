@@ -88,25 +88,14 @@
       <button type="reset" (click)="resetForm()">Reiniciar</button>
     </form>
 
-    <app-spinner>
-      <div class="overlay">
-        <div class="flex justify-center items-center min-h-screen">
-          <div class="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-orange-500">
-          </div>
-        </div>
-      </div>
+    <hr size="3px" color="black" style="width: 100vw" />
+
+    <app-spinner *ngIf="isLoading">
     </app-spinner>
 
-    <hr size="3px" color="black" style="width: 100vw" />
     <div [style.display]="isVisible ? 'block' : 'none'" *ngIf="filteredPatients.length <= 0 && !isLoading">
       <legend style="margin-left: 3%">Paciente no encontrado</legend>
     </div>
-
-    <!-- Barra de carga 
-    <div *ngIf="isLoading" class="loading-container">
-      <div class="loading-bar"></div>
-      Cargando...
-    </div> -->
 
     <div class="table-wrapper" [style.display]="isVisible ? 'grid' : 'none'"
       *ngIf="!isLoading && filteredPatients.length > 0">

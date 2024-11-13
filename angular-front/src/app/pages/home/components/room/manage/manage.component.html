@@ -59,13 +59,23 @@
     <h2 *ngIf="selectedBed?.id === 0">Crear cama</h2>
     <h2 *ngIf="selectedBed?.id !== 0">Editar cama</h2>
 
-    <form (ngSubmit)="saveBed()">
-      <label for="bedCode">Código de cama:</label>
-      <input id="bedCode" [(ngModel)]="selectedBed.bedCode" name="bedCode" required />
-
-      <label for="availability">Disponibilidad:</label>
-      <input id="availability" type="checkbox" [(ngModel)]="selectedBed.availability" name="availability" />
-
+      <form (ngSubmit)="saveBed()">
+        <label for="bedCode">Código de cama:</label>
+        <input
+          id="bedCode"
+          [(ngModel)]="selectedBed.bedCode"
+          name="bedCode"
+          required
+        />
+        <div id="horizontal">
+          <label for="availability">Disponibilidad:</label>
+          <input
+            id="availability"
+            type="checkbox"
+            [(ngModel)]="selectedBed.availability"
+            name="availability"
+          />
+        </div>
 
       <div *ngIf="selectedBed?.id !== 0">
         <label for="roomSelect">Mover a habitación:</label>
@@ -80,12 +90,11 @@
         </button>
       </div>
 
-      <button type="submit">
-        {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
-      </button>
-      <button type="button" (click)="cancelEdit()">Cancelar</button>
-    </form>
-  </div>
-</body>
-
+        <button style="margin-right: 10px;" type="submit">
+          {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
+        </button>
+        <button type="button" (click)="cancelEdit()">Cancelar</button>
+      </form>
+    </div>
+  </body>
 </html>
