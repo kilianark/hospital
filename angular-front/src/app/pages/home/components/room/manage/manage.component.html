@@ -28,7 +28,7 @@
           <tr *ngFor="let bed of beds" class="file-click">
             <td>{{ bed.bedCode }}</td>
             <td>{{ bed.availability ? "Sí" : "No" }}</td>
-            <td>
+            <td>  
               {{ (getPatientByBedId(bed.id) | async)?.name || 'Sin paciente' }}
               {{ (getPatientByBedId(bed.id) | async)?.surname1 || '' }}
             </td>
