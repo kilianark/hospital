@@ -15,6 +15,7 @@ export class PatientService {
     this.patients = patients;
   }
 
+
   getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
     const patient = this.patients.find(patient => patient.bedId === bedId) || null;
     return of(patient); // Retorna un Observable para seguir con el patrón de suscripción
