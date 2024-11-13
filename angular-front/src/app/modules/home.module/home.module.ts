@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from '../../pages/home/components/home.component';
-import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
+//import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PatientModule } from '../patient.module/patient.module';
@@ -13,6 +13,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RoomModule } from '../room.module/room.module';
 import { SharedModule } from '../../shared/modules/shared.module';
+import { WorkerModule } from '../worker.module/worker.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -22,13 +23,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     HomeComponent,
-    ProfileComponent
+    //ProfileComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     FormsModule,
     RoomModule,
+    WorkerModule,
     ReactiveFormsModule,
     PatientModule,
     RouterLink,

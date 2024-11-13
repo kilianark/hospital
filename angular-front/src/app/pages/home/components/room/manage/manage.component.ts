@@ -14,8 +14,7 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
   templateUrl: './manage.component.html',
   styleUrl: './manage.component.css'
 })
-export class ManageComponent {
-
+export class ManageComponent implements OnInit {
     title = 'Gestión de camas: Habitación ';
     roomId: number | null = null;
     room!: RoomInterface;
@@ -35,39 +34,30 @@ export class ManageComponent {
 
     ngOnInit() {
       this.roomId = Number(this.route.snapshot.paramMap.get('id'));
-
       if (this.roomId) {
-        this.roomService.getRoomById(this.roomId).subscribe((data) => {
-          this.room = data;
-        });
-
-        this.bedService.getBedData(this.roomId).subscribe(
-          (beds: BedInterface[]) => {
-            this.beds = beds;
-          },
-          (error) => {
-            this.confirm('Error al cargar camas', 'error');
-            console.error('Error al cargar camas:', error);
-          }
-        );
-
-        this.patientService.getPatientData(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.roomId).subscribe(
-          (patients: PatientInterface[]) => {
-            this.patients = patients;
-          },
-          (error) => {
-            console.error('Error al cargar paciente:', error);
-          }
-        );
-
-        this.roomService.getRoomData().subscribe((rooms: RoomInterface[]) => {
-          this.rooms = rooms.filter(room => room.id !== this.roomId);
-        },
-        (error) => {
-          this.confirm('Error al cargar habitaciones', 'error');
-          console.error('Error al cargar habitaciones:', error);
-        });
+        this.loadRoomData();
       }
+    }
+
+    loadRoomData() {
+      this.roomService.getRoomById(this.roomId!).subscribe((data) => {
+        this.room = data;
+      });
+
+      this.bedService.getBedData(this.roomId!).subscribe(
+        (beds: BedInterface[]) => this.beds = beds,
+        (error) => this.confirm('Error al cargar camas', 'error')
+      );
+
+      this.patientService.getPatientData(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.roomId).subscribe(
+        (patients: PatientInterface[]) => this.patients = patients,
+        (error) => console.error('Error al cargar paciente:', error)
+      );
+
+      this.roomService.getRoomData().subscribe(
+        (rooms: RoomInterface[]) => this.rooms = rooms.filter(room => room.id !== this.roomId),
+        (error) => this.confirm('Error al cargar habitaciones', 'error')
+      );
     }
 
     editBed(bed: BedInterface) {
@@ -76,59 +66,21 @@ export class ManageComponent {
     }
 
     openCreateBedModal() {
-      // Verificar capacidad
       if (this.beds.length >= this.room.capacity) {
         this.confirm('No se pueden crear más camas, se ha alcanzado la capacidad de la habitación.', 'error');
         return;
       }
-
-      const newBedCode = this.generateBedCode(this.roomId!);
-      this.selectedBed = {
-        id: 0,
-        bedCode: newBedCode,
-        roomId: this.roomId!,
-        availability: true
-      };
+      // Generar un código único basado en el número de habitación actual y las camas actuales
+      const newBedCode = this.generateBedCode(this.room.roomNumber, this.beds);
+      this.selectedBed = { id: 0, bedCode: newBedCode, roomId: this.roomId!, availability: true };
       this.isEditModalOpen = true;
     }
 
 
-    generateBedCode(roomId: number): string {
-      const usedLetters = new Set(this.beds.map(bed => bed.bedCode.charAt(bed.bedCode.length - 1)));
-
-      let letter = 'A';
-
-      while (usedLetters.has(letter)) {
-        letter = String.fromCharCode(letter.charCodeAt(0) + 1);
-      }
-
-      return `${this.room.roomNumber}${letter}`.toUpperCase(); // Asegurarse de que el código sea mayúsculas
-    }
-
 
     saveBed() {
       if (this.selectedBed) {
-        // Obtener el código de cama original
-        const originalBedCode = this.beds.find(bed => bed.id === this.selectedBed!.id)?.bedCode;
 
-        if (originalBedCode) {
-          // Mantener la parte fija del código (número de habitación) y solo permitir editar la última letra
-          const roomCodePart = originalBedCode.slice(0, -1); // Parte fija (número de habitación)
-          const newLetter = this.selectedBed.bedCode.slice(-1).toUpperCase(); // Solo cambiar la letra final
-
-          // Validar que el nuevo carácter sea una letra
-          if (!/^[A-Z]$/.test(newLetter)) {
-            this.confirm('El código de cama debe terminar en una letra. Por favor, elija otro.', 'warning');
-            return;
-          }
-
-          // Actualizar el código de cama con la nueva letra y la parte fija (número de habitación)
-          this.selectedBed.bedCode = `${roomCodePart}${newLetter}`;
-        } else {
-          // Si se está creando una nueva cama, generar el código de cama (y asegurarse de que termina en letra)
-          const newLetter = this.generateBedCode(this.roomId!).slice(-1).toUpperCase(); // Solo obtener la última letra
-          this.selectedBed.bedCode = `${this.room.roomNumber}${newLetter}`;
-        }
 
         const existingBed = this.beds.find(bed => bed.bedCode === this.selectedBed.bedCode);
         if (existingBed && existingBed.id !== this.selectedBed.id) {
@@ -137,58 +89,104 @@ export class ManageComponent {
         }
 
         if (this.selectedBed.id === 0) {
-          // Crear nueva cama
           this.bedService.postBedData(this.selectedBed).subscribe(
             (newBed) => {
               this.beds.push(newBed);
               this.isEditModalOpen = false;
               this.selectedBed = null;
-              this.confirm('Cama creada perfectamente', 'success');
+              this.confirm('Cama creada correctamente', 'success');
             },
-            (error) => {
-              this.confirm('No se puede crear la cama. Código repetido', 'warning');
-              console.error('Error al crear la cama:', error);
-            }
+            (error) => this.confirm('No se puede crear la cama. Código repetido', 'warning')
           );
         } else {
-          // Actualizar cama existente
           this.bedService.putBedData(this.selectedBed).subscribe(
             () => {
               const index = this.beds.findIndex(b => b.id === this.selectedBed!.id);
-              if (index !== -1) {
-                this.beds[index] = { ...this.selectedBed };
-              }
-              this.confirm('Cama actualizada perfectamente', 'success');
+              if (index !== -1) this.beds[index] = { ...this.selectedBed };
               this.isEditModalOpen = false;
               this.selectedBed = null;
               this.loadBeds();
+              this.confirm('Cama actualizada correctamente', 'success');
             },
-            (error) => {
-              this.confirm('Error al actualizar la cama', 'error');
-              console.error('Error al actualizar la cama:', error);
-            }
+            (error) => this.confirm('Código repetido', 'warning')
           );
         }
       }
     }
 
+    moveBed(destinationRoomId: number) {
+      if (!this.selectedBed) {
+        this.confirm('No se ha seleccionado ninguna cama para mover.', 'error');
+        return;
+      }
 
+      if (!destinationRoomId) {
+        this.confirm('Debe seleccionar una habitación de destino para mover la cama.', 'error');
+        return;
+      }
+
+      // Cargar la habitación de destino para verificar su capacidad
+      this.roomService.getRoomById(destinationRoomId).subscribe((destinationRoom) => {
+        this.bedService.getBedData(destinationRoomId).subscribe((destinationBeds) => {
+
+          // Comprobar si la habitación de destino está llena
+          if (destinationBeds.length >= destinationRoom.capacity) {
+            this.confirm('No se pueden mover más camas a esta habitación, se ha alcanzado su capacidad máxima.', 'error');
+            return;
+          }
+
+          // Generar un nuevo código de cama para la habitación destino
+          const newBedCode = this.generateBedCode(destinationRoom.roomNumber, destinationBeds);
+
+          // Eliminar la cama de la habitación actual
+          this.bedService.deleteBed(this.selectedBed!.id).subscribe(() => {
+            // Crear la cama en la habitación de destino con un nuevo código
+            const newBed: BedInterface = {
+              ...this.selectedBed!,
+              roomId: destinationRoomId,
+              bedCode: newBedCode
+            };
+
+            this.bedService.postBedData(newBed).subscribe(
+              (createdBed) => {
+
+                this.beds = this.beds.filter(b => b.id !== this.selectedBed!.id);
+                destinationBeds.push(createdBed);
+                this.isEditModalOpen = false;
+                this.selectedBed = null;
+                this.confirm('Cama movida correctamente', 'success');
+                this.loadBeds();
+              },
+              (error) => this.confirm('Error al mover la cama', 'error')
+            );
+          }, (error) => this.confirm('Error al eliminar la cama', 'error'));
+        });
+      });
+    }
+
+
+
+    // Ajustar generateBedCode para aceptar roomNumber y lista de camas
+    generateBedCode(roomNumber: number, bedsInDestination: BedInterface[]): string {
+      const usedLetters = new Set(bedsInDestination.map(bed => bed.bedCode.slice(-1)));
+      let letter = 'A';
+
+      // Buscar la primera letra disponible
+      while (usedLetters.has(letter)) {
+        letter = String.fromCharCode(letter.charCodeAt(0) + 1);
+      }
+
+      return `${roomNumber}${letter}`.toUpperCase(); 
+    }
 
 
 
     loadBeds() {
       this.bedService.getBedData(this.roomId!).subscribe(
-        (beds: BedInterface[]) => {
-          this.beds = beds;
-        },
-        (error) => {
-          this.confirm('Error al cargar camas', 'error');
-          console.error('Error al cargar camas:', error);
-        }
+        (beds: BedInterface[]) => this.beds = beds,
+        (error) => this.confirm('Error al cargar camas', 'error')
       );
     }
-
-
 
     confirm(message: string, type: string) {
       const dialogRef = this.dialog.open(ConfirmComponent, {});
@@ -203,18 +201,14 @@ export class ManageComponent {
     deleteBed(bed: BedInterface) {
       const patient = this.getPatientByBedId(bed.id);
       if (!patient) {
-
-          this.bedService.deleteBed(bed.id).subscribe(() => {
-            this.beds = this.beds.filter((b) => b.id !== bed.id);
-            this.confirm('Cama eliminada perfectamente', 'success');
-          });
-
+        this.bedService.deleteBed(bed.id).subscribe(() => {
+          this.beds = this.beds.filter(b => b.id !== bed.id);
+          this.confirm('Cama eliminada correctamente', 'success');
+        });
       }
     }
 
     getPatientByBedId(bedId: number): PatientInterface | null {
-      return this.patients.find((patient) => patient.bedId === bedId) || null;
+      return this.patients.find(patient => patient.bedId === bedId) || null;
     }
-
-
 }
