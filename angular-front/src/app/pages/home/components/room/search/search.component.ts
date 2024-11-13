@@ -225,8 +225,16 @@ export class SearchRoomComponent implements OnInit {
 
         this.roomService.deleteRoomData(room.id).subscribe(() => {
           this.onSubmit(); // Actualizamos la lista después de eliminar
-          console.log(`Habitación ${room.roomNumber} eliminada.`);
+          this.confirm(`Habitación ${room.roomNumber} eliminada.`, 'success');
           this.isLoading = false;
+        },
+        error => {
+          if (error.status == 400) {
+            this.confirm(`Error al eliminar habitación, no se puede eliminar habitación con camas.`, 'error');
+          } else {
+            this.confirm(`Error al eliminar habitación`, 'error');
+          }
+          this.onSubmit();
         });
       } else {
         console.log('Eliminación cancelada.');
