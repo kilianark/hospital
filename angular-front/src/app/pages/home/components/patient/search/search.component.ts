@@ -374,12 +374,10 @@ export class SearchPatientComponent implements OnInit {
 
     this.searchPatients();
 
-    //SPINNER FALSO!!!
     setTimeout(() => {
       this.spinnerService.hide();
       this.isLoading = false;
-      this.updatePagedPatients();
-    }, 50);
+    }, 0);
   }
 
   resetForm() {
