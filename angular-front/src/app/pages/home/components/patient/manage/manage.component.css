@@ -157,6 +157,10 @@ tr:nth-child(even) {
     width: 100%;
     flex-wrap: wrap;
   }
+  th,td{
+
+  height: 40px;
+  }
   label {
     padding-right: 1%;
   }

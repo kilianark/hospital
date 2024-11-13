@@ -53,6 +53,9 @@
     </div>
   </div>
 
+
+
+
   <!-- Formulario modal para editar o crear una cama -->
   <div *ngIf="isEditModalOpen" class="modal-overlay"></div>
   <div *ngIf="isEditModalOpen" class="modal">
@@ -90,11 +93,15 @@
         </button>
       </div>
 
-        <button style="margin-right: 10px;" type="submit">
-          {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
-        </button>
+      <button
+  style="margin-right: 10px;"
+  type="submit"
+  [disabled]="selectedBed?.id !== 0 "
+>
+  {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
+</button>
+
         <button type="button" (click)="cancelEdit()">Cancelar</button>
       </form>
     </div>
-  </body>
-</html>
+

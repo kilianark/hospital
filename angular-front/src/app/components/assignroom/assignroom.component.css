@@ -97,6 +97,7 @@ td {
 }
 table{
   width: 100%;
+  overflow: scroll;
 }
 }
 @media screen and (max-width: 480px) {
