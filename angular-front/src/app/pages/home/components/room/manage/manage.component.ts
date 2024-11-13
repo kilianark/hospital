@@ -8,6 +8,7 @@ import { BedService } from '../../../../../services/bed.service';
 import { PatientService } from '../../../../../services/patient.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-manage',
@@ -49,8 +50,11 @@ export class ManageComponent implements OnInit {
         (error) => this.confirm('Error al cargar camas', 'error')
       );
 
-      this.patientService.getPatientData(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, this.roomId).subscribe(
-        (patients: PatientInterface[]) => this.patients = patients,
+      this.patientService.getPatientData(/* parámetros necesarios */).subscribe(
+        (patients: PatientInterface[]) => {
+          this.patients = patients;
+          this.patientService.setPatients(patients); // Configura la lista de pacientes en el servicio
+        },
         (error) => console.error('Error al cargar paciente:', error)
       );
 
@@ -176,7 +180,7 @@ export class ManageComponent implements OnInit {
         letter = String.fromCharCode(letter.charCodeAt(0) + 1);
       }
 
-      return `${roomNumber}${letter}`.toUpperCase(); 
+      return `${roomNumber}${letter}`.toUpperCase();
     }
 
 
@@ -208,7 +212,7 @@ export class ManageComponent implements OnInit {
       }
     }
 
-    getPatientByBedId(bedId: number): PatientInterface | null {
-      return this.patients.find(patient => patient.bedId === bedId) || null;
+    getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
+      return this.patientService.getPatientByBedId(bedId);
     }
 }
