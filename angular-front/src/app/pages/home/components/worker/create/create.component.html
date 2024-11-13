@@ -48,15 +48,26 @@
           <mat-label>Teléfono</mat-label>
           <input matInput type="tel" formControlName="phone" placeholder="123456789" />
           <mat-icon matSuffix>phone</mat-icon>
-          <mat-error *ngIf="workerForm.get('phone')?.hasError('required')">El teléfono es obligatorio</mat-error>
-          <mat-error *ngIf="workerForm.get('phone')?.invalid">El teléfono debe ser válido</mat-error>
+          @if(workerForm.get('phone')?.hasError('required')) {
+            <mat-error>El teléfono es obligatorio</mat-error>
+          } @else if(workerForm.get('phone')?.invalid) {
+            <mat-error>El teléfono debe ser válido</mat-error>
+          }
       </mat-form-field>
 
       <!-- Fecha de Nacimiento -->
       <mat-form-field appearance="outline">
-          <mat-label>Fecha de Nacimiento</mat-label>
-          <input matInput type="date" formControlName="birthDate" placeholder="DD/MM/YYYY" />
-          <mat-error *ngIf="workerForm.get('birthDate')?.hasError('required')">La fecha de nacimiento es obligatoria</mat-error>
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input matInput type="date" formControlName="birthDate" placeholder="DD/MM/YYYY"
+            [min]="minDateBirth" [max]="maxDateBirth" />
+        <mat-icon matSuffix>today</mat-icon>
+        @if(workerForm.get('birthDate')?.hasError('required')) {
+        <mat-error>La fecha de nacimiento es obligatoria</mat-error>
+        } @else if(workerForm.get('birthDate')?.hasError('minDate')) {
+        <mat-error>La fecha no puede ser anterior a 150 años</mat-error>
+        } @else if(workerForm.get('birthDate')?.hasError('maxDate')) {
+        <mat-error>La fecha de nacimiento no puede ser futura</mat-error>
+        }
       </mat-form-field>
 
       <!-- Nacionalidad -->
@@ -80,16 +91,13 @@
           <mat-error *ngIf="workerForm.get('gender')?.hasError('required')">El género es obligatorio</mat-error>
       </mat-form-field>
 
-      <!-- Tipo de trabajo -->
+      <!-- Email -->
       <mat-form-field appearance="outline">
-          <mat-label>Tipo de trabajo</mat-label>
-          <mat-select formControlName="worktype">
-              <mat-option value="doctor">Doctor</mat-option>
-              <mat-option value="nurse">Enfermero</mat-option>
-              <mat-option value="administrator">Administrador</mat-option>
-          </mat-select>
-          <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El tipo de trabajador es obligatorio</mat-error>
-        </mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="workerForm.get('email')?.invalid">El email debe ser válido</mat-error>
+      </mat-form-field>
 
       <!-- Dirección -->
       <mat-form-field appearance="outline">
@@ -97,12 +105,15 @@
           <input matInput formControlName="address" />
       </mat-form-field>
 
-      <!-- Email -->
+      <!-- Tipo de trabajo -->
       <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" />
-          <mat-icon matSuffix>email</mat-icon>
-          <mat-error *ngIf="workerForm.get('email')?.invalid">El email debe ser válido</mat-error>
+        <mat-label>Tipo de trabajo</mat-label>
+        <mat-select formControlName="worktype">
+            <mat-option value="doctor">Doctor</mat-option>
+            <mat-option value="nurse">Enfermero</mat-option>
+            <mat-option value="administrator">Administrador</mat-option>
+        </mat-select>
+        <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El tipo de trabajador es obligatorio</mat-error>
       </mat-form-field>
 
       <mat-card-actions>
