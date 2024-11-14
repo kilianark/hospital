@@ -1,6 +1,6 @@
-import { Worker } from './worker.interface';
+import { WorkerInterface } from './worker.interface';
 
-export interface Doctor extends Worker {
+export interface DoctorInterface extends WorkerInterface {
   doctor_code: number;
   speciality: string;
 }
