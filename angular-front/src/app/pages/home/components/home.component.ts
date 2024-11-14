@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private keycloakService: KeycloakService) {}
 
   ngOnInit() {
-    const roles = this.keycloakService.getKeycloakInstance().realmAccess.roles;
+    const roles = this.keycloakService.getUserRoles();
     console.log(roles)
   }
 
