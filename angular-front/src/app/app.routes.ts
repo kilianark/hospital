@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { LoginComponent } from './pages/login/components/login.component';
 import { HomeModule } from './modules/home.module/home.module';
+import { NoaccesComponent } from './pages/noacces/noacces.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,7 @@ export const routes: Routes = [
       import('./modules/home.module/home.module').then((m) => m.HomeModule), // Lazy load del módulo Home
   },
   { path: 'login', component: LoginComponent },
+  { path: 'no-acces', component: NoaccesComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' },
 ];

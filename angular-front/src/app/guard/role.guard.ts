@@ -20,6 +20,9 @@ export class RoleGuard implements CanActivate {
 
       if(!hasRole) {
         this.router.navigate(['no-acces'])
+        return false;
       }
+
+      return true;
   }
 }
