@@ -1,4 +1,4 @@
-export interface Worker {
+export interface WorkerInterface {
   id: number;
   name: string;
   surname1: string;

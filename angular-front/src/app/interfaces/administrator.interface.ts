@@ -1,5 +1,5 @@
-import { Worker } from './worker.interface';
+import { WorkerInterface } from './worker.interface';
 
-export interface Administrator extends Worker {
+export interface Administrator extends WorkerInterface {
   admin_code: number;
 }

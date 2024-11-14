@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Worker } from '../interfaces/worker.interface';
+import { WorkerInterface } from '../interfaces/worker.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +13,20 @@ export class WorkerService {
   constructor(private http: HttpClient) {}
 
   // Crear un nuevo trabajador según su tipo
-  createWorker(worker: Worker): Observable<Worker> {
+  createWorker(worker: WorkerInterface): Observable<WorkerInterface> {
     const endpoint = this.getWorkerEndpoint(worker.worktype);
     if (!endpoint) return throwError(() => new Error('Invalid worker type'));
 
     // Asegúrate de que el worker tiene un id antes de enviarlo al servidor
     worker.id = worker.id || 0;  // Si no tiene id, se asigna un valor por defecto
 
-    return this.http.post<Worker>(endpoint, worker).pipe(catchError(this.handleError));
+    return this.http.post<WorkerInterface>(endpoint, worker).pipe(catchError(this.handleError));
   }
 
   // Verifica si el DNI ya existe en la base de datos, excluyendo un código de trabajador si es necesario
   checkDniExists(dni: string, excludePatientCode?: number): Observable<boolean> {
     const url = `${this.apiUrl}/check-dni`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de trabajadores
-    return this.http.get<Worker[]>(url, { params: { dni } }).pipe(
+    return this.http.get<WorkerInterface[]>(url, { params: { dni } }).pipe(
       map(workers => {
         if (excludePatientCode) {
           // Filtrar el trabajador actual si se proporciona un código
@@ -39,11 +39,18 @@ export class WorkerService {
   }
 
   // Obtener trabajadores de un tipo específico
-  getWorkersByType(type: string): Observable<Worker[]> {
+  getWorkersByType(type: string): Observable<WorkerInterface[]> {
     const endpoint = this.getWorkerEndpoint(type);
     if (!endpoint) return throwError(() => new Error('Invalid worker type'));
 
-    return this.http.get<Worker[]>(endpoint).pipe(catchError(this.handleError));
+    return this.http.get<WorkerInterface[]>(endpoint).pipe(catchError(this.handleError));
+  }
+
+  getWorkersById(type: string, id: number): Observable<WorkerInterface[]> {
+    const endpoint = this.getWorkerEndpoint(type);
+    if (!endpoint) return throwError(() => new Error('Invalid worker type'));
+
+    return this.http.get<WorkerInterface[]>(`${endpoint}/${id}`).pipe(catchError(this.handleError));
   }
 
   // Obtener el endpoint según el tipo de trabajador
@@ -61,11 +68,11 @@ export class WorkerService {
   }
 
   // Actualizar un trabajador (con su id)
-  updateWorker(worker: Worker): Observable<Worker> {
+  updateWorker(worker: WorkerInterface): Observable<WorkerInterface> {
     const endpoint = `${this.getWorkerEndpoint(worker.worktype)}/${worker.id}`;
     if (!endpoint) return throwError(() => new Error('Invalid worker type'));
 
-    return this.http.put<Worker>(endpoint, worker).pipe(catchError(this.handleError));
+    return this.http.put<WorkerInterface>(endpoint, worker).pipe(catchError(this.handleError));
   }
 
   // Manejo de errores

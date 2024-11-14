@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RoomModule } from '../room.module/room.module';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { WorkerModule } from '../worker.module/worker.module';
+import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,7 +24,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     HomeComponent,
-    //ProfileComponent
+    ProfileComponent
   ],
   imports: [
     CommonModule,

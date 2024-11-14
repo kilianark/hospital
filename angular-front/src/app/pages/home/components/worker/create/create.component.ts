@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WorkerService } from '../../../../../services/worker.service';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { countries } from '../../../../../store/country-data.store';
-import { Worker } from '../../../../../interfaces/worker.interface';
+import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { CustomValidators } from '../../../../../validators/CustomValidators';
 import { AsyncValidatorsW } from '../../../../../validators/AsyncValidatorW';
 import { Router } from '@angular/router';
@@ -78,7 +78,7 @@ export class CreateWorkerComponent implements OnInit {
 
   createWorker(): void {
     if (this.workerForm.valid) {
-      const workerData: Worker = this.workerForm.value;
+      const workerData: WorkerInterface = this.workerForm.value;
       this.workerService.createWorker(workerData).subscribe(
         (response) => {
           console.log('Trabajador creado exitosamente:', response);
