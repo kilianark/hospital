@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace ApiHospital.Service {
 
@@ -23,6 +24,14 @@ namespace ApiHospital.Service {
         {
             _context = context;
         }
+
+        public IQueryable<Room> getRoomsQuery() {
+            return _context.Rooms;
+        }
+
+        //public async Task<Room> GetRoomById(int roomId) {
+
+        //}
 
         public async Task<IActionResult> DeleteRoom(int roomId) {
             var room = await _context.Rooms.FindAsync(roomId);

@@ -61,10 +61,18 @@ export class AssignRoom implements OnInit {
     this.bedService.getBedsByRoomId(this.roomId).subscribe((data) => {
       this.beds = data;
       console.log('Camas obtenidas:', this.beds);
+      console.log(this.beds);
     });
   }
 
   loadPatients() {
+    this.patientService.getPatientData().subscribe(
+      (patients: PatientInterface[]) => {
+        this.patients = patients;
+        this.patientService.setPatients(patients); // Configura la lista de pacientes en el servicio
+      },
+      (error) => console.error('Error al cargar paciente:', error)
+    );
     // Verifica que las camas estén cargadas antes de llamar a `getPatientByBedId`
     if (this.beds.length === 0) {
       console.warn("No se han cargado las camas. Llama a loadBeds() primero.");

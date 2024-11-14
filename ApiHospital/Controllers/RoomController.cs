@@ -44,7 +44,7 @@ namespace ApiHospital.Controllers
             [FromQuery] int?[] Hospital = null
         )
         {
-            IQueryable<Room> query = _context.Rooms;
+            IQueryable<Room> query = _service.getRoomsQuery();
             
             query = ApplyFilter(query, RoomNumber, r => r.RoomNumber == RoomNumber!.Value);
             query = ApplyFilter(query, Capacity, r => r.Capacity == Capacity);
