@@ -9,7 +9,14 @@ import { KeycloakService } from 'keycloak-angular';
     styleUrl: './home.component.css',
   })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   title = 'MedicaPlus';
+
+  constructor(private keycloakService: KeycloakService) {}
+
+  ngOnInit() {
+    const roles = this.keycloakService.getKeycloakInstance().realmAccess.roles;
+    console.log(roles)
+  }
 
 }
