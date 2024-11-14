@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ApiHospital.Controllers
 {
-    [Authorize(Roles = "ADMIN")]
     [Route("api/Patients")]
     [ApiController]
     public class PatientController : ControllerBase
