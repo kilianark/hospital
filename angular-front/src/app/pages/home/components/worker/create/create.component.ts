@@ -46,7 +46,8 @@ export class CreateWorkerComponent implements OnInit {
       country: ['', Validators.required],
       address: [''],
       gender: ['', Validators.required],
-      hospital: ['', Validators.required]
+      hospital: ['', Validators.required],
+      worktype: ['', Validators.required]
     });
   }
 
