@@ -12,6 +12,7 @@ namespace hospitalDTO.DTOapi {
     public string? Email {get; set;}
     public string? CIP {get; set;}
     public required string Gender {get; set;}
+    public required string workerCode {get; set;}
     public required string Username {get; set;}
     public required string Worktype {get; set;}
     public required string Speciality { get; set; }
