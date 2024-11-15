@@ -104,10 +104,10 @@ export class ManageComponent implements OnInit {
           (error) => this.confirm('No se puede crear la cama. Código repetido', 'warning')
         );
       } else {
-        if (this.selectedBed.roomId !== this.roomId) {
-          this.confirm('No se puede mover la cama a otra habitación desde aquí.', 'error');
-          return;
-        }
+          if (this.selectedBed.roomId !== this.roomId) {
+            this.confirm('No se puede mover la cama a otra habitación desde aquí.', 'error');
+            return;
+          }
         this.bedService.putBedData(this.selectedBed).subscribe(
           () => {
             const index = this.beds.findIndex(b => b.id === this.selectedBed!.id);
