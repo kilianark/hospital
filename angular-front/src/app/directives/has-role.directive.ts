@@ -12,8 +12,6 @@ export class HasRoleDirective implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('Elemento:', this.element);
-
     const rolesRequired = this.appHasRole.split(',');
 
     const userRoles = this.keycloakService.getKeycloakInstance().realmAccess.roles;
