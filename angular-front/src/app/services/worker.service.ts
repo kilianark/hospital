@@ -24,15 +24,30 @@ export class WorkerService {
   }
 
   // Verifica si el DNI ya existe en la base de datos, excluyendo un código de trabajador si es necesario
-  checkDniExists(dni: string, excludePatientCode?: number): Observable<boolean> {
+  checkDniExists(dni: string, excludeWorkerCode?: string): Observable<boolean> {
     const url = `${this.apiUrl}/check-dni`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de trabajadores
     return this.http.get<WorkerInterface[]>(url, { params: { dni } }).pipe(
       map(workers => {
-        if (excludePatientCode) {
+        if (excludeWorkerCode) {
           // Filtrar el trabajador actual si se proporciona un código
-          workers = workers.filter(worker => worker.id !== excludePatientCode);
+          workers = workers.filter(worker => worker.workerCode !== excludeWorkerCode);
         }
         return workers.length > 0;  // Si queda algún trabajador con ese DNI, el DNI ya existe
+      }),
+      catchError(() => of(false))  // En caso de error, retornamos que no existe para no bloquear la validación
+    );
+  }
+
+  checkCipExists(cip: string, excludeWorkerCode: string): Observable<boolean> {
+    const url = `${this.apiUrl}`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de pacientes
+    return this.http.get<WorkerInterface[]>(url, { params: { cip } }).pipe(
+      map(workers => {
+
+        if (excludeWorkerCode) {
+          // Filtrar el paciente actual si se proporciona un código
+          workers = workers.filter(p => p.workerCode !== excludeWorkerCode);
+        }
+        return workers.length > 0;  // Si queda algún paciente con ese CIP, el CIP ya existe
       }),
       catchError(() => of(false))  // En caso de error, retornamos que no existe para no bloquear la validación
     );
