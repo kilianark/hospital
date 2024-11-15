@@ -21,8 +21,6 @@ import SpinnerComponent from '../../../../../shared/components/spinner/spinner.c
   selector: 'app-search-worker',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  standalone: true,
-  imports:[MaterialModule,ReactiveFormsModule,]
 })
 export class SearchWorkerComponent implements OnInit {
   title = 'Búsqueda Trabajadores:';
