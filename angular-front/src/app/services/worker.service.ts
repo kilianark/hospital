@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse,HttpParams} from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, Subject, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { WorkerInterface } from '../interfaces/worker.interface';
 
@@ -67,8 +67,10 @@ export class WorkerService {
       });
   }
 
-
     return this.http.get<WorkerInterface[]>(this.apiUrl, { params });
+  }
+  deleteWorkerData(WorkerId: number): Observable<WorkerInterface> {
+    return this.http.delete<WorkerInterface>(`${this.apiUrl}/${WorkerId}`);
   }
   // Verifica si el DNI ya existe en la base de datos, excluyendo un código de trabajador si es necesario
   checkDniExists(dni: string, excludePatientCode?: number): Observable<boolean> {
@@ -136,5 +138,12 @@ export class WorkerService {
     }
 
     return throwError(() => new Error(errorMessage));
+    
+  }
+  
+  private workerUpdatedSource = new Subject<WorkerInterface>();
+  workerUpdated$ = this.workerUpdatedSource.asObservable();
+  notifyWorkerUpdated(worker: WorkerInterface) {
+    this.workerUpdatedSource.next(worker);
   }
 }
