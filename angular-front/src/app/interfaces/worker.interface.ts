@@ -13,5 +13,6 @@ export interface WorkerInterface {
   email?: string;
   phone: number;
   username: string;
+  workerCode: string;
   worktype: 'doctor' | 'nurse' | 'administrator';
 }

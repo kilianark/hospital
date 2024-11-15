@@ -9,35 +9,35 @@
 </head>
 
 <body class="sidebar" id="sidebarTS">
-  <div class="columna">
+  <div appHasRole="general_patients" class="columna">
     <label><b>Gestionar pacientes</b></label>
     <ul>
-      <li>
+      <li appHasRole="create_patient">
         <a class="submit" type="button" routerLink="/home/patient/create">Crear</a>
       </li>
-      <li>
+      <li appHasRole="search_patient">
         <a class="submit" type="button" routerLink="/home/patient/search">Buscar</a>
       </li>
     </ul>
   </div>
-  <div class="columna">
+  <div appHasRole="general_rooms" class="columna">
     <label><b>Gestionar habitaciones</b></label>
     <ul>
-      <li>
+      <li appHasRole="create_room">
         <a class="submit" type="button" routerLink="/home/room/create">Crear</a>
       </li>
-      <li>
+      <li appHasRole="search_room">
         <a class="submit" type="button" routerLink="/home/room/search">Buscar</a>
       </li>
     </ul>
   </div>
-  <div class="columna">
+  <div appHasRole="general_workers" class="columna">
     <label><b>Gestionar trabajadores</b></label>
     <ul>
-      <li>
+      <li appHasRole="create_worker">
         <a class="submit" type="button" routerLink="/home/worker/create">Crear</a>
       </li>
-      <li>
+      <li appHasRole="search_worker">
         <a class="submit" type="button" routerLink="/home/worker/search">Buscar</a>
       </li>
     </ul>

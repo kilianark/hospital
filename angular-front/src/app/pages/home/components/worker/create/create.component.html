@@ -107,13 +107,13 @@
 
       <!-- Tipo de trabajo -->
       <mat-form-field appearance="outline">
-        <mat-label>Tipo de trabajo</mat-label>
+        <mat-label>Rol</mat-label>
         <mat-select formControlName="worktype">
-            <mat-option value="doctor">Doctor</mat-option>
-            <mat-option value="nurse">Enfermero</mat-option>
-            <mat-option value="administrator">Administrador</mat-option>
+            <mat-option value="doctor">Doctor/a</mat-option>
+            <mat-option value="nurse">Enfermero/a</mat-option>
+            <mat-option value="administrator">Administrador/a</mat-option>
         </mat-select>
-        <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El tipo de trabajador es obligatorio</mat-error>
+        <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El rol es obligatorio</mat-error>
       </mat-form-field>
 
       <mat-card-actions >
