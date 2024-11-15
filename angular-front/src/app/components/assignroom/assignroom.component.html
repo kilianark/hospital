@@ -2,10 +2,8 @@
 <html>
   <head>
     <title>Asignar habitación</title>
-
     <link rel="stylesheet" href="assignroom.component.css" />
   </head>
-
   <body>
     <div id="hero">
       <legend>Camas</legend>
@@ -20,7 +18,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let bed of beds">
+          <tr
+            *ngFor="let bed of beds"
+            [ngClass]="{'available-bed': bed.availability}"
+          >
             <td>{{ bed.bedCode }}</td>
             <td>{{ bed.availability ? "Sí" : "No" }}</td>
             <td>
@@ -34,13 +35,14 @@
               <button
                 class="buttonCSS"
                 (click)="assignBed(bed.id)"
-                
+                [disabled]="!bed.availability"
               >
                 Asignar
               </button>
             </td>
           </tr>
         </tbody>
+
       </table>
     </div>
   </body>
