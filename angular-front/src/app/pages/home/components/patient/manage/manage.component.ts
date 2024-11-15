@@ -199,4 +199,5 @@ export class ManagePatientComponent {
     this.confirm('Paciente actualizado con éxito', 'success');
     this.router.navigate(['/home']);
   }
+  
 }

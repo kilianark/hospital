@@ -101,7 +101,14 @@ export class AssignRoom implements OnInit {
   }
 
   assignBed(bedId: number) {
-    // lógica para asignar cama
+    const bed = this.beds.find(b => b.id === bedId);
+    if (bed && !bed.availability) {
+      alert("La cama ya está ocupada y no se puede asignar.");
+      return;
+    }
+
+    // Lógica para asignar la cama si está disponible
+    console.log("Asignando cama:", bedId);
   }
 
 }

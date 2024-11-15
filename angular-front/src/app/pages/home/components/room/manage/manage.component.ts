@@ -164,7 +164,7 @@ export class ManageComponent implements OnInit {
             },
             (error) => this.confirm('Error al mover la cama', 'error')
           );
-        }, (error) => this.confirm('Error al eliminar la cama', 'error'));
+        }, (error) => this.confirm('Error al eliminar la cama, cama asignada', 'error'));
       });
     });
   }

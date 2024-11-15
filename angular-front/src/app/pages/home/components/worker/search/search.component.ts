@@ -16,11 +16,10 @@ import { HospitalInterface } from '../../../../../interfaces/hospital.interface'
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
-@Component({
+@Component({  
   selector: 'app-search-worker',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  imports:[MaterialModule,ReactiveFormsModule]
 })
 export class SearchWorkerComponent implements OnInit {
   title = 'Búsqueda Trabajadores:';
@@ -53,9 +52,7 @@ export class SearchWorkerComponent implements OnInit {
   worktype: string = '';
   phone: string = '';
   status: string = '';
-  bedId: number = 0;
   hospital: number = 0;
-
   isVisible: boolean = false;//barra
   showSelect: boolean = false;
 
@@ -127,7 +124,7 @@ export class SearchWorkerComponent implements OnInit {
         threshold: 0.3,
       });
 
-      this.WorkerService.updateWorker$.subscribe((updateWorker: Worker) => {
+      this.WorkerService.updateWorker$.subscribe((updateWorker: WorkerInterface) => {
         this.updateworkerInList(updateWorker);
       })
     });
