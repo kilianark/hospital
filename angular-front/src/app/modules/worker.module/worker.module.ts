@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { CreateWorkerComponent } from '../../pages/home/components/worker/create/create.component';
 import { SearchWorkerComponent } from '../../pages/home/components/worker/search/search.component';
 import { SelectZoneComponent } from '../../shared/components/select-zone/select-zone.component';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 @NgModule({
   declarations: [
     CreateWorkerComponent,
@@ -18,7 +19,8 @@ import { SelectZoneComponent } from '../../shared/components/select-zone/select-
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    SelectZoneComponent
+    SelectZoneComponent,
+    HasRoleDirective
   ],
   providers: [provideHttpClient()],
 })

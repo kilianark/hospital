@@ -7,7 +7,7 @@ import { CreateComponent } from '../../pages/home/components/room/create/create.
 import { SearchRoomComponent } from '../../pages/home/components/room/search/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
-
+import { HasRoleDirective } from '../../directives/has-role.directive';
 import { SelectPipeComponent } from '../../shared/components/select-pipe/select-pipe.component';
 import { ManageComponent } from '../../pages/home/components/room/manage/manage.component';
 
@@ -25,7 +25,8 @@ import { ManageComponent } from '../../pages/home/components/room/manage/manage.
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
-    SelectPipeComponent
+    SelectPipeComponent,
+    HasRoleDirective
   ],
   providers: [provideHttpClient()],
 })
