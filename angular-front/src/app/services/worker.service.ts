@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse,HttpParams} from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { WorkerInterface } from '../interfaces/worker.interface';
@@ -22,7 +22,54 @@ export class WorkerService {
 
     return this.http.post<WorkerInterface>(endpoint, worker).pipe(catchError(this.handleError));
   }
+  getWorkerData(workerCode?:number, Name?:string, Surname1?: string, Surname2?: string, Dni?: string, Cip?: string, type?: string, Phone?: string, Hospital?: string[]){
 
+    let params = new HttpParams();
+
+    if (workerCode != null && workerCode != undefined && workerCode != 0) {
+      params = params.set('workerCode', workerCode);
+    }
+
+    if (Name != null && Name != undefined && Name.trim() !== "") {
+      params = params.set('Name', Name);
+    }
+
+    if (Surname1 != null && Surname1 != undefined && Surname1.trim() !== "") {
+      params = params.set('Surname1', Surname1);
+    }
+
+    if (Surname2 != null && Surname2 != undefined && Surname2.trim() !== "") {
+      params = params.set('Surname2', Surname2);
+    }
+
+    if (Dni != null && Dni != undefined && Dni.trim() !== "") {
+      params = params.set('Dni', Dni);
+    }
+
+    if (Cip != null && Cip != undefined && Cip.trim() !== "") {
+      params = params.set('Cip', Cip);
+    }
+
+    if (Phone != null && Phone != undefined && Phone.trim() !== "") {
+      params = params.set('Phone', Phone);
+    }
+
+    if (type != null && type != undefined && type.trim() !== "") {
+      params = params.set('type', type);
+    }
+
+
+    if (Hospital && Hospital.length > 0) {
+      Hospital.forEach(h => {
+          if (h.trim() !== "") {
+              params = params.append('Hospital', h.trim());
+          }
+      });
+  }
+
+
+    return this.http.get<WorkerInterface[]>(this.apiUrl, { params });
+  }
   // Verifica si el DNI ya existe en la base de datos, excluyendo un código de trabajador si es necesario
   checkDniExists(dni: string, excludeWorkerCode?: string): Observable<boolean> {
     const url = `${this.apiUrl}/check-dni`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de trabajadores
