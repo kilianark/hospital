@@ -16,7 +16,8 @@ import { HospitalInterface } from '../../../../../interfaces/hospital.interface'
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
-@Component({  
+import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
+@Component({
   selector: 'app-search-worker',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
@@ -124,8 +125,8 @@ export class SearchWorkerComponent implements OnInit {
         threshold: 0.3,
       });
 
-      this.WorkerService.updateWorker$.subscribe((updateWorker: WorkerInterface) => {
-        this.updateworkerInList(updateWorker);
+      this.WorkerService.workerUpdated$.subscribe((updatedWorker: WorkerInterface) => {
+        this.updateworkerInList(updatedWorker);
       })
     });
   }
@@ -311,7 +312,7 @@ export class SearchWorkerComponent implements OnInit {
 
   }
 
-  openDialog(workerId: number) {
+  openDialog(workerId: string) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
@@ -348,12 +349,12 @@ export class SearchWorkerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // El usuario confirmó, procedemos a eliminar el paciente
-        this.WorkerService.deleteworkerData(worker.id).subscribe(() => {
+        this.WorkerService.deleteWorkerData(worker.id).subscribe(() => {
           // Eliminamos el paciente de la lista
           this.workers = this.workers.filter(p => p.id !== worker.id);
           this.searchworkers();
           console.log(`Paciente ${worker.name} ${worker.surname1} eliminado.`);
-        }, 
+        },
         error => {
           if (error.status == 400) {
             this.confirm(`Error al eliminar paciente, no se puede eliminar paciente con cama assignada.`, 'error');
