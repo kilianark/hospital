@@ -17,7 +17,7 @@ import { ConfirmDialogComponent } from '../../../../../shared/components/confirm
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
-@Component({  
+@Component({
   selector: 'app-search-worker',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
@@ -312,7 +312,7 @@ export class SearchWorkerComponent implements OnInit {
 
   }
 
-  openDialog(workerId: number) {
+  openDialog(workerId: string) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
@@ -354,7 +354,7 @@ export class SearchWorkerComponent implements OnInit {
           this.workers = this.workers.filter(p => p.id !== worker.id);
           this.searchworkers();
           console.log(`Paciente ${worker.name} ${worker.surname1} eliminado.`);
-        }, 
+        },
         error => {
           if (error.status == 400) {
             this.confirm(`Error al eliminar paciente, no se puede eliminar paciente con cama assignada.`, 'error');
