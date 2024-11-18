@@ -87,15 +87,22 @@ export class ManagePatientComponent {
     }));
   //
 
-  openDialog(roomId: number, patientId: number) {
-    console.log("PatientID de openDialog: ", patientId)
+  openDialog(roomId: number, patient: PatientInterface) {
     let popupRef = this.dialog.open(AssignRoom, {
       width: '60%',
       height: '80%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: { roomId, patientId },
+      data: { roomId, patient },
     });
+
+    popupRef.afterClosed().subscribe((updPatient) => {
+      console.log("Paciente recibido del popup: ", updPatient);
+
+      this.patient = updPatient;
+      console.log("Paciente resultante: ", this.patient);
+    });
+
   }
 
   constructor(

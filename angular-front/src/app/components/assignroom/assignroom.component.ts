@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -27,30 +27,27 @@ export class AssignRoom implements OnInit {
   beds: BedInterface[] = [];
   thisIsDisabled: boolean = false;
   patients: PatientInterface[] = [];
-  patientId: number;
   patient: PatientInterface;
 
   // Diccionario que mapea cada cama con su respectivo paciente según el ID de la cama
   patientsMap: { [bedId: number]: PatientInterface | null } = {};
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: {roomId: number, patientId: number},
+    @Inject(MAT_DIALOG_DATA) private data: {roomId: number, patient: PatientInterface},
     
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
     private bedService: BedService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private dialogRef: MatDialogRef<AssignRoom>
   ) {}
 
   ngOnInit() {
     this.roomId = this.data.roomId;
-    this.patientId = this.data.patientId;
+    this.patient = this.data.patient;
 
-    this.patientService.getPatientById(this.patientId).subscribe((data) => {
-      this.patient = data;
-      console.log(data);
-    })
+    console.log(this.patient)
 
     if (this.roomId) {
       console.log('Id de la habitación:', this.roomId);
@@ -120,8 +117,14 @@ export class AssignRoom implements OnInit {
 
     this.patient.bedId = bedId;
 
-    this.patientService.putPatientData(this.patient);
+    console.log(this.patient);
 
+    this.closeDialog();
+
+  }
+
+  closeDialog() {
+    this.dialogRef.close(this.patient);
   }
 
 }
