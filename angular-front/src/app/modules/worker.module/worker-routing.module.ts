@@ -6,10 +6,13 @@ import { CreateWorkerComponent } from '../../pages/home/components/worker/create
 import { RoleGuard } from '../../guard/role.guard';
 import { SearchPatientComponent } from '../../pages/home/components/patient/search/search.component';
 import { SearchWorkerComponent } from '../../pages/home/components/worker/search/search.component';
+import { WorkerComponent } from '../../pages/home/components/worker/worker.component';
+import { AuthGuard } from '../../guard/auth.guard';
 
 const routes: Routes = [
-  { path: 'create', component: CreateWorkerComponent, canActivate: [RoleGuard], data: { roles: ['create_worker']} },
-  {path:'search', component: SearchWorkerComponent, canActivate: [RoleGuard], data: {roles: ['search_worker']}}
+  { path: '', component: WorkerComponent, canActivate:[RoleGuard, AuthGuard], data:{roles:['general_workers']}},
+  { path: 'create', component: CreateWorkerComponent, canActivate: [RoleGuard, AuthGuard], data: { roles: ['create_worker']} },
+  {path:'search', component: SearchWorkerComponent, canActivate: [RoleGuard, AuthGuard], data: {roles: ['search_worker']}}
 ];
 
 @NgModule({
