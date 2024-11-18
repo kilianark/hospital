@@ -35,7 +35,7 @@ export class AssignRoom implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: {roomId: number, patientId: number},
-    
+
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
@@ -110,18 +110,32 @@ export class AssignRoom implements OnInit {
 
   assignBed(bedId: number) {
     const bed = this.beds.find(b => b.id === bedId);
-    if (bed && !bed.availability) {
+    if (!bed) {
+      alert("Cama no encontrada.");
+      return;
+    }
+
+    if (!bed.availability) {
       alert("La cama ya está ocupada y no se puede asignar.");
       return;
     }
 
-    // Lógica para asignar la cama si está disponible
+    // Lógica para asignar la cama
     console.log("Asignando cama:", bedId);
 
     this.patient.bedId = bedId;
 
-    this.patientService.putPatientData(this.patient);
+    // Actualizar los datos del paciente con la nueva cama asignada
+    this.patientService.putPatientData(this.patient).subscribe(() => {
+      console.log("Paciente actualizado con la cama:", bedId);
 
+      // Actualizar la disponibilidad de la cama
+      bed.availability = false;
+      
+    }, error => {
+      console.error("Error al asignar la cama al paciente:", error);
+    });
   }
+
 
 }
