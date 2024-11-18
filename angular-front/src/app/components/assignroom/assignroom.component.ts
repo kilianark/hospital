@@ -10,7 +10,11 @@ import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -27,30 +31,28 @@ export class AssignRoom implements OnInit {
   beds: BedInterface[] = [];
   thisIsDisabled: boolean = false;
   patients: PatientInterface[] = [];
-  patientId: number;
   patient: PatientInterface;
 
   // Diccionario que mapea cada cama con su respectivo paciente según el ID de la cama
   patientsMap: { [bedId: number]: PatientInterface | null } = {};
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: {roomId: number, patientId: number},
+    @Inject(MAT_DIALOG_DATA)
+    private data: { roomId: number; patient: PatientInterface },
 
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
     private bedService: BedService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private dialogRef: MatDialogRef<AssignRoom>
   ) {}
 
   ngOnInit() {
     this.roomId = this.data.roomId;
-    this.patientId = this.data.patientId;
+    this.patient = this.data.patient;
 
-    this.patientService.getPatientById(this.patientId).subscribe((data) => {
-      this.patient = data;
-      console.log(data);
-    })
+    console.log(this.patient);
 
     if (this.roomId) {
       console.log('Id de la habitación:', this.roomId);
@@ -83,7 +85,7 @@ export class AssignRoom implements OnInit {
     );
     // Verifica que las camas estén cargadas antes de llamar a `getPatientByBedId`
     if (this.beds.length === 0) {
-      console.warn("No se han cargado las camas. Llama a loadBeds() primero.");
+      console.warn('No se han cargado las camas. Llama a loadBeds() primero.');
       return;
     }
 
@@ -101,41 +103,39 @@ export class AssignRoom implements OnInit {
     });
   }
 
-
-
   // Obtiene un paciente según el ID de la cama
   getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
     return this.patientService.getPatientByBedId(bedId);
   }
 
   assignBed(bedId: number) {
-    const bed = this.beds.find(b => b.id === bedId);
+    const bed = this.beds.find((b) => b.id === bedId);
     if (!bed) {
-      alert("Cama no encontrada.");
-      return;
-    }
-
-    if (!bed.availability) {
-      alert("La cama ya está ocupada y no se puede asignar.");
+      alert('Cama no encontrada.');
       return;
     }
 
     // Lógica para asignar la cama
-    console.log("Asignando cama:", bedId);
+    console.log('Asignando cama:', bedId);
 
     this.patient.bedId = bedId;
 
     // Actualizar los datos del paciente con la nueva cama asignada
-    this.patientService.putPatientData(this.patient).subscribe(() => {
-      console.log("Paciente actualizado con la cama:", bedId);
+    this.patientService.putPatientData(this.patient).subscribe(
+      () => {
+        console.log('Paciente actualizado con la cama:', bedId);
+      },
+      (error) => {
+        console.error('Error al asignar la cama al paciente:', error);
+      }
+    );
 
-      // Actualizar la disponibilidad de la cama
-      bed.availability = false;
-      
-    }, error => {
-      console.error("Error al asignar la cama al paciente:", error);
-    });
+    console.log(this.patient);
+
+    this.closeDialog();
   }
 
-
+  closeDialog() {
+    this.dialogRef.close(this.patient);
+  }
 }
