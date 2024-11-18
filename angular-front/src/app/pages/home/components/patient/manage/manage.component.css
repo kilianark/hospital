@@ -170,7 +170,9 @@ tr:nth-child(even) {
   table {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left:0px;
+    border-color: white;
+    left:0px;
   }
   tbody {
       display: flex;
@@ -185,11 +187,12 @@ tr:nth-child(even) {
   .roomselect{
     margin-left: 0px;
   }
+
   .selectControl{
-    padding-left: 10%;
+    padding-left: 1%;
   }
   .container {
-    width: 80%;
+    width: 100%;
     margin-left: 0%;
     padding: 20px;
     border: 1px solid #ccc;
@@ -199,23 +202,26 @@ tr:nth-child(even) {
     flex-wrap: wrap;
   }
   .table-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
+
     width: 100%;
   }
   #area {
     width: 50%;
   }
   #tabliña {
-    width: 50%;
-    font-size: 7px;
+    display: flex;
+    align-items: center;
+    padding-left:0px;
+    border-color: white;
+    left:0px;
+    font-size: 0.6em;
+    overflow: scroll;
   }
   #assignar {
     width: 14vw;
     height: 6vw;
-    font-size: 1.4em;
+    font-size: 0.8em;
     margin-left: 0px;
+    align-items: center;
   }
 }
