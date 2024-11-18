@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ApiHospital.Interfaces;
 
 namespace ApiHospital.Models;
 
@@ -10,4 +11,5 @@ public class Patient : Person
     public string? EmergencyContact { get; set; }
     public required string Zone { get; set; }
     public int? BedId { get; set; }
+
 }
