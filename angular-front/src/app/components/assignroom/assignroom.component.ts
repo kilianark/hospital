@@ -52,7 +52,7 @@ export class AssignRoom implements OnInit {
     this.roomId = this.data.roomId;
     this.patient = this.data.patient;
 
-    console.log(this.patient);
+    console.log("input del paciente:", this.patient);
 
     if (this.roomId) {
       console.log('Id de la habitación:', this.roomId);

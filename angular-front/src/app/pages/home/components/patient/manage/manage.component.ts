@@ -97,11 +97,7 @@ export class ManagePatientComponent {
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
       data: { roomId, patient },
-    });
-
-    popupRef.afterClosed().subscribe((updPatient) => {
-      console.log("Paciente recibido del popup: ", updPatient);
-
+    }).afterClosed().subscribe((updPatient) => {
       this.patient = updPatient;
       console.log("Paciente resultante: ", this.patient);
     });
