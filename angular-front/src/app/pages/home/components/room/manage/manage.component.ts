@@ -217,20 +217,30 @@ export class ManageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // El usuario confirmó, procedemos a eliminar la cama
-        this.bedService.deleteBed(bed.id).subscribe(
-          () => {
-            // Eliminamos la cama de la lista local
-            this.beds = this.beds.filter(b => b.id !== bed.id);
-
-            // Mostramos un mensaje de confirmación y recargamos la lista de camas
-            this.confirm('Cama eliminada correctamente', 'success');
-            this.loadBeds();
+        // Verificar si la cama tiene un paciente asignado antes de intentar eliminarla
+        this.getPatientByBedId(bed.id).subscribe(
+          (patient) => {
+            if (patient) {
+              // Si hay un paciente asignado, mostramos un mensaje de error
+              this.confirm(`No se puede eliminar la cama ${bed.bedCode} porque está asignada a un paciente.`, 'error');
+            } else {
+              // Si no hay paciente, procedemos con la eliminación
+              this.bedService.deleteBed(bed.id).subscribe(
+                () => {
+                  this.beds = this.beds.filter(b => b.id !== bed.id);
+                  this.confirm('Cama eliminada correctamente', 'success');
+                  this.loadBeds();
+                },
+                (error) => {
+                  this.confirm('Error al eliminar la cama. Por favor, inténtelo de nuevo.', 'error');
+                  console.error('Error al eliminar la cama:', error);
+                }
+              );
+            }
           },
           (error) => {
-            // Si hay un error, mostramos un mensaje de error
-            this.confirm('Error al eliminar la cama. No se puede eliminar una cama asignada.', 'error');
-            console.error('Error al eliminar la cama:', error);
+            this.confirm('Error al verificar asignación de pacientes.', 'error');
+            console.error('Error al verificar paciente asignado:', error);
           }
         );
       } else {
@@ -238,6 +248,7 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
 
   getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
     return this.patientService.getPatientByBedId(bedId);
