@@ -6,6 +6,7 @@ using ApiHospital.Shared;
 using ApiHospital.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using ApiHospital.Interceptors;
 
 // Descomentar el següent using NOMES si implementem el context NO amb "Mysql", sinó OracleDatabase
 // Caldrà canviar al Oracle DataBase
@@ -23,7 +24,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
 });
-builder.Services.AddDbContext<HospitalContext>(opt => opt.UseOracle(builder.Configuration.GetConnectionString("HospitalController")));
+builder.Services.AddDbContext<HospitalContext>(opt => opt.UseOracle(builder.Configuration.GetConnectionString("HospitalController"))
+                                                        .AddInterceptors(new SoftDeleteInterceptor()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 /*
   "AllowedHosts": "*",

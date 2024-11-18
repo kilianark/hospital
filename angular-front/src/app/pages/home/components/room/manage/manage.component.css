@@ -42,7 +42,10 @@ body {
 .create-bed-button:hover {
   background-color: #45a049; /* Verde más oscuro */
 }
-
+#botonesCenter{
+  display: flex;
+  justify-content: center;
+}
 /* Estilos de la tabla */
 form {
   padding-top: 3%;
@@ -107,6 +110,9 @@ th {
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+#eliminarCSS{
+  margin-left:15px;
+}
 .buttonCSS {
   padding-left: 4%;
   background-color: #333;
@@ -117,7 +123,6 @@ tr:nth-child(even) {
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 15px;
   width: 180px;
   text-transform: uppercase;
 }
