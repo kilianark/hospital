@@ -36,7 +36,8 @@ namespace ApiHospital.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Person>()
-                .ToTable("Persons");
+                .ToTable("Persons")
+                .HasQueryFilter(x => x.IsDeleted == false);
 
             modelBuilder.Entity<Patient>()
                 .ToTable("Patients");
@@ -67,19 +68,31 @@ namespace ApiHospital.Data
 
             modelBuilder.Entity<Administrator>()
                 .HasBaseType<Worker>();
+
             
             modelBuilder
                 .Entity<Bed>()
+                .HasQueryFilter(x => x.IsDeleted == false)
                 .HasOne<Patient>()
                 .WithOne()
                 .HasForeignKey<Patient>(p => p.BedId);
 
             modelBuilder
                 .Entity<Room>()
+                .HasQueryFilter(x => x.IsDeleted == false)
                 .HasMany(e => e.Beds)
                 .WithOne()
                 .HasForeignKey(e => e.RoomId)
                 .IsRequired();
+            
+            modelBuilder.Entity<Move>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+            
+            modelBuilder.Entity<Consultation>()
+                .HasQueryFilter(x => x.IsDeleted == false);
+            
+            modelBuilder.Entity<Hospital>()
+                .HasQueryFilter(x => x.IsDeleted == false);
         }
     }
 }

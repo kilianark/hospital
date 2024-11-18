@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ApiHospital.Interfaces;
 
 namespace ApiHospital.Models
 {
-    public abstract class Person
+    public abstract class Person : ISoftDelete
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,5 +21,7 @@ namespace ApiHospital.Models
         public string? CIP { get; set; }
         public required string Gender { get; set; }
         public required int Hospital { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

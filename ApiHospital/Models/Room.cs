@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using ApiHospital.Interfaces;
 
 namespace ApiHospital.Models
 {
-    public class Room
+    public class Room : ISoftDelete
     {
         [Key]
         public required int Id { get; set; }
@@ -14,5 +15,7 @@ namespace ApiHospital.Models
         public required bool Availability { get; set; }
         public required int Hospital { get; set; }
         public ICollection<Bed>? Beds { get; set; } = new List<Bed>();
+
+        public bool IsDeleted { get; set; }
     }
 }

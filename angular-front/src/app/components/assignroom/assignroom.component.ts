@@ -10,7 +10,11 @@ import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -33,8 +37,9 @@ export class AssignRoom implements OnInit {
   patientsMap: { [bedId: number]: PatientInterface | null } = {};
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: {roomId: number, patient: PatientInterface},
-    
+    @Inject(MAT_DIALOG_DATA)
+    private data: { roomId: number; patient: PatientInterface },
+
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
@@ -47,7 +52,7 @@ export class AssignRoom implements OnInit {
     this.roomId = this.data.roomId;
     this.patient = this.data.patient;
 
-    console.log(this.patient)
+    console.log(this.patient);
 
     if (this.roomId) {
       console.log('Id de la habitación:', this.roomId);
@@ -80,7 +85,7 @@ export class AssignRoom implements OnInit {
     );
     // Verifica que las camas estén cargadas antes de llamar a `getPatientByBedId`
     if (this.beds.length === 0) {
-      console.warn("No se han cargado las camas. Llama a loadBeds() primero.");
+      console.warn('No se han cargado las camas. Llama a loadBeds() primero.');
       return;
     }
 
@@ -98,33 +103,39 @@ export class AssignRoom implements OnInit {
     });
   }
 
-
-
   // Obtiene un paciente según el ID de la cama
   getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
     return this.patientService.getPatientByBedId(bedId);
   }
 
   assignBed(bedId: number) {
-    const bed = this.beds.find(b => b.id === bedId);
-    if (bed && !bed.availability) {
-      alert("La cama ya está ocupada y no se puede asignar.");
+    const bed = this.beds.find((b) => b.id === bedId);
+    if (!bed) {
+      alert('Cama no encontrada.');
       return;
     }
 
-    // Lógica para asignar la cama si está disponible
-    console.log("Asignando cama:", bedId);
+    // Lógica para asignar la cama
+    console.log('Asignando cama:', bedId);
 
     this.patient.bedId = bedId;
+
+    // Actualizar los datos del paciente con la nueva cama asignada
+    this.patientService.putPatientData(this.patient).subscribe(
+      () => {
+        console.log('Paciente actualizado con la cama:', bedId);
+      },
+      (error) => {
+        console.error('Error al asignar la cama al paciente:', error);
+      }
+    );
 
     console.log(this.patient);
 
     this.closeDialog();
-
   }
 
   closeDialog() {
     this.dialogRef.close(this.patient);
   }
-
 }
