@@ -12,7 +12,7 @@ import Fuse from 'fuse.js';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
-
+import { HasRoleDirective } from '../../../../../directives/has-role.directive';
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 
