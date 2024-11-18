@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { RoomInterface } from '../../interfaces/room.interface';
 import { BedInterface } from '../../interfaces/bed.interface';
 import { PatientInterface } from '../../interfaces/patient.interface';
@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
   templateUrl: './assignroom.component.html',
   styleUrls: ['./assignroom.component.css'],
 })
-export class AssignRoom implements OnInit {
+export class AssignRoom implements OnInit, OnDestroy {
   title = 'Gestión de camas: Habitación ';
   roomId: number;
   room!: RoomInterface;
@@ -61,6 +61,10 @@ export class AssignRoom implements OnInit {
       this.loadRoomData();
       this.loadPatients();
     }
+  }
+
+  ngOnDestroy() {
+    console.log("PopUp destruido");
   }
 
   loadRoomData() {

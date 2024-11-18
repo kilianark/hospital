@@ -97,11 +97,12 @@ export class ManagePatientComponent {
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
       data: { roomId, patient },
-    }).afterClosed().subscribe((updPatient) => {
+    });
+    console.log("ayuda por favor")
+    popupRef.afterClosed().subscribe((updPatient) => {
       this.patient = updPatient;
       console.log("Paciente resultante: ", this.patient);
     });
-
   }
 
   constructor(
