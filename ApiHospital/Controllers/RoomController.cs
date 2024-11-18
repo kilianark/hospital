@@ -19,15 +19,10 @@ namespace ApiHospital.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly HospitalContext _context;
-        private readonly IMapper _mapper;
-
         private readonly RoomService _service;
 
-        public RoomController(HospitalContext context, IMapper mapper, RoomService service)
+        public RoomController(RoomService service)
         {
-            _context = context;
-            _mapper = mapper;
             _service = service;
         }
 
@@ -44,41 +39,27 @@ namespace ApiHospital.Controllers
             [FromQuery] int?[] Hospital = null
         )
         {
-            IQueryable<Room> query = _service.getRoomsQuery();
             
-            query = ApplyFilter(query, RoomNumber, r => r.RoomNumber == RoomNumber!.Value);
-            query = ApplyFilter(query, Capacity, r => r.Capacity == Capacity);
-            query = ApplyFilter(query, Zone, r => !string.IsNullOrWhiteSpace(Zone) && r.Zone.ToLower().StartsWith(Zone.ToLower()));
-            query = ApplyFilter(query, Area, r => !string.IsNullOrWhiteSpace(Area) && r.Area.ToLower().StartsWith(Area.ToLower())); // Cambié Surname1 a Area
-            query = ApplyFilter(query, Floor, r => r.Floor == Floor);
-            query = ApplyFilter(query, Availability, r => r.Availability == Availability);
-            query = ApplyFilter(query, BedId, r => r.Beds.Any(b => b.Id == BedId));
-            query = ApplyFilter(query, Hospital, r => Hospital.Contains(r.Hospital));
+            IQueryable<Room> query = _service.GetRooms(
+                RoomNumber,
+                Capacity,
+                Zone,
+                Area,
+                Floor,
+                Availability,
+                BedId,
+                Hospital
+            );
 
             return await query.ToListAsync();
         }
 
-        private IQueryable<T> ApplyFilter<T>(
-            IQueryable<T> query,
-            object? filterValue,
-            Expression<Func<T, bool>> filterExpression
-        )
-        {
-            if (filterValue != null)
-            {
-                query = query.Where(filterExpression);
-            }
-
-            return query;
-        }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            var room = await _context
-                .Rooms.Include(r => r.Beds)
-                .FirstOrDefaultAsync(r => r.Id == id);
+            var room = await _service.GetRoomById(id);
 
             if (room == null)
             {
@@ -92,8 +73,8 @@ namespace ApiHospital.Controllers
         [HttpGet("exists/{roomNumber}")]
         public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
         {
-            var exists = await _context.Rooms.AnyAsync(r => r.RoomNumber == roomNumber);
-            return Ok(exists);
+            return Ok(await _service.RoomNumberExists(roomNumber));
+
         }
 
         // PUT: api/Rooms/5
@@ -105,45 +86,32 @@ namespace ApiHospital.Controllers
                 return BadRequest();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _service.GetRoomById(id);
             if (room == null)
             {
                 return NotFound();
             }
 
-            _mapper.Map(roomDTO, room);
+            var updated = await _service.UpdateRoom(roomDTO, room);
 
-            try
-            {
-                await _context.SaveChangesAsync();
+            if (updated) {
+                return NoContent();
+            } else {
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RoomExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            
         }
 
         // POST: api/Rooms
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(RoomDTO roomDTO)
         {
-            if (await _context.Rooms.AnyAsync(r => r.RoomNumber == roomDTO.RoomNumber))
+            if (await _service.RoomNumberExists(roomDTO.RoomNumber))
             {
                 return BadRequest("Room number already exists.");
             }
 
-            var room = _mapper.Map<Room>(roomDTO);
-            _context.Rooms.Add(room);
-            await _context.SaveChangesAsync();
+            var room = await _service.CreateRoom(roomDTO);
 
             return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, room);
         }
@@ -152,43 +120,15 @@ namespace ApiHospital.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
-            return await _service.DeleteRoom(id);
+            var room = await _service.GetRoomById(id);
+
+            if (room == null) return NotFound();
+
+            if (await _service.RoomHasBeds(room)) return BadRequest();
+            
+            await _service.DeleteRoom(room);
+            return NoContent();
         }
 
-        // PATCH: api/Rooms/5
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> PatchRoom(
-            int id,
-            [FromBody] JsonPatchDocument<Room> patchDocument
-        )
-        {
-            if (patchDocument == null)
-            {
-                return BadRequest();
-            }
-
-            var room = await _context.Rooms.FindAsync(id);
-
-            if (room == null)
-            {
-                return NotFound();
-            }
-
-            patchDocument.ApplyTo(room, ModelState);
-
-            if (!TryValidateModel(room))
-            {
-                return BadRequest(ModelState);
-            }
-
-            await _context.SaveChangesAsync();
-
-            return Ok(room);
-        }
-
-        private bool RoomExists(int id)
-        {
-            return _context.Rooms.Any(e => e.Id == id);
-        }
     }
 }

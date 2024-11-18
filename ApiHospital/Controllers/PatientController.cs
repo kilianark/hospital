@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using ApiHospital.Service;
 
 namespace ApiHospital.Controllers
 {
@@ -22,13 +23,12 @@ namespace ApiHospital.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
-        private readonly HospitalContext _context;
-        private readonly IMapper _mapper;
 
-        public PatientController(HospitalContext context, IMapper mapper)
+        private readonly PatientService _service;
+
+        public PatientController(PatientService service)
         {
-            _mapper = mapper;
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Patients
@@ -47,33 +47,20 @@ namespace ApiHospital.Controllers
             [FromQuery] int? Hospital
         )
         {
-            IQueryable<Patient> query = _context.Patients;
-
-            // Aplica los filtros usando el método helper 'ApplyFilter'
-            query = ApplyFilter(query, PatientCode, p => p.PatientCode == PatientCode!.Value);
-            query = ApplyFilter(query, Name, p => !string.IsNullOrWhiteSpace(Name) && p.Name.ToLower().StartsWith(Name.ToLower()));
-            query = ApplyFilter(query, Surname1, p => !string.IsNullOrWhiteSpace(Surname1) && p.Surname1.ToLower().StartsWith(Surname1.ToLower()));
-            query = ApplyFilter(query, Surname2, p => !string.IsNullOrWhiteSpace(Surname2) && p.Surname2.ToLower().StartsWith(Surname2.ToLower()));
-            query = ApplyFilter(query, Dni, p => !string.IsNullOrWhiteSpace(Dni) && p.Dni.ToLower().StartsWith(Dni.ToLower()));
-            query = ApplyFilter(query, Cip, p => !string.IsNullOrWhiteSpace(Cip) && p.CIP.ToLower().StartsWith(Cip.ToLower()));
-            query = ApplyFilter(query, Phone, p => !string.IsNullOrWhiteSpace(Phone) && p.Phone.ToLower().StartsWith(Phone.ToLower()));
-            query = ApplyFilter(query, Zone, p => !string.IsNullOrWhiteSpace(Zone) && p.Zone.ToLower().StartsWith(Zone.ToLower()));
-            query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
-            query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
-            query = ApplyFilter(query, Hospital, p => p.Hospital == Hospital!.Value);
-            // Mapea los nombres de hospitales a sus abreviaturas
-           /* var hospitalMapping = new Dictionary<string, string>
-            {
-                { "GoldenFold", "H1" },
-                { "Faro", "H2" },
-                { "Compartido", "H0" }
-            };
-
-            if (!string.IsNullOrEmpty(Hospital) && hospitalMapping.ContainsKey(Hospital))
-            {
-                string mappedHospital = hospitalMapping[Hospital];
-                query = ApplyFilter(query, mappedHospital, p => p.Hospital == mappedHospital);
-            }*/
+            IQueryable<Patient> query = _service.GetPatients(
+                PatientCode,
+                Name,
+                Surname1,
+                Surname2,
+                Dni,
+                Cip,
+                Phone,
+                Zone,
+                BedId,
+                Ingresados,
+                Hospital
+            );
+            
 
             // Ejecuta la consulta y retorna el resultado
             var patients = await query.ToListAsync();
@@ -86,28 +73,11 @@ namespace ApiHospital.Controllers
             return Ok(patients);
         }
 
-        // Método helper para aplicar filtros de forma condicional
-        private IQueryable<T> ApplyFilter<T>(
-            IQueryable<T> query,
-            object? filterValue,
-            Expression<Func<T, bool>> filterExpression
-        )
-        {
-            if (filterValue != null)
-            {
-                query = query.Where(filterExpression);
-            }
-
-            return query;
-        }
-
-
-
         // GET: api/Patient/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatient(int id)
         {
-            var patient = await _context.Patients.FindAsync(id);
+            var patient = await _service.GetPatientById(id);
 
             if (patient == null)
                 return NotFound();
@@ -118,38 +88,30 @@ namespace ApiHospital.Controllers
         // PUT: api/Patient/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPatient(int id, PatientDTO patientDTO)
-        {
-            var patient = await _context.Patients.FindAsync(id);
+        {   
+            
+            var patient = await _service.GetPatientById(id);
 
             if (patient == null)
                 return NotFound();
 
-            _mapper.Map(patientDTO, patient);
-
-            try
-            {
-                await _context.SaveChangesAsync();
+            var updated = await _service.UpdatePatient(patientDTO, patient);
+            
+            if (updated) {
+                return NoContent();
+            } else {
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PatientExists(id))
-                    return NotFound();
-                else
-                    throw;
-            }
-            return NoContent();
         }
 
         // POST: api/Patient
         [HttpPost]
-        public async Task<ActionResult<Patient>> PostPatient(Patient patient)
+        public async Task<ActionResult<Patient>> PostPatient(PatientDTO patientDTO)
         {
 
-            if (!BedExists(patient.BedId))
-                patient.BedId = null;
+            if (!_service.BedExists(patientDTO.BedId)) patientDTO.BedId = null;
 
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
+            var patient = await _service.CreatePatient(patientDTO);
 
             return Created($"/Patients/{patient.Id}", patient);
         }
@@ -158,7 +120,7 @@ namespace ApiHospital.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePatient(int id)
         {
-            var patient = await _context.Patients.FindAsync(id);
+            var patient = await _service.GetPatientById(id);
 
             if (patient == null)
                 return NotFound();
@@ -166,22 +128,10 @@ namespace ApiHospital.Controllers
             if (patient.BedId != null)
                 return BadRequest();
                 
-            _context.Patients.Remove(patient);
-            await _context.SaveChangesAsync();
+            await _service.DeletePatient(patient);
 
             return NoContent();
         }
-
-        private bool PatientExists(int id)
-        {
-            return _context.Patients.Any(e => e.Id == id);
-        }
-
-        private bool BedExists(int? id)
-        {
-            if (id == null)
-                return false;
-            return _context.Beds.Any(e => e.Id == id);
-        }
     }
+        
 }
