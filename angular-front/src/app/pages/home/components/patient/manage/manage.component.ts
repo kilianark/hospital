@@ -18,6 +18,7 @@ import { RoomInterface } from '../../../../../interfaces/room.interface';
 import { RoomService } from '../../../../../services/room.service';
 import { AssignRoom } from '../../../../../components/assignroom/assignroom.component';
 import { BedInterface } from '../../../../../interfaces/bed.interface';
+import { BedService } from '../../../../../services/bed.service';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -25,6 +26,8 @@ import { BedInterface } from '../../../../../interfaces/bed.interface';
 })
 export class ManagePatientComponent {
   title = 'Gestionar Estado:';
+  muestra: string;
+
   patientId!: number;
   patient!: PatientInterface;
   zoneForm: FormGroup;
@@ -112,7 +115,8 @@ export class ManagePatientComponent {
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private bedService: BedService
   ) {
     this.translate.use('es');
 
@@ -130,8 +134,16 @@ export class ManagePatientComponent {
           this.showSelectRoom = true;
 
         this.updateArea();
+
+        this.bedService.getBedDataById(this.patient.id).subscribe((data) => {
+          this.muestra = data.bedCode;
+        });
+
       });
     });
+
+    
+
   }
 
   onStatusChange(zone: HospitalZone) {
