@@ -130,6 +130,7 @@ namespace ApiHospital.Controllers
                 
             await _service.DeletePatient(patient);
 
+
             return NoContent();
         }
     }
