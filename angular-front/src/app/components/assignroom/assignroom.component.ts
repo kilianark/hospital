@@ -49,6 +49,7 @@ export class AssignRoom implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log("pre data");
     this.roomId = this.data.roomId;
     this.patient = this.data.patient;
 

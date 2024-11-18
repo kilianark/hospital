@@ -4,9 +4,10 @@ using ApiHospital.Interfaces;
 
 namespace ApiHospital.Interceptors {
     public class SoftDeleteInterceptor : SaveChangesInterceptor {
-        public override InterceptionResult<int> SavingChanges(
+        public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
             DbContextEventData eventData, 
-            InterceptionResult<int> result)
+            InterceptionResult<int> result,
+            CancellationToken cancellationToken = default)
         {
             if (eventData.Context is null) return result;
             

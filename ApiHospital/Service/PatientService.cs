@@ -103,6 +103,8 @@ namespace ApiHospital.Service {
         public async Task<bool> DeletePatient(Patient patient) {
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
+            Console.WriteLine(_context.Patients.Count());
+            Console.WriteLine(_context.Patients.IgnoreQueryFilters().Count());
             return true;
         }
 
