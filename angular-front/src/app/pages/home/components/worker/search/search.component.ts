@@ -1,36 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RecordComponent } from '../../../../../components/recordpatient/record.component';
-import { PatientInterface } from '../../../../../interfaces/patient.interface';
-import { PatientService } from '../../../../../services/patient.service';
+import { WorkerInterface } from '../../../../../interfaces/worker.interface';
+import { WorkerService } from '../../../../../services/worker.service';
 import { FormBuilder, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
+import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
-import { HasRoleDirective } from '../../../../../directives/has-role.directive';
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
-
+import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
 @Component({
-  selector: 'app-search-patient',
+  selector: 'app-search-worker',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
-export class SearchPatientComponent implements OnInit {
-  title = 'Búsqueda Pacientes:';
+export class SearchWorkerComponent implements OnInit {
+  title = 'Búsqueda Trabajadores:';
 
-  patients: PatientInterface[] = [];
-  filteredPatients: PatientInterface[] = [];
-  allFilteredPatients: PatientInterface[] = [];
+  workers: WorkerInterface[] = [];
+  filteredworkers: WorkerInterface[] = [];
+  allFilteredworkers: WorkerInterface[] = [];
 
-  fuseName: Fuse<PatientInterface> | null = null;
-  fuseSurname1: Fuse<PatientInterface> | null = null;
-  fuseSurname2: Fuse<PatientInterface> | null = null;
+  fuseName: Fuse<WorkerInterface> | null = null;
+  fuseSurname1: Fuse<WorkerInterface> | null = null;
+  fuseSurname2: Fuse<WorkerInterface> | null = null;
 
   isLoading = false;
 
@@ -42,25 +43,23 @@ export class SearchPatientComponent implements OnInit {
   itemsPerPage: number = 5;
   totalPages: number = 0;
 
-  patientForm: FormGroup;
+  workerForm: FormGroup;
 
-  patientCode: string = '';
+  workerCode: string = '';
   name: string = '';
   surname1: string = '';
   surname2: string = '';
   dni: string = '';
-  cip: string = '';
+  worktype: string = '';
   phone: string = '';
   status: string = '';
-  bedId: number = 0;
   hospital: number = 0;
-
   isVisible: boolean = false;//barra
   showSelect: boolean = false;
 
   hospitals: HospitalInterface[] = [];
 
-  patientStatus = Object.keys(HospitalZone)
+  workerStatus = Object.keys(HospitalZone)
     .filter(
       (key) => !isNaN(Number(HospitalZone[key as keyof typeof HospitalZone]))
     )
@@ -70,33 +69,33 @@ export class SearchPatientComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private router: Router,
-    private patientService: PatientService,
+    private WorkerService: WorkerService,
     private hospitalService: HospitalService,
     private translator: TranslateService,
     private spinnerService: SpinnerService
   ) {
     this.translator.use('es');
 
-    this.patientForm = this.formBuilder.group({
+    this.workerForm = this.formBuilder.group({
       hospital: [[], { nonNullable: true }], //esto permite selección múltiple
       status: [null],
-      patientCode: [this.patientCode],
+      workerCode: [this.workerCode],
       name: [this.name],
       surname1: [this.surname1],
       surname2: [this.surname2],
       dni: [this.dni],
-      cip: [this.cip],
+      worktype: [this.worktype],
       phone: [this.phone],
     });
 
-    this.patientForm.valueChanges.subscribe((formValues) => {
+    this.workerForm.valueChanges.subscribe((formValues) => {
       this.hospital = formValues.hospital;
-      this.patientCode = formValues.patientCode;
+      this.workerCode = formValues.workerCode;
       this.name = formValues.name;
       this.surname1 = formValues.surname1;
       this.surname2 = formValues.surname2;
       this.dni = formValues.dni;
-      this.cip = formValues.cip;
+      this.worktype = formValues.worktype;
       this.phone = formValues.phone;
     });
   }
@@ -105,29 +104,29 @@ export class SearchPatientComponent implements OnInit {
 
     this.loadHospitalsData();
 
-    this.patientService.getPatientData().subscribe((data) => {
-      this.patients = data.map(patient => ({
-        ...patient,
-        status: patient.zone
+    this.WorkerService.getWorkerData().subscribe((data) => {
+      this.workers = data.map(worker => ({
+        ...worker,
+        status: worker.zone
       }));
 
-      this.fuseName = new Fuse(this.patients, {
+      this.fuseName = new Fuse(this.workers, {
         keys: ['name'],
         threshold: 0.3,
       });
 
-      this.fuseSurname1 = new Fuse(this.patients, {
+      this.fuseSurname1 = new Fuse(this.workers, {
         keys: ['surname1'],
         threshold: 0.3,
       });
 
-      this.fuseSurname2 = new Fuse(this.patients, {
+      this.fuseSurname2 = new Fuse(this.workers, {
         keys: ['surname2'],
         threshold: 0.3,
       });
 
-      this.patientService.patientUpdated$.subscribe((updatedPatient: PatientInterface) => {
-        this.updatePatientInList(updatedPatient);
+      this.WorkerService.workerUpdated$.subscribe((updatedWorker: WorkerInterface) => {
+        this.updateworkerInList(updatedWorker);
       })
     });
   }
@@ -143,19 +142,19 @@ export class SearchPatientComponent implements OnInit {
     return hospital ? hospital.hospitalName : 'Desconocido';
   }
 
-  updatePatientInList(updatedPatient: PatientInterface) {
-    const index = this.patients.findIndex(p => p.id === updatedPatient.id);
+  updateworkerInList(updatedworker: WorkerInterface) {
+    const index = this.workers.findIndex(p => p.id === updatedworker.id);
     if (index !== -1) {
-      this.patients[index] = updatedPatient;
-      this.filteredPatients[index] = updatedPatient;
-      this.updatePagedPatients();
+      this.workers[index] = updatedworker;
+      this.filteredworkers[index] = updatedworker;
+      this.updatePagedworkers();
     }
   }
 
-  updatePagedPatients() {
+  updatePagedworkers() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.filteredPatients = this.allFilteredPatients.slice(startIndex, endIndex);
+    this.filteredworkers = this.allFilteredworkers.slice(startIndex, endIndex);
   }
 
   generatePageNumbers() {
@@ -194,7 +193,7 @@ export class SearchPatientComponent implements OnInit {
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.updatePagedPatients();
+      this.updatePagedworkers();
       this.generatePageNumbers();
     }
   }
@@ -202,7 +201,7 @@ export class SearchPatientComponent implements OnInit {
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.updatePagedPatients();
+      this.updatePagedworkers();
       this.generatePageNumbers();
     }
   }
@@ -213,11 +212,11 @@ export class SearchPatientComponent implements OnInit {
       this.sortField = field;
       this.sortDirection = 'asc';
     }
-    this.sortPatients();
+    this.sortworkers();
   }
 
-  sortPatients() {
-    this.allFilteredPatients.sort((a, b) => {
+  sortworkers() {
+    this.allFilteredworkers.sort((a, b) => {
       let comparison = 0;
 
       if (typeof a[this.sortField] === 'string') {
@@ -227,141 +226,135 @@ export class SearchPatientComponent implements OnInit {
       }
       return this.sortDirection === 'asc' ? comparison : -comparison;
     });
-    this.updatePagedPatients();
+    this.updatePagedworkers();
   }
 
   goToPage(page: number) {
     this.currentPage = page;
-    this.updatePagedPatients();
+    this.updatePagedworkers();
   }
 
-  searchPatients() {
+  searchworkers() {
 
     this.isVisible = false;
 
-    const name = this.patientForm.get('name')?.value || '';
-    const surname1 = this.patientForm.get('surname1')?.value || '';
-    const surname2 = this.patientForm.get('surname2')?.value || '';
-    const dni = this.patientForm.get('dni')?.value || '';
-    const cip = this.patientForm.get('cip')?.value || '';
-    const patientCode = this.patientForm.get('patientCode')?.value || '';
-    const phone = this.patientForm.get('phone')?.value || '';
-    const status = this.patientForm.get('status')?.value || '';
-    const selectedHospitals = this.patientForm.get('hospital')?.value.map(Number) || [];
+    const name = this.workerForm.get('name')?.value || '';
+    const surname1 = this.workerForm.get('surname1')?.value || '';
+    const surname2 = this.workerForm.get('surname2')?.value || '';
+    const dni = this.workerForm.get('dni')?.value || '';
+    const worktype = this.workerForm.get('worktype')?.value || '';
+    const workerCode = this.workerForm.get('workerCode')?.value || '';
+    const phone = this.workerForm.get('phone')?.value || '';
+    const status = this.workerForm.get('status')?.value || '';
+    const selectedHospitals = this.workerForm.get('hospital')?.value.map(Number) || [];
 
 
-    let exactFilteredPatients = this.patients;
+    let exactFilteredworkers = this.workers;
 
     if (dni) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.dni) === dni
+      exactFilteredworkers = exactFilteredworkers.filter((worker) =>
+        String(worker.dni) === dni
       );
     }
 
-    if (cip) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.cip) === cip
+    if (worktype) {
+      exactFilteredworkers = exactFilteredworkers.filter((worker) =>
+        String(worker.worktype) === worktype
       );
     }
 
     if (phone) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.phone) === phone
+      exactFilteredworkers = exactFilteredworkers.filter((worker) =>
+        String(worker.phone) === phone
       );
     }
 
-    if (patientCode) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.patientCode) === patientCode
-      );
-    }
-
-    if (status && status !== '') {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        String(patient.zone) === String(status)
+    if (workerCode) {
+      exactFilteredworkers = exactFilteredworkers.filter((worker) =>
+        String(worker.id) === workerCode
       );
     }
 
     if (selectedHospitals.length > 0) {
-      exactFilteredPatients = exactFilteredPatients.filter((patient) =>
-        selectedHospitals.includes(patient.hospital)
+      exactFilteredworkers = exactFilteredworkers.filter((worker) =>
+        selectedHospitals.includes(worker.hospital)
       );
     }
 
-    let fuzzyFilteredPatients = exactFilteredPatients;
+    let fuzzyFilteredworkers = exactFilteredworkers;
 
     if (this.fuseName && name) {
       const fuzzyResultsName = this.fuseName.search(name);
-      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-        fuzzyResultsName.some((result) => result.item === patient)
+      fuzzyFilteredworkers = fuzzyFilteredworkers.filter((worker) =>
+        fuzzyResultsName.some((result) => result.item === worker)
       );
     }
 
     if (this.fuseSurname1 && surname1) {
       const fuzzyResultsSurname1 = this.fuseSurname1.search(surname1);
-      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-        fuzzyResultsSurname1.some((result) => result.item === patient)
+      fuzzyFilteredworkers = fuzzyFilteredworkers.filter((worker) =>
+        fuzzyResultsSurname1.some((result) => result.item === worker)
       );
     }
 
     if (this.fuseSurname2 && surname2) {
       const fuzzyResultsSurname2 = this.fuseSurname2.search(surname2);
-      fuzzyFilteredPatients = fuzzyFilteredPatients.filter((patient) =>
-        fuzzyResultsSurname2.some((result) => result.item === patient)
+      fuzzyFilteredworkers = fuzzyFilteredworkers.filter((worker) =>
+        fuzzyResultsSurname2.some((result) => result.item === worker)
       );
     }
 
-    this.allFilteredPatients = fuzzyFilteredPatients;
-    this.totalPages = Math.ceil(this.allFilteredPatients.length / this.itemsPerPage);
+    this.allFilteredworkers = fuzzyFilteredworkers;
+    this.totalPages = Math.ceil(this.allFilteredworkers.length / this.itemsPerPage);
     this.generatePageNumbers();
-    this.updatePagedPatients();
-    this.isVisible = this.allFilteredPatients.length > 0;
+    this.updatePagedworkers();
+    this.isVisible = this.allFilteredworkers.length > 0;
 
   }
 
-  openDialog(patientId: number) {
+  openDialog(workerId: string) {
     let popupRef = this.dialog.open(RecordComponent, {
       width: '80%',
       height: '100%',
       maxWidth: '100vw',
       panelClass: 'full-width-dialog',
-      data: patientId,
+      data: workerId,
     });
 
     popupRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.patientService.getPatientData().subscribe((data) => {
-          this.patients = data.map(patient => ({
-            ...patient,
-            status: patient.zone
+        this.WorkerService.getWorkerData().subscribe((data) => {
+          this.workers = data.map(worker => ({
+            ...worker,
+            status: worker.zone
           }));
-          this.searchPatients();
+          this.searchworkers();
         });
       }
     });
   }
 
-  goToManage(patientId: number) {
-    this.router.navigate(['/home/patient/manage', { id: patientId }]);
+  goToManage(workerId: number) {
+    this.router.navigate(['/home/worker/manage', { id: workerId }]);
   }
 
-  deletePatient(patient: PatientInterface) {
+  deleteworker(worker: WorkerInterface) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Eliminar Paciente',
-        message: `¿Estás seguro de que deseas eliminar al paciente ${patient.name} ${patient.surname1}?`
+        message: `¿Estás seguro de que deseas eliminar al paciente ${worker.name} ${worker.surname1}?`
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // El usuario confirmó, procedemos a eliminar el paciente
-        this.patientService.deletePatientData(patient.id).subscribe(() => {
+        this.WorkerService.deleteWorkerData(worker.id).subscribe(() => {
           // Eliminamos el paciente de la lista
-          this.patients = this.patients.filter(p => p.id !== patient.id);
-          this.searchPatients();
-          console.log(`Paciente ${patient.name} ${patient.surname1} eliminado.`);
-        }, 
+          this.workers = this.workers.filter(p => p.id !== worker.id);
+          this.searchworkers();
+          console.log(`Paciente ${worker.name} ${worker.surname1} eliminado.`);
+        },
         error => {
           if (error.status == 400) {
             this.confirm(`Error al eliminar paciente, no se puede eliminar paciente con cama assignada.`, 'error');
@@ -380,7 +373,7 @@ export class SearchPatientComponent implements OnInit {
     this.spinnerService.show();
     this.isLoading = true;
 
-    this.searchPatients();
+    this.searchworkers();
 
     setTimeout(() => {
       this.spinnerService.hide();
@@ -389,7 +382,7 @@ export class SearchPatientComponent implements OnInit {
   }
 
   resetForm() {
-    this.patientForm.reset();
+    this.workerForm.reset();
     this.isVisible = false;
   }
 

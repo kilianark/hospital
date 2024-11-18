@@ -183,7 +183,7 @@
                 Abrir
               </button>
             </td>
-            <td (click)="$event.stopPropagation()">
+            <td appHasRole="director" (click)="$event.stopPropagation()">
               <button mat-button (click)="deletePatient(patient)">
                 Eliminar
               </button>

@@ -214,3 +214,9 @@ tr:nth-child(even) {
     overflow: scroll;
   }
 }
+.modal button:disabled {
+  background-color: #000000; /* Gris para indicar deshabilitado */
+  color: #000000; /* Texto gris */
+  cursor: not-allowed; /* Cambia el cursor para indicar que no está disponible */
+
+}

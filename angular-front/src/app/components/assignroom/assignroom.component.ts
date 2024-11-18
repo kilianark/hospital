@@ -27,13 +27,15 @@ export class AssignRoom implements OnInit {
   beds: BedInterface[] = [];
   thisIsDisabled: boolean = false;
   patients: PatientInterface[] = [];
-  patient!: PatientInterface;
+  patientId: number;
+  patient: PatientInterface;
 
   // Diccionario que mapea cada cama con su respectivo paciente según el ID de la cama
   patientsMap: { [bedId: number]: PatientInterface | null } = {};
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: number,
+    @Inject(MAT_DIALOG_DATA) private data: {roomId: number, patientId: number},
+    
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private patientService: PatientService,
@@ -42,7 +44,13 @@ export class AssignRoom implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.roomId = this.data;
+    this.roomId = this.data.roomId;
+    this.patientId = this.data.patientId;
+
+    this.patientService.getPatientById(this.patientId).subscribe((data) => {
+      this.patient = data;
+      console.log(data);
+    })
 
     if (this.roomId) {
       console.log('Id de la habitación:', this.roomId);
@@ -101,7 +109,19 @@ export class AssignRoom implements OnInit {
   }
 
   assignBed(bedId: number) {
-    // lógica para asignar cama
+    const bed = this.beds.find(b => b.id === bedId);
+    if (bed && !bed.availability) {
+      alert("La cama ya está ocupada y no se puede asignar.");
+      return;
+    }
+
+    // Lógica para asignar la cama si está disponible
+    console.log("Asignando cama:", bedId);
+
+    this.patient.bedId = bedId;
+
+    this.patientService.putPatientData(this.patient);
+
   }
 
 }

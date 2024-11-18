@@ -19,7 +19,7 @@ legend {
   font-size: 1.8em;
   top:0;
   margin: 20px;
-  font-weight: bold;    
+  font-weight: bold;
   flex-wrap: wrap;
   align-self: start;
 }
@@ -108,4 +108,18 @@ table{
     width: 100%;
     margin-bottom: 10px;
   }
+}
+
+
+
+/* Estilo para camas disponibles */
+.available-bed {
+  background-color: #ddffdd; /* Color de fondo para camas disponibles */
+  color: #0a0; /* Color de texto en tono verde para disponibilidad */
+}
+
+/* Opcional: estilo para el botón deshabilitado */
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

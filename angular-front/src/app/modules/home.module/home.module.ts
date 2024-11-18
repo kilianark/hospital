@@ -16,6 +16,8 @@ import { SharedModule } from '../../shared/modules/shared.module';
 import { WorkerModule } from '../worker.module/worker.module';
 import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 
+import { HasRoleDirective } from '../../directives/has-role.directive';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -38,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterLinkActive,
     RouterOutlet,
     SharedModule,
+    HasRoleDirective,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

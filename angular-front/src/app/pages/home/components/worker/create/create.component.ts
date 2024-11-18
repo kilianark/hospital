@@ -5,7 +5,7 @@ import { HospitalService } from '../../../../../services/hospital.service';
 import { countries } from '../../../../../store/country-data.store';
 import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { CustomValidators } from '../../../../../validators/CustomValidators';
-import { AsyncValidatorsW } from '../../../../../validators/AsyncValidatorW';
+import { AsyncValidatorsW } from '../../../../../validators/AsyncValidatorsW';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,6 +21,7 @@ export class CreateWorkerComponent implements OnInit {
   minDateBirth: Date;
   maxDateBirth: Date;
   id?: number;  // Aquí añadimos el campo id, que puede ser undefined al crear un trabajador
+  workerCode: string;
 
   constructor(
     private fb: FormBuilder,
@@ -35,11 +36,11 @@ export class CreateWorkerComponent implements OnInit {
 
     // Inicialización del formulario
     this.workerForm = this.fb.group({
-      id: [{ value: '0', disabled: true }, Validators.required],  // 'id' puede ser 0 para nuevo trabajador
+      workerCode: [{ value: '', disabled: true }, Validators.required],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
       surname2: [''],
-      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidatorsW.checkDni(this.workerService, this.id)]],
+      dni: ['', [Validators.required, CustomValidators.validDniOrNie()], [AsyncValidatorsW.checkDni(this.workerService, this.workerCode)]],
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', Validators.email],
