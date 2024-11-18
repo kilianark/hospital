@@ -43,6 +43,9 @@ export class BedService {
   deleteBed(bedId: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${bedId}`);
   }
+  updateBedAvailability(bedId: number, isAvailable: boolean): Observable<void> {
+    return this.http.put<void>(`/api/beds/${bedId},availability`, { isAvailable });
+  }
 
 
 }
