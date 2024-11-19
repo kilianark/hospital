@@ -57,21 +57,23 @@
             <div class="container">
               <h5>Buscar habitación</h5>
               <div class="selectArea">
-                <label for="area">Seleccionar área: </label>
+                <mat-form-field>
+                <mat-label for="area">Seleccionar área: </mat-label>
 
-                <select
+                <mat-select
                   id="area"
                   name="area"
                   [(ngModel)]="selectedZone"
                   (ngModelChange)="onAreaChange($event)"
                 >
-                  <option
+                  <mat-option
                     *ngFor="let area of currentArea"
-                    [ngValue]="area.value"
+                    [value]="area.value"
                   >
                     {{ area.value | enumToString : currentAreaType }}
-                  </option>
-                </select>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
               </div>
               <table id="tabliña">
                 <thead>
@@ -125,6 +127,7 @@
                     <td class="tbcen">{{ room.availability }}</td>
                     <td>
                       <button
+                      mat-raised-button
                         class="buttonPP"
                         (click)="openDialog(room.id, patient)"
                         id="assignar"
