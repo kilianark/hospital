@@ -101,8 +101,10 @@ export class ManagePatientComponent {
     });
     console.log("ayuda por favor")
     popupRef.afterClosed().subscribe((updPatient) => {
+      if(updPatient!=null){
       this.patient = updPatient;
       console.log("Paciente resultante: ", this.patient);
+      }
     });
   }
 

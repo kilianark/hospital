@@ -49,6 +49,7 @@ export class AssignRoom implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log("pre data");
     this.roomId = this.data.roomId;
     this.patient = this.data.patient;
 
@@ -119,10 +120,13 @@ export class AssignRoom implements OnInit, OnDestroy {
       return;
     }
 
-    // Lógica para asignar la cama
     console.log('Asignando cama:', bedId);
 
+    // Actualiza el ID de la cama asignada al paciente
     this.patient.bedId = bedId;
+
+    // Actualiza la disponibilidad de la cama a false
+    this.updateBedAvailability(bedId, false);
 
     // Actualizar los datos del paciente con la nueva cama asignada
     this.patientService.putPatientData(this.patient).subscribe(
@@ -135,9 +139,32 @@ export class AssignRoom implements OnInit, OnDestroy {
     );
 
     console.log(this.patient);
-
     this.closeDialog();
   }
+
+  // Método para actualizar la disponibilidad de una cama
+  updateBedAvailability(bedId: number, isAvailable: boolean) {
+    const bed = this.beds.find((b) => b.id === bedId);
+    if (!bed) {
+      console.error('No se encontró la cama para actualizar disponibilidad.');
+      return;
+    }
+
+    // Actualizar el estado de disponibilidad
+    bed.availability = isAvailable;
+
+    // Enviar la actualización al backend
+    this.bedService.updateBedAvailability(bedId, isAvailable).subscribe(
+      () => {
+        console.log(`Cama ${bedId} actualizada a disponibilidad: ${isAvailable}`);
+      },
+      (error) => {
+        console.error('Error al actualizar la disponibilidad de la cama:', error);
+      }
+    );
+    this.closeDialog();
+  }
+
 
   closeDialog() {
     this.dialogRef.close(this.patient);
