@@ -3,7 +3,6 @@
   overflow: hidden;
 }
 legend {
-  margin: 0px;
   overflow: hidden;
   font-size: 24px;
   text-align: left;
@@ -11,8 +10,8 @@ legend {
   line-height: 31px;
   white-space: pre-line;
   font-weight: bold;
-  padding-bottom: 2%;
-  margin-bottom: 20px;
+  margin: 0px;
+  margin-bottom: 30px;
 
   padding-left: 4%;
 }
@@ -138,6 +137,16 @@ tr:nth-child(even) {
 }
 .roomselect {
   margin-left: -70px;
+}
+
+.titleForm {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.transferButton {
+  align-self: flex-start;
+  margin-right: 30px;
 }
 
 @media screen and (max-width: 786px) {

@@ -335,7 +335,7 @@ export class SearchRoomComponent implements OnInit {
       searchFilters.availability !== null ? searchFilters.availability : null;
     const zone = searchFilters.zone ? searchFilters.zone : null;
     const area = searchFilters.area ? searchFilters.area : null;
-    const selectedHospitals: string[] = this.roomForm.get('hospital')?.value.map(Number) || [];
+    const selectedHospitals: number[] = this.roomForm.get('hospital')?.value.map(Number) || [];
     // Llamada al servicio para buscar habitaciones
     this.roomService
       .searchRooms(roomNumber, floor, zone, area, capacity, availability, selectedHospitals)
