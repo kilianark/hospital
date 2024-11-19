@@ -7,35 +7,40 @@
     <form class="selectstatus" [formGroup]="zoneForm" (ngSubmit)="onSubmit()">
       <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
       <div class="control">
-        <label for="status">Estado: </label>
-        <select
-          id="status"
+        <mat-form-field
+        id="status">
+        <mat-label for="status">Estado: </mat-label>
+        <mat-select
           name="status"
           formControlName="status"
           (ngModelChange)="onStatusChange($event)"
         >
-          <option *ngFor="let status of patientStatus" [value]="status.value">
+          <mat-option *ngFor="let status of patientStatus" [value]="status.value">
             {{ status.value | enumToString : "HOSPITAL_ZONE" }}
-          </option>
-        </select>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       </div>
       <div class="control">
-        <label for="reason">Motivo: </label>
-        <textarea
-          id="reason"
-          name="reason"
-          rows="4"
-          cols="30"
-          placeholder="Detalles del motivo..."
-          required
-        ></textarea>
+        <mat-form-field  appearance="outline"
+        id="reason">
+          <mat-label for="reason">Motivo: </mat-label>
+          <textarea
+          matInput
+            name="reason"
+            placeholder="Detalles del motivo..."
+            required
+          ></textarea>
+        </mat-form-field>
       </div>
       <hr size="3px" color="black" style="width: 100vw" />
       <div class="table-wrapper" *ngIf="showSelectRoom">
         <div class="selectControl">
-          <label for="assignRoom">Asignar habitación: </label>
-          <input id="assignRoom" type="text" placeholder="{{ muestra }}" readonly />
-          <button
+          <mat-form-field id="assignRoom"  appearance="outline">
+            <mat-label for="assignRoom">Asignar habitación: </mat-label>
+            <input matInput id="noMargins" name="assignRoom" placeholder="{{ muestra }}" />
+          </mat-form-field>
+          <button mat-raised-button
             class="buttonPP"
             type="button"
             id="seleccionarButton"
