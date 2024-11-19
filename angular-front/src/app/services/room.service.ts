@@ -34,7 +34,7 @@ export class RoomService {
     return this.http.delete<RoomInterface>(this.url + '/' + roomId);
   }
 
-  searchRooms(room_number?: number, floor?: number, zone?: number, area?: string, capacity?: number | null, availability?: boolean | null, Hospital?: string[]): Observable<RoomInterface[]> {
+  searchRooms(room_number?: number, floor?: number, zone?: number, area?: string, capacity?: number | null, availability?: boolean | null, Hospital?: number[]): Observable<RoomInterface[]> {
     let params = new HttpParams();
 
     if (Hospital && Hospital.length > 0) {
