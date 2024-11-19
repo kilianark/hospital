@@ -39,10 +39,10 @@
             </td>
             <td id="botonesCenter">
               <!-- Botón de editar -->
-              <button class="buttonCSS" (click)="editBed(bed)">Editar</button>
+              <button mat-raised-button class="buttonCSS" (click)="editBed(bed)">Editar</button>
 
               <!-- Botón de eliminar, solo habilitado si no hay paciente -->
-              <button class="buttonCSS" id="eliminarCSS" (click)="deleteBed(bed)">
+              <button mat-raised-button class="buttonCSS" id="eliminarCSS" (click)="deleteBed(bed)">
                 Eliminar
               </button>
             </td>
@@ -63,15 +63,17 @@
       <h2 *ngIf="selectedBed?.id !== 0">Editar cama</h2>
 
       <form >
-        <label for="bedCode">Código de cama:</label>
-        <input
+        <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label for="bedCode">Código de cama:</mat-label>
+        <input matInput
           id="bedCode"
           [(ngModel)]="selectedBed.bedCode"
           name="bedCode"
           required
         />
+      </mat-form-field>
         <div id="horizontal">
-          <label for="availability">Disponibilidad:</label>
+          <mat-label for="availability">Disponibilidad:</mat-label>
           <input
             id="availability"
             type="checkbox"
@@ -81,23 +83,25 @@
         </div>
 
         <div *ngIf="selectedBed?.id !== 0">
-          <label for="roomSelect">Mover a habitación:</label>
-          <select
+          <mat-form-field style="width: 100%;">
+          <mat-label for="roomSelect">Mover a habitación:</mat-label>
+          <mat-select
             id="roomSelect"
             [(ngModel)]="selectedBed.roomId"
             name="roomId"
           >
-            <option *ngFor="let room of rooms" [value]="room.id">
+            <mat-option *ngFor="let room of rooms" [value]="room.id">
               {{ room.roomNumber }}
-            </option>
-          </select>
-
-          <button type="button" (click)="moveBed(selectedBed?.roomId)">
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <button mat-raised-button type="button" (click)="moveBed(selectedBed?.roomId)">
             Mover cama
           </button>
         </div>
 
         <button
+        mat-raised-button
           (click)="saveBed()"
           style="margin-right: 10px"
           type="submit"
@@ -106,7 +110,8 @@
           {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
         </button>
 
-        <button type="button" (click)="cancelEdit()">Cancelar</button>
+        <button 
+        mat-raised-button type="button" (click)="cancelEdit()">Cancelar</button>
       </form>
     </div>
   </body>
