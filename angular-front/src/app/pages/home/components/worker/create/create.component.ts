@@ -7,6 +7,10 @@ import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { CustomValidators } from '../../../../../validators/CustomValidators';
 import { AsyncValidatorsW } from '../../../../../validators/AsyncValidatorsW';
 import { Router } from '@angular/router';
+import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-create-worker',
@@ -20,10 +24,13 @@ export class CreateWorkerComponent implements OnInit {
   hospitals: any[] = [];
   minDateBirth: Date;
   maxDateBirth: Date;
-  id?: number;  // Aquí añadimos el campo id, que puede ser undefined al crear un trabajador
+  id?: number;
   workerCode: string;
+  lastId: number = 0;
+
 
   constructor(
+    public dialog: MatDialog,
     private fb: FormBuilder,
     private workerService: WorkerService,
     private hospitalService: HospitalService,
@@ -36,6 +43,7 @@ export class CreateWorkerComponent implements OnInit {
 
     // Inicialización del formulario
     this.workerForm = this.fb.group({
+      id: [null],
       workerCode: [{ value: '', disabled: true }, Validators.required],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
@@ -44,18 +52,50 @@ export class CreateWorkerComponent implements OnInit {
       birthDate: ['', [Validators.required, CustomValidators.dateRange(this.minDateBirth, this.maxDateBirth)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       email: ['', Validators.email],
+      cip: [{ value: '', disabled: true }],
+      username: [{ value: '', disabled: true }],
       country: ['', Validators.required],
       address: [''],
       gender: ['', Validators.required],
       hospital: ['', Validators.required],
-      worktype: ['', Validators.required]
+      worktype: ['', Validators.required],
+      speciality: ['', []],
     });
   }
 
   ngOnInit(): void {
     this.loadHospitalsData(); // Llama al método para cargar hospitales
     this.loadWorkerData(); // Carga los datos del trabajador si está en modo de edición
+
+
   }
+
+  generateWorkerCode(): void {
+    const code = `W${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`;
+    this.workerForm.get('workerCode')?.setValue(code);
+  }
+
+
+  generateCip(): void {
+    const name = this.workerForm.get('name')?.value || '';
+    const surname1 = this.workerForm.get('surname1')?.value || '';
+
+    const birthDate = this.workerForm.get('birthDate')?.value
+      ? new Date(this.workerForm.get('birthDate')?.value).toISOString().split('T')[0]
+      : '';
+    const cip = `${name.charAt(0).toUpperCase()}${surname1.charAt(0).toUpperCase()}${birthDate.replace(/-/g, '')}`;
+    this.workerForm.get('cip')?.setValue(cip);
+  }
+
+
+  generateUsername(): void {
+    const name = this.workerForm.get('name')?.value || '';
+    const surname = this.workerForm.get('surname1')?.value || '';
+    const username = `${name.toLowerCase()}.${surname.toLowerCase()}`;
+    this.workerForm.get('username')?.setValue(username);
+  }
+
+
 
   private loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe(
@@ -78,21 +118,65 @@ export class CreateWorkerComponent implements OnInit {
   }
 
   createWorker(): void {
-    if (this.workerForm.valid) {
-      const workerData: WorkerInterface = this.workerForm.value;
-      this.workerService.createWorker(workerData).subscribe(
-        (response) => {
-          console.log('Trabajador creado exitosamente:', response);
-          this.router.navigate(['/workers']); // Redirige a la lista de trabajadores
-        },
-        (error) => {
-          console.error('Error al crear trabajador:', error);
-        }
-      );
+    if (this.workerForm.invalid) {
+      console.error('El formulario tiene errores.');
+      return;
     }
+
+    // Genera valores faltantes
+    if (!this.workerForm.get('workerCode')?.value) {
+      this.generateWorkerCode();
+    }
+    if (!this.workerForm.get('cip')?.value) {
+      this.generateCip();
+    }
+    if (!this.workerForm.get('username')?.value) {
+      this.generateUsername();
+    }
+
+    // Obtén todos los datos del formulario, incluidos valores deshabilitados
+    const workerData: WorkerInterface = this.workerForm.getRawValue();
+
+    // Elimina el campo 'id' si no es necesario
+    if (!workerData.id) {
+      workerData.id = null;
+    }
+
+    console.log('Datos enviados al servicio:', workerData);
+
+    // Llama al servicio para crear el trabajador
+    this.workerService.createWorker(workerData).subscribe({
+      next: (createdWorker) => {
+        console.log('Trabajador creado con éxito:', createdWorker);
+        this.confirm('Trabajador creado', 'success');
+        this.workerForm.reset();
+      },
+      error: (error) => {
+        console.error('Error al crear el trabajador:', error);
+        this.confirm('Error al crear el trabajador', 'error');
+      },
+    });
   }
+
+
+
+
 
   resetForm(): void {
     this.workerForm.reset(); // Resetea el formulario
   }
+  confirm(message: string, type: string) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message, type);
+  }
+  getSpecialities(): string[] {
+    const worktype = this.workerForm.get('worktype')?.value;
+    if (worktype === 'doctor') {
+      return ['Cardiología', 'Neurología', 'Pediatría'];
+    } else if (worktype === 'nurse') {
+      return ['Cuidados Intensivos', 'Pediatría', 'Geriatría'];
+    }
+    return [];
+  }
+
 }

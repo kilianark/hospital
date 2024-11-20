@@ -116,6 +116,24 @@
         <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El rol es obligatorio</mat-error>
       </mat-form-field>
 
+            <!-- Especialidad (Depende del Rol) -->
+      <mat-form-field appearance="outline" *ngIf="workerForm.get('worktype')?.value === 'doctor' || workerForm.get('worktype')?.value === 'nurse'">
+        <mat-label>Especialidad</mat-label>
+        <mat-select formControlName="speciality">
+          <mat-option *ngFor="let speciality of getSpecialities()" [value]="speciality">
+            {{ speciality }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="workerForm.get('speciality')?.hasError('required')">La especialidad es obligatoria</mat-error>
+      </mat-form-field>
+
+    
+
+
+
+
+
+
       <mat-card-actions >
           <button mat-raised-button color="primary" class="submit" type="submit" [disabled]="workerForm.invalid">
               Registrar
