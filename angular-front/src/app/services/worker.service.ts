@@ -8,19 +8,14 @@ import { WorkerInterface } from '../interfaces/worker.interface';
   providedIn: 'root'
 })
 export class WorkerService {
-  private apiUrl = 'https://localhost:5124/api'; // URL base para la API
+  private apiUrl = 'http://localhost:5124/api/Workers'; // URL base para la API
+  worker: WorkerInterface []=[];
 
   constructor(private http: HttpClient) {}
 
   // Crear un nuevo trabajador según su tipo
   createWorker(worker: WorkerInterface): Observable<WorkerInterface> {
-    const endpoint = this.getWorkerEndpoint(worker.worktype);
-    if (!endpoint) return throwError(() => new Error('Invalid worker type'));
-
-    // Asegúrate de que el worker tiene un id antes de enviarlo al servidor
-    worker.id = worker.id || 0;  // Si no tiene id, se asigna un valor por defecto
-
-    return this.http.post<WorkerInterface>(endpoint, worker).pipe(catchError(this.handleError));
+    return this.http.post<WorkerInterface>(this.apiUrl, worker);
   }
   getWorkerData(workerCode?:number, Name?:string, Surname1?: string, Surname2?: string, Dni?: string, Cip?: string, type?: string, Phone?: string, Hospital?: string[]){
 
@@ -153,9 +148,9 @@ export class WorkerService {
     }
 
     return throwError(() => new Error(errorMessage));
-    
+
   }
-  
+
   private workerUpdatedSource = new Subject<WorkerInterface>();
   workerUpdated$ = this.workerUpdatedSource.asObservable();
   notifyWorkerUpdated(worker: WorkerInterface) {
