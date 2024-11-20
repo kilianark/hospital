@@ -7,31 +7,31 @@
     <div class="slogan">La salud organizada es salud mejorada</div>
     <div class="grid-layout">
       <div appHasRole="general_patients">
-        <button class="patient" onclick="window.location.href='/home';">
+        <button class="patient" [routerLink]="['/home']">
           <img class="people" src="assets/add-date-calendar-icon.svg" alt="error de carga" />
         </button>
         <p>Pedir cita</p>
       </div>
       <div appHasRole="general_patients">
-        <button class="room" onclick="window.location.href='/home';">
+        <button class="room" [routerLink]="['/home/consultation/appointment']">
           <img class="room" src="assets/hab.png" alt="error de carga" />
         </button>
         <p>Gestionar citas</p>
       </div>
       <div appHasRole="general_patients">
-        <button class="worker" onclick="window.location.href='/home';">
+        <button class="worker" [routerLink]="['/home']">
           <img class="worker"  src="assets/Video_camera_icon.svg.png" alt="error de carga">
         </button>
         <p>Videoconsulta</p>
       </div>
       <div appHasRole="general_patients">
-        <button class="worker" onclick="window.location.href='/home';">
+        <button class="worker" [routerLink]="['/home']">
           <img class="worker"  src="assets/date-icon.svg" alt="error de carga">
         </button>
         <p>Calendario</p>
       </div>
       <div appHasRole="general_patients">
-        <button class="worker" onclick="window.location.href='/home';">
+        <button class="worker" [routerLink]="['/home']">
           <img class="worker"  src="assets/paste-icon.svg" alt="error de carga">
         </button>
         <p>Resultados e informes</p>
