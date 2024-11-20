@@ -21,7 +21,7 @@ body {
   
   .grid-layout {
     display: grid;
-    gap: 100px; /* Espacio entre las /* Tres columnas iguales */
+    gap: 60px; /* Espacio entre las /* Tres columnas iguales */
     grid-template-columns: auto auto auto;
     opacity: 0.8;
     justify-content: center;
