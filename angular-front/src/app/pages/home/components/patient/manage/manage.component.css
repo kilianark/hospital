@@ -3,7 +3,6 @@
   overflow: hidden;
 }
 legend {
-  margin: 0px;
   overflow: hidden;
   font-size: 24px;
   text-align: left;
@@ -11,8 +10,8 @@ legend {
   line-height: 31px;
   white-space: pre-line;
   font-weight: bold;
-  padding-bottom: 2%;
-  margin-bottom: 20px;
+  margin: 0px;
+  margin-bottom: 30px;
 
   padding-left: 4%;
 }
@@ -31,6 +30,9 @@ input {
   overflow: hidden;
   margin-top: 10px;
   margin-bottom: -10px;
+}
+#reason{
+  width: 400px;
 }
 .table-wrapper input[readonly] {
   background-color: #f0f0f0;
@@ -53,16 +55,21 @@ input {
   width: 150px;
   text-transform: uppercase;
 }
+#assignRoom{
+  margin-left:0px; 
+  margin-top:30px
+}
+#noMargins{
+  
+  margin-left: 0%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 #assignar {
   display: flex;
   justify-content: center;
   justify-self: center;
   margin-left: 0;  width: 90%;
-  background-color: #333;
-  color: white;
-}
-button:hover {
-  background-color: cadetblue;
 }
 
 .control,
@@ -75,6 +82,10 @@ button:hover {
 }
 .selectControl {
   padding-left: 0%;
+  width: auto;
+}
+#assignRoom{
+  height: 70%;
 }
 .container {
   width: 90%;
@@ -117,6 +128,9 @@ tr:nth-child(even) {
 .tbcen {
   text-align: center;
 }
+#status{
+  width: 400px;
+}
 .submit {
   display: flex;
   align-items: center;
@@ -138,6 +152,16 @@ tr:nth-child(even) {
 }
 .roomselect {
   margin-left: -70px;
+}
+
+.titleForm {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.transferButton {
+  align-self: flex-start;
+  margin-right: 30px;
 }
 
 @media screen and (max-width: 786px) {

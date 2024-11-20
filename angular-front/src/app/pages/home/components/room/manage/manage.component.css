@@ -45,6 +45,11 @@ body {
 #botonesCenter{
   display: flex;
   justify-content: center;
+  border-left: white;
+  
+  border-right: white;
+  
+  border-bottom: white;
 }
 /* Estilos de la tabla */
 form {
@@ -184,14 +189,18 @@ tr:nth-child(even) {
   margin-top: 10px;
   color: #333; /* Color del texto de las etiquetas */
 }
-
+#bedCode{
+  margin-left: 0%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
 .modal input, .modal select {
   width: 100%; /* Ajusta el ancho restando el padding */
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc; /* Borde gris claro */
-  border-radius: 5px;
-  background-color: #f9f9f9; /* Fondo gris claro */
+  border-radius: 5px; /* Fondo gris claro */
   color: #333; /* Color del texto */
   box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }

@@ -5,37 +5,45 @@
 <body>
   <div class="content">
     <form class="selectstatus" [formGroup]="zoneForm" (ngSubmit)="onSubmit()">
-      <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
+      <div class="titleForm">
+        <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
+        <button mat-raised-button class="transferButton">Traspasar</button>
+      </div>
       <div class="control">
-        <label for="status">Estado: </label>
-        <select
-          id="status"
+        <mat-form-field
+        id="status">
+        <mat-label for="status">Estado: </mat-label>
+        <mat-select
           name="status"
           formControlName="status"
           (ngModelChange)="onStatusChange($event)"
         >
-          <option *ngFor="let status of patientStatus" [value]="status.value">
+          <mat-option *ngFor="let status of patientStatus" [value]="status.value">
             {{ status.value | enumToString : "HOSPITAL_ZONE" }}
-          </option>
-        </select>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       </div>
       <div class="control">
-        <label for="reason">Motivo: </label>
-        <textarea
-          id="reason"
-          name="reason"
-          rows="4"
-          cols="30"
-          placeholder="Detalles del motivo..."
-          required
-        ></textarea>
+        <mat-form-field  appearance="outline"
+        id="reason">
+          <mat-label for="reason">Motivo: </mat-label>
+          <textarea
+          matInput
+            name="reason"
+            placeholder="Detalles del motivo..."
+            required
+          ></textarea>
+        </mat-form-field>
       </div>
       <hr size="3px" color="black" style="width: 100vw" />
       <div class="table-wrapper" *ngIf="showSelectRoom">
         <div class="selectControl">
-          <label for="assignRoom">Asignar habitación: </label>
-          <input id="assignRoom" type="text" placeholder="{{ muestra }}" readonly />
-          <button
+          <mat-form-field id="assignRoom"  appearance="outline">
+            <mat-label for="assignRoom">Asignar habitación: </mat-label>
+            <input matInput id="noMargins" name="assignRoom" placeholder="{{ muestra }}" />
+          </mat-form-field>
+          <button mat-raised-button
             class="buttonPP"
             type="button"
             id="seleccionarButton"
@@ -49,21 +57,23 @@
             <div class="container">
               <h5>Buscar habitación</h5>
               <div class="selectArea">
-                <label for="area">Seleccionar área: </label>
+                <mat-form-field>
+                <mat-label for="area">Seleccionar área: </mat-label>
 
-                <select
+                <mat-select
                   id="area"
                   name="area"
                   [(ngModel)]="selectedZone"
                   (ngModelChange)="onAreaChange($event)"
                 >
-                  <option
+                  <mat-option
                     *ngFor="let area of currentArea"
-                    [ngValue]="area.value"
+                    [value]="area.value"
                   >
                     {{ area.value | enumToString : currentAreaType }}
-                  </option>
-                </select>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
               </div>
               <table id="tabliña">
                 <thead>
@@ -117,6 +127,7 @@
                     <td class="tbcen">{{ room.availability }}</td>
                     <td>
                       <button
+                      mat-raised-button
                         class="buttonPP"
                         (click)="openDialog(room.id, patient)"
                         id="assignar"

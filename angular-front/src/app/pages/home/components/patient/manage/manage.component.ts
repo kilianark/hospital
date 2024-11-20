@@ -49,6 +49,7 @@ export class ManagePatientComponent {
   beds: BedInterface[] = [];
   bedId!: number;
   rooms: RoomInterface[] = [];
+  hospitals: number[] = [];
 
   patientStatus = Object.keys(HospitalZone)
     .filter(
@@ -100,8 +101,10 @@ export class ManagePatientComponent {
     });
     console.log("ayuda por favor")
     popupRef.afterClosed().subscribe((updPatient) => {
+      if(updPatient!=null){
       this.patient = updPatient;
       console.log("Paciente resultante: ", this.patient);
+      }
     });
   }
 
@@ -125,6 +128,7 @@ export class ManagePatientComponent {
       this.patientId = +params['id'];
       this.patientService.getPatientById(this.patientId).subscribe((data) => {
         this.patient = data;
+        this.hospitals[0] = this.patient.hospital;
 
         this.zoneForm.patchValue({ status: this.patient.zone });
         if (this.patient.zone != HospitalZone.Inactivo)
@@ -154,7 +158,7 @@ export class ManagePatientComponent {
 
       if (this.showRoomList) {
         this.roomService
-          .searchRooms(null, null, this.patient.zone, null, null, null)
+          .searchRooms(null, null, this.patient.zone, null, null, null, this.hospitals)
           .subscribe((data) => (this.rooms = data));
       }
     } else this.showSelectRoom = false;
@@ -183,7 +187,7 @@ export class ManagePatientComponent {
   ) {
     if (this.showRoomList) {
       this.roomService
-        .searchRooms(null, null, this.patient.zone, area.toString(), null, null)
+        .searchRooms(null, null, this.patient.zone, area.toString(), null, null, this.hospitals)
         .subscribe((data) => (this.rooms = data));
     }
   }
@@ -192,7 +196,7 @@ export class ManagePatientComponent {
     this.showRoomList = !this.showRoomList;
     if (this.showRoomList) {
       this.roomService
-        .searchRooms(null, null, this.patient.zone, null, null, null)
+        .searchRooms(null, null, this.patient.zone, null, null, null, this.hospitals)
         .subscribe((data) => (this.rooms = data));
     }
   }

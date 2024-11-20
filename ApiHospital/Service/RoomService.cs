@@ -39,11 +39,6 @@ namespace ApiHospital.Service {
         int? BedId = null,
         int?[] Hospital = null) {
 
-            Console.WriteLine(_context.Rooms.Count());
-            Console.WriteLine(_context.Rooms.IgnoreQueryFilters().Count());
-
-            Console.WriteLine(_context.Patients.Count());
-            Console.WriteLine(_context.Patients.IgnoreQueryFilters().Count());
 
             IQueryable<Room> query = GetQuery();
 

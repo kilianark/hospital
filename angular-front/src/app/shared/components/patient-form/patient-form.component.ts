@@ -170,9 +170,11 @@ export class PatientFormComponent implements OnInit {
     if (this.isEditable) {
       this.patientForm.enable();
       this.patientForm.get('patientCode')?.disable();
+      this.patientForm.get('hospital')?.disable();
     } else {
       this.patientForm.disable();
       this.patientForm.get('patientCode')?.disable();
+      this.patientForm.get('hospital')?.disable();
     }
   }
 
