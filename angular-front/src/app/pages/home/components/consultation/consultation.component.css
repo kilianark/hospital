@@ -20,9 +20,9 @@ body {
   }
   
   .grid-layout {
-    display: flex;
+    display: grid;
     gap: 100px; /* Espacio entre las /* Tres columnas iguales */
-    align-items: center;
+    grid-template-columns: auto auto;
     opacity: 0.8;
     justify-content: center;
   }
