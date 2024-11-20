@@ -22,7 +22,7 @@ body {
   .grid-layout {
     display: grid;
     gap: 100px; /* Espacio entre las /* Tres columnas iguales */
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     opacity: 0.8;
     justify-content: center;
   }
@@ -46,13 +46,9 @@ body {
   
   @media screen and (max-width: 768px) {
     .grid-layout {
-      display: flex;
+      display: grid;
       width: 100%;
-      align-content: center;
-      height: 300%;
-      justify-content: center;
-      vertical-align: middle;
-      flex-direction: column;
+      grid-template-columns: auto auto
     }
   
     .grid-layout div {
@@ -71,6 +67,17 @@ body {
     body {
       margin-top: 0px;
       margin-left: 0px;
+    }
+  }
+  @media screen and (max-width:480px){
+    .grid-layout{
+      gap:0;
+    }
+    .grid-layout div {
+      text-align: center;
+      width: 50vw;
+      height: 50vw;
+      margin-bottom: 40px;
     }
   }
   
