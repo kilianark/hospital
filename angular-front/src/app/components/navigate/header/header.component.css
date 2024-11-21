@@ -2,7 +2,10 @@ header {
   background-color: lightblue;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding-bottom:10px;
+  padding-top:10px;
+  padding-right: 10px;
+  padding-left:10px;
   border-bottom: solid;
   border-color: rgba(1, 47, 70, 255);
   font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -12,7 +15,7 @@ header {
 
 button {
   background-color: lightblue;
-  width: 150px;
+  width: auto;
   height: 60px;
   align-self: center;
   border: none;
@@ -102,6 +105,10 @@ button:hover {
   }
   #notMenu{
     width:80px
+  }
+  header{
+  padding-right: 0px;
+  padding-left:0px;
   }
   .icon-bar {
     width: 22px;

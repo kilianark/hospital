@@ -12,11 +12,6 @@ form {
 mat-form-field{
   width: 100%;
 }
-.readonly {
-  color: #999;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-}
 .personalTitle {
   margin-left: 3vw;
   font-size: 20px;
