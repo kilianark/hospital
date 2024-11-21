@@ -1,21 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/modules/shared.module';
-import { ConsultationRoutingModule } from './consultation-routing.module';
-import { SelectZoneComponent } from "../../shared/components/select-zone/select-zone.component";
+import { CommonModule } from '@angular/common'; // Asegúrate de importar CommonModule
+import { ConsultationRoutingModule } from './consultation-routing.module'; // Ruta del módulo de rutas
+import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
+import { AppointmentComponent } from '../../pages/home/components/consultation/appointment/appointment.component';
+
 @NgModule({
   declarations: [
+    ConsultationComponent,
+    AppointmentComponent, // Declara tus componentes aquí
   ],
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ConsultationRoutingModule,
-    SharedModule,
-    SelectZoneComponent
-],
-  providers: [provideHttpClient()],
+    CommonModule, // Importa CommonModule para acceder a las directivas comunes de Angular
+    ConsultationRoutingModule, // Asegúrate de importar el módulo de rutas
+  ]
 })
-export class ConsultationModule { }
+export class ConsultationModule {}
