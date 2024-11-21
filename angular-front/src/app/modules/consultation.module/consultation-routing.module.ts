@@ -8,8 +8,7 @@ import { AuthGuard } from '../../guard/auth.guard';
 import { RoleGuard } from '../../guard/role.guard';
 const routes: Routes = [
   { path: '', component: ConsultationComponent },
-  { path: 'appointment', component: AppointmentComponent}
-
+  { path: 'appointment', component: AppointmentComponent},
   { path: 'econsulta', component: EconsultaComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['general_patients']} },
 ];
 

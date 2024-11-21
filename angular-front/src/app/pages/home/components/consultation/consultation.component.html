@@ -19,7 +19,7 @@
         <p>Gestionar citas</p>
       </div>
       <div appHasRole="general_patients">
-        <button class="worker" onclick="window.location.href='/econsulta';">
+        <button class="worker"  [routerLink]="['/home/consultation/econsulta']">
           <img class="worker"  src="assets/Video_camera_icon.svg.png" alt="error de carga">
         </button>
         <p>eConsulta</p>
