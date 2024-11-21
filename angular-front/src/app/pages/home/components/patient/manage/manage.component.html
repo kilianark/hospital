@@ -7,7 +7,7 @@
     <form class="selectstatus" [formGroup]="zoneForm" (ngSubmit)="onSubmit()">
       <div class="titleForm">
         <legend>{{ title }} {{ patient.name }} {{ patient.surname1 }}</legend>
-        <button mat-raised-button class="transferButton">Traspasar</button>
+        <button type="button" mat-raised-button class="transferButton" (click)="transferHospital(patient)">Traspasar</button>
       </div>
       <div class="control">
         <mat-form-field

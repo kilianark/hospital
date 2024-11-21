@@ -19,6 +19,8 @@ import { RoomService } from '../../../../../services/room.service';
 import { AssignRoom } from '../../../../../components/assignroom/assignroom.component';
 import { BedInterface } from '../../../../../interfaces/bed.interface';
 import { BedService } from '../../../../../services/bed.service';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { TransferpatientComponent } from '../../../../../components/transferpatient/transferpatient.component';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -219,6 +221,34 @@ export class ManagePatientComponent {
     console.log('Cama asignada: ');
     this.confirm('Paciente actualizado con éxito', 'success');
     this.router.navigate(['/home']);
+  }
+
+  transferHospital(patient: PatientInterface) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Traspassar Paciente',
+        message: `¿Estás seguro de que deseas traspassar al paciente ${patient.name} ${patient.surname1}?`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        let popupRef = this.dialog.open(TransferpatientComponent, {
+          width: '40%',
+          height: '50%',
+          maxWidth: '100vw',
+          panelClass: 'full-width-dialog',
+          data: patient,
+        });
+        popupRef.afterClosed().subscribe((updPatient) => {
+          if(updPatient.hospital!=null){
+          this.patient = updPatient;
+          console.log("Paciente resultante: ", this.patient);
+          }
+        });
+      }
+    });
+
   }
   
 }
