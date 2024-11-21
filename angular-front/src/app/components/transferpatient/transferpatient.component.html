@@ -8,7 +8,7 @@
             <mat-icon>close</mat-icon>
         </button>
         <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
-            <mat-card-title>Traspasar</mat-card-title>
+            <mat-card-title>Traspasar {{patient.name}} {{patient.surname1}}</mat-card-title>
             <mat-form-field appearance="outline" >
                 <mat-label>Hospital</mat-label>
                 <mat-select formControlName="hospital">
