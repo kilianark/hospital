@@ -97,7 +97,12 @@ button:hover {
     display: block;
     cursor: pointer;
   }
-
+  #menu{
+    width:80px
+  }
+  #notMenu{
+    width:80px
+  }
   .icon-bar {
     width: 22px;
     height: 2px;
@@ -118,6 +123,15 @@ button:hover {
   .icon-bar {
     width: 10px;
   }
+  .headerNavs{
+    width:90px
+  }
+  #menu{
+    width:30px
+  }
+  #notMenu{
+    width:30px
+  }
   #menu {
     width: 70px;
   }
@@ -126,5 +140,8 @@ button:hover {
   }
   .WorkerName {
     font-size: 3.5vw;
+  }
+  .DashboardButton{
+    padding:0px
   }
 }
