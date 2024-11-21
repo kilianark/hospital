@@ -8,6 +8,12 @@ import { DoctorInterface } from '../interfaces/doctor.interface';
 export class DoctorService {
   private url = "http://localhost:5124/api/Doctor"
   constructor (private http: HttpClient) { }
+
+  
+
+  createDoctor(doctor: DoctorInterface): Observable<DoctorInterface> {
+    return this.http.post<DoctorInterface>(this.url, doctor);
+  }
   getDoctorData(doctorCode : number) : Observable<DoctorInterface[]> {
     let params = new HttpParams();
     if (doctorCode != null && doctorCode != undefined && doctorCode != 0) {

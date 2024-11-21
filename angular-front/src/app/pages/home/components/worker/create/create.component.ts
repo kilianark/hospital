@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WorkerService } from '../../../../../services/worker.service';
+
 import { HospitalService } from '../../../../../services/hospital.service';
 import { countries } from '../../../../../store/country-data.store';
 import { WorkerInterface } from '../../../../../interfaces/worker.interface';
@@ -10,6 +11,9 @@ import { Router } from '@angular/router';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DoctorService } from '../../../../../services/doctor.service';
+import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
+import { count } from 'rxjs';
 
 
 @Component({
@@ -27,12 +31,13 @@ export class CreateWorkerComponent implements OnInit {
   id?: number;
   workerCode: string;
   lastId: number = 0;
-
+  workerCount:number = 0;
 
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,
     private workerService: WorkerService,
+    private doctorService: DoctorService,
     private hospitalService: HospitalService,
     private router: Router
   ) {
@@ -43,7 +48,7 @@ export class CreateWorkerComponent implements OnInit {
 
     // Inicialización del formulario
     this.workerForm = this.fb.group({
-      id: [null],
+      id: [{value: '0', disabled: true }, Validators.required],
       workerCode: [{ value: '', disabled: true }, Validators.required],
       name: ['', [Validators.required, CustomValidators.notBlank()]],
       surname1: ['', [Validators.required, CustomValidators.notBlank()]],
@@ -60,6 +65,7 @@ export class CreateWorkerComponent implements OnInit {
       hospital: ['', Validators.required],
       worktype: ['', Validators.required],
       speciality: ['', []],
+      doctorCode: [{value: '',disabled: true}]
     });
   }
 
@@ -71,10 +77,9 @@ export class CreateWorkerComponent implements OnInit {
   }
 
   generateWorkerCode(): void {
-    const code = `W${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`;
-    this.workerForm.get('workerCode')?.setValue(code);
-  }
-
+    const randomCode = Math.floor(1000 + Math.random() * 9000); // Genera un número entre 1000 y 9999
+    this.workerForm.get('workerCode')?.setValue(randomCode);
+}
 
   generateCip(): void {
     const name = this.workerForm.get('name')?.value || '';
@@ -91,9 +96,17 @@ export class CreateWorkerComponent implements OnInit {
   generateUsername(): void {
     const name = this.workerForm.get('name')?.value || '';
     const surname = this.workerForm.get('surname1')?.value || '';
-    const username = `${name.toLowerCase()}.${surname.toLowerCase()}`;
+
+
+    // Tomar las dos primeras letras de cada campo, si están presentes
+    const namePart = name.slice(0, 4).toLowerCase();
+    const surnamePart = surname.slice(0, 2).toLowerCase();
+    const hospitalPart = this.workerForm.get('hospital')?.value || '';
+
+    const username = `${namePart}.${surnamePart}.${hospitalPart}`;
     this.workerForm.get('username')?.setValue(username);
   }
+
 
 
 
@@ -137,33 +150,59 @@ export class CreateWorkerComponent implements OnInit {
     // Obtén todos los datos del formulario, incluidos valores deshabilitados
     const workerData: WorkerInterface = this.workerForm.getRawValue();
 
-    // Elimina el campo 'id' si no es necesario
-    if (!workerData.id) {
-      workerData.id = null;
-    }
 
+
+    const worktype = this.workerForm.get('worktype')?.value;
+
+    console.log('Tipo de trabajo:', worktype);
     console.log('Datos enviados al servicio:', workerData);
 
-    // Llama al servicio para crear el trabajador
-    this.workerService.createWorker(workerData).subscribe({
-      next: (createdWorker) => {
-        console.log('Trabajador creado con éxito:', createdWorker);
-        this.confirm('Trabajador creado', 'success');
-        this.workerForm.reset();
-      },
-      error: (error) => {
-        console.error('Error al crear el trabajador:', error);
-        this.confirm('Error al crear el trabajador', 'error');
-      },
-    });
+    if (worktype === 'doctor') {
+      // Crear doctor con el mismo código que el workerCode
+      const doctorData: DoctorInterface = {
+        ...workerData,
+        doctorCode: workerData.workerCode, // Asignar el mismo código
+        speciality:  this.workerForm.get('speciality')?.value
+      };
+
+      this.doctorService.createDoctor(doctorData).subscribe({
+        next: (createdDoctor) => {
+          console.log('Doctor creado con éxito:', createdDoctor);
+          this.confirm('Doctor creado', 'success');
+          this.workerForm.reset();
+        },
+        error: (error) => {
+          console.error('Error al crear el doctor:', error);
+          this.confirm('Error al crear el doctor', 'error');
+        },
+      });
+    } else {
+      // Crear solo el worker
+      this.workerService.createWorker(workerData).subscribe({
+        next: (createdWorker) => {
+          console.log('Trabajador creado con éxito:', createdWorker);
+          this.confirm('Trabajador creado', 'success');
+          this.workerForm.reset();
+        },
+        error: (error) => {
+          console.error('Error al crear el trabajador:', error);
+          this.confirm('Error al crear el trabajador', 'error');
+        },
+      });
+    }
   }
 
 
 
 
 
+
+
   resetForm(): void {
+    const currentWorkerCode = this.workerForm.get('id')?.value;
     this.workerForm.reset(); // Resetea el formulario
+    this.workerForm.patchValue({workerCode : currentWorkerCode});
+
   }
   confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
