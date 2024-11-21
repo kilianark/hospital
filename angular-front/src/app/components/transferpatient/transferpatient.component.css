@@ -1,0 +1,20 @@
+body {
+    margin: 5%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+mat-card-title {
+    font-size: 1.5em;
+    align-self: center;
+    text-align: center;
+}
+
+.submitButton {
+    width: fit-content;
+    align-self: center;
+}

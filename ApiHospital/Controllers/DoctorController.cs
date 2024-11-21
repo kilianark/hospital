@@ -31,7 +31,7 @@ namespace ApiHospital.Controllers
         // GET: api/Doctors
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctors(
-            [FromQuery] int? DoctorCode = null,
+            [FromQuery] string? DoctorCode = null,
             [FromQuery] string? Name = null,
             [FromQuery] string? Surname1 = null,
             [FromQuery] string? Surname2 = null,
@@ -47,7 +47,7 @@ namespace ApiHospital.Controllers
         {
             IQueryable<Doctor> query = _context.Doctors;
 
-            query = ApplyFilter(query, DoctorCode, d => d.DoctorCode == DoctorCode!.Value);
+            query = ApplyFilter(query, DoctorCode, d => !string.IsNullOrWhiteSpace(DoctorCode) && d.DoctorCode.ToLower().Equals(DoctorCode.ToLower()));
             query = ApplyFilter(query, Name, d => !string.IsNullOrWhiteSpace(Name) && d.Name.ToLower().StartsWith(Name.ToLower()));
             query = ApplyFilter(query, Surname1, d => !string.IsNullOrWhiteSpace(Surname1) && d.Surname1.ToLower().StartsWith(Surname1.ToLower()));
             query = ApplyFilter(query, Surname2, d => !string.IsNullOrWhiteSpace(Surname2) && d.Surname2.ToLower().StartsWith(Surname2.ToLower()));

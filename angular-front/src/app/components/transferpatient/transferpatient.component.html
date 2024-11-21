@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <button mat-dialog-close mat-icon-button aria-label="Close dialog" class="close-button" type="button">
+            <mat-icon>close</mat-icon>
+        </button>
+        <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+            <mat-card-title>Traspasar {{patient.name}} {{patient.surname1}}</mat-card-title>
+            <mat-form-field appearance="outline" >
+                <mat-label>Hospital</mat-label>
+                <mat-select formControlName="hospital">
+                    <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+                        {{ hospital.hospitalName }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="transferForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" class="submitButton">
+                Traspasar Paciente
+            </button>
+        </form>
+        
+    </body>
+</html>
+
