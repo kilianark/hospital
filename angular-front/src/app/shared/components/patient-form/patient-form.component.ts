@@ -11,6 +11,7 @@ import { CustomValidators } from '../../../validators/CustomValidators';
 import { AsyncValidators } from '../../../validators/AsyncValidators';
 import { Country } from '../../../interfaces/country.interface';
 import { HospitalInterface } from '../../../interfaces/hospital.interface';
+import { KeycloakService } from 'keycloak-angular';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class PatientFormComponent implements OnInit {
   public formTitle: string = 'Crear Paciente';
   public countries: Country[] = countries;
   public hospitals: HospitalInterface[] = [];
+  private defaultHospital: HospitalInterface;
   public isEditable: boolean = false;
 
   private originalPatientData: any = {}; // Propiedad auxiliar
@@ -45,13 +47,14 @@ export class PatientFormComponent implements OnInit {
   public minDateBirth: Date;
   public maxDateBirth: Date;
 
-
+  private userRoles: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private hospitalService: HospitalService,
     private patientService: PatientService,
-    private pdfGeneratorService: pdfGeneratorService
+    private pdfGeneratorService: pdfGeneratorService,
+    private keycloakService: KeycloakService
   ) {
     const today = new Date();
     this.minDateBirth = new Date(today.getFullYear() - 150, today.getMonth(), today.getDate());
@@ -107,7 +110,7 @@ export class PatientFormComponent implements OnInit {
       address: [''],
       gender: ['', Validators.required],
       zone: [''],
-      hospital: ['', Validators.required]
+      hospital: [{value: '', disabled: true}, Validators.required]
     });
   }
 
@@ -134,6 +137,24 @@ export class PatientFormComponent implements OnInit {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
     });
+
+    
+    //gestionar hospital del usuario
+    var hospCode = 0;
+    this.userRoles = this.keycloakService.getKeycloakInstance().realmAccess?.roles;
+
+    if(this.userRoles.includes('ADMIN')) this.patientForm.get('hospital').enable();
+    else {
+      if(this.userRoles.includes('Goldenfold')) hospCode = 1;
+      else if (this.userRoles.includes('HospitalFaro')) hospCode = 2;
+    }
+
+    if (hospCode != 0) {
+      this.hospitalService.getHospitalById(hospCode).subscribe((data) => {
+        this.defaultHospital = data;
+        this.patientForm.patchValue({ hospital: this.defaultHospital.hospitalCode })
+      })
+    }
   }
 
   /* Restaura el formulario a los datos originales antes de editarlos */

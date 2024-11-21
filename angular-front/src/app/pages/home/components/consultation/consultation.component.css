@@ -1,0 +1,83 @@
+body {
+    margin-top: 120px;
+    margin-left: 80px;
+    position: relative;
+  }
+  
+  button {
+    background-color: lightblue;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px black;
+  }
+  
+  .slogan {
+    font-size: 1.2em;
+    display: flex;
+    font-weight: bold;
+    margin-left: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .grid-layout {
+    display: grid;
+    gap: 60px; /* Espacio entre las /* Tres columnas iguales */
+    grid-template-columns: auto auto auto;
+    opacity: 0.8;
+    justify-content: center;
+  }
+  
+  .grid-layout div {
+    text-align: center;
+    width: 20vw;
+    height: 20vw;
+  }
+  
+  .grid-layout button {
+    height: 100%;
+    width: 100%;
+    border-radius: 5%;
+  }
+  .grid-layout img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .grid-layout {
+      display: grid;
+      width: 100%;
+      grid-template-columns: auto auto
+    }
+  
+    .grid-layout div {
+      vertical-align: middle;
+      width: 30vw;
+      height: 30vw;
+    }
+    .slogan {
+      padding-top: 5%;
+      font-size: 1.3em;
+      margin-bottom: 10%;
+      margin-left: 0;
+      justify-content: center;
+      text-align: center;
+    }
+    body {
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+  }
+  @media screen and (max-width:480px){
+    .grid-layout{
+      gap:0;
+    }
+    .grid-layout div {
+      text-align: center;
+      width: 50vw;
+      height: 50vw;
+      margin-bottom: 40px;
+    }
+  }
+  
