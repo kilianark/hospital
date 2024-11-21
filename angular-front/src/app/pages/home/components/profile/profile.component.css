@@ -9,9 +9,10 @@ form {
   padding-bottom: 4%;
   margin-left: 7.5%;
 }
-
+mat-form-field{
+  width: 100%;
+}
 .readonly {
-  background-color: #f0f0f0;
   color: #999;
   border: 1px solid #ccc;
   border-radius: 2px;
@@ -28,9 +29,8 @@ form {
   column-gap: 2vw;
 }
 .personalData > div {
-  display: grid;
+  display: flex;
   margin-top: 4vh;
-  grid-template-columns: 30% 70%;
 }
 
 .userData {
@@ -42,8 +42,7 @@ form {
 }
 
 .userData > div {
-  display: grid;
-  grid-template-columns: 30% 70%;
+  display: flex;
   margin-top: 4vh;
 }
 
@@ -69,13 +68,11 @@ form {
 }
 @media screen and (max-width: 768px) {
   .personalData > div {
-    display: grid;
+    display: flex;
     margin-top: 4vh;
-    grid-template-columns: 40% 60%;
   }
   .userData > div {
-    display: grid;
-    grid-template-columns: 40% 60%;
+    display: flex;
     margin-top: 4vh;
   }
   .personalData {
@@ -97,8 +94,7 @@ form {
   }
 
   .personalData > div {
-    display: grid;
-    grid-template-columns: 50% 50%;
+    display: flex;
     margin-top: 4vh;
   }
   input,
@@ -111,6 +107,5 @@ form {
   .userData > div {
     font-size: 0.9em;
 
-    grid-template-columns: 50% 50%;
   }
 }
