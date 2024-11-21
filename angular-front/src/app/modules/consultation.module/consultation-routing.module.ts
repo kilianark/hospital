@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
-import { AppointmentsComponent } from '../../pages/home/components/consultation/appointment/appointment.component';
+import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
+import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
 
-import { EconsultaComponent } from '../../pages/home/components/consultation/econsulta/econsulta/econsulta.component';
+
 import { AuthGuard } from '../../guard/auth.guard';
 import { RoleGuard } from '../../guard/role.guard';
 const routes: Routes = [
   { path: '', component: ConsultationComponent },
-  { path: 'appointment', component: AppointmentsComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['administrative_workers']}},
-  { path: 'econsulta', component: EconsultaComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['general_patients']} },
+  { path: 'create', component: CreateComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['administrative_workers']}},
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['administrative_workers']}},
 ];
 
 @NgModule({
