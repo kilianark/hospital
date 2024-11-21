@@ -30,6 +30,8 @@ namespace ApiHospital.Data
         public DbSet<Consultation> Consultations { get; set; } = null!; 
         public DbSet<Move> Moves { get; set; } = null!;   
         public DbSet<Hospital> Hospitals { get; set; } = null!;
+        public DbSet<Appointment> Appointments { get; set; } = null!;
+
         
 
 
@@ -69,7 +71,8 @@ namespace ApiHospital.Data
             modelBuilder.Entity<Administrator>()
                 .HasBaseType<Worker>();
 
-            
+            modelBuilder.Entity<Appointment>()
+                .HasBaseType<Appointment>();
             modelBuilder
                 .Entity<Bed>()
                 .HasQueryFilter(x => x.IsDeleted == false)
