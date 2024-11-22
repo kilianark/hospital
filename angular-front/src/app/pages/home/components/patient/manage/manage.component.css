@@ -34,13 +34,6 @@ input {
 #reason{
   width: 400px;
 }
-.table-wrapper input[readonly] {
-  background-color: #f0f0f0;
-  color: #963333;
-  border: 1px solid #ccc;
-  font-style: italic;
-  border-radius: 2px;
-}
 .buttonPP {
   padding-left: 4%;
   background-color: #333;
@@ -230,7 +223,6 @@ tr:nth-child(even) {
     width: 100%;
   }
   #area {
-    width: 50%;
   }
   #tabliña {
     display: flex;

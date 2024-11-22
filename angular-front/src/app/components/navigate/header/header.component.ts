@@ -26,9 +26,7 @@ import { KeycloakService } from 'keycloak-angular';
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
     RouterLink,
-    RouterLinkActive,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

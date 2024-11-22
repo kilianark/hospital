@@ -128,11 +128,13 @@ export class ManagePatientComponent {
 
     this.route.params.subscribe((params) => {
       this.patientId = +params['id'];
+      console.log(this.patientId)
       this.patientService.getPatientById(this.patientId).subscribe((data) => {
         this.patient = data;
         this.hospitals[0] = this.patient.hospital;
 
-        this.zoneForm.patchValue({ status: this.patient.zone });
+        this.zoneForm.patchValue({ status: Number(this.patient.zone) });
+        console.log(this.patientStatus)
         if (this.patient.zone != HospitalZone.Inactivo)
           this.showSelectRoom = true;
 
@@ -140,6 +142,7 @@ export class ManagePatientComponent {
 
         this.bedService.getBedDataById(this.patient.id).subscribe((data) => {
           this.muestra = data.bedCode;
+          console.log(this.muestra)
         });
 
       });

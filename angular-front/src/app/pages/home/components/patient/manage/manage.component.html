@@ -41,7 +41,7 @@
         <div class="selectControl">
           <mat-form-field id="assignRoom"  appearance="outline">
             <mat-label for="assignRoom">Asignar habitación: </mat-label>
-            <input matInput id="noMargins" name="assignRoom" placeholder="{{ muestra }}" />
+            <input readonly matInput id="noMargins" name="assignRoom" [value]="{ muestra }" />
           </mat-form-field>
           <button mat-raised-button
             class="buttonPP"
