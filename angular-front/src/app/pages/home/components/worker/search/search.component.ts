@@ -101,15 +101,19 @@ export class SearchWorkerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.loadHospitalsData();
 
     this.WorkerService.getWorkerData().subscribe((data) => {
+      // Asignar datos a workers y mapear si es necesario
       this.workers = data.map(worker => ({
         ...worker,
-        status: worker.zone
+        status: worker.zone,
       }));
 
+      // Filtrar los doctores
+      this.filteredworkers = this.workers.filter(worker => worker.worktype === 'doctor');
+
+      // Configurar Fuse.js para búsquedas
       this.fuseName = new Fuse(this.workers, {
         keys: ['name'],
         threshold: 0.3,
@@ -125,11 +129,13 @@ export class SearchWorkerComponent implements OnInit {
         threshold: 0.3,
       });
 
+      // Actualizar la lista si un trabajador cambia
       this.WorkerService.workerUpdated$.subscribe((updatedWorker: WorkerInterface) => {
         this.updateworkerInList(updatedWorker);
-      })
+      });
     });
   }
+
 
   loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
@@ -394,4 +400,5 @@ export class SearchWorkerComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message,type);
   }
+
 }
