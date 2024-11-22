@@ -95,10 +95,6 @@ export class HeaderComponent
   goToProfile(doctorId: number) {
     this.router.navigate(['/home/profile', { id: doctorId }]);
   }
-  goToConsultation(){
-    this.router.navigate(['/home/consultation'])
-  }
-
   logout() {
     this.keycloak.logout("http://localhost:4200/home");
   }
