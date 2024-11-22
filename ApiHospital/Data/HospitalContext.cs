@@ -56,6 +56,8 @@ namespace ApiHospital.Data
             modelBuilder.Entity<Nurse>()
                 .ToTable("Nurses");
             
+            modelBuilder.Entity<Appointment>()
+                .ToTable("Appointments");
             modelBuilder.Entity<Patient>()
                 .HasBaseType<Person>();
             
@@ -71,8 +73,6 @@ namespace ApiHospital.Data
             modelBuilder.Entity<Administrator>()
                 .HasBaseType<Worker>();
 
-            modelBuilder.Entity<Appointment>()
-                .HasBaseType<Appointment>();
             modelBuilder
                 .Entity<Bed>()
                 .HasQueryFilter(x => x.IsDeleted == false)
