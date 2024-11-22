@@ -9,9 +9,9 @@ import { AuthGuard } from '../../guard/auth.guard';
 import { RoleGuard } from '../../guard/role.guard';
 const routes: Routes = [
   { path: '', component: ConsultationComponent },
-  { path: 'create', component: CreateComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['ADMIN']}},
-  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['ADMIN']}},
-  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['ADMIN']}},
+  { path: 'create', component: CreateComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['create_appointment']}},
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['search_appointment']}},
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['manage_calendar']}},
 
 ];
 
