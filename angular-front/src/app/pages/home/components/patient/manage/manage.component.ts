@@ -21,6 +21,7 @@ import { BedInterface } from '../../../../../interfaces/bed.interface';
 import { BedService } from '../../../../../services/bed.service';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { TransferpatientComponent } from '../../../../../components/transferpatient/transferpatient.component';
+import { timeout } from 'rxjs';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -28,7 +29,7 @@ import { TransferpatientComponent } from '../../../../../components/transferpati
 })
 export class ManagePatientComponent {
   title = 'Gestionar Estado:';
-  muestra: string;
+  muestra: string = "No hay cama";
 
   patientId!: number;
   patient!: PatientInterface;
@@ -139,8 +140,8 @@ export class ManagePatientComponent {
           this.showSelectRoom = true;
 
         this.updateArea();
-
-        this.bedService.getBedDataById(this.patient.id).subscribe((data) => {
+        
+        this.bedService.getBedDataById(this.patient.bedId).subscribe((data) => {
           this.muestra = data.bedCode;
           console.log(this.muestra)
         });
