@@ -4,12 +4,13 @@ import { ConsultationRoutingModule } from './consultation-routing.module'; // Ru
 import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
 import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
 import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
-
+import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
 @NgModule({
   declarations: [
     ConsultationComponent,
     CreateComponent,
     ManageComponent,
+    CalendarComponent,
   ],
   imports: [
     CommonModule, // Importa CommonModule para acceder a las directivas comunes de Angular
