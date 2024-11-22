@@ -75,7 +75,6 @@ namespace ApiHospital.Data
 
             modelBuilder
                 .Entity<Bed>()
-                .HasQueryFilter(x => x.IsDeleted == false)
                 .HasOne<Patient>()
                 .WithOne()
                 .HasForeignKey<Patient>(p => p.BedId);
