@@ -9,6 +9,5 @@ namespace ApiHospital.Models
         public required string BedCode { get; set; }
         public required int RoomId { get; set; }
         public required bool Availability { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }
