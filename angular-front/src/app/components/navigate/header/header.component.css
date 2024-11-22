@@ -47,6 +47,9 @@ button:hover {
   align-items: center;
 }
 
+.DashboardButton{
+  margin-right:15px
+}
 .LeftButtons {
   justify-content: flex-start;
 }
@@ -109,6 +112,7 @@ button:hover {
   header{
   padding-right: 0px;
   padding-left:0px;
+  justify-content: space-around;
   }
   .icon-bar {
     width: 22px;
@@ -149,6 +153,7 @@ button:hover {
     font-size: 3.5vw;
   }
   .DashboardButton{
-    padding:0px
+    padding:0px;
+    margin-right: 0px;
   }
 }
