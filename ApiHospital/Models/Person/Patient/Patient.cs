@@ -10,6 +10,7 @@ public class Patient : Person
     public required int PatientCode { get; set; }
     public string? EmergencyContact { get; set; }
     public required string Zone { get; set; }
+    public string? Area {get; set;}
     public int? BedId { get; set; }
 
 }
