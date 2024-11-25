@@ -1,10 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DoctorService } from '../../../../../../services/doctor.service';
+import { PatientService } from '../../../../../../services/patient.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-create-appointment',
   templateUrl: './create.component.html',
-  styleUrl: './create.component.css'
+  styleUrls: ['./create.component.css']
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
+  appointmentForm: FormGroup;
+  doctors: { id: number; name: string }[] = []; // Lista de doctores disponibles
+  patients: { id: number; name: string }[] = []; // Lista de pacientes
 
+  constructor(
+    public dialog: MatDialog,
+    private fb: FormBuilder,
+    private doctorService: DoctorService,
+    private patientService: PatientService,
+    private router: Router
+  ) {
+    // Crear el formulario con controles necesarios
+    this.appointmentForm = this.fb.group({
+      doctorId: ['', Validators.required], // Selector para médico
+      patientId: ['', Validators.required], // Selector para paciente
+      date: ['', Validators.required], // Fecha de la cita
+      reason: ['', Validators.maxLength(250)] // Razón de la cita
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadDoctors();
+    this.loadPatients();
+  }
+
+  // Cargar médicos disponibles desde el servicio
+  loadDoctors(): void {
+    this.doctorService.getDoctorData().subscribe(
+      (doctors) => {
+        this.doctors = doctors.map((d) => ({ id: d.id, doctorCode: d.doctorCode, name: `${d.name} ${d.surname1}` }));
+      },
+      (error) => {
+        console.error('Error al cargar los médicos:', error);
+      }
+    );
+  }
+
+  // Cargar pacientes desde el servicio
+  loadPatients(): void {
+    this.patientService.getPatientData().subscribe(
+      (patients) => {
+        this.patients = patients.map((p) => ({ id: p.id, name: `${p.name} ${p.surname1} ${p.surname2}` }));
+      },
+      (error) => {
+        console.error('Error al cargar los pacientes:', error);
+      }
+    );
+  }
+
+  // Manejar la creación del formulario
+  onSubmit(): void {
+    if (this.appointmentForm.valid) {
+      console.log('Formulario enviado:', this.appointmentForm.value);
+      // Aquí puedes llamar a un servicio para guardar la cita
+      this.router.navigate(['/appointments']);
+    } else {
+      console.error('Formulario inválido');
+    }
+  }
 }
