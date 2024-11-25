@@ -42,6 +42,7 @@ namespace ApiHospital.Service {
             string? Cip,
             string? Phone,
             string? Zone,
+            string? Area,
             int? BedId,
             bool? Ingresados,
             int? Hospital
@@ -57,6 +58,7 @@ namespace ApiHospital.Service {
             query = ApplyFilter(query, Cip, p => !string.IsNullOrWhiteSpace(Cip) && p.CIP.ToLower().StartsWith(Cip.ToLower()));
             query = ApplyFilter(query, Phone, p => !string.IsNullOrWhiteSpace(Phone) && p.Phone.ToLower().StartsWith(Phone.ToLower()));
             query = ApplyFilter(query, Zone, p => !string.IsNullOrWhiteSpace(Zone) && p.Zone.ToLower().StartsWith(Zone.ToLower()));
+            query = ApplyFilter(query, Area, p => !string.IsNullOrWhiteSpace(Area) && p.Area.ToLower().StartsWith(Area.ToLower()));
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
             query = ApplyFilter(query, Hospital, p => p.Hospital == Hospital!.Value);

@@ -42,6 +42,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Cip,
             [FromQuery] string? Phone,
             [FromQuery] string? Zone,
+            [FromQuery] string? Area,
             [FromQuery] int? BedId,
             [FromQuery] bool? Ingresados,
             [FromQuery] int? Hospital
@@ -56,6 +57,7 @@ namespace ApiHospital.Controllers
                 Cip,
                 Phone,
                 Zone,
+                Area,
                 BedId,
                 Ingresados,
                 Hospital
