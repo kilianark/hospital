@@ -1,14 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DoctorService } from '../../../../../../services/doctor.service';
 import { PatientService } from '../../../../../../services/patient.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
+// Validador personalizado para asegurar que la fecha sea futura
+export function futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) {
+      return null; // Si el campo está vacío, no se genera error aquí.
+    }
+
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return selectedDate > today ? null : { notFutureDate: true };
+  };
+}
+
 @Component({
   selector: 'app-create-appointment',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  styleUrls: ['./create.component.css'],
 })
 export class CreateComponent implements OnInit {
   appointmentForm: FormGroup;
@@ -26,8 +41,8 @@ export class CreateComponent implements OnInit {
     this.appointmentForm = this.fb.group({
       doctorId: ['', Validators.required], // Selector para médico
       patientId: ['', Validators.required], // Selector para paciente
-      date: ['', Validators.required], // Fecha de la cita
-      reason: ['', Validators.maxLength(250)] // Razón de la cita
+      date: ['', [Validators.required, futureDateValidator()]], // Fecha de la cita con validador personalizado
+      reason: ['', Validators.maxLength(250)], // Razón de la cita
     });
   }
 
@@ -40,7 +55,7 @@ export class CreateComponent implements OnInit {
   loadDoctors(): void {
     this.doctorService.getDoctorData().subscribe(
       (doctors) => {
-        this.doctors = doctors.map((d) => ({ id: d.id, doctorCode: d.doctorCode, name: `${d.name} ${d.surname1}` }));
+        this.doctors = doctors.map((d) => ({ id: d.id, name: `${d.name} ${d.surname1}` }));
       },
       (error) => {
         console.error('Error al cargar los médicos:', error);
