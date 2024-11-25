@@ -5,6 +5,8 @@ import { ConsultationComponent } from '../../pages/home/components/consultation/
 import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
 import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
 import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
+import { HasRoleDirective } from '../../directives/has-role.directive';
+
 @NgModule({
   declarations: [
     ConsultationComponent,
@@ -15,6 +17,7 @@ import { CalendarComponent } from '../../pages/home/components/consultation/cale
   imports: [
     CommonModule, // Importa CommonModule para acceder a las directivas comunes de Angular
     ConsultationRoutingModule, // Asegúrate de importar el módulo de rutas
+    HasRoleDirective
   ]
 })
 export class ConsultationModule {}
