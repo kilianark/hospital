@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
 
 // Componentes
 import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
@@ -36,6 +37,7 @@ import { CalendarComponent } from '../../pages/home/components/consultation/cale
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule
   ],
 })
 export class ConsultationModule {}

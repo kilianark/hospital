@@ -37,7 +37,7 @@ button {
   grid-column-end: 4;
 }
 
-.mat-card-title {
+mat-card-title {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
   font-weight: bold;
   font-size: 1.5em;

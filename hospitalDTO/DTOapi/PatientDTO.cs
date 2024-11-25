@@ -16,7 +16,7 @@ namespace hospitalDTO.DTOapi
         public required string Gender { get; set; }
         public string? EmergencyContact { get; set; }
         public required string Zone { get; set; }
-        public string Area {get; set;}
+        public string? Area {get; set;}
         public int? BedId { get; set; }
         public required int Hospital { get; set; }
     }
