@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { EmergenciesRoutingModule } from './emergencies-routing.module';
 
+import { EmergenciesComponent } from '../../pages/home/components/emergencies/emergencies.component';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    EmergenciesComponent
+  ],
   imports: [
     CommonModule,
     EmergenciesRoutingModule
