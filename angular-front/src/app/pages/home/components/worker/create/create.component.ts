@@ -13,6 +13,8 @@ import { ConfirmDialogComponent } from '../../../../../shared/components/confirm
 import { MatDialog } from '@angular/material/dialog';
 import { DoctorService } from '../../../../../services/doctor.service';
 import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
+import { NurseInterface } from '../../../../../interfaces/nurse.interface';
+import { NurseService } from '../../../../../services/nurse.service';
 import { count } from 'rxjs';
 
 
@@ -38,6 +40,7 @@ export class CreateWorkerComponent implements OnInit {
     private fb: FormBuilder,
     private workerService: WorkerService,
     private doctorService: DoctorService,
+    private nurseService: NurseService,
     private hospitalService: HospitalService,
     private router: Router
   ) {
@@ -162,7 +165,7 @@ export class CreateWorkerComponent implements OnInit {
       const doctorData: DoctorInterface = {
         ...workerData,
         doctorCode: workerData.workerCode, // Asignar el mismo código
-        speciality:  this.workerForm.get('speciality')?.value
+        speciality: this.workerForm.get('speciality')?.value,
       };
 
       this.doctorService.createDoctor(doctorData).subscribe({
@@ -174,6 +177,25 @@ export class CreateWorkerComponent implements OnInit {
         error: (error) => {
           console.error('Error al crear el doctor:', error);
           this.confirm('Error al crear el doctor', 'error');
+        },
+      });
+    } else if (worktype === 'nurse') {
+      // Crear nurse con el mismo código que el workerCode
+      const nurseData: NurseInterface = {
+        ...workerData,
+        nurse_code: workerData.workerCode, // Asignar el mismo código
+        speciality: this.workerForm.get('shift')?.value, // Ejemplo de propiedad adicional
+      };
+
+      this.nurseService.createNurse(nurseData).subscribe({
+        next: (createdNurse) => {
+          console.log('Enfermero creado con éxito:', createdNurse);
+          this.confirm('Enfermero creado', 'success');
+          this.workerForm.reset();
+        },
+        error: (error) => {
+          console.error('Error al crear el enfermero:', error);
+          this.confirm('Error al crear el enfermero', 'error');
         },
       });
     } else {
@@ -190,6 +212,7 @@ export class CreateWorkerComponent implements OnInit {
         },
       });
     }
+
   }
 
 

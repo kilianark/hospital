@@ -23,7 +23,7 @@
 
 
             <mat-form-field appearance="outline">
-              <mat-label for="workerCode">Código:</mat-label>
+              <mat-label for="workerCode">Código trabajador:</mat-label>
               <input matInput type="text" id="workerCode" formControlName="workerCode" />
             </mat-form-field>
 
@@ -48,7 +48,7 @@
               <input matInput type="text" id="dni" formControlName="dni" />
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label for="worktype">Tipo:</mat-label>
+              <mat-label for="worktype">Rol:</mat-label>
               <input matInput type="text" id="numSS" formControlName="worktype" />
             </mat-form-field>
 
@@ -57,8 +57,23 @@
               <input matInput type="text" id="phone" formControlName="phone" />
             </mat-form-field>
 
-            <app-select-zone [zone]="workerForm.get('status')" [showError]="true">
-            </app-select-zone>
+            <mat-form-field id="right" appearance="outline">
+              <mat-label>Hospital:</mat-label>
+              <mat-select formControlName="hospital" multiple>
+                <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
+                <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
+                  {{ hospital.hospitalName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+            <mat-label>Especialidad:</mat-label>
+            <mat-select formControlName="speciality">
+              <mat-option *ngFor="let speciality of getSpecialities()" [value]="speciality">
+                {{ speciality }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
             <!--
             <mat-form-field appearance="outline">
               <mat-label for="status">Estado: </mat-label>
@@ -153,7 +168,7 @@
               </th>
 
               <th (click)="sortData('worktype')">
-                Tipo de Trabajo
+                Rol
                 <span *ngIf="sortField === 'worktype'">
                   <span *ngIf="sortDirection === 'asc'">&#9650;</span>
                   <span *ngIf="sortDirection === 'desc'">&#9660;</span>

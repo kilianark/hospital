@@ -128,6 +128,7 @@ export class AssignRoom implements OnInit, OnDestroy {
     // Actualiza la disponibilidad de la cama a false
     this.updateBedAvailability(bedId, false);
 
+
     // Actualizar los datos del paciente con la nueva cama asignada
     this.patientService.putPatientData(this.patient).subscribe(
       () => {
@@ -154,7 +155,7 @@ export class AssignRoom implements OnInit, OnDestroy {
     bed.availability = isAvailable;
 
     // Enviar la actualización al backend
-    this.bedService.updateBedAvailability(bedId, isAvailable).subscribe(
+    this.bedService.putBedData(bed).subscribe(
       () => {
         console.log(`Cama ${bedId} actualizada a disponibilidad: ${isAvailable}`);
       },

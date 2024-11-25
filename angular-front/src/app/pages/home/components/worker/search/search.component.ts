@@ -277,7 +277,7 @@ export class SearchWorkerComponent implements OnInit {
 
     if (workerCode) {
       exactFilteredworkers = exactFilteredworkers.filter((worker) =>
-        String(worker.id) === workerCode
+        String(worker.workerCode) === workerCode
       );
     }
 
@@ -399,6 +399,15 @@ export class SearchWorkerComponent implements OnInit {
   confirm(message: string,type:string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message,type);
+  }
+  getSpecialities(): string[] {
+
+
+
+
+      return ['Cardiología', 'Neurología', 'Pediatría','Cuidados Intensivos', 'Pediatría', 'Geriatría'];
+
+    return [];
   }
 
 }
