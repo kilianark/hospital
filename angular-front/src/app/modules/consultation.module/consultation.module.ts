@@ -17,6 +17,7 @@ import { ConsultationComponent } from '../../pages/home/components/consultation/
 import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
 import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
 import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
+import { HasRoleDirective } from '../../directives/has-role.directive';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CalendarComponent } from '../../pages/home/components/consultation/cale
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    HasRoleDirective
   ],
 })
 export class ConsultationModule {}

@@ -6,25 +6,25 @@
   <body>
     <div class="slogan">La salud organizada es salud mejorada</div>
     <div class="grid-layout">
-      <div appHasRole="general_patients">
+      <div appHasRole="create_appointment">
         <button class="patient" [routerLink]="['create']">
           <img class="people" src="assets/add-date-calendar-icon.svg" alt="error de carga" />
         </button>
         <p>Pedir cita</p>
       </div>
-      <div appHasRole="general_patients">
+      <div appHasRole="search_appointment">
         <button class="room" [routerLink]="['manage']">
           <img class="room" src="assets/hab.png" alt="error de carga" />
         </button>
         <p>Gestionar citas</p>
       </div>
-      <div appHasRole="general_patients">
+      <div appHasRole="manage_calendar">
         <button class="worker" [routerLink]="['calendar']">
           <img class="worker"  src="assets/date-icon.svg" alt="error de carga">
         </button>
         <p>Calendario</p>
       </div>
-      <div appHasRole="general_patients">
+      <div appHasRole="general_report">
         <button class="worker" [routerLink]="['/home']">
           <img class="worker"  src="assets/paste-icon.svg" alt="error de carga">
         </button>
