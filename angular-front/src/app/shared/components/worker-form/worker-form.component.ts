@@ -135,9 +135,6 @@ export class WorkerFormComponent implements OnInit{
 
 
   private loadHospitalsData(): void {
-    if (this.isEditMode) {
-      this.setFormFields();
-    }
     this.hospitalService.getHospitals().subscribe(
       (hospitals) => {
         this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
@@ -175,7 +172,6 @@ export class WorkerFormComponent implements OnInit{
       
     }
     this.isEditable = false;
-    this.setFormFields();
     // Obtén todos los datos del formulario, incluidos valores deshabilitados
     const workerData: WorkerInterface = this.workerForm.getRawValue();
 
@@ -242,17 +238,6 @@ export class WorkerFormComponent implements OnInit{
 
 
 
-  private setFormFields(): void {
-    if (this.isEditable) {
-      this.workerForm.enable();
-      this.workerForm.get('workerCode')?.disable();
-      this.workerForm.get('hospital')?.disable();
-    } else {
-      this.workerForm.disable();
-      this.workerForm.get('workerCode')?.disable();
-      this.workerForm.get('hospital')?.disable();
-    }
-  }
 
 
 

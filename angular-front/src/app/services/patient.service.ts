@@ -89,8 +89,8 @@ export class PatientService {
     return this.http.put<PatientInterface>(`${this.url}/${patient.id}`, patient); // Correcta inclusión de ID
   }
 
-  undoDeletePatient(patient : PatientInterface): Observable<PatientInterface> {
-    return this.http.get<PatientInterface>(`${this.url}/undo/${patient.id}`);
+  undoDeletePatient(patientId : number): Observable<PatientInterface> {
+    return this.http.get<PatientInterface>(`${this.url}/undo/${patientId}`);
   }
 
   deletePatientData(patientId: number): Observable<PatientInterface> {
