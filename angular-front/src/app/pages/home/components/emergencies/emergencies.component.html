@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Emergencies</title>
+  </head>
+  <body>
+    <div class="slogan">La salud organizada es salud mejorada</div>
+    
+    <div class="grid-layout">
+      <div appHasRole="general_patients">
+        <button class="patient" onclick="window.location.href='/home/emergencies/algo';">
+          <img class="people" src="assets/people.png" alt="error de carga" />
+        </button>
+        <p>Sala de espera</p>
+      </div>
+      <div appHasRole="general_workers">
+        <button class="worker" onclick="window.location.href='/home/emergencies/algo';">
+          <img class="worker"  src="assets/stethoscope-svgrepo-com.svg" alt="error de carga">
+        </button>
+        <p>Mis pacientes</p>
+      </div>
+    </div>
+    
+  </body>
+</html>

@@ -1,1 +1,59 @@
-<p>create works!</p>
+<div class="create-appointment">
+  <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <mat-card-title>{{ "Pedir Cita" }}</mat-card-title>
+    <!-- Selector de médico -->
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccionar Médico</mat-label>
+      <mat-select formControlName="doctorId">
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{ doctor.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="appointmentForm.get('doctorId')?.invalid">
+        Has de seleccionar un médico
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Selector de paciente -->
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccionar Paciente</mat-label>
+      <mat-select formControlName="patientId">
+        <mat-option *ngFor="let patient of patients" [value]="patient.id">
+          {{ patient.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="appointmentForm.get('patientId')?.invalid">
+        Has de seleccionar un paciente
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Fecha de la cita -->
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de la Cita</mat-label>
+      <input matInput formControlName="date" type="date" />
+      <mat-error *ngIf="appointmentForm.get('date')?.hasError('required')">
+        La fecha de la cita es obligatoria.
+      </mat-error>
+      <mat-error *ngIf="appointmentForm.get('date')?.hasError('notFutureDate')">
+        La fecha de la cita no puede ser pasada
+      </mat-error>
+    </mat-form-field>
+
+
+    <!-- Razón de la cita -->
+    <mat-form-field appearance="outline">
+      <mat-label>Razón de la Cita</mat-label>
+      <textarea matInput formControlName="reason" placeholder="Razón de la cita (opcional)"></textarea>
+      <mat-hint align="end">
+        {{ appointmentForm.get('reason')?.value?.length || 0 }}/250
+      </mat-hint>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!appointmentForm.valid">
+        Crear Cita
+      </button>
+      <button mat-button color="primary" routerLink="/appointments">Cancelar</button>
+    </div>
+  </form>
+</div>
