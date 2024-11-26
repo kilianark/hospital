@@ -17,5 +17,9 @@ namespace ApiHospital.Models
         public ICollection<Bed>? Beds { get; set; } = new List<Bed>();
 
         public bool IsDeleted { get; set; }
+
+        public void Undo() {
+            IsDeleted = false;
+        }
     }
 }

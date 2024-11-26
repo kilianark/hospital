@@ -23,5 +23,9 @@ namespace ApiHospital.Models
         public required int Hospital { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public void Undo() {
+            IsDeleted = false;
+        }
     }
 }
