@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { EmergenciesRoutingModule } from './emergencies-routing.module';
 
 import { EmergenciesComponent } from '../../pages/home/components/emergencies/emergencies.component';
+import { PoolPatientsComponent } from '../../pages/home/components/emergencies/pool-patients/pool-patients.component';
 
 
 @NgModule({
   declarations: [
-    EmergenciesComponent
+    EmergenciesComponent,
+    PoolPatientsComponent
   ],
   imports: [
     CommonModule,
