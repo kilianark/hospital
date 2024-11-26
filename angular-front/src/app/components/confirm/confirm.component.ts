@@ -70,6 +70,12 @@ export class ConfirmComponent implements OnInit {
         this.dialogRef.close(true);
       });
     }
+    if (this.data.type == "patient") {
+      console.log("Type patient");
+      this.patientService.undoDeletePatient(this.data.idObjectEliminated).subscribe(() => {
+        this.dialogRef.close(true);
+      });
+    }
   }
 
   closeDialog(): void {
