@@ -6,7 +6,8 @@
   <body>
     <div class="slogan">Sala de espera</div>
     
-    <table>
+    <div class="table-wrapper">
+        <table>
         <thead>
           <tr>
             <th>
@@ -38,9 +39,8 @@
             </th>
           </tr>
         </thead>
-        <!--
         <tbody>
-          <tr *ngFor="let patient of filteredPatients" class="clickable-row">
+          <tr *ngFor="let patient of patients" class="clickable-row">
             <td>{{ getHospitalName(patient.hospital) }}</td>
             <td>{{ patient.patientCode }}</td>
             <td>{{ patient.name }}</td>
@@ -51,14 +51,14 @@
             <td>{{ patient.phone }}</td>
             <td>{{ patient.zone | enumToString : "HOSPITAL_ZONE" }}</td>
             <td>
-              <button mat-button (click)="goToManage(patient.id)">
+              <button mat-button>
                 Assignar
               </button>
             </td>
           </tr>
         </tbody>
-        -->
-      </table>
+        </table>
+    </div>
     
   </body>
 </html>
