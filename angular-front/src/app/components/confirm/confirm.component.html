@@ -2,6 +2,7 @@
   <span class="notification-icon">{{ getIcon() }}</span> <!-- Icono dinámico -->
   <div class="confirmation">
     <p>{{ getMessage() }}</p> <!-- Mensaje dinámico -->
+    <button *ngIf="undoButton" mat-raised-button color="primary" (click)="undo()">Deshacer</button>
   </div>
   <button class="close-button" (click)="closeDialog()">&#10005;</button> <!-- Botón cerrar -->
 </div>

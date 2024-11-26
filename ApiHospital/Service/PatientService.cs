@@ -70,6 +70,11 @@ namespace ApiHospital.Service {
                 .Patients.FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<Patient> GetDeletedPatientById(int id) {
+            return await _context
+                .Patients.IgnoreQueryFilters().FirstOrDefaultAsync(p => p.Id == id);
+        }
+
         public async Task<bool> UpdatePatient(PatientDTO patientDTO, Patient patient) {
 
             _mapper.Map(patientDTO, patient);
@@ -103,6 +108,28 @@ namespace ApiHospital.Service {
         public async Task<bool> DeletePatient(Patient patient) {
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UndoDeletePatient(Patient patient) {
+            patient.Undo();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PatientExists(patient.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return true;
         }
 

@@ -133,6 +133,23 @@ namespace ApiHospital.Controllers
 
             return NoContent();
         }
+        // Get: api/Patient/undo/5
+        [HttpGet("undo/{id}")]
+        public async Task<IActionResult> UndoDeletePatient(int id) {
+
+            var patient = await _service.GetDeletedPatientById(id);
+
+            if (patient == null)
+                return NotFound();
+            
+            var updated = await _service.UndoDeletePatient(patient);
+            
+            if (updated) {
+                return Ok(patient);
+            } else {
+                return NotFound();
+            }
+        }
     }
         
 }
