@@ -8,6 +8,7 @@ import { CreateWorkerComponent } from '../../pages/home/components/worker/create
 import { SearchWorkerComponent } from '../../pages/home/components/worker/search/search.component';
 import { SelectZoneComponent } from '../../shared/components/select-zone/select-zone.component';
 import { HasRoleDirective } from '../../directives/has-role.directive';
+import { WorkerFormComponent } from '../../shared/components/worker-form/worker-form.component';
 @NgModule({
   declarations: [
     CreateWorkerComponent,
@@ -20,7 +21,8 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
     FormsModule,
     SharedModule,
     SelectZoneComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    WorkerFormComponent
   ],
   providers: [provideHttpClient()],
 })
