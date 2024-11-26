@@ -42,6 +42,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Cip,
             [FromQuery] string? Phone,
             [FromQuery] string? Zone,
+            [FromQuery] string? Area,
             [FromQuery] int? BedId,
             [FromQuery] bool? Ingresados,
             [FromQuery] int? Hospital
@@ -56,6 +57,7 @@ namespace ApiHospital.Controllers
                 Cip,
                 Phone,
                 Zone,
+                Area,
                 BedId,
                 Ingresados,
                 Hospital
@@ -132,6 +134,23 @@ namespace ApiHospital.Controllers
 
 
             return NoContent();
+        }
+        // Get: api/Patient/undo/5
+        [HttpGet("undo/{id}")]
+        public async Task<IActionResult> UndoDeletePatient(int id) {
+
+            var patient = await _service.GetDeletedPatientById(id);
+
+            if (patient == null)
+                return NotFound();
+            
+            var updated = await _service.UndoDeletePatient(patient);
+            
+            if (updated) {
+                return Ok(patient);
+            } else {
+                return NotFound();
+            }
         }
     }
         

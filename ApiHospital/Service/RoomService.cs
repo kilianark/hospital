@@ -60,6 +60,14 @@ namespace ApiHospital.Service {
                 .FirstOrDefaultAsync(r => r.Id == roomId); 
         }
 
+        public async Task<Room> GetDeletedRoomById(int roomId) {
+            return await _context
+                .Rooms
+                .IgnoreQueryFilters()
+                .Include(r => r.Beds)
+                .FirstOrDefaultAsync(r => r.Id == roomId); 
+        }
+
         public async Task<bool> UpdateRoom(RoomDTO roomDTO, Room room) {
 
             _mapper.Map(roomDTO, room);
@@ -94,6 +102,28 @@ namespace ApiHospital.Service {
         public async Task<bool> DeleteRoom(Room room) {
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UndoDeleteRoom(Room room) {
+            room.Undo();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RoomExists(room.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return true;
         }
 

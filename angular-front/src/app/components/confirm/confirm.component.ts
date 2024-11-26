@@ -1,21 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MaterialModule } from '../../shared/modules/material.module';
+import { PatientService } from '../../services/patient.service';
+import { PatientInterface } from '../../interfaces/patient.interface';
+import { RoomInterface } from '../../interfaces/room.interface';
+import { RoomService } from '../../services/room.service';
 
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
+  imports: [MaterialModule, CommonModule],
   standalone: true,
   styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent implements OnInit {
+  public undoButton: boolean = false;
   private message: string = '';
   private type: string = 'warning'; 
 
-  constructor(public dialogRef: MatDialogRef<ConfirmComponent>) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA)
+    private data: { idObjectEliminated: number ; type: string},
+
+    public dialogRef: MatDialogRef<ConfirmComponent>, 
+    private patientService: PatientService,
+    private roomService : RoomService) {}
 
   setMessage(messageString: string, type: string = ''): void {
     this.message = messageString;
     this.type = type;
+    if (this.data != null) {
+      this.setUndoButton(true);
+    }
   }
 
   getMessage(): string {
@@ -39,8 +56,24 @@ export class ConfirmComponent implements OnInit {
     }
   }
 
+  setUndoButton(undo: boolean): void {
+    this.undoButton = undo;
+  }
+
+  
+
+  undo(): void {
+    console.log("undo: ", this.data.idObjectEliminated);
+    if (this.data.type == "room") {
+      console.log("Type room");
+      this.roomService.undoDeleteRoom(this.data.idObjectEliminated).subscribe(() => {
+        this.dialogRef.close(true);
+      });
+    }
+  }
+
   closeDialog(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   ngOnInit(): void {

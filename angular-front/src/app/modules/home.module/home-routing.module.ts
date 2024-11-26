@@ -10,7 +10,8 @@ const routes: Routes = [
   {path: 'patient',canActivate: [AuthGuard, RoleGuard], data: { roles: ['general_patients']}, loadChildren: () => import('../patient.module/patient.module').then(m => m.PatientModule)},
   {path: 'room', canActivate: [AuthGuard, RoleGuard], data: { roles: ['general_rooms']}, loadChildren: () => import('../room.module/room.module').then(m => m.RoomModule)},
   {path: 'worker', canActivate: [AuthGuard, RoleGuard], data: { roles: ['general_workers']}, loadChildren: () => import('../worker.module/worker.module').then(m => m.WorkerModule)},
-  {path:'consultation', canActivate:[AuthGuard,RoleGuard], data:{roles:['general_patients']},loadChildren:()=>import('../consultation.module/consultation.module').then(m=> m.ConsultationModule)},
+  {path:'consultation', canActivate:[AuthGuard,RoleGuard], data:{roles:['general_consultations']},loadChildren:()=>import('../consultation.module/consultation.module').then(m=> m.ConsultationModule)},
+  {path: 'emergencies', canActivate:[AuthGuard, RoleGuard], data: {roles: ['general_emergencies']}, loadChildren:()=>import('../emergencies.module/emergencies.module').then(m => m.EmergenciesModule)},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
 

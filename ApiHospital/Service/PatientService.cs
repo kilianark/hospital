@@ -42,6 +42,7 @@ namespace ApiHospital.Service {
             string? Cip,
             string? Phone,
             string? Zone,
+            string? Area,
             int? BedId,
             bool? Ingresados,
             int? Hospital
@@ -57,6 +58,7 @@ namespace ApiHospital.Service {
             query = ApplyFilter(query, Cip, p => !string.IsNullOrWhiteSpace(Cip) && p.CIP.ToLower().StartsWith(Cip.ToLower()));
             query = ApplyFilter(query, Phone, p => !string.IsNullOrWhiteSpace(Phone) && p.Phone.ToLower().StartsWith(Phone.ToLower()));
             query = ApplyFilter(query, Zone, p => !string.IsNullOrWhiteSpace(Zone) && p.Zone.ToLower().StartsWith(Zone.ToLower()));
+            query = ApplyFilter(query, Area, p => !string.IsNullOrWhiteSpace(Area) && p.Area.ToLower().StartsWith(Area.ToLower()));
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
             query = ApplyFilter(query, Hospital, p => p.Hospital == Hospital!.Value);
@@ -68,6 +70,11 @@ namespace ApiHospital.Service {
         public async Task<Patient> GetPatientById(int id) {
             return await _context
                 .Patients.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<Patient> GetDeletedPatientById(int id) {
+            return await _context
+                .Patients.IgnoreQueryFilters().FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<bool> UpdatePatient(PatientDTO patientDTO, Patient patient) {
@@ -103,6 +110,28 @@ namespace ApiHospital.Service {
         public async Task<bool> DeletePatient(Patient patient) {
             _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UndoDeletePatient(Patient patient) {
+            patient.Undo();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PatientExists(patient.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
             return true;
         }
 

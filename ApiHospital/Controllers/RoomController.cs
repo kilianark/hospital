@@ -129,6 +129,23 @@ namespace ApiHospital.Controllers
             await _service.DeleteRoom(room);
             return NoContent();
         }
+        // PUT: api/Room/undo/5
+        [HttpGet("undo/{id}")]
+        public async Task<IActionResult> UndoDeletePatient(int id) {
+
+            var room = await _service.GetDeletedRoomById(id);
+
+            if (room == null)
+                return NotFound();
+            
+            var updated = await _service.UndoDeleteRoom(room);
+            
+            if (updated) {
+                return Ok(room);
+            } else {
+                return NotFound();
+            }
+        }
 
     }
 }
