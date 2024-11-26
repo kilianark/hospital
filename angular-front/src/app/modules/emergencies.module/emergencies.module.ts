@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EmergenciesRoutingModule } from './emergencies-routing.module';
+import { SharedModule } from '../../shared/modules/shared.module';
 
 import { EmergenciesComponent } from '../../pages/home/components/emergencies/emergencies.component';
 import { PoolPatientsComponent } from '../../pages/home/components/emergencies/pool-patients/pool-patients.component';
@@ -14,7 +15,8 @@ import { PoolPatientsComponent } from '../../pages/home/components/emergencies/p
   ],
   imports: [
     CommonModule,
-    EmergenciesRoutingModule
+    EmergenciesRoutingModule,
+    SharedModule
   ]
 })
 export class EmergenciesModule { }
