@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { DoctorService } from '../../../../../../services/doctor.service';
 import { PatientService } from '../../../../../../services/patient.service';
+import { AppointmentService } from '../../../../../../services/appointment.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../../../../../components/confirm/confirm.component';
+import { AppointmentInterface } from '../../../../../../interfaces/appointment.interface';
 
-// Validador personalizado para asegurar que la fecha sea futura
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    if (!control.value) {
-      return null; // Si el campo está vacío, no se genera error aquí.
-    }
+    if (!control.value) return null;
 
     const selectedDate = new Date(control.value);
     const today = new Date();
@@ -27,22 +27,22 @@ export function futureDateValidator(): ValidatorFn {
 })
 export class CreateComponent implements OnInit {
   appointmentForm: FormGroup;
-  doctors: { id: number; name: string }[] = []; // Lista de doctores disponibles
-  patients: { id: number; name: string }[] = []; // Lista de pacientes
+  doctors: { id: number; name: string }[] = [];
+  patients: { id: number; name: string }[] = [];
 
   constructor(
-    public dialog: MatDialog,
     private fb: FormBuilder,
     private doctorService: DoctorService,
     private patientService: PatientService,
-    private router: Router
+    private appointmentService: AppointmentService,
+    private router: Router,
+    public dialog: MatDialog
   ) {
-    // Crear el formulario con controles necesarios
     this.appointmentForm = this.fb.group({
-      doctorId: ['', Validators.required], // Selector para médico
-      patientId: ['', Validators.required], // Selector para paciente
-      date: ['', [Validators.required, futureDateValidator()]], // Fecha de la cita con validador personalizado
-      reason: ['', Validators.maxLength(250)], // Razón de la cita
+      doctorId: ['', Validators.required],
+      patientId: ['', Validators.required],
+      date: ['', [Validators.required, futureDateValidator()]],
+      reason: ['', Validators.maxLength(250)],
     });
   }
 
@@ -51,7 +51,6 @@ export class CreateComponent implements OnInit {
     this.loadPatients();
   }
 
-  // Cargar médicos disponibles desde el servicio
   loadDoctors(): void {
     this.doctorService.getDoctorData().subscribe(
       (doctors) => {
@@ -63,7 +62,6 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  // Cargar pacientes desde el servicio
   loadPatients(): void {
     this.patientService.getPatientData().subscribe(
       (patients) => {
@@ -75,14 +73,25 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  // Manejar la creación del formulario
-  onSubmit(): void {
+  onFormSubmit(): void {
     if (this.appointmentForm.valid) {
-      console.log('Formulario enviado:', this.appointmentForm.value);
-      // Aquí puedes llamar a un servicio para guardar la cita
-      this.router.navigate(['/appointments']);
-    } else {
-      console.error('Formulario inválido');
+      const appointment: AppointmentInterface = this.appointmentForm.value;
+
+      this.appointmentService.createAppointment(appointment).subscribe(
+        (response) => {
+          console.log('Cita registrada:', response);
+          this.confirm('Cita registrada con éxito', 'success');
+        },
+        (error) => {
+          this.confirm('Error al registrar la cita. Inténtalo de nuevo.', 'error');
+          console.error('Error al registrar la cita:', error);
+        }
+      );
     }
+  }
+
+  confirm(message: string, type: string): void {
+    const dialogRef = this.dialog.open(ConfirmComponent, {});
+    dialogRef.componentInstance.setMessage(message, type);
   }
 }

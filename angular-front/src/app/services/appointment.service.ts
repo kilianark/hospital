@@ -7,7 +7,7 @@ import { AppointmentInterface } from '../interfaces/appointment.interface';
   providedIn: 'root',
 })
 export class AppointmentService {
-  private baseUrl = 'https://api.tuhospital.com/appointments'; // Cambia esto por la URL de tu API
+  private baseUrl = 'http://localhost:5124/api/appointments';
   private appointmentUpdated = new Subject<AppointmentInterface>();
 
   constructor(private http: HttpClient) {}

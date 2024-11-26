@@ -1,0 +1,120 @@
+body,
+#birth {
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+}
+form {
+  padding-top: 3%;
+  display: grid;
+  grid-template-columns: 33.33333% 33.33333% 33.33333%;
+  margin-left: 100px;
+  grid-template-rows: auto auto auto auto;
+}
+#divSep{
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#hist-pat {
+  align-items: center;
+  width: auto;
+  height: auto;
+  margin-right: 0;
+  margin-left: 10px;
+}
+mat-card-actions{
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+mat-form-field {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+mat-card-content {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+mat-card-title {
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  font-weight: bold;
+  font-size: 1.5em;
+}
+legend {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+button {
+  width: 9vw;
+  height: 10vh;
+  margin-right: 2vw;
+}
+#hospi{
+  grid-column-start:3 ;
+  grid-column-end: 4;
+}
+@media screen and (max-width: 768px) {
+  form {
+    display: grid;
+    grid-template-columns: 48vw 48vw;
+    grid-template-rows: auto auto auto;
+    margin-left: 10px;
+    align-items: first baseline;
+  }
+  #hospi{
+    grid-column-start:2 ;
+    grid-column-end: 3;
+  }
+  button {
+    width: 20vw;
+    height: 10vw;
+    margin-right: 2vw;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  .select {
+    grid-template-columns: auto auto;
+  }
+  button {
+    width: 40vw;
+    height: 7vh;
+  }
+  mat-card-actions{
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+  mat-card-content {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .form-col {
+    display: grid;
+    grid-template-columns: 18vw 18vw 20vw 20vw;
+    grid-template-rows: 4vh 4vh 4vh 4vh 4vh;
+    max-width: 800px;
+    margin-left: 7.5%;
+  }
+  .peu-form {
+    grid-template-columns: 18vw 18vw 18vw 20vw;
+    grid-template-rows: 5vh;
+  }
+  legend {
+    font-size: 1.2em;
+  }
+  .reset {
+    width: 40vw;
+    height: 7vh;
+  }
+  .submit {
+    width: 40vw;
+    height: 7vh;
+  }
+  label {
+    font-size: 0.7em;
+  }
+}
