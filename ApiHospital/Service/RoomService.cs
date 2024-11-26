@@ -138,8 +138,8 @@ namespace ApiHospital.Service {
             return await _context.Beds.AnyAsync(b => b.RoomId == room.Id);
         }
 
-        public async Task<bool> RoomNumberExists(int roomNumber) {
-            return await _context.Rooms.AnyAsync(r => r.RoomNumber == roomNumber);
+        public async Task<bool> RoomNumberExists(int roomNumber, int? hospital) {
+            return await _context.Rooms.AnyAsync(r => r.RoomNumber == roomNumber && r.Hospital == hospital);
         }
 
         private IQueryable<Room> ApplyFilter(

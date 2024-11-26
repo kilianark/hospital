@@ -16,6 +16,10 @@
             </mat-option>
         </mat-select>
         <mat-error *ngIf="addRoomForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
+        <mat-error
+            *ngIf="addRoomForm.get('hospital')?.hasError('roomExists') && addRoomForm.get('hospital')?.touched">
+            Este número de habitación en este hospital ya existe.
+          </mat-error>
       </mat-form-field>
     </div>
     
@@ -35,7 +39,7 @@
 
           <mat-error
             *ngIf="addRoomForm.get('roomNumber')?.hasError('roomExists') && addRoomForm.get('roomNumber')?.touched">
-            Este número de habitación ya existe.
+            Este número de habitación en este hospital ya existe.
           </mat-error>
 
         </mat-form-field>

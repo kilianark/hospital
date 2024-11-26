@@ -71,9 +71,10 @@ namespace ApiHospital.Controllers
 
         // GET: api/Rooms/exists/101
         [HttpGet("exists/{roomNumber}")]
-        public async Task<IActionResult> RoomExistsByNumber(int roomNumber)
+        public async Task<IActionResult> RoomExistsByNumber(int roomNumber,
+            [FromQuery] int? hospital = null)
         {
-            return Ok(await _service.RoomNumberExists(roomNumber));
+            return Ok(await _service.RoomNumberExists(roomNumber, hospital));
 
         }
 
@@ -106,7 +107,7 @@ namespace ApiHospital.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(RoomDTO roomDTO)
         {
-            if (await _service.RoomNumberExists(roomDTO.RoomNumber))
+            if (await _service.RoomNumberExists(roomDTO.RoomNumber, roomDTO.Hospital))
             {
                 return BadRequest("Room number already exists.");
             }
