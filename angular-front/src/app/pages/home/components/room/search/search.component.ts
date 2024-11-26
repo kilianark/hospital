@@ -225,8 +225,7 @@ export class SearchRoomComponent implements OnInit {
 
         this.roomService.deleteRoomData(room.id).subscribe(() => {
           this.onSubmit(); // Actualizamos la lista después de eliminar
-          this.confirm(`Habitación ${room.roomNumber} eliminada.`, 'success');
-          this.isLoading = false;
+          this.confirm(`Habitación ${room.roomNumber} eliminada.`, 'success', room.id);
         },
         error => {
           if (error.status == 400) {
@@ -380,8 +379,17 @@ export class SearchRoomComponent implements OnInit {
     this.isVisible = true;
   }
 
-  confirm(message: string,type:string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {});
+  confirm(message: string,type:string, roomId: number = null) {
+    console.log(roomId);
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      data: {idObjectEliminated: roomId, type: "room"}
+    });
     dialogRef.componentInstance.setMessage(message,type);
+    dialogRef.afterClosed().subscribe((undo) => {
+      if (undo) {
+        this.onSubmit();
+      }
+    })
   }
+  
 }

@@ -30,6 +30,10 @@ export class RoomService {
     return this.http.put<RoomInterface>(this.url + '/' + room.id, room);
   }
 
+  undoDeleteRoom(roomId : number): Observable<RoomInterface> {
+    return this.http.get<RoomInterface>(`${this.url}/undo/${roomId}`);
+  }
+
   deleteRoomData (roomId: number): Observable<RoomInterface> {
     return this.http.delete<RoomInterface>(this.url + '/' + roomId);
   }
