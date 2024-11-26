@@ -71,9 +71,12 @@ export class RoomService {
     return this.http.get<RoomInterface[]>(this.url, { params });
   }
 
-  checkRoomNumberExists(room_number: number): Observable<boolean>{
-
-    return this.http.get<boolean>((`${this.url}/exists/${room_number}`));
+  checkRoomNumberExists(room_number: number, hospital: number): Observable<boolean>{
+    let params = new HttpParams()
+    if (hospital != null) {
+      params = params.set('Hospital', hospital)
+    }
+    return this.http.get<boolean>(`${this.url}/exists/${room_number}`, { params });
     //this.url + '/exists/' + room_number
   }
 

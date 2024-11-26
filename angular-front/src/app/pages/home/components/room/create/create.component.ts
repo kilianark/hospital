@@ -79,7 +79,7 @@ export class CreateComponent implements OnInit {
 
       floor: [{ value: '', disabled: true }, Validators.required],
       availability: [true],
-      hospital: ['', Validators.required]
+      hospital: ['', [Validators.required], [this.hospitalValidator.bind(this)]]
     });
     this.addRoomForm.patchValue({
       zone: HospitalZone.Inactivo
@@ -99,7 +99,17 @@ export class CreateComponent implements OnInit {
 
   roomNumberValidator(control: AbstractControl): Observable<{ [key:string]: boolean } | null > {
 
-    return this.roomService.checkRoomNumberExists(control.value).pipe(
+    return this.roomService.checkRoomNumberExists(control.value, this.addRoomForm.get('hospital').value).pipe(
+      debounceTime(500),
+      map((exists: boolean) => {
+        return exists ? { roomExists: true} : null;
+      })
+    );
+  }
+
+  hospitalValidator(control: AbstractControl): Observable<{ [key:string]: boolean } | null > {
+
+    return this.roomService.checkRoomNumberExists(this.addRoomForm.get('roomNumber').value, control.value).pipe(
       debounceTime(500),
       map((exists: boolean) => {
         return exists ? { roomExists: true} : null;
