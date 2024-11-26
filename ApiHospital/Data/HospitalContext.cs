@@ -92,8 +92,11 @@ namespace ApiHospital.Data
             
             modelBuilder.Entity<Consultation>()
                 .HasQueryFilter(x => x.IsDeleted == false);
-            
-            modelBuilder.Entity<Hospital>()
+        
+            modelBuilder.Entity<Hospital>()            
+                .HasQueryFilter(x => x.IsDeleted == false);
+                
+            modelBuilder.Entity<Appointment>()
                 .HasQueryFilter(x => x.IsDeleted == false);
         }
     }

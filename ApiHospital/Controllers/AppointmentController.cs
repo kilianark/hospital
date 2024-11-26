@@ -30,11 +30,10 @@ namespace ApiHospital.Controllers
         // GET: api/Appointments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments(
-        [FromQuery] int? patientId = null,
-        [FromQuery] int? doctorId = null,
-        [FromQuery] DateTime? appointmentDate = null,
-        [FromQuery] string? status = null,
-        [FromQuery] bool? isDeleted = null
+        [FromQuery] int? patientId,
+        [FromQuery] int? doctorId,
+        [FromQuery] DateTime? appointmentDate,
+        [FromQuery] string? status
     )
     {
         IQueryable<Appointment> query = _context.Appointments;
@@ -42,7 +41,6 @@ namespace ApiHospital.Controllers
         query = ApplyFilter(query, doctorId, a => a.DoctorId == doctorId.Value);
         query = ApplyFilter(query, appointmentDate, a => a.AppointmentDate.Date == appointmentDate.Value.Date);
         query = ApplyFilter(query, status, a => !string.IsNullOrWhiteSpace(a.Status) && a.Status.ToLower().StartsWith(status.ToLower()));
-        query = ApplyFilter(query, isDeleted, a => a.IsDeleted == isDeleted.Value);
 
         var appointments = await query.ToListAsync();
         return Ok(_mapper.Map<IEnumerable<AppointmentDTO>>(appointments));
