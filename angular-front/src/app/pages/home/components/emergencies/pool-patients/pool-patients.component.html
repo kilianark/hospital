@@ -1,1 +1,64 @@
-<p>pool-patients works!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Emergencies</title>
+  </head>
+  <body>
+    <div class="slogan">Sala de espera</div>
+    
+    <table>
+        <thead>
+          <tr>
+            <th>
+              Hospital
+            </th>
+            <th>
+              Código Paciente
+            </th>
+            <th>
+              Nombre
+            </th>
+            <th>
+              Primer Apellido
+            </th>
+            <th>
+              Segundo Apellido
+            </th>
+            <th>
+              DNI
+            </th>
+            <th>
+              CIP
+            </th>
+            <th>
+              Teléfono
+            </th>
+            <th>
+              Estado
+            </th>
+          </tr>
+        </thead>
+        <!--
+        <tbody>
+          <tr *ngFor="let patient of filteredPatients" class="clickable-row">
+            <td>{{ getHospitalName(patient.hospital) }}</td>
+            <td>{{ patient.patientCode }}</td>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.surname1 }}</td>
+            <td>{{ patient.surname2 }}</td>
+            <td>{{ patient.dni }}</td>
+            <td>{{ patient.cip }}</td>
+            <td>{{ patient.phone }}</td>
+            <td>{{ patient.zone | enumToString : "HOSPITAL_ZONE" }}</td>
+            <td>
+              <button mat-button (click)="goToManage(patient.id)">
+                Assignar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        -->
+      </table>
+    
+  </body>
+</html>

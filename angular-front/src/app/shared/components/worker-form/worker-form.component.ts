@@ -24,6 +24,8 @@ import { AsyncValidators } from '../../../validators/AsyncValidators';
 import { Country } from '../../../interfaces/country.interface';
 import { HospitalInterface } from '../../../interfaces/hospital.interface';
 import { KeycloakService } from 'keycloak-angular';
+import { NurseInterface } from '../../../interfaces/nurse.interface';
+import { NurseService } from '../../../services/nurse.service';
 @Component({
   selector: 'app-worker-form',
   standalone: true,
@@ -57,6 +59,7 @@ export class WorkerFormComponent implements OnInit{
     private workerService: WorkerService,
     private doctorService: DoctorService,
     private hospitalService: HospitalService,
+    private nurseService:NurseService,
     private router: Router
   ) {
     // Configuración de rango de fechas para la fecha de nacimiento
@@ -132,9 +135,6 @@ export class WorkerFormComponent implements OnInit{
 
 
   private loadHospitalsData(): void {
-    if (this.isEditMode) {
-      this.setFormFields();
-    }
     this.hospitalService.getHospitals().subscribe(
       (hospitals) => {
         this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
@@ -172,7 +172,6 @@ export class WorkerFormComponent implements OnInit{
       
     }
     this.isEditable = false;
-    this.setFormFields();
     // Obtén todos los datos del formulario, incluidos valores deshabilitados
     const workerData: WorkerInterface = this.workerForm.getRawValue();
 
@@ -188,7 +187,7 @@ export class WorkerFormComponent implements OnInit{
       const doctorData: DoctorInterface = {
         ...workerData,
         doctorCode: workerData.workerCode, // Asignar el mismo código
-        speciality:  this.workerForm.get('speciality')?.value
+        speciality:  this.workerForm.get('speciality')?.value,
       };
 
       this.doctorService.createDoctor(doctorData).subscribe({
@@ -201,7 +200,26 @@ export class WorkerFormComponent implements OnInit{
           console.error('Error al crear el doctor:', error);
           this.confirm('Error al crear el doctor', 'error');
         },
-      });
+      }); 
+       } else if (worktype === 'nurse') {
+        // Crear nurse con el mismo código que el workerCode
+        const nurseData: NurseInterface = {
+          ...workerData,
+          nurse_code: workerData.workerCode, // Asignar el mismo código
+          speciality: this.workerForm.get('shift')?.value, // Ejemplo de propiedad adicional
+        };
+  
+        this.nurseService.createNurse(nurseData).subscribe({
+          next: (createdNurse) => {
+            console.log('Enfermero creado con éxito:', createdNurse);
+            this.confirm('Enfermero creado', 'success');
+            this.workerForm.reset();
+          },
+          error: (error) => {
+            console.error('Error al crear el enfermero:', error);
+            this.confirm('Error al crear el enfermero', 'error');
+          },
+        });
     } else {
       // Crear solo el worker
       this.workerService.createWorker(workerData).subscribe({
@@ -220,17 +238,6 @@ export class WorkerFormComponent implements OnInit{
 
 
 
-  private setFormFields(): void {
-    if (this.isEditable) {
-      this.workerForm.enable();
-      this.workerForm.get('workerCode')?.disable();
-      this.workerForm.get('hospital')?.disable();
-    } else {
-      this.workerForm.disable();
-      this.workerForm.get('workerCode')?.disable();
-      this.workerForm.get('hospital')?.disable();
-    }
-  }
 
 
 
