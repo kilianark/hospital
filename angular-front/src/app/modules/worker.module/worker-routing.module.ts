@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateWorkerComponent } from '../../pages/home/components/worker/create/create.component';
 import { RoleGuard } from '../../guard/role.guard';
-import { SearchPatientComponent } from '../../pages/home/components/patient/search/search.component';
 import { SearchWorkerComponent } from '../../pages/home/components/worker/search/search.component';
 import { WorkerComponent } from '../../pages/home/components/worker/worker.component';
 import { AuthGuard } from '../../guard/auth.guard';
