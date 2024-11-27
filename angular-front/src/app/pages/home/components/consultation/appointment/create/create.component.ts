@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     this.appointmentForm = this.fb.group({
       doctorId: ['', Validators.required],
       patientId: ['', Validators.required],
-      date: ['', [Validators.required, futureDateValidator()]],
+      appointmentDate: ['', [Validators.required, futureDateValidator()]],
       reason: ['', Validators.maxLength(250)],
     });
   }
@@ -72,15 +72,25 @@ export class CreateComponent implements OnInit {
       }
     );
   }
+  private formatDate(date: string): string {
+    return date ? date.split('T')[0] : '';
+  }
 
   onFormSubmit(): void {
     if (this.appointmentForm.valid) {
-      const appointment: AppointmentInterface = this.appointmentForm.value;
+      const formValue = this.appointmentForm.value;
+      const appointment: AppointmentInterface = {
+        ...formValue,
+        appointmentDate: this.formatDate(formValue.appointmentDate), // Aseguramos formato correcto
+      };
+
+      console.log('Valor enviado:', appointment); // Para depuración
 
       this.appointmentService.createAppointment(appointment).subscribe(
         (response) => {
           console.log('Cita registrada:', response);
           this.confirm('Cita registrada con éxito', 'success');
+          this.router.navigate(['/home/consultation/']);
         },
         (error) => {
           this.confirm('Error al registrar la cita. Inténtalo de nuevo.', 'error');

@@ -69,8 +69,9 @@ export class AssignRoom implements OnInit, OnDestroy {
   }
 
   loadRoomData() {
-    this.roomService.searchRooms(this.roomId).subscribe((data) => {
-      this.room = data[0];
+    this.roomService.getRoomById(this.roomId).subscribe((data) => {
+      console.log("Room: " + data)
+      this.room = data;
     });
 
     this.bedService.getBedsByRoomId(this.roomId).subscribe((data) => {
@@ -121,10 +122,11 @@ export class AssignRoom implements OnInit, OnDestroy {
     }
 
     console.log('Asignando cama:', bedId);
+    console.log(this.room);
 
     // Actualiza el ID de la cama asignada al paciente
     this.patient.bedId = bedId;
-
+    this.patient.area = this.room.area;
     // Actualiza la disponibilidad de la cama a false
     this.updateBedAvailability(bedId, false);
 

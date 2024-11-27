@@ -30,11 +30,11 @@
     <!-- Fecha de la cita -->
     <mat-form-field appearance="outline">
       <mat-label>Fecha de la Cita</mat-label>
-      <input matInput formControlName="date" type="date" />
-      <mat-error *ngIf="appointmentForm.get('date')?.hasError('required')">
+      <input matInput formControlName="appointmentDate" type="date" />
+      <mat-error *ngIf="appointmentForm.get('appointmentDate')?.hasError('required')">
         La fecha de la cita es obligatoria.
       </mat-error>
-      <mat-error *ngIf="appointmentForm.get('date')?.hasError('notFutureDate')">
+      <mat-error *ngIf="appointmentForm.get('appointmentDate')?.hasError('notFutureDate')">
         La fecha de la cita no puede ser pasada
       </mat-error>
     </mat-form-field>
