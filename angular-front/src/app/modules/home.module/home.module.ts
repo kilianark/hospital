@@ -17,6 +17,7 @@ import { WorkerModule } from '../worker.module/worker.module';
 import { ProfileComponent } from '../../pages/home/components/profile/profile.component';
 
 import { HasRoleDirective } from '../../directives/has-role.directive';
+import { WorkerFormComponent } from '../../shared/components/worker-form/worker-form.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterLinkActive,
     RouterOutlet,
     SharedModule,
+    WorkerFormComponent,
     HasRoleDirective,
     TranslateModule.forRoot({
       loader: {

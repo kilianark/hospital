@@ -19,11 +19,7 @@ import { CommonModule } from '@angular/common';
 import {ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { SharedModule } from '../../modules/shared.module';
-import { pdfGeneratorService } from '../../../services/pdfGenerator.service';
-import { AsyncValidators } from '../../../validators/AsyncValidators';
-import { Country } from '../../../interfaces/country.interface';
-import { HospitalInterface } from '../../../interfaces/hospital.interface';
-import { KeycloakService } from 'keycloak-angular';
+import { ActivatedRoute } from '@angular/router';
 import { NurseInterface } from '../../../interfaces/nurse.interface';
 import { NurseService } from '../../../services/nurse.service';
 @Component({
@@ -45,6 +41,7 @@ export class WorkerFormComponent implements OnInit{
   @Output() formReset = new EventEmitter<void>();
   public workerForm: FormGroup;
   public countries = countries;
+  public formTitle: string = '';
   public hospitals: any[] = [];
   public minDateBirth: Date;
   public maxDateBirth: Date;
@@ -52,6 +49,9 @@ export class WorkerFormComponent implements OnInit{
   public lastId: number = 0;
   public workerCount:number = 0;
   public isEditable: boolean = false;
+  public doctorID : number;
+  public profileForm: FormGroup;
+  public doctor: DoctorInterface;
 
   constructor(
     public dialog: MatDialog,
@@ -60,20 +60,35 @@ export class WorkerFormComponent implements OnInit{
     private doctorService: DoctorService,
     private hospitalService: HospitalService,
     private nurseService:NurseService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     // Configuración de rango de fechas para la fecha de nacimiento
     const today = new Date();
     this.minDateBirth = new Date(today.getFullYear() - 150, today.getMonth(), today.getDate());
     this.maxDateBirth = today;
 
+    this.route.params.subscribe((params) => {
+      this.doctorID = +params['id'];
+      this.doctorService.getDoctorData(this.doctorID).subscribe((data) => {
+        this.doctor = data[0];
+        this.doctor.birthDate = new Date(this.doctor.birthDate)
+
+        this.profileForm.patchValue({
+          ...this.doctor,
+          birth: this.doctor.birthDate.toISOString().split('T')[0],
+          speciality: this.doctor.worktype + " - " + this.doctor.speciality
+
+        });
+      });
+    });
   }
 
   ngOnInit(): void {
     this.initForm();
     this.loadHospitalsData(); // Llama al método para cargar hospitales
     this.loadWorkerData(); // Carga los datos del trabajador si está en modo de edición
-
+    this.updateFormTitle();
 
   }
 
@@ -239,8 +254,29 @@ export class WorkerFormComponent implements OnInit{
 
 
 
-
-
+  toggleEditMode(): void {
+    this.isEditable = !this.isEditable;
+    this.updateFormTitle();
+    this.setFormFields();
+  }
+  /** Cambia el titulo visible segun el modo */
+  private updateFormTitle(): void {
+    if (this.isEditMode) {
+      this.formTitle = this.isEditable ? 'Editar Trabajador' : 'Perfil Trabajador';
+    } else {
+      this.formTitle = 'Crear Paciente';
+    }
+  }
+  private setFormFields(): void {
+    if (this.isEditable) {
+      this.workerForm.enable();
+      this.workerForm.get('workerCode')?.disable();
+    } else {
+      this.workerForm.disable();
+      this.workerForm.get('workerCode')?.disable();
+    }
+  }
+  
   resetForm(): void {
     const currentWorkerCode = this.workerForm.get('id')?.value;
     this.workerForm.reset(); // Resetea el formulario
@@ -259,6 +295,14 @@ export class WorkerFormComponent implements OnInit{
       return ['Cuidados Intensivos', 'Pediatría', 'Geriatría'];
     }
     return [];
+  }
+
+
+  onSubmit() {
+    if(this.profileForm.invalid) return;
+
+    console.log('Perfil actualizado');
+    this.confirm('Cambios guardados correctamente', 'success');;
   }
 
 }

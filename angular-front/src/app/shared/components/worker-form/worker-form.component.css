@@ -118,3 +118,98 @@ button {
     font-size: 0.7em;
   }
 }
+
+
+
+.personalTitle {
+  margin-left: 3vw;
+  font-size: 20px;
+}
+
+.personalData {
+  display: grid;
+  grid-template-columns: 35vw 40vw;
+  margin-left: 3vw;
+  column-gap: 2vw;
+}
+.personalData > div {
+  display: flex;
+  margin-top: 4vh;
+}
+
+.userData {
+  width: 40vw;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userData > div {
+  display: flex;
+  margin-top: 4vh;
+}
+
+.dataTitle {
+  font-size: 18px;
+  align-self: center;
+  margin-top: 5vh;
+}
+
+.sumbitButton {
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: rgb(76, 217, 100);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  border: 0px;
+  margin-top: 5vh;
+}
+@media screen and (max-width: 768px) {
+  .personalData > div {
+    display: flex;
+    margin-top: 4vh;
+  }
+  .userData > div {
+    display: flex;
+    margin-top: 4vh;
+  }
+  .personalData {
+    column-gap: 7vw;
+  }
+  form {
+    margin-left: 4.5%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .personalData {
+    width: 40vw;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    font-size: 0.9em;
+  }
+
+  .personalData > div {
+    display: flex;
+    margin-top: 4vh;
+  }
+  input,
+  select {
+    font-size: 0.8em;
+  }
+  .userData {
+    width: 80%;
+  }
+  .userData > div {
+    font-size: 0.9em;
+
+  }
+}
