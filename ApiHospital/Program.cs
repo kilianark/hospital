@@ -35,6 +35,7 @@ builder.Services.AddDbContext<HospitalContext>(opt => opt.UseOracle(builder.Conf
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<PatientService>();
+builder.Services.AddScoped<WorkerService>();
 builder.Services.AddSwaggerGen(cfg => 
 {
   cfg.CustomSchemaIds(type => type.ToString());

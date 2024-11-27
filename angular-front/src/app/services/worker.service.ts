@@ -67,6 +67,10 @@ export class WorkerService {
   deleteWorkerData(WorkerId: number): Observable<WorkerInterface> {
     return this.http.delete<WorkerInterface>(`${this.apiUrl}/${WorkerId}`);
   }
+
+  undoDeletePatient(workerId : number): Observable<WorkerInterface> {
+    return this.http.get<WorkerInterface>(`${this.apiUrl}/undo/${workerId}`);
+  }
   // Verifica si el DNI ya existe en la base de datos, excluyendo un código de trabajador si es necesario
   checkDniExists(dni: string, excludeWorkerCode?: string): Observable<boolean> {
     const url = `${this.apiUrl}/check-dni`;  // Asegúrate de que esta URL esté correctamente apuntando al endpoint de trabajadores
