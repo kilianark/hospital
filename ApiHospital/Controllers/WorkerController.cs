@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using ApiHospital.Service;
 
 namespace ApiHospital.Controllers
 {
@@ -25,10 +26,13 @@ namespace ApiHospital.Controllers
         private readonly HospitalContext _context;
         private readonly IMapper _mapper;
 
-        public WorkerController(HospitalContext context, IMapper mapper)
+        private readonly WorkerService _service;
+
+        public WorkerController(HospitalContext context, IMapper mapper, WorkerService service)
         {
             _mapper = mapper;
             _context = context;
+            _service = service;
         }
 
         // GET: api/Workers
@@ -146,6 +150,25 @@ namespace ApiHospital.Controllers
 
             return NoContent();
         }
+
+        // GET: api/Worker/undo/5
+        [HttpGet("undo/{id}")]
+        public async Task<IActionResult> UndoDeleteWorker(int id) {
+
+            var worker = await _service.GetDeletedWorkerById(id);
+
+            
+            if (worker == null){
+                return NotFound();
+            }
+            var updated = await _service.UndoDeleteWorker(worker);
+            
+            if (updated) {
+                return Ok(worker);
+            } else {
+                return NotFound();
+            }
+        } 
 
         private bool WorkerExists(int id)
         {

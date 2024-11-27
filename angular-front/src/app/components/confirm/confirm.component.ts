@@ -6,6 +6,7 @@ import { PatientService } from '../../services/patient.service';
 import { PatientInterface } from '../../interfaces/patient.interface';
 import { RoomInterface } from '../../interfaces/room.interface';
 import { RoomService } from '../../services/room.service';
+import { WorkerService } from '../../services/worker.service';
 
 @Component({
   selector: 'app-confirm',
@@ -25,7 +26,8 @@ export class ConfirmComponent implements OnInit {
 
     public dialogRef: MatDialogRef<ConfirmComponent>, 
     private patientService: PatientService,
-    private roomService : RoomService) {}
+    private roomService : RoomService,
+    private workerService : WorkerService) {}
 
   setMessage(messageString: string, type: string = ''): void {
     this.message = messageString;
@@ -73,6 +75,11 @@ export class ConfirmComponent implements OnInit {
     if (this.data.type == "patient") {
       console.log("Type patient");
       this.patientService.undoDeletePatient(this.data.idObjectEliminated).subscribe(() => {
+        this.dialogRef.close(true);
+      });
+    }
+    if (this.data.type == "worker") {
+      this.workerService.undoDeletePatient(this.data.idObjectEliminated).subscribe(() => {
         this.dialogRef.close(true);
       });
     }

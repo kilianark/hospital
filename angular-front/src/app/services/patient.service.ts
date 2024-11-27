@@ -54,7 +54,7 @@ export class PatientService {
     }
 
     if (Status != null && Status != undefined && Status.trim() !== "") {
-      params = params.set('Status', Status);
+      params = params.set('Zone', Status);
     }
 
     if (BedId != null && BedId != 0) {

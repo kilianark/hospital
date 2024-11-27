@@ -318,27 +318,7 @@ export class SearchWorkerComponent implements OnInit {
 
   }
 
-  openDialog(workerId: string) {
-    let popupRef = this.dialog.open(RecordComponent, {
-      width: '80%',
-      height: '100%',
-      maxWidth: '100vw',
-      panelClass: 'full-width-dialog',
-      data: workerId,
-    });
-
-    popupRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.WorkerService.getWorkerData().subscribe((data) => {
-          this.workers = data.map(worker => ({
-            ...worker,
-            status: worker.zone
-          }));
-          this.searchworkers();
-        });
-      }
-    });
-  }
+  
 
   goToManage(workerId: number) {
     this.router.navigate(['/home/worker/manage', { id: workerId }]);
@@ -348,7 +328,7 @@ export class SearchWorkerComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Eliminar Paciente',
-        message: `¿Estás seguro de que deseas eliminar al paciente ${worker.name} ${worker.surname1}?`
+        message: `¿Estás seguro de que deseas eliminar al trabajador ${worker.name} ${worker.surname1}?`
       }
     });
 
@@ -359,13 +339,13 @@ export class SearchWorkerComponent implements OnInit {
           // Eliminamos el paciente de la lista
           this.workers = this.workers.filter(p => p.id !== worker.id);
           this.searchworkers();
-          console.log(`Paciente ${worker.name} ${worker.surname1} eliminado.`);
+          this.confirm(`Trabajador ${worker.name} ${worker.surname1} eliminado.`, "success", worker);
         },
         error => {
           if (error.status == 400) {
-            this.confirm(`Error al eliminar paciente, no se puede eliminar paciente con cama assignada.`, 'error');
+            this.confirm(`Error al eliminar trabajador, no se puede eliminar paciente con cama assignada.`, 'error');
           } else {
-            this.confirm(`Error al eliminar paciente`, 'error');
+            this.confirm(`Error al eliminar trabajador`, 'error');
           }
         });
       } else {
@@ -396,9 +376,17 @@ export class SearchWorkerComponent implements OnInit {
     this.isVisible = true;
   }
 
-  confirm(message: string,type:string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {});
+  confirm(message: string,type:string, worker: WorkerInterface = null) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      data: {idObjectEliminated: worker.id, type: "worker"}
+    });
     dialogRef.componentInstance.setMessage(message,type);
+    dialogRef.afterClosed().subscribe((undo) => {
+      if (undo) {
+        this.workers.push(worker);
+        this.onSubmit();
+      }
+    })
   }
   getSpecialities(): string[] {
 

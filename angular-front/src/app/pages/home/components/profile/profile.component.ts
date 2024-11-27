@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfirmComponent } from '../../../../components/confirm/confirm.component';
-
-
-import { countries } from '../../../../store/country-data.store';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Country } from '../../../../interfaces/country.interface';
-import { DoctorInterface } from '../../../../interfaces/doctor.interface';
-import { DoctorService } from '../../../../services/doctor.service';
-import { ActivatedRoute } from '@angular/router';
+import { ConfirmComponent } from '../../../../components/confirm/confirm.component'; /* Missatge que confirma que la petició ha sigut correcte */
+import { Router } from '@angular/router';
+import { WorkerInterface } from '../../../../interfaces/worker.interface';
+import { WorkerService } from '../../../../services/worker.service';
+import { VERSION as CDK_VERSION } from '@angular/cdk';
+import { VERSION as MAT_VERSION } from '@angular/material/core';
+import { HospitalZone } from '../../../../enums/hospital-zones.enum';
+import { WorkerFormComponent } from '../../../../shared/components/worker-form/worker-form.component';
+
+console.info('Angular CDK version', CDK_VERSION.full);
+console.info('Angular Material version', MAT_VERSION.full);
 
 @Component({
   selector: 'app-profile',
@@ -16,58 +18,30 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  doctorID : number;
-  profileForm: FormGroup;
-  doctor: DoctorInterface;
-  countries : Country[] = countries;
+  constructor(private router: Router, public dialog: MatDialog, private workerService: WorkerService) { }
 
-  constructor(public dialog: MatDialog, private formBuilder: FormBuilder, private doctorService : DoctorService, private route: ActivatedRoute) {
+  ngOnInit(): void { }
 
-    this.profileForm = this.formBuilder.group({
-      dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
-      cip: ['', [Validators.pattern(/^[A-Z]{4} \d{8}$/)]],
-      name: ['', [Validators.required]],
-      birth: ['', [Validators.required]],  // Fecha en formato YYYY-MM-DD
-      surname1: ['', [Validators.required]],
-      surname2: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      email: ['', [Validators.email]],
-      country: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      username: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      speciality: ['', [Validators.required]]
-    });
+  onFormSubmit(workerData: any) {
+    const worker: WorkerInterface = {
+      ...workerData,
+      zone: HospitalZone.Inactivo, // Zona por defecto
+    };
 
-    this.route.params.subscribe((params) => {
-      this.doctorID = +params['id'];
-      this.doctorService.getDoctorData(this.doctorID).subscribe((data) => {
-        this.doctor = data[0];
-        this.doctor.birthDate = new Date(this.doctor.birthDate)
-
-        this.profileForm.patchValue({
-          ...this.doctor,
-          birth: this.doctor.birthDate.toISOString().split('T')[0],
-          speciality: this.doctor.worktype + " - " + this.doctor.speciality
-
-        });
-      });
-    });
-
-  }
-
-
-
-  onSubmit() {
-    if(this.profileForm.invalid) return;
-
-    console.log('Perfil actualizado');
-    this.confirm('Cambios guardados correctamente', 'success');;
+    this.workerService.createWorker(worker).subscribe(
+      (response) => {
+        console.log('Trabajador registrado:', response);
+        this.confirm('Trabajador registrado con éxito', 'success');
+      },
+      (error) => {
+        this.confirm('Error al registrar trabajador. Inténtalo de nuevo.', 'error');
+        console.error('Error al registrar el trabajador:', error);
+      }
+    );
   }
 
   confirm(message: string, type: string) {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
   }
-
 }
