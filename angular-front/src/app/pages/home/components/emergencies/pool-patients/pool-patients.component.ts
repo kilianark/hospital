@@ -3,6 +3,7 @@ import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { HospitalService } from '../../../../../services/hospital.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-pool-patients',
@@ -11,17 +12,29 @@ import { HospitalService } from '../../../../../services/hospital.service';
 })
 export class PoolPatientsComponent implements OnInit {
 
-  patients: PatientInterface[] = [];
-  hospitals: HospitalInterface[] = [];
+  public patients: PatientInterface[] = [];
+  private hospitals: HospitalInterface[] = [];
 
-  constructor(private patientService: PatientService, private hospitalService: HospitalService) {}
+  private userRoles: string[];
+
+  constructor(private patientService: PatientService, private hospitalService: HospitalService, private keycloakService: KeycloakService) {
+
+    setTimeout(() => {}, 1);
+  }
 
   ngOnInit(): void {
-      this.patientService.getPatientData().subscribe((data) => {
-        this.patients = data;
-      })
 
-      this.loadHospitalsData();
+    this.userRoles = this.keycloakService.getKeycloakInstance().realmAccess?.roles;
+    var hospitalNum: number = null;
+
+    if(this.userRoles.includes('Goldenfold')) hospitalNum = 1;
+    else if (this.userRoles. includes('HospitalFaro')) hospitalNum = 2;
+
+    console.log(hospitalNum);
+
+    this.loadPatientsData(hospitalNum);
+    this.loadHospitalsData();
+    
   }
 
   getHospitalName(hospitalCode: number): string {
@@ -32,6 +45,13 @@ export class PoolPatientsComponent implements OnInit {
   loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
+    });
+  }
+
+  loadPatientsData(hospitalNum: number): void {
+    this.patientService.getPatientData(null, null, null, null, null, null, null, null, null, null, hospitalNum).subscribe((data) => {
+      this.patients = data;
+      console.log("data:", data);
     });
   }
 
