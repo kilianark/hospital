@@ -65,6 +65,7 @@ export class PatientFormComponent implements OnInit {
     this.initForm();
     this.loadHospitalsData();
     this.loadPatientData();
+    this.updateFormTitle();
   }
 
   ngOnChanges(changes: SimpleChanges) {

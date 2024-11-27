@@ -75,12 +75,17 @@ export class CreateComponent implements OnInit {
 
   onFormSubmit(): void {
     if (this.appointmentForm.valid) {
-      const appointment: AppointmentInterface = this.appointmentForm.value;
+      const formValue = this.appointmentForm.value;
+      const appointment: AppointmentInterface = {
+        ...formValue,
+        date: new Date(formValue.date).toISOString(),
+      };
 
       this.appointmentService.createAppointment(appointment).subscribe(
         (response) => {
           console.log('Cita registrada:', response);
           this.confirm('Cita registrada con éxito', 'success');
+          this.router.navigate(['/home/consultation/']);
         },
         (error) => {
           this.confirm('Error al registrar la cita. Inténtalo de nuevo.', 'error');

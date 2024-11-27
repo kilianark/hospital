@@ -111,7 +111,10 @@ export class WorkerFormComponent implements OnInit{
       hospital: ['', Validators.required],
       worktype: ['', Validators.required],
       speciality: ['', []],
-      doctorCode: [{value: '',disabled: true}]
+      doctorCode: [{value: '',disabled: true}],
+      nurse_code: [{value: '',disabled: true}]
+
+
     });
   }
 
@@ -184,7 +187,7 @@ export class WorkerFormComponent implements OnInit{
     }
     if (!this.workerForm.get('username')?.value) {
       this.generateUsername();
-      
+
     }
     this.isEditable = false;
     // Obtén todos los datos del formulario, incluidos valores deshabilitados
@@ -215,15 +218,15 @@ export class WorkerFormComponent implements OnInit{
           console.error('Error al crear el doctor:', error);
           this.confirm('Error al crear el doctor', 'error');
         },
-      }); 
+      });
        } else if (worktype === 'nurse') {
         // Crear nurse con el mismo código que el workerCode
         const nurseData: NurseInterface = {
           ...workerData,
           nurse_code: workerData.workerCode, // Asignar el mismo código
-          speciality: this.workerForm.get('shift')?.value, // Ejemplo de propiedad adicional
+          speciality: this.workerForm.get('speciality')?.value, // Ejemplo de propiedad adicional
         };
-  
+
         this.nurseService.createNurse(nurseData).subscribe({
           next: (createdNurse) => {
             console.log('Enfermero creado con éxito:', createdNurse);

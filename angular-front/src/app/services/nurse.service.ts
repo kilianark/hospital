@@ -14,7 +14,7 @@ export class NurseService {
 createNurse(nurse: NurseInterface): Observable<NurseInterface> {
   return this.http.post<NurseInterface>(this.url, nurse);
 }
-getNurseData(nurseCode : number): Observable<NurseInterface[]> {
+getNurseData(nurseCode? : number): Observable<NurseInterface[]> {
   let params = new HttpParams();
   if (nurseCode != null && nurseCode != undefined && nurseCode != 0) {
     params = params.set('nurseCode', nurseCode);
