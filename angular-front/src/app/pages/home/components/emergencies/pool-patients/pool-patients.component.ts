@@ -18,8 +18,6 @@ export class PoolPatientsComponent implements OnInit {
   private userRoles: string[];
 
   constructor(private patientService: PatientService, private hospitalService: HospitalService, private keycloakService: KeycloakService) {
-
-    setTimeout(() => {}, 1);
   }
 
   ngOnInit(): void {
@@ -53,6 +51,8 @@ export class PoolPatientsComponent implements OnInit {
       this.patients = data;
       console.log("data:", data);
     });
+    
+
   }
 
 }
