@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
+import { HospitalService } from '../../../../../services/hospital.service';
 
 @Component({
   selector: 'app-pool-patients',
@@ -13,17 +14,25 @@ export class PoolPatientsComponent implements OnInit {
   patients: PatientInterface[] = [];
   hospitals: HospitalInterface[] = [];
 
-  constructor(private patientService: PatientService) {}
+  constructor(private patientService: PatientService, private hospitalService: HospitalService) {}
 
   ngOnInit(): void {
       this.patientService.getPatientData().subscribe((data) => {
         this.patients = data;
       })
+
+      this.loadHospitalsData();
   }
 
   getHospitalName(hospitalCode: number): string {
     const hospital = this.hospitals.find(h => h.hospitalCode === hospitalCode);
     return hospital ? hospital.hospitalName : 'Desconocido';
+  }
+
+  loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
+    });
   }
 
 }
