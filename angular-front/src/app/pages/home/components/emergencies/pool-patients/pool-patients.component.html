@@ -6,7 +6,7 @@
   <body>
     <div class="slogan">Sala de espera</div>
     
-    <div class="table-wrapper">
+    <div *ngIf="show" class="table-wrapper">
         <table>
         <thead>
           <tr>
@@ -34,9 +34,6 @@
             <th>
               Teléfono
             </th>
-            <th>
-              Estado
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -49,7 +46,6 @@
             <td>{{ patient.dni }}</td>
             <td>{{ patient.cip }}</td>
             <td>{{ patient.phone }}</td>
-            <td>{{ patient.zone | enumToString : "HOSPITAL_ZONE" }}</td>
             <td>
               <button mat-button>
                 Assignar

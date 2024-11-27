@@ -16,12 +16,14 @@ export class PoolPatientsComponent implements OnInit {
   private hospitals: HospitalInterface[] = [];
 
   private userRoles: string[];
+  public show: boolean = false;
 
   constructor(private patientService: PatientService, private hospitalService: HospitalService, private keycloakService: KeycloakService) {
-  }
-
-  ngOnInit(): void {
-
+    
+    setTimeout(() => {
+      this.show = true;
+    }, 1);
+    
     this.userRoles = this.keycloakService.getKeycloakInstance().realmAccess?.roles;
     var hospitalNum: number = null;
 
@@ -32,6 +34,9 @@ export class PoolPatientsComponent implements OnInit {
 
     this.loadPatientsData(hospitalNum);
     this.loadHospitalsData();
+  }
+
+  ngOnInit(): void {
     
   }
 
@@ -47,7 +52,7 @@ export class PoolPatientsComponent implements OnInit {
   }
 
   loadPatientsData(hospitalNum: number): void {
-    this.patientService.getPatientData(null, null, null, null, null, null, null, null, null, null, hospitalNum).subscribe((data) => {
+    this.patientService.getPatientData(null, null, null, null, null, null, null, "4", null, null, hospitalNum).subscribe((data) => {
       this.patients = data;
       console.log("data:", data);
     });
