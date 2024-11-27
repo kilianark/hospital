@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     this.appointmentForm = this.fb.group({
       doctorId: ['', Validators.required],
       patientId: ['', Validators.required],
-      date: ['', [Validators.required, futureDateValidator()]],
+      appointmentDate: ['', [Validators.required, futureDateValidator()]],
       reason: ['', Validators.maxLength(250)],
     });
   }
@@ -72,14 +72,19 @@ export class CreateComponent implements OnInit {
       }
     );
   }
+  private formatDate(date: string): string {
+    return date ? date.split('T')[0] : '';
+  }
 
   onFormSubmit(): void {
     if (this.appointmentForm.valid) {
       const formValue = this.appointmentForm.value;
       const appointment: AppointmentInterface = {
         ...formValue,
-        date: new Date(formValue.date).toISOString(),
+        appointmentDate: this.formatDate(formValue.appointmentDate), // Aseguramos formato correcto
       };
+
+      console.log('Valor enviado:', appointment); // Para depuración
 
       this.appointmentService.createAppointment(appointment).subscribe(
         (response) => {
