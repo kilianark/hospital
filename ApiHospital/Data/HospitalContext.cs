@@ -58,6 +58,7 @@ namespace ApiHospital.Data
             
             modelBuilder.Entity<Appointment>()
                 .ToTable("Appointments");
+
             modelBuilder.Entity<Patient>()
                 .HasBaseType<Person>();
             

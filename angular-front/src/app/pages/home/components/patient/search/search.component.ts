@@ -360,7 +360,7 @@ export class SearchPatientComponent implements OnInit {
           // Eliminamos el paciente de la lista
           this.patients = this.patients.filter(p => p.id !== patient.id);
           this.searchPatients();
-          console.log(`Paciente ${patient.name} ${patient.surname1} eliminado.`);
+          this.confirm(`Paciente ${patient.name} ${patient.surname1} eliminado.`, 'success', patient);
         }, 
         error => {
           if (error.status == 400) {
@@ -397,8 +397,16 @@ export class SearchPatientComponent implements OnInit {
     this.isVisible = true;
   }
 
-  confirm(message: string,type:string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {});
+  confirm(message: string,type:string, patient: PatientInterface = null) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      data: {idObjectEliminated: patient.id, type: "patient"}
+    });
     dialogRef.componentInstance.setMessage(message,type);
+    dialogRef.afterClosed().subscribe((undo) => {
+      if (undo) {
+        this.patients.push(patient);
+        this.onSubmit();
+      }
+    })
   }
 }

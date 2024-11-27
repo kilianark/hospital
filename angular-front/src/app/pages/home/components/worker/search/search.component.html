@@ -190,11 +190,6 @@
               <td>{{ worker.worktype }}</td>
 
               <td (click)="$event.stopPropagation()">
-                <button mat-button (click)="openDialog(worker.workerCode)">
-                  Abrir
-                </button>
-              </td>
-              <td (click)="$event.stopPropagation()">
                 <button appHasRole="delete_worker" mat-button (click)="deleteworker(worker)">
                   Eliminar
                 </button>
