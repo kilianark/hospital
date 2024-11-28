@@ -112,11 +112,11 @@ export class WorkerFormComponent implements OnInit{
       worktype: ['', Validators.required],
       speciality: ['', []],
       doctorCode: [{value: '',disabled: true}],
-      nurse_code: [{value: '',disabled: true}]
+      nurseCode: [{value: '',disabled: true}]
 
 
     });
-  }
+  }  
 
   generateWorkerCode(): void {
     const randomCode = Math.floor(1000 + Math.random() * 9000); // Genera un número entre 1000 y 9999
@@ -223,7 +223,7 @@ export class WorkerFormComponent implements OnInit{
         // Crear nurse con el mismo código que el workerCode
         const nurseData: NurseInterface = {
           ...workerData,
-          nurse_code: workerData.workerCode, // Asignar el mismo código
+          nurseCode: workerData.workerCode, // Asignar el mismo código
           speciality: this.workerForm.get('speciality')?.value, // Ejemplo de propiedad adicional
         };
 
