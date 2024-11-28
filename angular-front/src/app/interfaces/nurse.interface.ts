@@ -1,6 +1,6 @@
 import { WorkerInterface } from './worker.interface';
 
 export interface NurseInterface extends WorkerInterface {
-  nurse_code: string;
+  nurseCode: string;
   speciality: string;
 }

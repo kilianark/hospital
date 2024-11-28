@@ -23,7 +23,7 @@ private readonly HospitalContext _context;
         // GET: api/Nurses
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Nurse>>> GetNurses(
-            [FromQuery] int? NurseCode = null,
+            [FromQuery] string? NurseCode = null,
             [FromQuery] string? Name = null,
             [FromQuery] string? Surname1 = null,
             [FromQuery] string? Surname2 = null,
@@ -39,7 +39,7 @@ private readonly HospitalContext _context;
         {
             IQueryable<Nurse> query = _context.Nurses;
 
-            query = ApplyFilter(query, NurseCode, n => n.NurseCode == NurseCode!.Value);
+            query = ApplyFilter(query, NurseCode, n => !string.IsNullOrWhiteSpace(NurseCode) && n.NurseCode.ToLower().Equals(NurseCode.ToLower()));
             query = ApplyFilter(query, Name, n => !string.IsNullOrWhiteSpace(Name) && n.Name.ToLower().StartsWith(Name.ToLower()));
             query = ApplyFilter(query, Surname1, n => !string.IsNullOrWhiteSpace(Surname1) && n.Surname1.ToLower().StartsWith(Surname1.ToLower()));
             query = ApplyFilter(query, Surname2, n => !string.IsNullOrWhiteSpace(Surname2) && n.Surname2.ToLower().StartsWith(Surname2.ToLower()));
