@@ -52,7 +52,7 @@ export class PoolPatientsComponent implements OnInit {
   }
 
   loadPatientsData(hospitalNum: number): void {
-    this.patientService.getPatientData(null, null, null, null, null, null, null, "4", null, null, hospitalNum).subscribe((data) => {
+    this.patientService.getPatientData(null, null, null, null, null, null, null, "4", "6", null, null, hospitalNum).subscribe((data) => {
       this.patients = data;
       console.log("data:", data);
     });
