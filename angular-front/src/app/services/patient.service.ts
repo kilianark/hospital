@@ -21,7 +21,7 @@ export class PatientService {
     return of(patient); // Retorna un Observable para seguir con el patrón de suscripción
   }
   getPatientData(patientCode?: number, Name?: string, Surname1?: string,
-    Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, BedId?: number, Ingresados?: boolean, Hospital?: number): Observable<PatientInterface[]> {
+    Surname2?: string, Dni?: string, Cip?: string, Phone?: string, Status?: string, Area?: string, BedId?: number, Ingresados?: boolean, Hospital?: number): Observable<PatientInterface[]> {
 
     let params = new HttpParams();
 
@@ -55,6 +55,10 @@ export class PatientService {
 
     if (Status != null && Status != undefined && Status.trim() !== "") {
       params = params.set('Zone', Status);
+    }
+
+    if (Area != null && Area != undefined && Area.trim() !== "") {
+      params = params.set('Area', Area);
     }
 
     if (BedId != null && BedId != 0) {
