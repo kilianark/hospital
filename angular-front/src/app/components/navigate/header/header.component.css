@@ -72,7 +72,9 @@ button:hover {
   padding: 0;
   z-index: 4;
 }
-
+#urgencias{
+  margin-left:10px
+}
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
@@ -139,6 +141,9 @@ button:hover {
   }
   #menu{
     width:30px
+  }
+  #urgencias{
+    margin-left:0px
   }
   #notMenu{
     width:30px

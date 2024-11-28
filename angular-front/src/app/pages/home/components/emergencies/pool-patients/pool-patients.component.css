@@ -11,12 +11,10 @@ body {
     box-shadow: 2px 2px 4px black;
   }
   
-  .slogan {
-    font-size: 1.2em;
+  mat-card-title {
     display: flex;
-    font-weight: bold;
     margin-left: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
   }
   
   .grid-layout {
@@ -37,6 +35,11 @@ body {
     height: 100%;
     width: 100%;
     border-radius: 5%;
+  }
+  th,td,thead{
+    border-width: 1px;
+    border-color: black;
+    border-style:double ;
   }
   .grid-layout img {
     height: 100%;
