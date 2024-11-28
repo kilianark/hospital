@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../../../../../../services/appointment.service';
 import { AppointmentInterface } from '../../../../../../interfaces/appointment.interface';
+import { PatientService } from '../../../../../../services/patient.service';
+import { DoctorService } from '../../../../../../services/doctor.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
@@ -37,12 +39,15 @@ export class ManageComponent implements OnInit {
 
   isVisible: boolean = false;
 
+  // Inyecta los servicios
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private router: Router,
     private appointmentService: AppointmentService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private patientService: PatientService,
+    private doctorService: DoctorService,
   ) {
     this.manageForm = this.formBuilder.group({
       patientName: [''],
@@ -56,9 +61,11 @@ export class ManageComponent implements OnInit {
     this.loadAppointmentsData();
   }
 
+  // Método para cargar las citas
   loadAppointmentsData(): void {
     this.appointmentService.getAppointmentData().subscribe({
       next: (data) => {
+        console.log('Citas cargadas:', data);  // Verifica en la consola que las citas se cargan correctamente
         this.appointments = data;
         this.filteredAppointments = [...data];
         this.allFilteredAppointments = [...data];
@@ -83,6 +90,7 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  // Método para generar los números de página
   generatePageNumbers() {
     if (this.totalPages <= 0) {
       this.pageNumbers = [];
@@ -121,12 +129,14 @@ export class ManageComponent implements OnInit {
     this.pageNumbers.push(this.totalPages);
   }
 
+  // Método para actualizar las citas según la página actual
   updatePagedAppointments() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.filteredAppointments = this.allFilteredAppointments.slice(startIndex, endIndex);
   }
 
+  // Método para ir a la página anterior
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -135,6 +145,7 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  // Método para ir a la página siguiente
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -143,6 +154,7 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  // Método para ordenar las citas
   sortData(field: string) {
     if (this.sortField === field) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -153,6 +165,7 @@ export class ManageComponent implements OnInit {
     this.sortAppointments();
   }
 
+  // Método para ordenar las citas
   sortAppointments() {
     this.allFilteredAppointments.sort((a, b) => {
       let comparison = 0;
@@ -167,11 +180,13 @@ export class ManageComponent implements OnInit {
     this.updatePagedAppointments();
   }
 
+  // Método para ir a una página específica
   goToPage(page: number) {
     this.currentPage = page;
     this.updatePagedAppointments();
   }
 
+  // Método de búsqueda de citas
   searchAppointments() {
     const { patientName, doctorName, date, reason } = this.manageForm.value;
 
@@ -198,11 +213,12 @@ export class ManageComponent implements OnInit {
     }
 
     this.allFilteredAppointments = filteredAppointments;
+    console.log('Citas filtradas:', this.allFilteredAppointments); // Verifica el contenido de las citas filtradas
     this.totalPages = Math.ceil(filteredAppointments.length / this.itemsPerPage);
     this.generatePageNumbers();
     this.updatePagedAppointments();
   }
-
+  // Método para abrir el diálogo de confirmación
   openDialog(appointmentId: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { id: appointmentId }
@@ -215,6 +231,7 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  // Método al enviar el formulario de búsqueda
   onSubmit() {
     this.spinnerService.show();
     this.isLoading = true;
@@ -225,12 +242,14 @@ export class ManageComponent implements OnInit {
     }, 0);
   }
 
+  // Método para resetear el formulario de búsqueda
   resetForm() {
     this.manageForm.reset();
     this.isVisible = false;
     this.loadAppointmentsData();
   }
 
+  // Método para confirmar la eliminación de una cita
   confirm(message: string, type: string, appointmentId: number) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       data: { idObjectEliminated: appointmentId, type: 'appointment' }
@@ -243,5 +262,33 @@ export class ManageComponent implements OnInit {
         this.onSubmit();
       }
     });
+  }
+
+// Método para obtener el nombre del paciente por su ID
+  getPatientNameById(patientId: number): string {
+    let patientName = '';
+    this.patientService.getPatientById(patientId).subscribe({
+      next: (patient) => {
+        patientName = patient?.name || 'Desconocido';
+      },
+      error: (err) => {
+        console.error(`Error al obtener el nombre del paciente con ID ${patientId}:`, err);
+      }
+    });
+    return patientName;
+  }
+
+  // Método para obtener el nombre del doctor por su ID
+  getDoctorNameById(doctorId: number): string {
+    let doctorName = '';
+    this.doctorService.getDoctorById(doctorId).subscribe({
+      next: (doctor) => {
+        doctorName = doctor?.name || 'Desconocido';
+      },
+      error: (err) => {
+        console.error(`Error al obtener el nombre del doctor con ID ${doctorId}:`, err);
+      }
+    });
+    return doctorName;
   }
 }

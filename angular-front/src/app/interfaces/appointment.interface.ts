@@ -1,7 +1,7 @@
 export interface AppointmentInterface {
   id: number;
-  patientName: string;
-  doctorName: string;
+  patientId: number;
+  doctorId: number;
   appointmentDate: Date;
   reason: string;
   status: string;

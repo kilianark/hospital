@@ -37,9 +37,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let appointment of filteredAppointments">
+          <td>{{ getPatientNameById(appointment.patientId) }}</td>
+          <td>{{ getDoctorNameById(appointment.doctorId) }}</td>
           <td>{{ appointment.appointmentDate }}</td>
-          <td>{{ appointment.patientName }}</td>
-          <td>{{ appointment.doctorName }}</td>
           <td>{{ appointment.reason }}</td>
         </tr>
       </tbody>
