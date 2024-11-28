@@ -22,6 +22,8 @@ import { SharedModule } from '../../modules/shared.module';
 import { ActivatedRoute } from '@angular/router';
 import { NurseInterface } from '../../../interfaces/nurse.interface';
 import { NurseService } from '../../../services/nurse.service';
+import { AdminService } from '../../../services/administrator.service';
+import { Administrator } from '../../../interfaces/administrator.interface';
 @Component({
   selector: 'app-worker-form',
   standalone: true,
@@ -60,6 +62,7 @@ export class WorkerFormComponent implements OnInit{
     private doctorService: DoctorService,
     private hospitalService: HospitalService,
     private nurseService:NurseService,
+    private adminService:AdminService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -112,11 +115,12 @@ export class WorkerFormComponent implements OnInit{
       worktype: ['', Validators.required],
       speciality: ['', []],
       doctorCode: [{value: '',disabled: true}],
-      nurseCode: [{value: '',disabled: true}]
+      nurseCode: [{value: '',disabled: true}],
+      AdminCode: [{value: '',disabled: true}]
 
 
     });
-  }  
+  }
 
   generateWorkerCode(): void {
     const randomCode = Math.floor(1000 + Math.random() * 9000); // Genera un número entre 1000 y 9999
@@ -182,6 +186,7 @@ export class WorkerFormComponent implements OnInit{
     if (!this.workerForm.get('workerCode')?.value) {
       this.generateWorkerCode();
     }
+
     if (!this.workerForm.get('cip')?.value) {
       this.generateCip();
     }
@@ -238,6 +243,25 @@ export class WorkerFormComponent implements OnInit{
             this.confirm('Error al crear el enfermero', 'error');
           },
         });
+    } else if (worktype === 'administrator') {
+      // Crear administrador con el mismo código que el workerCode
+      const administratorData: Administrator = {
+        ...workerData,
+      AdminCode: workerData.workerCode, // Asignar el mismo código
+
+      };
+
+      this.adminService.createAdmin(administratorData).subscribe({
+        next: (createdAdministrator) => {
+          console.log('Administrador creado con éxito:', createdAdministrator);
+          this.confirm('Administrador creado', 'success');
+          this.workerForm.reset();
+        },
+        error: (error) => {
+          console.error('Error al crear el administrador:', error);
+          this.confirm('Error al crear el administrador', 'error');
+        },
+      });
     } else {
       // Crear solo el worker
       this.workerService.createWorker(workerData).subscribe({
@@ -251,8 +275,7 @@ export class WorkerFormComponent implements OnInit{
           this.confirm('Error al crear el trabajador', 'error');
         },
       });
-    }
-  }
+    }}
 
 
 
@@ -279,7 +302,7 @@ export class WorkerFormComponent implements OnInit{
       this.workerForm.get('workerCode')?.disable();
     }
   }
-  
+
   resetForm(): void {
     const currentWorkerCode = this.workerForm.get('id')?.value;
     this.workerForm.reset(); // Resetea el formulario

@@ -37,7 +37,7 @@ namespace ApiHospital.Controllers
 {
     IQueryable<Administrator> query = _context.Administrators.AsNoTracking();
 
-    query = ApplyFilter(query, AdminCode, a => !string.IsNullOrWhiteSpace(AdminCode) && a.AdminCode.ToLower().StartsWith(AdminCode.ToLower()))
+    query = ApplyFilter(query, AdminCode, a => !string.IsNullOrWhiteSpace(AdminCode) && a.AdminCode.ToLower().StartsWith(AdminCode.ToLower()));
     query = ApplyFilter(query, Surname1, a => !string.IsNullOrWhiteSpace(Surname1) && a.Surname1.ToLower().StartsWith(Surname1.ToLower()));
     query = ApplyFilter(query, Surname2, a => !string.IsNullOrWhiteSpace(Surname2) && a.Surname2.ToLower().StartsWith(Surname2.ToLower()));
     query = ApplyFilter(query, Dni, a => !string.IsNullOrWhiteSpace(Dni) && a.Dni.ToLower().StartsWith(Dni.ToLower()));
