@@ -2,7 +2,8 @@
   <form [formGroup]="appointmentForm" (ngSubmit)="onFormSubmit()">
     <mat-card-title>{{ "Pedir Cita" }}</mat-card-title>
     <!-- Selector de médico -->
-    <mat-form-field appearance="outline">
+     <div></div>
+    <mat-form-field  appearance="outline">
       <mat-label>Seleccionar Médico</mat-label>
       <mat-select formControlName="doctorId">
         <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
@@ -41,10 +42,10 @@
 
 
     <!-- Razón de la cita -->
-    <mat-form-field appearance="outline">
-      <mat-label>Razón de la Cita</mat-label>
-      <textarea matInput formControlName="reason" placeholder="Razón de la cita (opcional)"></textarea>
-      <mat-hint align="end">
+    <mat-form-field style="padding-top: 0px; padding-bottom: 0px;" id="reason" appearance="outline">
+      <mat-label style="padding-top: 0px; padding-bottom: 0px;" >Razón de la Cita</mat-label>
+      <textarea style="padding-top: 0px; padding-bottom: 0px;"  matInput formControlName="reason" placeholder="Razón de la cita (opcional)"></textarea>
+      <mat-hint style="padding-top: 0px; padding-bottom: 0px;"  align="end">
         {{ appointmentForm.get('reason')?.value?.length || 0 }}/250
       </mat-hint>
     </mat-form-field>
