@@ -8,19 +8,24 @@ form {
   display: grid;
   grid-template-columns: 33.33333% 33.33333% 33.33333%;
   margin-left: 100px;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: 100px 100px 100px;
+  gap:10px;
+  margin-right: 40px;
 }
 
 #divSep {
   margin-top: 10px;
   margin-bottom: 20px;
 }
-
 .mat-form-field {
-  margin-right: 10px;
-  margin-bottom: 10px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  align-self: center;
 }
-
+.form-actions{
+  grid-row-start: 3;
+  grid-row-end:4;
+}
 .form-row {
   display: grid;
   grid-template-columns: auto auto auto;
