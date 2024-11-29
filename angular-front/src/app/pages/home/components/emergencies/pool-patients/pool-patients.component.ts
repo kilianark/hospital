@@ -4,6 +4,9 @@ import { PatientService } from '../../../../../services/patient.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { KeycloakService } from 'keycloak-angular';
+import { Router } from '@angular/router';
+import { DoctorService } from '../../../../../services/doctor.service';
+import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
 
 @Component({
   selector: 'app-pool-patients',
@@ -18,7 +21,16 @@ export class PoolPatientsComponent implements OnInit {
   private userRoles: string[];
   public show: boolean = false;
 
-  constructor(private patientService: PatientService, private hospitalService: HospitalService, private keycloakService: KeycloakService) {
+  private doctor: DoctorInterface;
+  private doctorID: number;
+
+  constructor(
+    private patientService: PatientService,
+    private hospitalService: HospitalService,
+    private keycloakService: KeycloakService,
+    private router: Router,
+    private doctorService: DoctorService
+  ) {
     
     setTimeout(() => {
       this.show = true;
@@ -57,7 +69,25 @@ export class PoolPatientsComponent implements OnInit {
       console.log("data:", data);
     });
     
+  }
 
+  assingPatient(patientId: number) {
+    //conseguir id del doctor
+    var workerCode;
+
+    this.keycloakService.loadUserProfile().then((profile) => {
+      workerCode = profile.attributes['workerCode'][0];
+      console.log(workerCode);
+      this.doctorService.getDoctorData(workerCode).subscribe((data) => {
+        if(data.length > 0) this.doctor = data[0];
+        this.doctorID = this.doctor.id;
+      });
+    });
+    //post a la tabla (no sé si usar appointment o consultation)
+
+
+    //enrutar al manage del patient
+    this.router.navigate(['/home/patient/manage', { id: patientId }]);
   }
 
 }

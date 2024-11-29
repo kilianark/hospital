@@ -47,7 +47,7 @@
             <td>{{ patient.cip }}</td>
             <td>{{ patient.phone }}</td>
             <td>
-              <button mat-button>
+              <button mat-button (click)="assingPatient(patient.id)">
                 Assignar
               </button>
             </td>
