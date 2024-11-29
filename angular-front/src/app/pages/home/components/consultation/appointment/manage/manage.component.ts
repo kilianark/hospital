@@ -11,6 +11,8 @@ import Fuse from 'fuse.js';
 import { SpinnerService } from '../../../../../../services/spinner.service';
 import { ConfirmDialogComponent } from '../../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmComponent } from '../../../../../../components/confirm/confirm.component';
+import { PatientInterface } from '../../../../../../interfaces/patient.interface';
+import { DoctorInterface } from '../../../../../../interfaces/doctor.interface';
 
 @Component({
   selector: 'app-manage',
@@ -21,6 +23,8 @@ export class ManageComponent implements OnInit {
   appointments: AppointmentInterface[] = [];
   filteredAppointments: AppointmentInterface[] = [];
   allFilteredAppointments: AppointmentInterface[] = [];
+  patients: PatientInterface[] = [];
+  doctors: DoctorInterface[] = [];
 
   fusePatientName: Fuse<AppointmentInterface> | null = null;
   fuseDoctorName: Fuse<AppointmentInterface> | null = null;
@@ -59,9 +63,26 @@ export class ManageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAppointmentsData();
+    this.loadDoctorData();
+    this.loadPatientsData();
   }
 
   // Método para cargar las citas
+  loadPatientsData(): void {
+    this.patientService.getPatientData().subscribe({
+      next: (data) => {
+        this.patients = data;
+      }
+    })
+  }
+
+  loadDoctorData(): void {
+    this.doctorService.getDoctorData().subscribe({
+      next: (data) => {
+        this.doctors = data;
+      }
+    })
+  }
   loadAppointmentsData(): void {
     this.appointmentService.getAppointmentData().subscribe({
       next: (data) => {
@@ -265,30 +286,4 @@ export class ManageComponent implements OnInit {
   }
 
 // Método para obtener el nombre del paciente por su ID
-  getPatientNameById(patientId: number): string {
-    let patientName = '';
-    this.patientService.getPatientById(patientId).subscribe({
-      next: (patient) => {
-        patientName = patient?.name || 'Desconocido';
-      },
-      error: (err) => {
-        console.error(`Error al obtener el nombre del paciente con ID ${patientId}:`, err);
-      }
-    });
-    return patientName;
-  }
-
-  // Método para obtener el nombre del doctor por su ID
-  getDoctorNameById(doctorId: number): string {
-    let doctorName = '';
-    this.doctorService.getDoctorById(doctorId).subscribe({
-      next: (doctor) => {
-        doctorName = doctor?.name || 'Desconocido';
-      },
-      error: (err) => {
-        console.error(`Error al obtener el nombre del doctor con ID ${doctorId}:`, err);
-      }
-    });
-    return doctorName;
-  }
 }
