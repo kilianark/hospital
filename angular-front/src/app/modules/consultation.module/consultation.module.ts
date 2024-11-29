@@ -20,13 +20,15 @@ import { CalendarComponent } from '../../pages/home/components/consultation/cale
 import { HasRoleDirective } from '../../directives/has-role.directive';
 import { SharedModule } from '../../shared/modules/shared.module';
 import{FullCalendarModule} from '@fullcalendar/angular';
+import { MyPatientsComponent } from '../../pages/home/components/emergencies/my-patients/my-patients.component';
 
 @NgModule({
   declarations: [
     ConsultationComponent,
     CreateComponent,
     ManageComponent,
-    CalendarComponent
+    CalendarComponent,
+    MyPatientsComponent
   ],
   imports: [
     CommonModule, // Importa CommonModule para acceder a las directivas comunes de Angular

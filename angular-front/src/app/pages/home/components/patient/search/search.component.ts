@@ -399,7 +399,7 @@ export class SearchPatientComponent implements OnInit {
 
   confirm(message: string,type:string, patient: PatientInterface = null) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      data: {idObjectEliminated: patient.id, type: "patient"}
+      data: {idObjectEliminated: patient?.id, type: "patient"}
     });
     dialogRef.componentInstance.setMessage(message,type);
     dialogRef.afterClosed().subscribe((undo) => {
