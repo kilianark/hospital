@@ -19,13 +19,14 @@ import { ManageComponent } from '../../pages/home/components/consultation/appoin
 import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
 import { HasRoleDirective } from '../../directives/has-role.directive';
 import { SharedModule } from '../../shared/modules/shared.module';
+import{FullCalendarModule} from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
     ConsultationComponent,
     CreateComponent,
     ManageComponent,
-    CalendarComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule, // Importa CommonModule para acceder a las directivas comunes de Angular
@@ -41,7 +42,8 @@ import { SharedModule } from '../../shared/modules/shared.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    HasRoleDirective
+    HasRoleDirective,
+    FullCalendarModule
   ],
 })
 export class ConsultationModule {}
