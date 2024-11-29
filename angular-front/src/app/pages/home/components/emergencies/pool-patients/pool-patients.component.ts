@@ -7,6 +7,8 @@ import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
 import { DoctorService } from '../../../../../services/doctor.service';
 import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
+import { AppointmentService } from '../../../../../services/appointment.service';
+import { AppointmentInterface } from '../../../../../interfaces/appointment.interface';
 
 @Component({
   selector: 'app-pool-patients',
@@ -29,7 +31,8 @@ export class PoolPatientsComponent implements OnInit {
     private hospitalService: HospitalService,
     private keycloakService: KeycloakService,
     private router: Router,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    private appointmentService: AppointmentService
   ) {
     
     setTimeout(() => {
@@ -81,10 +84,23 @@ export class PoolPatientsComponent implements OnInit {
       this.doctorService.getDoctorData(workerCode).subscribe((data) => {
         if(data.length > 0) this.doctor = data[0];
         this.doctorID = this.doctor.id;
+        console.log(this.doctorID);
+
+        //post a la tabla (no sé si usar appointment o consultation)
+        const appointment: AppointmentInterface = {
+          id: 0,
+          patientId: patientId,
+          doctorId: this.doctorID,
+          appointmentDate: new Date,
+          reason: '',
+          status: ''
+        };
+
+        console.log("appointment:", appointment);
+        this.appointmentService.createAppointment(appointment).subscribe(() => {});
       });
     });
-    //post a la tabla (no sé si usar appointment o consultation)
-
+    
 
     //enrutar al manage del patient
     this.router.navigate(['/home/patient/manage', { id: patientId }]);
