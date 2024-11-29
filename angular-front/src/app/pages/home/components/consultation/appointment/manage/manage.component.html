@@ -1,7 +1,7 @@
 <div class="content">
-  <form [formGroup]="manageForm">
+  <form id="formFlex" [formGroup]="manageForm">
     <mat-card-title>{{ "Gestionar Citas" }}</mat-card-title>
-    <mat-card-content>
+    <mat-card-content id="formGrid">
       <!-- Filtro por nombre del paciente -->
       <mat-form-field appearance="outline">
         <mat-label>Nombre del paciente:</mat-label>
@@ -19,12 +19,14 @@
         <mat-label>Fecha de la cita:</mat-label>
         <input matInput type="date" formControlName="date" />
       </mat-form-field>
-
-      <button mat-button type="button" (click)="searchAppointments()">Buscar</button>
-      <button mat-button type="reset" (click)="resetForm()">Reiniciar</button>
+      <div class="control">
+        <button mat-button type="button" class="buttonPP" (click)="searchAppointments()">Buscar</button>
+        <button mat-button type="reset" class="buttonPP" (click)="resetForm()">Reiniciar</button>
+      </div>
     </mat-card-content>
   </form>
 
+  <hr size="3px" color="black" style="width: 100vw" />
   <div class="table-wrapper" *ngIf="appointments.length > 0">
     <table>
       <thead>
@@ -46,7 +48,7 @@
     </table>
   </div>
 
-  <div *ngIf="appointments.length === 0">
+  <div id="no-appointments" *ngIf="appointments.length === 0">
     <p>No hay citas disponibles.</p>
   </div>
 </div>
