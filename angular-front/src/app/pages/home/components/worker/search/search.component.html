@@ -176,10 +176,10 @@
               </th>
 
             </tr>
-
+<!--(click)="goToManage(worker.id)" -->
           </thead>
           <tbody>
-            <tr *ngFor="let worker of filteredworkers" (click)="goToManage(worker.id)" class="clickable-row">
+            <tr *ngFor="let worker of filteredworkers" class="clickable-row">
               <td>{{ getHospitalName(worker.hospital) }}</td>
               <td>{{ worker.workerCode }}</td>
               <td>{{ worker.name }}</td>
