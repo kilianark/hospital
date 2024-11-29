@@ -32,7 +32,7 @@ export class ConfirmComponent implements OnInit {
   setMessage(messageString: string, type: string = ''): void {
     this.message = messageString;
     this.type = type;
-    if (this.data != null) {
+    if (this.data.idObjectEliminated != null) {
       this.setUndoButton(true);
     }
   }

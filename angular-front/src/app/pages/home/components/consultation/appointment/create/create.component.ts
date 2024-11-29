@@ -65,7 +65,7 @@ export class CreateComponent implements OnInit {
   loadPatients(): void {
     this.patientService.getPatientData().subscribe(
       (patients) => {
-        this.patients = patients.map((p) => ({ id: p.id, name: `${p.name} ${p.surname1} ${p.surname2}` }));
+        this.patients = patients.map((p) => ({ id: p.id, name: `${p.name} ${p.surname1} ${p.surname2 ? p.surname2 : "" }`}));
       },
       (error) => {
         console.error('Error al cargar los pacientes:', error);
