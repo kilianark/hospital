@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { AppointmentInterface } from '../interfaces/appointment.interface';
 
@@ -18,8 +18,14 @@ export class AppointmentService {
   }
 
   // Obtener todas las citas
-  getAppointmentData(): Observable<AppointmentInterface[]> {
-    return this.http.get<AppointmentInterface[]>(`${this.baseUrl}`);
+  getAppointmentData(doctorId?: number): Observable<AppointmentInterface[]> {
+    let params = new HttpParams();
+    
+    if(doctorId != null && doctorId != undefined && doctorId != 0) {
+      params = params.set('doctorId', doctorId);
+    }
+
+    return this.http.get<AppointmentInterface[]>(this.baseUrl, { params });
   }
 
   // Obtener una cita por ID
