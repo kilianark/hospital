@@ -18,18 +18,21 @@ import { CreateComponent } from '../../pages/home/components/consultation/appoin
 import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
 import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
 import { HasRoleDirective } from '../../directives/has-role.directive';
+import { SharedModule } from '../../shared/modules/shared.module';
+import{FullCalendarModule} from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
     ConsultationComponent,
     CreateComponent,
     ManageComponent,
-    CalendarComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule, // Importa CommonModule para acceder a las directivas comunes de Angular
     ReactiveFormsModule, // Necesario para usar [formGroup] y otras funcionalidades de formularios reactivos
     ConsultationRoutingModule, // Módulo de rutas
+    SharedModule,
 
     // Angular Material Modules
     MatFormFieldModule,
@@ -39,7 +42,8 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    HasRoleDirective
+    HasRoleDirective,
+    FullCalendarModule
   ],
 })
 export class ConsultationModule {}

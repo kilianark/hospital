@@ -6,12 +6,13 @@ import { MaterialModule } from "./material.module";
 import { EnumToStringPipe } from "../../pipe/enum-to-string.pipe";
 import { ConfirmDialogComponent } from "../components/confirm-dialog/confirm-dialog.component";
 import SpinnerComponent from "../components/spinner/spinner.component";
+import { IdToStringPipe } from "../../pipe/id-to-string.pipe";
 
 @NgModule({
     declarations: [
         EnumToStringPipe,
-        SpinnerComponent
-
+        SpinnerComponent,
+        IdToStringPipe
     ],
     imports: [
         CommonModule,
@@ -22,7 +23,8 @@ import SpinnerComponent from "../components/spinner/spinner.component";
         EnumToStringPipe,
         MaterialModule,
         ConfirmDialogComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        IdToStringPipe
     ]
 })
 

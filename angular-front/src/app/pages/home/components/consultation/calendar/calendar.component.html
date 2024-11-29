@@ -1,1 +1,8 @@
-<p>calendar works!</p>
+<div class="calendar-container" style="height: 100%">
+<full-calendar [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+      <b>{{arg.timeText}}</b>
+      <i>{{arg.event.title}}</i>
+    </ng-template>
+  </full-calendar>
+</div>

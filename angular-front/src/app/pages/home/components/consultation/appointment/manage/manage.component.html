@@ -1,7 +1,7 @@
 <div class="content">
-  <form [formGroup]="manageForm">
+  <form id="formFlex" [formGroup]="manageForm">
     <mat-card-title>{{ "Gestionar Citas" }}</mat-card-title>
-    <mat-card-content>
+    <mat-card-content id="formGrid">
       <!-- Filtro por nombre del paciente -->
       <mat-form-field appearance="outline">
         <mat-label>Nombre del paciente:</mat-label>
@@ -19,34 +19,37 @@
         <mat-label>Fecha de la cita:</mat-label>
         <input matInput type="date" formControlName="date" />
       </mat-form-field>
-
-      <button mat-button type="button" (click)="searchAppointments()">Buscar</button>
-      <button mat-button type="reset" (click)="resetForm()">Reiniciar</button>
+      <div class="control">
+        <button mat-button type="button" class="buttonPP" (click)="searchAppointments()">Buscar</button>
+        <button mat-button type="reset" class="buttonPP" (click)="resetForm()">Reiniciar</button>
+      </div>
     </mat-card-content>
   </form>
 
+  <hr size="3px" color="black" style="width: 100vw" />
   <div class="table-wrapper" *ngIf="appointments.length > 0">
     <table>
       <thead>
         <tr>
-          <th (click)="sortData('appointmentDate')">Fecha</th>
           <th (click)="sortData('patientName')">Paciente</th>
-          <th (click)="sortData('doctorName')">Médico</th>
+          <th (click)="sortData('doctorName')">Medico</th>
+          <th (click)="sortData('appointmentDate')">Fecha</th>
           <th>Motivo</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let appointment of filteredAppointments">
-          <td>{{ getPatientNameById(appointment.patientId) }}</td>
-          <td>{{ getDoctorNameById(appointment.doctorId) }}</td>
-          <td>{{ appointment.appointmentDate }}</td>
+          <td>
+            {{ appointment.patientId | idToString : patients }}</td>
+          <td>{{ appointment.doctorId | idToString : doctors }}</td>
+          <td>{{ appointment.appointmentDate.toString().split("T")[0] }}</td>
           <td>{{ appointment.reason }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div *ngIf="appointments.length === 0">
+  <div id="no-appointments" *ngIf="appointments.length === 0">
     <p>No hay citas disponibles.</p>
   </div>
 </div>
