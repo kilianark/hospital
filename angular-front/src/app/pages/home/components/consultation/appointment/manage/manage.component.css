@@ -39,6 +39,7 @@
   margin-top: 20px;
 }
 mat-card-title{
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
   font-weight: bold;
   font-size: 1.5em;
   padding-bottom: 30px;
