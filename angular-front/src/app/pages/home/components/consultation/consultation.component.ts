@@ -3,7 +3,7 @@ import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-consultation',
   templateUrl: './consultation.component.html',
-  styleUrl: './consultation.component.css'
+  styleUrl: './consultation.component.css',
 })
 export class ConsultationComponent {
   title = 'Consultas';
