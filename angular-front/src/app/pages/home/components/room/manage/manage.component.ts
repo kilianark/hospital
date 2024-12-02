@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
 
 @Component({
   selector: 'app-manage',
@@ -25,7 +26,7 @@ export class ManageComponent implements OnInit {
   selectedBed: BedInterface | null = null;
   isEditModalOpen: boolean = false;
   rooms: RoomInterface[] = [];
-
+  UrgencyArea = UrgencyArea;
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -65,6 +66,18 @@ export class ManageComponent implements OnInit {
     );
   }
 
+  get isSeatRoom(): boolean {
+
+    return this.room?.area == UrgencyArea.SalaEspera ;
+  }
+
+  get dynamicTitle(): string {
+    return this.isSeatRoom ? 'Gestión de asientos: Habitación ' : 'Gestión de camas: Habitación ';
+  }
+
+  get dynamicCreateButtonLabel(): string {
+    return this.isSeatRoom ? 'Crear asiento' : 'Crear cama';
+  }
   editBed(bed: BedInterface) {
     this.selectedBed = { ...bed };
     this.isEditModalOpen = true;
@@ -72,56 +85,103 @@ export class ManageComponent implements OnInit {
 
   openCreateBedModal() {
     if (this.beds.length >= this.room.capacity) {
-      this.confirm('No se pueden crear más camas, se ha alcanzado la capacidad de la habitación.', 'error');
+      this.confirm(
+        this.isSeatRoom
+          ? 'No se pueden crear más asientos, se ha alcanzado la capacidad de la habitación.'
+          : 'No se pueden crear más camas, se ha alcanzado la capacidad de la habitación.',
+        'error'
+      );
       return;
     }
-    // Generar un código único basado en el número de habitación actual y las camas actuales
-    const newBedCode = this.generateBedCode(this.room.roomNumber, this.beds);
-    this.selectedBed = { id: 0, bedCode: newBedCode, roomId: this.roomId!, availability: true };
+
+    const newCode = this.generateBedCode(this.room.roomNumber, this.beds);
+    this.selectedBed = {
+      id: 0,
+      bedCode: newCode,
+      roomId: this.roomId!,
+      availability: true
+    };
     this.isEditModalOpen = true;
   }
 
 
 
+
   saveBed() {
     if (this.selectedBed) {
+      // Verificar si es una sala de espera (asiento)
+      const isSeat = this.isSeatRoom;
 
-
-      const existingBed = this.beds.find(bed => bed.bedCode === this.selectedBed.bedCode);
+      // Verificar si el código ya existe
+      const existingBed = (isSeat ? this.beds : this.beds).find(item => item.bedCode === this.selectedBed.bedCode);
       if (existingBed && existingBed.id !== this.selectedBed.id) {
-        this.confirm('El código de cama ya existe. Por favor, elija otro.', 'warning');
+        this.confirm('El código ya existe. Por favor, elija otro.', 'warning');
         return;
       }
 
       if (this.selectedBed.id === 0) {
-        this.bedService.postBedData(this.selectedBed).subscribe(
-          (newBed) => {
-            this.beds.push(newBed);
-            this.isEditModalOpen = false;
-            this.selectedBed = null;
-            this.confirm('Cama creada correctamente', 'success');
-          },
-          (error) => this.confirm('No se puede crear la cama. Código repetido', 'warning')
-        );
+        // Crear nuevo asiento o cama
+        if (isSeat) {
+          this.bedService.postBedData(this.selectedBed).subscribe(
+            (newSeat) => {
+              this.beds.push(newSeat);  // Añadir asiento a la lista de asientos
+              this.isEditModalOpen = false;
+              this.selectedBed = null;
+              this.confirm('Asiento creado correctamente', 'success');
+            },
+            (error) => this.confirm('No se puede crear el asiento. Código repetido', 'warning')
+          );
+        } else {
+          this.bedService.postBedData(this.selectedBed).subscribe(
+            (newBed) => {
+              this.beds.push(newBed);  // Añadir cama a la lista de camas
+              this.isEditModalOpen = false;
+              this.selectedBed = null;
+              this.confirm('Cama creada correctamente', 'success');
+            },
+            (error) => this.confirm('No se puede crear la cama. Código repetido', 'warning')
+          );
+        }
       } else {
-          if (this.selectedBed.roomId !== this.roomId) {
+        // Actualizar cama o asiento
+        if (this.selectedBed.roomId !== this.roomId) {
+          if (isSeat) {
+            this.confirm('No se puede mover el asiento a otra habitación desde aquí.', 'error');
+          } else {
             this.confirm('No se puede mover la cama a otra habitación desde aquí.', 'error');
-            return;
           }
-        this.bedService.putBedData(this.selectedBed).subscribe(
-          () => {
-            const index = this.beds.findIndex(b => b.id === this.selectedBed!.id);
-            if (index !== -1) this.beds[index] = { ...this.selectedBed };
-            this.isEditModalOpen = false;
-            this.selectedBed = null;
-            this.loadBeds();
-            this.confirm('Cama actualizada correctamente', 'success');
-          },
-          (error) => this.confirm('Código repetido', 'warning')
-        );
+          return;
+        }
+
+        if (isSeat) {
+          this.bedService.putBedData(this.selectedBed).subscribe(
+            () => {
+              const index = this.beds.findIndex(s => s.id === this.selectedBed!.id);
+              if (index !== -1) this.beds[index] = { ...this.selectedBed };
+              this.isEditModalOpen = false;
+              this.selectedBed = null;
+              this.loadBeds();  // Recargar lista de asientos
+              this.confirm('Asiento actualizado correctamente', 'success');
+            },
+            (error) => this.confirm('Error al actualizar el asiento. Código repetido', 'warning')
+          );
+        } else {
+          this.bedService.putBedData(this.selectedBed).subscribe(
+            () => {
+              const index = this.beds.findIndex(b => b.id === this.selectedBed!.id);
+              if (index !== -1) this.beds[index] = { ...this.selectedBed };
+              this.isEditModalOpen = false;
+              this.selectedBed = null;
+              this.loadBeds();  // Recargar lista de camas
+              this.confirm('Cama actualizada correctamente', 'success');
+            },
+            (error) => this.confirm('Error al actualizar la cama. Código repetido', 'warning')
+          );
+        }
       }
     }
   }
+
 
   moveBed(destinationRoomId: number) {
     if (!this.selectedBed) {
@@ -180,13 +240,14 @@ export class ManageComponent implements OnInit {
     const usedLetters = new Set(bedsInDestination.map(bed => bed.bedCode.slice(-1)));
     let letter = 'A';
 
-    // Buscar la primera letra disponible
     while (usedLetters.has(letter)) {
       letter = String.fromCharCode(letter.charCodeAt(0) + 1);
+      if (letter > 'Z') throw new Error('No hay más códigos disponibles');
     }
 
-    return `${roomNumber}${letter}`.toUpperCase();
+    return `${roomNumber}${letter}`;
   }
+
 
 
 
@@ -208,34 +269,53 @@ export class ManageComponent implements OnInit {
   }
 
   deleteBed(bed: BedInterface) {
+    const isSeat = this.isSeatRoom;  // Verificar si es una sala de espera (asiento)
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Eliminar Cama',
-        message: `¿Estás seguro de que deseas eliminar la cama ${bed.bedCode}?`
+        title: isSeat ? 'Eliminar Asiento' : 'Eliminar Cama',
+        message: isSeat
+          ? `¿Estás seguro de que deseas eliminar el asiento ${bed.bedCode}?`
+          : `¿Estás seguro de que deseas eliminar la cama ${bed.bedCode}?`
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Verificar si la cama tiene un paciente asignado antes de intentar eliminarla
+        // Verificar si el asiento o cama tiene un paciente asignado antes de intentar eliminarla
         this.getPatientByBedId(bed.id).subscribe(
           (patient) => {
             if (patient) {
               // Si hay un paciente asignado, mostramos un mensaje de error
-              this.confirm(`No se puede eliminar la cama ${bed.bedCode} porque está asignada a un paciente.`, 'error');
+              this.confirm(`No se puede eliminar el ${isSeat ? 'asiento' : 'cama'} ${bed.bedCode} porque está asignado a un paciente.`, 'error');
             } else {
               // Si no hay paciente, procedemos con la eliminación
-              this.bedService.deleteBed(bed.id).subscribe(
-                () => {
-                  this.beds = this.beds.filter(b => b.id !== bed.id);
-                  this.confirm('Cama eliminada correctamente', 'success');
-                  this.loadBeds();
-                },
-                (error) => {
-                  this.confirm('Error al eliminar la cama. Por favor, inténtelo de nuevo.', 'error');
-                  console.error('Error al eliminar la cama:', error);
-                }
-              );
+              if (isSeat) {
+                // Si es asiento, usamos el servicio para eliminar un asiento
+                this.bedService.deleteBed(bed.id).subscribe(
+                  () => {
+                    this.beds = this.beds.filter(s => s.id !== bed.id);  // Filtramos la lista de asientos
+                    this.confirm('Asiento eliminado correctamente', 'success');
+                    this.loadBeds();  // Cargar los asientos nuevamente
+                  },
+                  (error) => {
+                    this.confirm('Error al eliminar el asiento. Por favor, inténtelo de nuevo.', 'error');
+                    console.error('Error al eliminar el asiento:', error);
+                  }
+                );
+              } else {
+                // Si es cama, usamos el servicio para eliminar una cama
+                this.bedService.deleteBed(bed.id).subscribe(
+                  () => {
+                    this.beds = this.beds.filter(b => b.id !== bed.id);  // Filtramos la lista de camas
+                    this.confirm('Cama eliminada correctamente', 'success');
+                    this.loadBeds();  // Cargar las camas nuevamente
+                  },
+                  (error) => {
+                    this.confirm('Error al eliminar la cama. Por favor, inténtelo de nuevo.', 'error');
+                    console.error('Error al eliminar la cama:', error);
+                  }
+                );
+              }
             }
           },
           (error) => {
@@ -248,6 +328,7 @@ export class ManageComponent implements OnInit {
       }
     });
   }
+
 
 
   getPatientByBedId(bedId: number): Observable<PatientInterface | null> {
