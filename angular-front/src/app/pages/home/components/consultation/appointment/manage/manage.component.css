@@ -1,21 +1,50 @@
-.content{
+body,
+.content {
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
   overflow: hidden;
 }
-
-#formFlex {
-  display: flex;
-  flex-direction: column;
-  padding-top: 3%;
-  padding-left: 2%;
+legend {
+  margin: 0px;
+  overflow: hidden;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 31px;
+  white-space: pre-line;
+  font-weight: bold;
+  padding-bottom: 2%;
+}
+table{
   margin-right: 20px;
 }
-.control {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  margin-bottom: 10px;
-  margin-top: 0px;
+.credentials {
+  display: grid;
+  padding-top: 10px;
+  grid-template-columns: auto auto auto auto;
+  gap: 10px;
+  margin-right: 4%;
 }
-.control button {    
+#hospiEspacio{
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  margin-right: 4%;
+}
+#right{
+  grid-column-start: 4;
+  grid-column-end: 5 ;
+  margin-left: 6px;
+}
+mat-card-title {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+form {
+  width: 100%;
+  padding-top: 3%;
+  padding-bottom: 10px;
+  margin-left: 2%;
+}
+form button {
   background-color: #333;
   color: white;
   border: none;
@@ -27,46 +56,275 @@
   text-transform: uppercase;
   margin-right: 10px;
 }
+form button:hover {
+  background-color: cadetblue;
+}
+.filtre1 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 800px;
+}
+.filtre2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 800px;
+}
+.alinear {
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  text-decoration: underline;
+  gap: 3vw;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: -10px;
+}
+fieldset {
+  border: none;
+}
+table {
+  display: block;
+  scrollbar-width: none;
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
+.table-wrapper {
+  width: 100%;
+  height: auto;
+  margin-left: 15px;
+  border-collapse: collapse;
+  display: grid;
+  justify-content: center;
+}
+.container {
+  width: 98%;
 
-.control button:hover {
+  overflow: scroll;
+  margin-bottom: 10px;
+}
+table::-webkit-scrollbar {
+  display: none;
+}
+.table-wrapper table {
+  border-collapse: collapse;
+}
+.table-wrapper table thead {
+  position: -webkit-sticky; /* Safari... */
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+th {
+  margin-left: 10px;
+}
+thead {
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #ffffff;
+}
+td {
+  text-align: center;
+  height: 50px;
+  width: 200px;
+}
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+td button {
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+td button:hover {
   background-color: cadetblue;
 }
 
-#formGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-  grid-template-rows: auto auto;
+.td-cont-left{
+  text-align: left;
+  padding-left: 30px;
 }
-.table-wrapper {
+
+.clickable-row {
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  th,
+  td {
+    padding: 0 15px;
+  }
+  .container {
+    width: 90%;
+  }
+  #hospiEspacio{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap:7px;
+  }
+  #right{
+    grid-column-start: 2;
+    grid-column-end: 3 ;
+    margin-left: 10px;
+  }
+  mat-form-field {
+    margin-left: 10px;
+  }
+  form {
+    padding-right: 2%;
+  }
+  .credentials {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  .credentials {
+    grid-template-columns: 48vw 48vw;
+  }
+  .container {
+    width: 99vw;
+  }
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
 }
-mat-card-title{
-  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
-  font-weight: bold;
-  font-size: 1.5em;
-  padding-bottom: 30px;
+
+.prev,
+.next {
+  margin: 0 5px; /* Espacio reducido entre los botones de navegación y los números */
+  flex: 0; /* Asegura que estos botones no crezcan */
 }
-table {
-  width: 100%;
-  border-collapse: collapse;
+
+.pagination {
+  display: inline-flex;
+  justify-content: center; /* Centra los números de página */
+  flex-grow: 0.3; /* Permite que el contenedor de paginación ocupe el espacio disponible */
+  margin: 0 10px; /* Reduce el espacio a los lados del contenedor de paginación */
 }
-.table-wrapper{
-  padding-left: 20px;
-}
-thead th {
+
+.pagination button {
+  background-color: transparent;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+  border-radius: 4px;
+  padding: 5px 8px; /* Ajusta el tamaño del padding de los botones */
+  font-size: 14px;
   cursor: pointer;
-  background-color: #f2f2f2;
+  transition: background-color 0.3s, color 0.3s;
 }
-#no-appointments{
-  padding-left: 20px;
-  padding-top: 20px;
+
+.pagination button.active {
+  background-color: #1976d2;
+  color: white;
 }
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+
+.pagination button:hover:not(.active):not(:disabled) {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.pagination button:disabled {
+  color: #b0bec5;
+  border: none;
+  background-color: transparent;
+}
+
+.pagination button:focus {
+  outline: none;
+}
+
+.pagination button:first-child,
+.pagination button:last-child {
+  padding: 5px 10px; /* Ajusta el tamaño de las flechas */
+  font-weight: normal;
+}
+
+/* Estilos para el contenedor de ordenación */
+.sort-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sort-container label {
+  font-size: 14px;
+  color: #1976d2;
+}
+
+.sort-container select {
+  padding: 5px 10px;
+  border: 1px solid #1976d2;
+  border-radius: 4px;
+  background-color: white;
+  color: #1976d2;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.sort-container select:focus {
+  outline: none;
+  border-color: #0d47a1;
+}
+
+.sort-container button {
+  background-color: transparent;
+  border: 1px solid #1976d2;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  color: #1976d2;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sort-container button:hover {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+}
+th {
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+  user-select: none;
+}
+
+th span {
+  margin-left: 5px;
 }
 
 th:hover {
-  background-color: #ddd;
+  background-color: #f1f1f1;
+}
+
+th span.asc,
+th span.desc {
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+}
+
+th span.asc::before {
+  content: "▲";
+}
+
+th span.desc::before {
+  content: "▼";
 }

@@ -5,6 +5,7 @@ import { MaterialModule } from '../../shared/modules/material.module';
 import { PatientService } from '../../services/patient.service';
 import { PatientInterface } from '../../interfaces/patient.interface';
 import { RoomInterface } from '../../interfaces/room.interface';
+import { AppointmentService } from '../../services/appointment.service';
 import { RoomService } from '../../services/room.service';
 import { WorkerService } from '../../services/worker.service';
 
@@ -18,16 +19,17 @@ import { WorkerService } from '../../services/worker.service';
 export class ConfirmComponent implements OnInit {
   public undoButton: boolean = false;
   private message: string = '';
-  private type: string = 'warning'; 
+  private type: string = 'warning';
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: { idObjectEliminated: number ; type: string},
 
-    public dialogRef: MatDialogRef<ConfirmComponent>, 
+    public dialogRef: MatDialogRef<ConfirmComponent>,
     private patientService: PatientService,
     private roomService : RoomService,
-    private workerService : WorkerService) {}
+    private workerService : WorkerService,
+    private appointmentService : AppointmentService) {}
 
   setMessage(messageString: string, type: string = ''): void {
     this.message = messageString;
@@ -62,7 +64,7 @@ export class ConfirmComponent implements OnInit {
     this.undoButton = undo;
   }
 
-  
+
 
   undo(): void {
     console.log("undo: ", this.data.idObjectEliminated);
@@ -80,6 +82,11 @@ export class ConfirmComponent implements OnInit {
     }
     if (this.data.type == "worker") {
       this.workerService.undoDeletePatient(this.data.idObjectEliminated).subscribe(() => {
+        this.dialogRef.close(true);
+      });
+    }
+    if (this.data.type == "appointment") {
+      this.appointmentService.undoDeleteAppointment(this.data.idObjectEliminated).subscribe(() => {
         this.dialogRef.close(true);
       });
     }

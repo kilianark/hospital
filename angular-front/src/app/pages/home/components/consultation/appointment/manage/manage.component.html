@@ -1,55 +1,105 @@
 <div class="content">
-  <form id="formFlex" [formGroup]="manageForm">
-    <mat-card-title>{{ "Gestionar Citas" }}</mat-card-title>
-    <mat-card-content id="formGrid">
-      <!-- Filtro por nombre del paciente -->
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre del paciente:</mat-label>
-        <input matInput type="text" formControlName="patientName" />
-      </mat-form-field>
+  <div class="top">
+    <form [formGroup]="manageForm">
+      <mat-card-title>{{ "Gestionar Citas" }}</mat-card-title>
+      <mat-card-content>
+        <div class="credentials">
+          <!-- Filtro por nombre del paciente -->
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del paciente:</mat-label>
+            <input matInput type="text" formControlName="patientName" />
+          </mat-form-field>
 
-      <!-- Filtro por nombre del médico -->
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre del médico:</mat-label>
-        <input matInput type="text" formControlName="doctorName" />
-      </mat-form-field>
+          <!-- Filtro por nombre del médico -->
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del médico:</mat-label>
+            <input matInput type="text" formControlName="doctorName" />
+          </mat-form-field>
 
-      <!-- Filtro por fecha -->
-      <mat-form-field appearance="outline">
-        <mat-label>Fecha de la cita:</mat-label>
-        <input matInput type="date" formControlName="date" />
-      </mat-form-field>
-      <div class="control">
-        <button mat-button type="button" class="buttonPP" (click)="searchAppointments()">Buscar</button>
-        <button mat-button type="reset" class="buttonPP" (click)="resetForm()">Reiniciar</button>
+          <!-- Filtro por fecha -->
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de la cita:</mat-label>
+            <input matInput type="date" formControlName="date" />
+          </mat-form-field>
+        </div>
+
+        <div class="control">
+          <button mat-button type="button" class="buttonPP" (click)="searchAppointments()">Buscar</button>
+          <button mat-button type="reset" class="buttonPP" (click)="resetForm()">Reiniciar</button>
+        </div>
+      </mat-card-content>
+    </form>
+
+    <hr size="3px" color="black" style="width: 100vw" />
+
+    <div [style.display]="isVisible ? 'block' : 'none'" *ngIf="appointments.length === 0">
+      <legend style="margin-left: 3%">No hay citas disponibles.</legend>
+    </div>
+
+    <div class="table-wrapper" [style.display]="isVisible ? 'grid' : 'none'" *ngIf="appointments.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th (click)="sortData('patientName')">
+              Paciente
+              <span *ngIf="sortField === 'patientName'">
+                <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+              </span>
+            </th>
+            <th (click)="sortData('doctorName')">
+              Médico
+              <span *ngIf="sortField === 'doctorName'">
+                <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+              </span>
+            </th>
+            <th (click)="sortData('appointmentDate')">
+              Fecha
+              <span *ngIf="sortField === 'appointmentDate'">
+                <span *ngIf="sortDirection === 'asc'">&#9650;</span>
+                <span *ngIf="sortDirection === 'desc'">&#9660;</span>
+              </span>
+            </th>
+            <th>Motivo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of filteredAppointments">
+            <td>{{ appointment.patientId | idToString : patients }}</td>
+            <td>{{ appointment.doctorId | idToString : doctors }}</td>
+            <td>{{ appointment.appointmentDate.toString().split('T')[0] | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ appointment.reason || '-'}}</td>
+            <td>
+              <button mat-button (click)="deleteappointment(appointment)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination-container" *ngIf="totalPages > 1">
+        <!-- Botón de flecha izquierda (anterior) -->
+        <button class="prev" (click)="prevPage()" [disabled]="currentPage === 1">
+          &laquo;
+        </button>
+
+        <!-- Números de página centrados -->
+        <div class="pagination">
+          <button (click)="goToPage(page)" *ngFor="let page of pageNumbers" [class.active]="page === currentPage"
+            [disabled]="page === -1">
+            <ng-container *ngIf="page === -1">...</ng-container>
+            <ng-container *ngIf="page !== -1">{{ page }}</ng-container>
+          </button>
+        </div>
+
+        <!-- Botón de flecha derecha (siguiente) -->
+        <button class="next" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          &raquo;
+        </button>
       </div>
-    </mat-card-content>
-  </form>
-
-  <hr size="3px" color="black" style="width: 100vw" />
-  <div class="table-wrapper" *ngIf="appointments.length > 0">
-    <table>
-      <thead>
-        <tr>
-          <th (click)="sortData('patientName')">Paciente</th>
-          <th (click)="sortData('doctorName')">Medico</th>
-          <th (click)="sortData('appointmentDate')">Fecha</th>
-          <th>Motivo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let appointment of filteredAppointments">
-          <td>
-            {{ appointment.patientId | idToString : patients }}</td>
-          <td>{{ appointment.doctorId | idToString : doctors }}</td>
-          <td>{{ appointment.appointmentDate.toString().split("T")[0] }}</td>
-          <td>{{ appointment.reason }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div id="no-appointments" *ngIf="appointments.length === 0">
-    <p>No hay citas disponibles.</p>
+    </div>
   </div>
 </div>
