@@ -104,18 +104,5 @@ export class CalendarComponent implements OnInit {
       panelClass: 'full-width-dialog',
       data: Appointid
     });
-
-    popupRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.patientService.getPatientData().subscribe((data) => {
-          this.patients = data.map(patient => ({
-            ...patient,
-            status: patient.zone
-          }));
-          this.searchPatients();
-        });
-      }
-    });
-  }
   }
 }

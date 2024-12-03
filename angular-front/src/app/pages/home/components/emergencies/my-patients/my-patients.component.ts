@@ -7,6 +7,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
 import { DoctorService } from '../../../../../services/doctor.service';
 import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
+import { AppointmentService } from '../../../../../services/appointment.service';
 
 @Component({
   selector: 'app-my-patients',
@@ -25,11 +26,12 @@ export class MyPatientsComponent implements OnInit{
   private doctorID: number;
 
   constructor(
-    private patientService: PatientService,
     private hospitalService: HospitalService,
+    private appointmentService: AppointmentService,
     private keycloakService: KeycloakService,
     private router: Router,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    private patientService: PatientService
   ) {
     
     setTimeout(() => {
@@ -64,26 +66,38 @@ export class MyPatientsComponent implements OnInit{
   }
 
   loadPatientsData(hospitalNum: number): void {
-    this.patientService.getPatientData(null, null, null, null, null, null, null, "4", "6", null, null, hospitalNum).subscribe((data) => {
-      this.patients = data;
-      console.log("data:", data);
-    });
-    
-  }
-
-  assingPatient(patientId: number) {
-    //conseguir id del doctor
+    //id doctor:
     var workerCode;
 
     this.keycloakService.loadUserProfile().then((profile) => {
       workerCode = profile.attributes['workerCode'][0];
       console.log(workerCode);
       this.doctorService.getDoctorData(workerCode).subscribe((data) => {
+        console.log(data);
         if(data.length > 0) this.doctor = data[0];
         this.doctorID = this.doctor.id;
+
+        this.appointmentService.getAppointmentData(this.doctorID).subscribe((data) => {
+          console.log("data appointments:", data);
+
+          for(const appointment of data) {
+            var patientId = appointment.patientId;
+
+            this.patientService.getPatientById(patientId).subscribe((data) => {
+              this.patients.push(data);
+              console.log(this.patients);
+            });
+          }
+
+        });
       });
     });
-    //post a la tabla (no sé si usar appointment o consultation)
+
+    
+  }
+
+  assingPatient(patientId: number) {
+    //conseguir id del doctor
 
 
     //enrutar al manage del patient
