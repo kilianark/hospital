@@ -33,7 +33,7 @@ namespace ApiHospital.Controllers
             [FromQuery] int? Id = null,
             [FromQuery] int? Patient_id = null,
             [FromQuery] int? Doctor_id = null,
-            [FromQuery] int? ReasonId = null,
+            [FromQuery] string? Reason = null,
             [FromQuery] DateTime? Date_request = null,
             [FromQuery] DateTime? Date_consulta = null,
             [FromQuery] string? Zone = null
@@ -43,7 +43,7 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Id, c => c.Id == Id!.Value);
             query = ApplyFilter(query, Patient_id, c => c.Patient_id == Patient_id.Value);
             query = ApplyFilter(query, Doctor_id, c => c.Doctor_id == Doctor_id.Value);
-            query = ApplyFilter(query, ReasonId, c => c.ReasonId == ReasonId.Value);
+            query = ApplyFilter(query, Reason, c => Reason != null && !string.IsNullOrWhiteSpace(c.Reason) && c.Reason.ToLower().StartsWith(Reason.ToLower()));
             query = ApplyFilter(query, Date_request, c => c.date_request == Date_request.Value);
             query = ApplyFilter(query, Date_consulta, c => c.date_consulta == Date_consulta.Value);
             query = ApplyFilter(query, Zone, c => Zone != null && !string.IsNullOrWhiteSpace(c.Zone) && c.Zone.ToLower().StartsWith(Zone.ToLower()));
