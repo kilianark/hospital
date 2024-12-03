@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { MatDialog } from '@angular/material/dialog';
 import { WorkerComponent } from '../../worker/worker.component';
 import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { OnInit } from '@angular/core';
+import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { KeycloakService } from 'keycloak-angular';
 import { AppointmentService } from '../../../../../services/appointment.service';
 import { AppointmentInterface } from '../../../../../interfaces/appointment.interface';
@@ -13,6 +15,7 @@ import { PatientService } from '../../../../../services/patient.service';
 import { DoctorService } from '../../../../../services/doctor.service';
 import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
 import { Router } from '@angular/router';
+import { EditCalendarComponent } from '../../../../../components/editcalendar/edit-calendar/edit-calendar.component';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -24,7 +27,7 @@ export class CalendarComponent implements OnInit {
   appointments: { date: Date; patientId: number; doctorId: number }[] = [];
   patients: { nombre: string; apellido: string; patientId: number }[] = [];
   workerCode!: number; // Ensure it's properly typed
-  doctorId!: number; // Ensure it's properly typed
+  appointmentID!: number; // Ensure it's properly typed
   AdoctorId!: number; // Ensure it's properly typed
   private doctor: DoctorInterface;
   calendarOptions: CalendarOptions = {
@@ -39,7 +42,8 @@ export class CalendarComponent implements OnInit {
     private patientService: PatientService,
     private readonly keycloak: KeycloakService,
     private doctorService: DoctorService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +64,7 @@ export class CalendarComponent implements OnInit {
           date: new Date(appointment.appointmentDate), // Ensure date is a Date object
           patientId: appointment.patientId,
           doctorId: appointment.doctorId,
+          appointmentID: appointment.id
         }));
         
       });
@@ -91,7 +96,26 @@ export class CalendarComponent implements OnInit {
         };
       });
   }
-  goToManage(id: number) {
-    this.router.navigate(['/manage', id]);
+  openDialog(Appointid: number) {
+    let popupRef = this.dialog.open(EditCalendarComponent, {
+      width: '80%',
+      height: '100%',
+      maxWidth: '100vw',
+      panelClass: 'full-width-dialog',
+      data: Appointid
+    });
+
+    popupRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.patientService.getPatientData().subscribe((data) => {
+          this.patients = data.map(patient => ({
+            ...patient,
+            status: patient.zone
+          }));
+          this.searchPatients();
+        });
+      }
+    });
+  }
   }
 }
