@@ -24,7 +24,7 @@ import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-edit-calendar',
   standalone: true,
-  imports: [MatDatepickerModule,ReactiveFormsModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule,MatFormField,SharedModule, KeycloakService, DoctorService],
+  imports: [MatDatepickerModule,ReactiveFormsModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule,MatFormField,SharedModule],
   templateUrl: './edit-calendar.component.html',
   styleUrl: './edit-calendar.component.css'
 })
