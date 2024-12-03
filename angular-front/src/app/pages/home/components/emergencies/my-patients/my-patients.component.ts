@@ -73,6 +73,7 @@ export class MyPatientsComponent implements OnInit{
       workerCode = profile.attributes['workerCode'][0];
       console.log(workerCode);
       this.doctorService.getDoctorData(workerCode).subscribe((data) => {
+        console.log(data);
         if(data.length > 0) this.doctor = data[0];
         this.doctorID = this.doctor.id;
 

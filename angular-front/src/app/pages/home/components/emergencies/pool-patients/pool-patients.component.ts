@@ -92,8 +92,9 @@ export class PoolPatientsComponent implements OnInit {
           patientId: patientId,
           doctorId: this.doctorID,
           appointmentDate: new Date,
+          status: '',
           reason: '',
-          status: ''
+          inUrgencies: true
         };
 
         console.log("appointment:", appointment);
