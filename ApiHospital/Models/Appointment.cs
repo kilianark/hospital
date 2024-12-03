@@ -9,6 +9,10 @@ namespace ApiHospital.Models
         public int DoctorId { get; set; }
         public DateTime AppointmentDate { get; set; }
         public string? Status { get; set; }
+        public bool InUrgencies {get; set;}
         public bool IsDeleted { get; set; }
+        public void Undo() {
+            IsDeleted = false;
+        }
     }
 }

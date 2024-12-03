@@ -282,7 +282,11 @@ export class ManageComponent implements OnInit {
       });
     }
 
-  onsubmit() {
+  onsubmit(appointmentData : any) {
+    const appointment: AppointmentInterface = {
+      ...appointmentData,
+      inUrgencies: false,
+    };
     this.spinnerService.show();
     this.isLoading = true;
     this.searchAppointments();
@@ -307,7 +311,6 @@ export class ManageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(undo => {
       if (undo) {
         this.loadAppointmentsData();
-        this.onsubmit();
       }
     });
   }
