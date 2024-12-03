@@ -13,6 +13,8 @@ import { ConfirmDialogComponent } from '../../../../../../shared/components/conf
 import { ConfirmComponent } from '../../../../../../components/confirm/confirm.component';
 import { PatientInterface } from '../../../../../../interfaces/patient.interface';
 import { DoctorInterface } from '../../../../../../interfaces/doctor.interface';
+import { identity } from 'rxjs';
+import { IdToStringPipe } from '../../../../../../pipe/id-to-string.pipe';
 
 @Component({
   selector: 'app-manage',
@@ -43,7 +45,6 @@ export class ManageComponent implements OnInit {
 
   isVisible: boolean = false;
 
-  // Inyecta los servicios
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -67,13 +68,12 @@ export class ManageComponent implements OnInit {
     this.loadPatientsData();
   }
 
-  // Método para cargar las citas
   loadPatientsData(): void {
     this.patientService.getPatientData().subscribe({
       next: (data) => {
         this.patients = data;
       }
-    })
+    });
   }
 
   loadDoctorData(): void {
@@ -81,12 +81,13 @@ export class ManageComponent implements OnInit {
       next: (data) => {
         this.doctors = data;
       }
-    })
+    });
   }
+
   loadAppointmentsData(): void {
     this.appointmentService.getAppointmentData().subscribe({
       next: (data) => {
-        console.log('Citas cargadas:', data);  // Verifica en la consola que las citas se cargan correctamente
+        console.log('Citas cargadas:', data);
         this.appointments = data;
         this.filteredAppointments = [...data];
         this.allFilteredAppointments = [...data];
@@ -101,17 +102,18 @@ export class ManageComponent implements OnInit {
           threshold: 0.3,
         });
 
-        this.totalPages = Math.ceil(this.appointments.length / this.itemsPerPage);
+        this.totalPages = Math.max(1, Math.ceil(this.appointments.length / this.itemsPerPage));
         this.generatePageNumbers();
         this.updatePagedAppointments();
+        this.isVisible = true;
       },
       error: (err) => {
         console.error('Error al cargar citas:', err);
+        this.isVisible = true;
       }
     });
   }
 
-  // Método para generar los números de página
   generatePageNumbers() {
     if (this.totalPages <= 0) {
       this.pageNumbers = [];
@@ -136,7 +138,7 @@ export class ManageComponent implements OnInit {
     this.pageNumbers.push(1);
 
     if (startPage > 2) {
-      this.pageNumbers.push(-1); // Indicador de omisión
+      this.pageNumbers.push(-1);
     }
 
     for (let i = startPage; i <= endPage; i++) {
@@ -144,20 +146,18 @@ export class ManageComponent implements OnInit {
     }
 
     if (endPage < this.totalPages - 1) {
-      this.pageNumbers.push(-1); // Indicador de omisión
+      this.pageNumbers.push(-1);
     }
 
     this.pageNumbers.push(this.totalPages);
   }
 
-  // Método para actualizar las citas según la página actual
   updatePagedAppointments() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.filteredAppointments = this.allFilteredAppointments.slice(startIndex, endIndex);
   }
 
-  // Método para ir a la página anterior
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -166,7 +166,6 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  // Método para ir a la página siguiente
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -175,7 +174,6 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  // Método para ordenar las citas
   sortData(field: string) {
     if (this.sortField === field) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -186,7 +184,6 @@ export class ManageComponent implements OnInit {
     this.sortAppointments();
   }
 
-  // Método para ordenar las citas
   sortAppointments() {
     this.allFilteredAppointments.sort((a, b) => {
       let comparison = 0;
@@ -201,24 +198,24 @@ export class ManageComponent implements OnInit {
     this.updatePagedAppointments();
   }
 
-  // Método para ir a una página específica
   goToPage(page: number) {
     this.currentPage = page;
     this.updatePagedAppointments();
   }
 
-  // Método de búsqueda de citas
   searchAppointments() {
     const { patientName, doctorName, date, reason } = this.manageForm.value;
 
     let filteredAppointments = [...this.appointments];
 
     if (patientName && this.fusePatientName) {
-      filteredAppointments = this.fusePatientName.search(patientName).map(result => result.item);
+      const results = this.fusePatientName.search(patientName).map(result => result.item);
+      filteredAppointments = filteredAppointments.filter(appointment => results.includes(appointment));
     }
 
     if (doctorName && this.fuseDoctorName) {
-      filteredAppointments = this.fuseDoctorName.search(doctorName).map(result => result.item);
+      const results = this.fuseDoctorName.search(doctorName).map(result => result.item);
+      filteredAppointments = filteredAppointments.filter(appointment => results.includes(appointment));
     }
 
     if (date) {
@@ -234,12 +231,13 @@ export class ManageComponent implements OnInit {
     }
 
     this.allFilteredAppointments = filteredAppointments;
-    console.log('Citas filtradas:', this.allFilteredAppointments); // Verifica el contenido de las citas filtradas
-    this.totalPages = Math.ceil(filteredAppointments.length / this.itemsPerPage);
+    console.log('Citas filtradas:', this.allFilteredAppointments);
+    this.totalPages = Math.max(1, Math.ceil(filteredAppointments.length / this.itemsPerPage));
     this.generatePageNumbers();
     this.updatePagedAppointments();
+    this.isVisible = true;
   }
-  // Método para abrir el diálogo de confirmación
+
   openDialog(appointmentId: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { id: appointmentId }
@@ -252,8 +250,39 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  // Método al enviar el formulario de búsqueda
-  onSubmit() {
+    deleteappointment(appointment: AppointmentInterface) {
+      // Abrimos el diálogo de confirmación para eliminar la cita
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          title: 'Eliminar Cita',
+          message: `¿Estás seguro de que deseas eliminar esta cita?`
+        }
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          // El usuario confirmó la eliminación
+          this.appointmentService.deleteAppointment(appointment.id).subscribe({
+            next: () => {
+              // Si la cita se elimina con éxito, mostramos el mensaje de confirmación
+              this.confirm('Cita eliminada con éxito', 'success', appointment.id);
+              // Recargamos los datos de las citas
+              this.loadAppointmentsData();
+            },
+            error: (err) => {
+              // Si ocurre un error en la eliminación, lo mostramos en la consola
+              console.error('Error al eliminar cita:', err);
+              this.confirm('Error al eliminar la cita', 'error');
+            }
+          });
+        } else {
+          // El usuario canceló la eliminación
+          console.log('Eliminación cancelada.');
+        }
+      });
+    }
+
+  onsubmit() {
     this.spinnerService.show();
     this.isLoading = true;
     this.searchAppointments();
@@ -263,15 +292,13 @@ export class ManageComponent implements OnInit {
     }, 0);
   }
 
-  // Método para resetear el formulario de búsqueda
   resetForm() {
     this.manageForm.reset();
     this.isVisible = false;
     this.loadAppointmentsData();
   }
 
-  // Método para confirmar la eliminación de una cita
-  confirm(message: string, type: string, appointmentId: number) {
+  confirm(message: string, type: string, appointmentId: number = null) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       data: { idObjectEliminated: appointmentId, type: 'appointment' }
     });
@@ -280,10 +307,8 @@ export class ManageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(undo => {
       if (undo) {
         this.loadAppointmentsData();
-        this.onSubmit();
+        this.onsubmit();
       }
     });
   }
-
-// Método para obtener el nombre del paciente por su ID
 }

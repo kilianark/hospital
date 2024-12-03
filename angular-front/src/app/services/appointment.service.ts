@@ -20,7 +20,7 @@ export class AppointmentService {
   // Obtener todas las citas
   getAppointmentData(doctorId?: number): Observable<AppointmentInterface[]> {
     let params = new HttpParams();
-    
+
     if(doctorId != null && doctorId != undefined && doctorId != 0) {
       params = params.set('doctorId', doctorId);
     }
@@ -41,6 +41,10 @@ export class AppointmentService {
   // Actualizar una cita existente
   updateAppointment(id: number, appointment: AppointmentInterface): Observable<AppointmentInterface> {
     return this.http.put<AppointmentInterface>(`${this.baseUrl}/${id}`, appointment);
+  }
+
+  undoDeleteAppointment(appointmentId : number): Observable<AppointmentInterface> {
+    return this.http.get<AppointmentInterface>(`${this.baseUrl}/undo/${appointmentId}`);
   }
 
   // Eliminar una cita

@@ -8,10 +8,10 @@
 
   <body>
     <div class="header">
-      <legend id="titleBed">{{ title }} {{ room.roomNumber }}</legend>
+      <legend id="titleBed">{{ dynamicTitle }}{{ room.roomNumber }}</legend>
       <!-- Botón para crear una nueva cama -->
       <button class="create-bed-button" (click)="openCreateBedModal()">
-        Crear cama
+        {{ dynamicCreateButtonLabel }}
       </button>
     </div>
 
@@ -50,69 +50,73 @@
         </tbody>
       </table>
 
-      <!-- Mensaje si no hay camas -->
-      <div *ngIf="beds.length === 0" class="no-beds-message">
-        <p>No hay camas disponibles para esta habitación.</p>
-      </div>
+      <!-- Mensaje si no hay camas o asientos -->
+<div *ngIf="(isSeatRoom && beds.length === 0) || (!isSeatRoom && beds.length === 0)" class="no-beds-message">
+  <p *ngIf="isSeatRoom">No hay asientos disponibles para esta habitación.</p>
+  <p *ngIf="!isSeatRoom">No hay camas disponibles para esta habitación.</p>
+</div>
+</div>
+<!-- Formulario modal para editar o crear cama o asiento -->
+<div *ngIf="isEditModalOpen" class="modal-overlay"></div>
+<div *ngIf="isEditModalOpen" class="modal">
+  <h2 *ngIf="selectedBed?.id === 0">
+    {{ isSeatRoom ? 'Crear asiento' : 'Crear cama' }}
+  </h2>
+  <h2 *ngIf="selectedBed?.id !== 0">
+    {{ isSeatRoom ? 'Editar asiento' : 'Editar cama' }}
+  </h2>
+
+  <form>
+    <mat-form-field style="width: 100%;" appearance="outline">
+      <mat-label for="bedCode">Código de {{ isSeatRoom ? 'asiento' : 'cama' }}:</mat-label>
+      <input matInput
+        id="bedCode"
+        [(ngModel)]="selectedBed.bedCode"
+        name="bedCode"
+        required
+      />
+    </mat-form-field>
+    <div id="horizontal">
+      <mat-label for="availability">Disponibilidad:</mat-label>
+      <input
+        id="availability"
+        type="checkbox"
+        [(ngModel)]="selectedBed.availability"
+        name="availability"
+      />
     </div>
 
-    <!-- Formulario modal para editar o crear una cama -->
-    <div *ngIf="isEditModalOpen" class="modal-overlay"></div>
-    <div *ngIf="isEditModalOpen" class="modal">
-      <h2 *ngIf="selectedBed?.id === 0">Crear cama</h2>
-      <h2 *ngIf="selectedBed?.id !== 0">Editar cama</h2>
-
-      <form >
-        <mat-form-field style="width: 100%;" appearance="outline">
-        <mat-label for="bedCode">Código de cama:</mat-label>
-        <input matInput
-          id="bedCode"
-          [(ngModel)]="selectedBed.bedCode"
-          name="bedCode"
-          required
-        />
-      </mat-form-field>
-        <div id="horizontal">
-          <mat-label for="availability">Disponibilidad:</mat-label>
-          <input
-            id="availability"
-            type="checkbox"
-            [(ngModel)]="selectedBed.availability"
-            name="availability"
-          />
-        </div>
-
-        <div *ngIf="selectedBed?.id !== 0">
-          <mat-form-field style="width: 100%;">
-          <mat-label for="roomSelect">Mover a habitación:</mat-label>
-          <mat-select
-            id="roomSelect"
-            [(ngModel)]="selectedBed.roomId"
-            name="roomId"
-          >
-            <mat-option *ngFor="let room of rooms" [value]="room.id">
-              {{ room.roomNumber }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-          <button mat-raised-button type="button" (click)="moveBed(selectedBed?.roomId)">
-            Mover cama
-          </button>
-        </div>
-
-        <button
-        mat-raised-button
-          (click)="saveBed()"
-          style="margin-right: 10px"
-          type="submit"
-          
+    <div *ngIf="selectedBed?.id !== 0">
+      <mat-form-field style="width: 100%;">
+        <mat-label for="roomSelect">Mover a habitación:</mat-label>
+        <mat-select
+          id="roomSelect"
+          [(ngModel)]="selectedBed.roomId"
+          name="roomId"
         >
-          {{ selectedBed?.id === 0 ? "Crear" : "Guardar" }}
-        </button>
-
-        <button 
-        mat-raised-button type="button" (click)="cancelEdit()">Cancelar</button>
-      </form>
+          <mat-option *ngFor="let room of rooms" [value]="room.id">
+            {{ room.roomNumber }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button type="button" (click)="moveBed(selectedBed?.roomId)">
+        Mover {{ isSeatRoom ? 'asiento' : 'cama' }}
+      </button>
     </div>
+
+    <button
+      mat-raised-button
+      (click)="saveBed()"
+      style="margin-right: 10px"
+      type="submit"
+    >
+      {{ selectedBed?.id === 0 ? (isSeatRoom ? 'Crear asiento' : 'Crear cama') : (isSeatRoom ? 'Guardar asiento' : 'Guardar cama') }}
+    </button>
+
+    <button
+      mat-raised-button type="button" (click)="cancelEdit()">Cancelar</button>
+  </form>
+</div>
+
   </body>
 </html>
