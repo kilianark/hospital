@@ -30,21 +30,22 @@ namespace ApiHospital.Controllers
         // GET: api/Appointments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAllAppointments(
-        [FromQuery] int? patientId,
-        [FromQuery] int? doctorId,
-        [FromQuery] DateTime? appointmentDate,
-        [FromQuery] string? status
-    )
-    {
-        IQueryable<Appointment> query = _context.Appointments;
-        query = ApplyFilter(query, patientId, a => a.PatientId == patientId.Value);
-        query = ApplyFilter(query, doctorId, a => a.DoctorId == doctorId.Value);
-        query = ApplyFilter(query, appointmentDate, a => a.AppointmentDate.Date == appointmentDate.Value.Date);
-        query = ApplyFilter(query, status, a => !string.IsNullOrWhiteSpace(a.Status) && a.Status.ToLower().StartsWith(status.ToLower()));
+            [FromQuery] int? patientId,
+            [FromQuery] int? doctorId,
+            [FromQuery] DateTime? appointmentDate,
+            [FromQuery] string? status
+        )
+        {
+            IQueryable<Appointment> query = _context.Appointments;
+            query = ApplyFilter(query, patientId, a => a.PatientId == patientId.Value);
+            query = ApplyFilter(query, doctorId, a => a.DoctorId == doctorId.Value);
+            query = ApplyFilter(query, appointmentDate, a => a.AppointmentDate.Date == appointmentDate.Value.Date);
+            query = ApplyFilter(query, status, a => !string.IsNullOrWhiteSpace(a.Status) && a.Status.ToLower().StartsWith(status.ToLower()));
 
-        var appointments = await query.ToListAsync();
-        return Ok(_mapper.Map<IEnumerable<AppointmentDTO>>(appointments));
-    }
+            var appointments = await query.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<AppointmentDTO>>(appointments));
+        }
+
         private IQueryable<T> ApplyFilter<T>(
             IQueryable<T> query,
             object? filterValue,
@@ -55,7 +56,6 @@ namespace ApiHospital.Controllers
             {
                 query = query.Where(filterExpression);
             }
-
             return query;
         }
 
@@ -64,7 +64,6 @@ namespace ApiHospital.Controllers
         public async Task<ActionResult<Appointment>> GetAppointmentById(int id)
         {
             var appointment = await _context.Appointments.FindAsync(id);
-
             if (appointment == null)
             {
                 return NotFound();
@@ -168,6 +167,37 @@ namespace ApiHospital.Controllers
         private bool AppointmentExists(int id)
         {
             return _context.Appointments.Any(e => e.Id == id);
+        }
+
+        // GET: api/Appointments/undo/5
+        [HttpGet("undo/{id}")]
+        public async Task<IActionResult> UndoDeleteAppointment(int id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            appointment.Undo();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Appointments.Any(e => e.Id == appointment.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw; 
+                }
+            }
+            return Ok(appointment);
         }
     }
 }

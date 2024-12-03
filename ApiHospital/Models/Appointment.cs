@@ -12,5 +12,8 @@ namespace ApiHospital.Models
         public int? Reason {get; set;}
         public bool InUrgencies {get; set;}
         public bool IsDeleted { get; set; }
+        public void Undo() {
+            IsDeleted = false;
+        }
     }
 }
