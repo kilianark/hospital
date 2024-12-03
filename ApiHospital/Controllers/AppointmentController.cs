@@ -173,7 +173,7 @@ namespace ApiHospital.Controllers
         [HttpGet("undo/{id}")]
         public async Task<IActionResult> UndoDeleteAppointment(int id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
+            var appointment = await _context.Appointments.IgnoreQueryFilters().FirstOrDefaultAsync(a => a.Id == id);
 
             if (appointment == null)
             {
