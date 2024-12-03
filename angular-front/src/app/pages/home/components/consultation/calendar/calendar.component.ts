@@ -33,7 +33,8 @@ export class CalendarComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
-    weekends: false,
+    firstDay: 1,
+    weekends: true,
     events: [] // Initially empty
   };
 
