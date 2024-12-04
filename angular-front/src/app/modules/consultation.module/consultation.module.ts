@@ -12,6 +12,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+
 // Componentes
 import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
 import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
@@ -45,7 +47,8 @@ import { MyPatientsComponent } from '../../pages/home/components/emergencies/my-
     MatNativeDateModule,
     MatCardModule,
     HasRoleDirective,
-    FullCalendarModule
+    FullCalendarModule,
+    NgxMaterialTimepickerModule
   ],
 })
 export class ConsultationModule {}
