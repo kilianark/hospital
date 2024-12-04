@@ -33,31 +33,9 @@ export class AppointmentService {
     return this.http.get<AppointmentInterface>(`${this.baseUrl}/${id}`);
   }
 
-  // Crear una nueva cita
-  createAppointment(appointment: AppointmentInterface): Observable<AppointmentInterface> {
-    // Validamos que appointmentDate sea una fecha válida
-    const appointmentDate = new Date(appointment.appointmentDate);
-
-    if (isNaN(appointmentDate.getTime())) {
-      console.error('La fecha proporcionada no es válida:', appointment.appointmentDate);
+    createAppointment(appointment: AppointmentInterface): Observable<AppointmentInterface> {
+      return this.http.post<AppointmentInterface>(`${this.baseUrl}`, appointment);
     }
-
-    // Si la fecha es válida, la formateamos en ISO
-    const formattedDate = appointmentDate.toISOString();
-
-    const appointmentDTO = {
-      appointmentDTO: {
-        doctorId: appointment.doctorId,
-        patientId: appointment.patientId,
-        appointmentDate: formattedDate,  // Usamos la fecha formateada
-        reason: appointment.reason,
-        status: 'Pending', // Ajusta si es necesario
-        inUrgencies: false // Ajusta si es necesario
-      }
-    };
-
-    return this.http.post<AppointmentInterface>(`${this.baseUrl}`, appointmentDTO);
-  }
 
   // Actualizar una cita existente
   updateAppointment(id: number, appointment: AppointmentInterface): Observable<AppointmentInterface> {
