@@ -78,9 +78,7 @@ export class MyPatientsComponent implements OnInit{
           for(const appointment of data) {
             var patientId = appointment.patientId;
 
-            this.patientService.getPatientById(patientId).subscribe((data) => {
-              this.patients.push(data);
-            });
+            this.patientService.getPatientById(patientId).subscribe((data) => { this.patients.push(data); });
           }
 
         });
