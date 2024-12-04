@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
-import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
-import { HospitalService } from '../../../../../services/hospital.service';
 import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
 import { DoctorService } from '../../../../../services/doctor.service';
@@ -22,7 +20,8 @@ export class MyPatientsComponent implements OnInit{
     private appointmentService: AppointmentService,
     private keycloakService: KeycloakService,
     private doctorService: DoctorService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
