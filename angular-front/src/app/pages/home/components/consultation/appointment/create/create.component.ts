@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../../components/confirm/confirm.component';
 import { AppointmentInterface } from '../../../../../../interfaces/appointment.interface';
 
+// Validador personalizado para verificar que la fecha sea futura
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
@@ -16,7 +17,7 @@ export function futureDateValidator(): ValidatorFn {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    return selectedDate > today ? null : { notFutureDate: true };
+    return selectedDate >= today ? null : { notFutureDate: true };
   };
 }
 
@@ -41,7 +42,8 @@ export class CreateComponent implements OnInit {
     this.appointmentForm = this.fb.group({
       doctorId: ['', Validators.required],
       patientId: ['', Validators.required],
-      appointmentDate: ['', [Validators.required, futureDateValidator()]],
+      appointmentDate: ['', [Validators.required, futureDateValidator()]], // Valida que la fecha sea futura
+      appointmentTime: ['', Validators.required], // Campo para la hora
       reason: ['', Validators.maxLength(250)],
     });
   }
@@ -51,6 +53,7 @@ export class CreateComponent implements OnInit {
     this.loadPatients();
   }
 
+  // Cargar la lista de médicos desde el servicio
   loadDoctors(): void {
     this.doctorService.getDoctorData().subscribe(
       (doctors) => {
@@ -62,30 +65,50 @@ export class CreateComponent implements OnInit {
     );
   }
 
+  // Cargar la lista de pacientes desde el servicio
   loadPatients(): void {
     this.patientService.getPatientData().subscribe(
       (patients) => {
-        this.patients = patients.map((p) => ({ id: p.id, name: `${p.name} ${p.surname1} ${p.surname2 ? p.surname2 : "" }`}));
+        this.patients = patients.map((p) => ({ id: p.id, name: `${p.name} ${p.surname1} ${p.surname2 ? p.surname2 : "" }` }));
       },
       (error) => {
         console.error('Error al cargar los pacientes:', error);
       }
     );
   }
+
+  // Formatear la fecha
   private formatDate(date: string): string {
     return date ? date.split('T')[0] : '';
   }
 
+  // Manejar el envío del formulario
   onFormSubmit(): void {
     if (this.appointmentForm.valid) {
       const formValue = this.appointmentForm.value;
+
+      // Verifica si la fecha y la hora están presentes
+      if (!formValue.appointmentDate || !formValue.appointmentTime) {
+        console.error('La fecha y hora son obligatorias');
+        return;
+      }
+
+      // Combina la fecha y hora
+      const appointmentDate = new Date(formValue.appointmentDate);
+      const [hours, minutes] = formValue.appointmentTime.split(':'); // Extrae la hora y minutos
+
+      // Establece la hora y minutos a la fecha seleccionada
+      appointmentDate.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+
+      // Convierte el objeto Date a formato ISO (incluye fecha y hora)
+      const formattedAppointmentDate = appointmentDate.toISOString();
+
       const appointment: AppointmentInterface = {
         ...formValue,
-        appointmentDate: this.formatDate(formValue.appointmentDate), // Aseguramos formato correcto
+        appointmentDate: formattedAppointmentDate, // Se usa la fecha con hora combinada
       };
 
-      console.log('Valor enviado:', appointment); // Para depuración
-
+      // Llama al servicio para crear la cita
       this.appointmentService.createAppointment(appointment).subscribe(
         (response) => {
           console.log('Cita registrada:', response);
@@ -100,6 +123,7 @@ export class CreateComponent implements OnInit {
     }
   }
 
+  // Mostrar mensaje de confirmación
   confirm(message: string, type: string): void {
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);

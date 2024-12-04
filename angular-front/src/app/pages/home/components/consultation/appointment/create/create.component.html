@@ -40,6 +40,15 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Selector de hora -->
+    <mat-form-field appearance="outline">
+      <mat-label>Hora de la Cita</mat-label>
+      <input matInput [ngxTimepicker]="picker" readonly formControlName="appointmentTime" />
+      <ngx-material-timepicker #picker></ngx-material-timepicker>
+      <mat-error *ngIf="appointmentForm.get('appointmentTime')?.hasError('required')">
+        La hora de la cita es obligatoria.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Razón de la cita -->
     <mat-form-field style="padding-top: 0px; padding-bottom: 0px;" id="reason" appearance="outline">
