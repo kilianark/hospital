@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientInterface } from '../../../../../interfaces/patient.interface';
 import { PatientService } from '../../../../../services/patient.service';
-import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
-import { HospitalService } from '../../../../../services/hospital.service';
 import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
 import { DoctorService } from '../../../../../services/doctor.service';
-import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
 import { AppointmentService } from '../../../../../services/appointment.service';
 import { AppointmentInterface } from '../../../../../interfaces/appointment.interface';
 
@@ -18,60 +15,30 @@ import { AppointmentInterface } from '../../../../../interfaces/appointment.inte
 export class PoolPatientsComponent implements OnInit {
 
   public patients: PatientInterface[] = [];
-  private hospitals: HospitalInterface[] = [];
-
   private userRoles: string[];
-  public show: boolean = false;
-
-  private doctor: DoctorInterface;
-  private doctorID: number;
 
   constructor(
     private patientService: PatientService,
-    private hospitalService: HospitalService,
     private keycloakService: KeycloakService,
     private router: Router,
     private doctorService: DoctorService,
     private appointmentService: AppointmentService
-  ) {
-    
-    setTimeout(() => {
-      this.show = true;
-    }, 1);
-    
+  ) {}
+
+  ngOnInit(): void {
     this.userRoles = this.keycloakService.getKeycloakInstance().realmAccess?.roles;
     var hospitalNum: number = null;
 
     if(this.userRoles.includes('Goldenfold')) hospitalNum = 1;
     else if (this.userRoles. includes('HospitalFaro')) hospitalNum = 2;
 
-    console.log(hospitalNum);
-
     this.loadPatientsData(hospitalNum);
-    this.loadHospitalsData();
-  }
-
-  ngOnInit(): void {
-    
-  }
-
-  getHospitalName(hospitalCode: number): string {
-    const hospital = this.hospitals.find(h => h.hospitalCode === hospitalCode);
-    return hospital ? hospital.hospitalName : 'Desconocido';
-  }
-
-  loadHospitalsData(): void {
-    this.hospitalService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals;
-    });
   }
 
   loadPatientsData(hospitalNum: number): void {
     this.patientService.getPatientData(null, null, null, null, null, null, null, "4", "6", null, null, hospitalNum).subscribe((data) => {
       this.patients = data;
-      console.log("data:", data);
     });
-    
   }
 
   assingPatient(patientId: number) {
@@ -80,29 +47,23 @@ export class PoolPatientsComponent implements OnInit {
 
     this.keycloakService.loadUserProfile().then((profile) => {
       workerCode = profile.attributes['workerCode'][0];
-      console.log(workerCode);
       this.doctorService.getDoctorData(workerCode).subscribe((data) => {
-        if(data.length > 0) this.doctor = data[0];
-        this.doctorID = this.doctor.id;
-        console.log(this.doctorID);
 
         //post a la tabla (no sé si usar appointment o consultation)
         const appointment: AppointmentInterface = {
           id: 0,
           patientId: patientId,
-          doctorId: this.doctorID,
+          doctorId: data[0].id,
           appointmentDate: new Date,
           status: '',
           reason: '',
           inUrgencies: true
         };
 
-        console.log("appointment:", appointment);
         this.appointmentService.createAppointment(appointment).subscribe(() => {});
       });
     });
     
-
     //enrutar al manage del patient
     this.router.navigate(['/home/patient/manage', { id: patientId }]);
   }

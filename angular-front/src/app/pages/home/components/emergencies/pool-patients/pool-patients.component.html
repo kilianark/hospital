@@ -5,56 +5,30 @@
   </head>
   <body>
     <mat-card-title>Sala de espera</mat-card-title>
-    
-    <div *ngIf="show" class="table-wrapper">
+    <div class="table-wrapper">
         <table>
         <thead>
           <tr>
-            <th>
-              Hospital
-            </th>
-            <th>
-              Código Paciente
-            </th>
-            <th>
-              Nombre
-            </th>
-            <th>
-              Primer Apellido
-            </th>
-            <th>
-              Segundo Apellido
-            </th>
-            <th>
-              DNI
-            </th>
-            <th>
-              CIP
-            </th>
-            <th>
-              Teléfono
-            </th>
+            <th>Código Paciente</th>
+            <th>Nombre</th>
+            <th>Primer Apellido</th>
+            <th>DNI</th>
+            <th>Teléfono</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let patient of patients" class="clickable-row">
-            <td>{{ getHospitalName(patient.hospital) }}</td>
             <td>{{ patient.patientCode }}</td>
             <td>{{ patient.name }}</td>
             <td>{{ patient.surname1 }}</td>
-            <td>{{ patient.surname2 }}</td>
             <td>{{ patient.dni }}</td>
-            <td>{{ patient.cip }}</td>
             <td>{{ patient.phone }}</td>
             <td>
-              <button mat-button (click)="assingPatient(patient.id)">
-                Assignar
-              </button>
+              <button mat-button (click)="assingPatient(patient.id)">Assignar</button>
             </td>
           </tr>
         </tbody>
-        </table>
+      </table>
     </div>
-    
   </body>
 </html>
