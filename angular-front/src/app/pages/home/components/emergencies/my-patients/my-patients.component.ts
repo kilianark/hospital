@@ -46,7 +46,7 @@ export class MyPatientsComponent implements OnInit{
 
     console.log(hospitalNum);
 
-    this.loadPatientsData(hospitalNum);
+    this.loadPatientsData();
     this.loadHospitalsData();
   }
 
@@ -65,7 +65,7 @@ export class MyPatientsComponent implements OnInit{
     });
   }
 
-  loadPatientsData(hospitalNum: number): void {
+  loadPatientsData(): void {
     //id doctor:
     var workerCode;
 
