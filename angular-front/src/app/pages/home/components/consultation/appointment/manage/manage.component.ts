@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../../../../../../services/appointment.service';
 import { AppointmentInterface } from '../../../../../../interfaces/appointment.interface';
