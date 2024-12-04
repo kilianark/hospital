@@ -44,8 +44,6 @@ export class MyPatientsComponent implements OnInit{
     if(this.userRoles.includes('Goldenfold')) hospitalNum = 1;
     else if (this.userRoles. includes('HospitalFaro')) hospitalNum = 2;
 
-    console.log(hospitalNum);
-
     this.loadPatientsData();
     this.loadHospitalsData();
   }
@@ -71,21 +69,17 @@ export class MyPatientsComponent implements OnInit{
 
     this.keycloakService.loadUserProfile().then((profile) => {
       workerCode = profile.attributes['workerCode'][0];
-      console.log(workerCode);
       this.doctorService.getDoctorData(workerCode).subscribe((data) => {
-        console.log(data);
         if(data.length > 0) this.doctor = data[0];
         this.doctorID = this.doctor.id;
 
         this.appointmentService.getAppointmentData(this.doctorID).subscribe((data) => {
-          console.log("data appointments:", data);
 
           for(const appointment of data) {
             var patientId = appointment.patientId;
 
             this.patientService.getPatientById(patientId).subscribe((data) => {
               this.patients.push(data);
-              console.log(this.patients);
             });
           }
 
