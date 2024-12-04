@@ -28,6 +28,11 @@ export class ManageComponent implements OnInit {
   patients: PatientInterface[] = [];
   doctors: DoctorInterface[] = [];
 
+
+  selectedAppointment: AppointmentInterface | null = null; // Cita seleccionada para editar
+  isEditModalOpen: boolean = false; // Estado del modal de edición
+  editForm: FormGroup; // Formulario para editar citas
+
   fusePatientName: Fuse<AppointmentInterface> | null = null;
   fuseDoctorName: Fuse<AppointmentInterface> | null = null;
 
@@ -59,6 +64,9 @@ export class ManageComponent implements OnInit {
       doctorName: [''],
       date: [''],
       reason: [''],
+    });
+    this.editForm = this.formBuilder.group({
+      appointmentDate: [''],
     });
   }
 
@@ -301,6 +309,64 @@ export class ManageComponent implements OnInit {
     this.isVisible = false;
     this.loadAppointmentsData();
   }
+
+  openEditModal(appointment: AppointmentInterface): void {
+    this.selectedAppointment = appointment;
+
+
+    const appointmentDate = new Date(this.selectedAppointment.appointmentDate);
+    appointmentDate.setDate(appointmentDate.getDate() + 1);
+
+
+    const formattedDate = appointmentDate.toISOString().split('T')[0];
+
+    this.editForm.patchValue({
+      appointmentDate: formattedDate,
+    });
+
+
+    this.isEditModalOpen = true;
+  }
+
+
+  saveEditedAppointment(): void {
+    const appointmentDate = new Date(this.editForm.value.appointmentDate);
+
+    const today = new Date();
+    today.setDate(today.getDate() - 1);
+
+
+    if (appointmentDate < today) {
+      this.confirm('La fecha de la cita no puede ser anterior al día actual', 'warning');
+      return;
+    }
+    if (this.editForm.invalid || !this.selectedAppointment) return;
+
+    const updatedAppointment = {
+      ...this.selectedAppointment,
+      appointmentDate: this.editForm.value.appointmentDate,
+    };
+
+    this.appointmentService.updateAppointment(updatedAppointment.id, updatedAppointment).subscribe({
+      next: () => {
+        this.confirm('Cita actualizada con éxito', 'success');
+        console.log('Cita actualizada:', updatedAppointment);
+        this.isEditModalOpen = false;
+        this.loadAppointmentsData();
+      },
+      error: (err) => {
+        this.confirm('Erro al actualizar cita', 'error');
+        console.error('Error al actualizar cita:', err);
+      },
+    });
+  }
+
+  cancelEdit(): void {
+    this.isEditModalOpen = false;
+    this.selectedAppointment = null;
+    this.editForm.reset();
+  }
+
 
   confirm(message: string, type: string, appointmentId: number = null) {
     const dialogRef = this.dialog.open(ConfirmComponent, {

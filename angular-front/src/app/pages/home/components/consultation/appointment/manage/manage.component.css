@@ -328,3 +328,97 @@ th span.asc::before {
 th span.desc::before {
   content: "▼";
 }
+/* Overlay (Fondo semi-transparente) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo negro semi-transparente */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Contenedor del modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra el modal */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 1001; /* Por encima del overlay */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+  animation: modalFadeIn 0.3s ease;
+}
+
+/* Título del modal */
+.modal h2 {
+  margin: 0 0 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+/* Campo del formulario */
+mat-form-field {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+/* Botones de acción */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.modal-actions button[type="submit"] {
+  background-color: #4caf50; /* Verde */
+  color: white;
+}
+
+.modal-actions button[type="submit"]:hover {
+  background-color: #388e3c; /* Verde más oscuro */
+}
+
+.modal-actions button[type="button"] {
+  background-color: #f44336; /* Rojo */
+  color: white;
+}
+
+.modal-actions button[type="button"]:hover {
+  background-color: #d32f2f; /* Rojo más oscuro */
+}
+
+/* Animación de entrada */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    padding: 15px;
+  }
+}
