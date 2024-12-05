@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
 import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
-import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
+import { ManageComponent } from '../../pages/home/components/consultation/appointment/search/search.component';
 import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
 
 import { AuthGuard } from '../../guard/auth.guard';

@@ -18,9 +18,9 @@ import { identity } from 'rxjs';
 import { IdToStringPipe } from '../../../../../../pipe/id-to-string.pipe';
 
 @Component({
-  selector: 'app-manage',
-  templateUrl: './manage.component.html',
-  styleUrls: ['./manage.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
 export class ManageComponent implements OnInit {
   appointments: AppointmentInterface[] = [];
