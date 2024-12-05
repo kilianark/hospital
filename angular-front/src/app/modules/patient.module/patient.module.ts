@@ -10,11 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/modules/shared.module';
 import { PatientFormComponent } from '../../shared/components/patient-form/patient-form.component';
 import { SelectZoneComponent } from "../../shared/components/select-zone/select-zone.component";
+import { MedicalEpisodeComponent } from '../../pages/home/components/patient/medical-episode/medical-episode.component';
 @NgModule({
   declarations: [
     CreatePatientComponent,
     ManagePatientComponent,
     SearchPatientComponent,
+    MedicalEpisodeComponent
   ],
   imports: [
     CommonModule,

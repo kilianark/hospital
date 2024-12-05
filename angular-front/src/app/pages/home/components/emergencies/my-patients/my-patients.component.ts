@@ -55,8 +55,8 @@ export class MyPatientsComponent implements OnInit{
 
   }
 
-  goToManage(patientId: number) {
-    this.router.navigate(['/home/patient/manage', { id: patientId }]);
+  goToMedicalEpisode(patientId: number) {
+    this.router.navigate(['/home/patient/medical_episode', { id: patientId }]);
   }
-  
+
 }
