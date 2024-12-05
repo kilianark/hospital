@@ -110,12 +110,13 @@ export class EditCalendarComponent implements OnInit {
       // Combina los datos del formulario con los datos actuales de la cita
       const updatedData: AppointmentInterface = {
         ...this.appointment,
-        ...this.editForm.value  // Se sobrescriben los campos que se han actualizado
+        appointmentDate: this.editForm.value.date,
+        doctorId:this.editForm.value.doctorId  // Se sobrescriben los campos que se han actualizado
       };
-
+      console.log(updatedData)
       this.appointmentService.updateAppointment(this.data, updatedData).subscribe((response) => {
         console.log('Appointment updated:', response);
       });
-    }
+    } 
   }
 }
