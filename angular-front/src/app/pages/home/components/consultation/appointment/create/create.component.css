@@ -31,6 +31,7 @@ form {
   grid-template-columns: auto auto auto;
 }
 
+
 button {
   width: 9vw;
   height: 10vh;
@@ -54,8 +55,8 @@ mat-card-title {
 }
 
 #hospi {
-  grid-column-start: 3;
-  grid-column-end: 4;
+  grid-column-start:2;
+  grid-column-end: 3;
 }
 
 @media screen and (max-width: 768px) {

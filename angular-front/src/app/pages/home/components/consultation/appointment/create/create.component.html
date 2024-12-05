@@ -2,7 +2,7 @@
   <form [formGroup]="appointmentForm" (ngSubmit)="onFormSubmit()">
     <mat-card-title>{{ "Pedir Cita" }}</mat-card-title>
     <!-- Selector de médico -->
-     <div></div>
+
     <mat-form-field  appearance="outline">
       <mat-label>Seleccionar Médico</mat-label>
       <mat-select formControlName="doctorId">
@@ -41,10 +41,10 @@
     </mat-form-field>
 
     <!-- Selector de hora -->
-    <mat-form-field appearance="outline">
+    <mat-form-field  appearance="outline">
       <mat-label>Hora de la Cita</mat-label>
       <input matInput [ngxTimepicker]="picker" readonly formControlName="appointmentTime" />
-      <ngx-material-timepicker #picker></ngx-material-timepicker>
+      <ngx-material-timepicker #picker style="margin-top:100px" timepickerTheme="custom-timepicker"></ngx-material-timepicker>
       <mat-error *ngIf="appointmentForm.get('appointmentTime')?.hasError('required')">
         La hora de la cita es obligatoria.
       </mat-error>

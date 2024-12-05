@@ -108,7 +108,12 @@ input {
   overflow: scroll;
   margin-bottom: 10px;
 }
-
+#testType{
+  width: 400px;
+}
+#testReason{
+  width: 400px;
+}
 /* Estilo de los selects */
 select {
   padding-left: 4%;
