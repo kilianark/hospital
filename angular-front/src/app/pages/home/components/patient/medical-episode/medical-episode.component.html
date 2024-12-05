@@ -1,1 +1,36 @@
-<p>medical-episode works!</p>
+<head>
+  <title>Enviar a prueba diagnóstica</title>
+  <link rel="stylesheet" href="medical-episode.component.css" />
+</head>
+<body>
+  <div class="content">
+    <form class="selecttest" [formGroup]="testForm" (ngSubmit)="onSubmit()">
+      <div class="titleForm">
+        <legend>Enviar a prueba diagnóstica: {{ patient.name }} {{ patient.surname1 }}</legend>
+        <button type="button" mat-raised-button class="transferButton" (click)="transferToTests(patient)">Enviar a pruebas</button>
+      </div>
+
+      <div class="control">
+        <mat-form-field id="testType">
+          <mat-label for="testType">Tipo de prueba:</mat-label>
+          <mat-select name="testType" formControlName="testType">
+            <mat-option *ngFor="let test of testTypes" [value]="test.value">
+              {{ test.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="control">
+        <mat-form-field appearance="outline" id="testReason">
+          <mat-label for="testReason">Motivo de la prueba:</mat-label>
+          <textarea matInput name="testReason" placeholder="Detalles del motivo..." required></textarea>
+        </mat-form-field>
+      </div>
+
+      <hr size="3px" color="black" style="width: 100vw" />
+
+      <input class="submit" type="submit" value="Guardar" />
+    </form>
+  </div>
+</body>
