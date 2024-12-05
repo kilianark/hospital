@@ -6,7 +6,7 @@ import { AppointmentService } from '../../../../../../services/appointment.servi
 import { AppointmentInterface } from '../../../../../../interfaces/appointment.interface';
 import { PatientService } from '../../../../../../services/patient.service';
 import { DoctorService } from '../../../../../../services/doctor.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
 import { SpinnerService } from '../../../../../../services/spinner.service';
@@ -16,6 +16,19 @@ import { PatientInterface } from '../../../../../../interfaces/patient.interface
 import { DoctorInterface } from '../../../../../../interfaces/doctor.interface';
 import { identity } from 'rxjs';
 import { IdToStringPipe } from '../../../../../../pipe/id-to-string.pipe';
+import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
+
+export function futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return selectedDate >= today ? null : { notFutureDate: true };
+  };
+}
 
 @Component({
   selector: 'app-search',
@@ -67,7 +80,8 @@ export class ManageComponent implements OnInit {
       reason: [''],
     });
     this.editForm = this.formBuilder.group({
-      appointmentDate: [''],
+      appointmentDate: ['', [Validators.required, futureDateValidator()]],
+      appointmentTime: ['', [Validators.required]],
     });
   }
 
@@ -316,13 +330,24 @@ export class ManageComponent implements OnInit {
 
 
     const appointmentDate = new Date(this.selectedAppointment.appointmentDate);
-    appointmentDate.setDate(appointmentDate.getDate() + 1);
+    const appointmentUTC = new Date(Date.UTC(
+      appointmentDate.getFullYear(), 
+      appointmentDate.getMonth(), 
+      appointmentDate.getDate(), 
+      appointmentDate.getHours(), 
+      appointmentDate.getMinutes(),
+      appointmentDate.getSeconds()));
 
 
-    const formattedDate = appointmentDate.toISOString().split('T')[0];
+    const formattedDate = appointmentUTC.toISOString().split('T')[0];
+    console.log(formattedDate);
+    const dateHours = appointmentUTC.getUTCHours();
+    const dateMinutes = appointmentUTC.getUTCMinutes();
+    const dateTimeFormat = this.formatDateHours(dateHours, dateMinutes)
 
     this.editForm.patchValue({
       appointmentDate: formattedDate,
+      appointmentTime: dateTimeFormat
     });
 
 
@@ -334,7 +359,6 @@ export class ManageComponent implements OnInit {
     const appointmentDate = new Date(this.editForm.value.appointmentDate);
 
     const today = new Date();
-    today.setDate(today.getDate() - 1);
 
 
     if (appointmentDate < today) {
@@ -380,5 +404,11 @@ export class ManageComponent implements OnInit {
         this.loadAppointmentsData();
       }
     });
+  }
+
+  formatDateHours(hours: number, minutes: number) : string {
+    var hoursString = hours >= 10 ? hours.toString() : "0" + hours.toString();
+    var minutesString = minutes >= 10 ? minutes.toString(): "0" + minutes.toString();
+    return hoursString + ":" + minutesString
   }
 }
