@@ -7,6 +7,7 @@ using ApiHospital.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using ApiHospital.Interceptors;
+using ApiHospital.Hubs;
 
 // Descomentar el següent using NOMES si implementem el context NO amb "Mysql", sinó OracleDatabase
 // Caldrà canviar al Oracle DataBase
@@ -93,6 +94,7 @@ builder.Services.AddAuthentication(options =>
         }
     };
 });
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -116,5 +118,6 @@ app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<HospitalHub>("/hospitalHub");
 
 app.Run();
