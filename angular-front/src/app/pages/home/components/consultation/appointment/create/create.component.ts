@@ -98,7 +98,7 @@ export class CreateComponent implements OnInit {
       const [hours, minutes] = formValue.appointmentTime.split(':'); // Extrae la hora y minutos
 
       // Establece la hora y minutos a la fecha seleccionada
-      appointmentDate.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+      appointmentDate.setUTCHours(parseInt(hours, 10), parseInt(minutes, 10));
 
       // Convierte el objeto Date a formato ISO (incluye fecha y hora)
       const formattedAppointmentDate = appointmentDate.toISOString();
@@ -107,6 +107,8 @@ export class CreateComponent implements OnInit {
         ...formValue,
         appointmentDate: formattedAppointmentDate, // Se usa la fecha con hora combinada
       };
+
+      console.log(appointment)
 
       // Llama al servicio para crear la cita
       this.appointmentService.createAppointment(appointment).subscribe(
