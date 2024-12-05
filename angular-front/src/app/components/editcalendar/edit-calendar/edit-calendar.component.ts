@@ -64,6 +64,7 @@ export class EditCalendarComponent {
         console.log(this.AdoctorId);
       });
     });
+    console.log(this.data)
     // Obtener los datos del paciente basado en la ID recibida desde el MAT_DIALOG_DATA
     this.appointmentService.getAppointmentById(this.data).subscribe((appointment) => {
       this.appointment = appointment[0];  // Asumiendo que getPatientData devuelve un array
