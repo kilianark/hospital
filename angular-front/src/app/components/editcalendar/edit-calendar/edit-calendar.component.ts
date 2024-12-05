@@ -5,15 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PatientInterface } from '../../../interfaces/patient.interface';
-import { PatientComponent } from '../../../pages/home/components/patient/patient.component';
-import { PatientFormComponent } from "../../../shared/components/patient-form/patient-form.component";
 import { MatIconModule } from '@angular/material/icon';
 import { PatientService } from '../../../services/patient.service';
 import { AppointmentService } from '../../../services/appointment.service';
 import { AppointmentInterface } from '../../../interfaces/appointment.interface';
-import { CalendarComponent } from '../../../pages/home/components/consultation/calendar/calendar.component';
 import { MatFormField } from '@angular/material/form-field';
-import { identity } from 'rxjs';
 import { SharedModule } from '../../../shared/modules/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -24,20 +20,21 @@ import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-edit-calendar',
   standalone: true,
-  imports: [MatDatepickerModule,ReactiveFormsModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule,MatFormField,SharedModule],
+  imports: [MatDatepickerModule, ReactiveFormsModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule, MatFormField, SharedModule],
   templateUrl: './edit-calendar.component.html',
-  styleUrl: './edit-calendar.component.css'
+  styleUrls: ['./edit-calendar.component.css']
 })
-export class EditCalendarComponent {
+export class EditCalendarComponent implements OnInit {
   title = 'Edit Calendar';
   public patient: PatientInterface;
   public doctor: DoctorInterface;
   public doctors: Array<{ id: number; name: string }> = [];
-  public workerCode!: number; // Ensure it's properly typed
-  AdoctorId!: number; // Ensure it's properly typed
+  public workerCode!: number; // Asegurarse de que esté correctamente tipado
+  AdoctorId!: number; // Asegurarse de que esté correctamente tipado
   isEditable: boolean = false;
   editForm: FormGroup;
   public appointment: AppointmentInterface;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
     private patientService: PatientService,
@@ -48,90 +45,77 @@ export class EditCalendarComponent {
   ) { }
 
   ngOnInit(): void {
+    // Primero carga los datos de la cita
+    this.loadAppointmentData();
+
+    // Luego inicializa el formulario
     this.editForm = this.fb.group({
       date: ['', Validators.required],
       doctorId: ['', Validators.required],
       reason: ['']
- // doctorId matches the selected doctor
- 
     });
+
+    // Cargar datos del perfil del usuario
     this.keycloak.loadUserProfile().then((profile) => {
       this.workerCode = profile.attributes['workerCode'][0];
       console.log(this.workerCode);
+
+      // Obtener los datos del doctor basado en el workerCode
       this.doctorService.getDoctorData(this.workerCode).subscribe((data) => {
-        if(data.length > 0) this.doctor = data[0];
-        this.AdoctorId = this.doctor.id;
-        console.log(this.AdoctorId);
+        if (data.length > 0) {
+          this.doctor = data[0];
+          this.AdoctorId = this.doctor.id;
+          console.log(this.AdoctorId);
+        }
       });
     });
-    console.log(this.data)
-    // Obtener los datos del paciente basado en la ID recibida desde el MAT_DIALOG_DATA
-    this.appointmentService.getAppointmentById(this.data).subscribe((appointment) => {
-      this.appointment = appointment[0];  // Asumiendo que getPatientData devuelve un array
-      console.log("Paciente obtenido en record-component: " + this.appointment);
-      // Aquí asegúrate de que los datos del paciente estén cargados correctamente en el formulario
-      this.patchFormData(this.appointment);
-    });
+
+    // Cargar opciones de doctores
+    this.loadDoctorOptions();
   }
 
-  // Método para llenar el formulario con los datos del paciente cuando se carguen
   patchFormData(appointmentData: AppointmentInterface) {
     if (appointmentData) {
       this.appointment = appointmentData;
-      console.log("Datos del paciente cargados en el formulario: " + this.appointment);
-    }
-  }
-  // Método para llenar el formulario con los datos del paciente cuando se carguen
-  patchFormDataPatient(patientData: PatientInterface) {
-    if (patientData) {
-      this.patient = patientData;
-      console.log("Datos del paciente cargados en el formulario: " + this.patient);
     }
   }
 
-  // Load appointment data and patch the form
+  // Método para cargar los datos de la cita y actualizar el formulario
   private loadAppointmentData() {
     this.appointmentService.getAppointmentById(this.data).subscribe((appointment) => {
-      this.appointment = appointment[0]; // Assuming the API returns an array
+      this.appointment = appointment[0]; // Suponiendo que la API devuelve un array
       if (this.appointment) {
+        // Asegurarse de que los valores de la cita estén en el formato adecuado
+        const appointmentDate = new Date(this.appointment.appointmentDate); // Convertir a objeto Date si es necesario
         this.editForm.patchValue({
-          date: this.appointment.appointmentDate,
-          doctorId: this.appointment.doctorId // Assuming `doctorId` is part of the appointment object
+          date: appointmentDate,  // Fecha de la cita (en formato adecuado para el datepicker)
+          doctorId: this.appointment.doctorId // ID del doctor asignado
         });
+        console.log('Cita cargada y formulario actualizado:', this.appointment);
       }
     });
   }
 
-  // Load doctors for the dropdown
+  // Cargar la lista de doctores para el dropdown
   private loadDoctorOptions() {
     this.doctorService.getDoctorData().subscribe((doctors) => {
-      this.doctors = doctors; // Assuming the API returns an array of { id, name }
+      this.doctors = doctors; // Lista de doctores para el dropdown
+      console.log('Doctores cargados:', this.doctors);
     });
   }
 
-  // Cuando el formulario se envía, actualizar el paciente en el servidor
+  // Cuando el formulario se envía, actualizar la cita en el servidor
   onFormSubmit() {
     if (this.editForm.valid) {
-      // Merge the form values with the existing appointment data
+      // Combina los datos del formulario con los datos actuales de la cita
       const updatedData: AppointmentInterface = {
-        ...this.appointment, // Ensure all required fields from the original object are included
-        ...this.editForm.value // Overwrite fields being updated
+        ...this.appointment,
+        ...this.editForm.value  // Se sobrescriben los campos que se han actualizado
       };
-  
+
       this.appointmentService.updateAppointment(this.data, updatedData).subscribe((response) => {
         console.log('Appointment updated:', response);
       });
     }
   }
-
-  getPatientData() {
-    this.patientService.getPatientById(this.appointment.patientId).subscribe((patient) => {
-      this.patient = patient[0];  // Asumiendo que getPatientData devuelve un array
-      console.log("Paciente obtenido en record-component: " + this.patient);
-      // Aquí asegúrate de que los datos del paciente estén cargados correctamente en el formulario
-      this.patchFormDataPatient(this.patient);
-    });
-  }
-
-
 }
