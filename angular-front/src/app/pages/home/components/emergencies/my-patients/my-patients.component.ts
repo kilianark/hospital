@@ -54,4 +54,9 @@ export class MyPatientsComponent implements OnInit{
     });
 
   }
+
+  goToManage(patientId: number) {
+    this.router.navigate(['/home/patient/manage', { id: patientId }]);
+  }
+  
 }

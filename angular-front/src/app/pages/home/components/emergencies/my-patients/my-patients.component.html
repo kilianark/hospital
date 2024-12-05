@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let patient of patients" class="clickable-row">
+          <tr *ngFor="let patient of patients" (click)="goToManage(patient.id)" class="clickable-row">
             <td>{{ patient.patientCode }}</td>
             <td>{{ patient.name }}</td>
             <td>{{ patient.surname1 }}</td>
