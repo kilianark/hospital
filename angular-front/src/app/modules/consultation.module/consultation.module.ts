@@ -17,7 +17,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 // Componentes
 import { ConsultationComponent } from '../../pages/home/components/consultation/consultation.component';
 import { CreateComponent } from '../../pages/home/components/consultation/appointment/create/create.component';
-import { ManageComponent } from '../../pages/home/components/consultation/appointment/manage/manage.component';
+import { ManageComponent } from '../../pages/home/components/consultation/appointment/search/search.component';
 import { CalendarComponent } from '../../pages/home/components/consultation/calendar/calendar.component';
 import { HasRoleDirective } from '../../directives/has-role.directive';
 import { SharedModule } from '../../shared/modules/shared.module';
