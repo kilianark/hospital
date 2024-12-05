@@ -21,14 +21,13 @@ import { BedInterface } from '../../../../../interfaces/bed.interface';
 import { BedService } from '../../../../../services/bed.service';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { TransferpatientComponent } from '../../../../../components/transferpatient/transferpatient.component';
-import { timeout } from 'rxjs';
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.css'],
 })
 export class ManagePatientComponent {
-  title = 'Gestionar Estado:';
+  title = 'Gestionar Paciente:';
   muestra: string = "No hay cama";
 
   patientId!: number;
