@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-consultation',
   templateUrl: './consultation.component.html',

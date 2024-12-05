@@ -1,0 +1,280 @@
+/* Estilo general para el componente */
+.content {
+  font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
+  overflow: hidden;
+}
+
+/* Título principal */
+legend {
+  overflow: hidden;
+  font-size: 24px;
+  text-align: left;
+  letter-spacing: 0px;
+  line-height: 31px;
+  white-space: pre-line;
+  font-weight: bold;
+  margin: 0px;
+  margin-bottom: 30px;
+  padding-left: 4%;
+}
+
+/* Estilos del formulario */
+form {
+  padding-top: 3%;
+  padding-bottom: 10px;
+}
+
+/* Estilos de los campos de entrada */
+input {
+  margin-left: 4%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Estilo para la tabla y su contenedor */
+.table-wrapper {
+  padding-left: 4%;
+  width: 83vw;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+
+#reason {
+  width: 400px;
+}
+
+/* Estilo para el botón principal */
+.buttonPP {
+  padding-left: 4%;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 2px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 30px;
+  width: 150px;
+  text-transform: uppercase;
+}
+
+/* Estilo de asignación de habitación */
+#assignRoom {
+  margin-left: 0px;
+  margin-top: 30px;
+}
+
+/* Sin márgenes adicionales */
+#noMargins {
+  margin-left: 0%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* Contenedor de asignación */
+#assignar {
+  display: flex;
+  justify-content: center;
+  margin-left: 0;
+  width: 90%;
+}
+
+/* Estilos de los controles de selección */
+.control,
+.selctArea {
+  display: grid;
+  grid-template-columns: 10vw 20vw;
+  margin-bottom: 25px;
+  padding-left: 4%;
+}
+
+.selectControl {
+  padding-left: 0%;
+  width: auto;
+}
+
+/* Estilos de contenedor */
+.container {
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  margin-left: 5%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: -20px;
+  overflow: scroll;
+  margin-bottom: 10px;
+}
+#testType{
+  width: 400px;
+}
+#testReason{
+  width: 400px;
+}
+/* Estilo de los selects */
+select {
+  padding-left: 4%;
+  padding: 5px;
+  width: 220px;
+}
+
+/* Estilo de las tablas */
+table {
+  padding-left: 4%;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ccc;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tbcen {
+  text-align: center;
+}
+
+#status {
+  width: 400px;
+}
+
+/* Estilos para el botón de submit */
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: rgb(76, 217, 100);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  border: 0px;
+  margin-right: 20px;
+}
+
+#area {
+  margin-top: -20px;
+}
+
+.roomselect {
+  margin-left: -70px;
+}
+
+/* Estilo de la barra de título */
+.titleForm {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.transferButton {
+  align-self: flex-start;
+  margin-right: 30px;
+}
+
+/* Media Queries para pantallas pequeñas */
+@media screen and (max-width: 786px) {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .table-wrapper {
+    width: 95%;
+  }
+
+  #seleccionarButton {
+    margin-left: 0;
+  }
+  .control {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  th,
+  td {
+    height: 40px;
+  }
+  label {
+    padding-right: 1%;
+  }
+  #assignar {
+    width: 90%;
+  }
+  table {
+    display: flex;
+    align-items: center;
+    padding-left: 0px;
+    border-color: white;
+    left: 0px;
+  }
+  tbody {
+    display: flex;
+    flex-direction: row;
+  }
+  tr {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .roomselect {
+    margin-left: 0px;
+  }
+
+  .selectControl {
+    padding-left: 1%;
+  }
+  .container {
+    width: 100%;
+    margin-left: 0%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .table-wrapper {
+    width: 100%;
+  }
+  #area {
+  }
+  #tabliña {
+    display: flex;
+    align-items: center;
+    padding-left: 0px;
+    border-color: white;
+    left: 0px;
+    font-size: 0.6em;
+    overflow: scroll;
+  }
+  #assignar {
+    width: 14vw;
+    height: 6vw;
+    font-size: 0.8em;
+    margin-left: 0px;
+    align-items: center;
+  }
+}
