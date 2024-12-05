@@ -54,4 +54,9 @@ export class MyPatientsComponent implements OnInit{
     });
 
   }
+
+  goToMedicalEpisode(patientId: number) {
+    this.router.navigate(['/home/patient/medical_episode', { id: patientId }]);
+  }
+
 }

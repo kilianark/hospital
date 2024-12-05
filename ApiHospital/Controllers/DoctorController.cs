@@ -60,6 +60,7 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Hospital, d => d.Hospital == Hospital!.Value);
 
 
+            
             return await query.ToListAsync();
         }
         private IQueryable<T> ApplyFilter<T>(

@@ -12,9 +12,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ApiHospital.Interceptors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiHospital.Controllers
-{
+{   
+
     [Route("api/Rooms")]
     [ApiController]
     public class RoomController : ControllerBase

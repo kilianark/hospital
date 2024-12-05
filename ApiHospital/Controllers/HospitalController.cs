@@ -38,6 +38,7 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, hospitalCode, h => h.HospitalCode == hospitalCode!.Value);
             query = ApplyFilter(query, hospitalName, h => !string.IsNullOrWhiteSpace(hospitalName) && h.HospitalName.ToLower().StartsWith(hospitalName.ToLower()));
 
+            Console.WriteLine("Role" + HttpContext.User.IsInRole("manage_room"));
             return await query.ToListAsync();
         }
 

@@ -87,7 +87,7 @@ builder.Services.AddAuthentication(options =>
             c.Response.ContentType = "text/plain";
 
             // Debug only for security reasons
-            // return c.Response.WriteAsync(c.Exception.ToString());
+            // return g.Response.WriteAsync(c.Exception.ToString());
 
             return c.Response.WriteAsync("An error occured processing your authentication.");
         }
