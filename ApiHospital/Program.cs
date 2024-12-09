@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
-using hospitalDTO.DTOapi;
-using ApiHospital.Models;
 using ApiHospital.Shared;
 using ApiHospital.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
