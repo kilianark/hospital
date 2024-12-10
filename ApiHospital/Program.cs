@@ -113,6 +113,8 @@ app.UseHttpsRedirection();
 
 app.UseCors();
 
+app.UseMiddleware<HospitalQueryMiddleware>();
+
 app.UseAuthorization();
 
 app.MapControllers();

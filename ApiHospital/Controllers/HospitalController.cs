@@ -28,14 +28,14 @@ namespace ApiHospital.Controllers
         // GET: api/Hospitals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hospital>>> GetHospitals(
-            [FromQuery] int? hospitalCode = null,
+            [FromQuery] int? Hospital = null,
             [FromQuery] string? hospitalName = null
         )
         {
             IQueryable<Hospital> query = _context.Hospitals;
 
             // Aplicar filtros usando ApplyFilter
-            query = ApplyFilter(query, hospitalCode, h => h.HospitalCode == hospitalCode!.Value);
+            query = ApplyFilter(query, Hospital, h => h.HospitalCode == Hospital!.Value);
             query = ApplyFilter(query, hospitalName, h => !string.IsNullOrWhiteSpace(hospitalName) && h.HospitalName.ToLower().StartsWith(hospitalName.ToLower()));
 
             Console.WriteLine("Role" + HttpContext.User.IsInRole("manage_room"));
