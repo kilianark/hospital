@@ -15,6 +15,7 @@ import { ConfirmDialogComponent } from '../../../../../shared/components/confirm
 import { HasRoleDirective } from '../../../../../directives/has-role.directive';
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
+import { SignalRService } from '../../../../../services/signal-r.service';
 
 @Component({
   selector: 'app-search-patient',
@@ -73,8 +74,10 @@ export class SearchPatientComponent implements OnInit {
     private patientService: PatientService,
     private hospitalService: HospitalService,
     private translator: TranslateService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private signalRService: SignalRService
   ) {
+
     this.translator.use('es');
 
     this.patientForm = this.formBuilder.group({
@@ -105,6 +108,16 @@ export class SearchPatientComponent implements OnInit {
 
     this.loadHospitalsData();
 
+    this.loadPatientsData();
+
+    this.signalRService.listenForUpdates((tableName) => {
+      if(tableName === 'Patients') this.loadPatientsData();
+    })
+
+    
+  }
+
+  loadPatientsData(): void {
     this.patientService.getPatientData().subscribe((data) => {
       this.patients = data.map(patient => ({
         ...patient,
@@ -206,6 +219,7 @@ export class SearchPatientComponent implements OnInit {
       this.generatePageNumbers();
     }
   }
+
   sortData(field: string) {
     if (this.sortField === field) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';

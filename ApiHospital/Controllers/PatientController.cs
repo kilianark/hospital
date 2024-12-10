@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using ApiHospital.Service;
+using Microsoft.AspNetCore.SignalR;
+using ApiHospital.Hubs;
 
 namespace ApiHospital.Controllers
 {
@@ -25,10 +27,12 @@ namespace ApiHospital.Controllers
     {
 
         private readonly PatientService _service;
+        private readonly IHubContext<HospitalHub> _hubContext;
 
-        public PatientController(PatientService service)
+        public PatientController(PatientService service, IHubContext<HospitalHub> hubContext)
         {
             _service = service;
+            _hubContext = hubContext;
         }
 
         // GET: api/Patients
@@ -114,6 +118,8 @@ namespace ApiHospital.Controllers
             if (!_service.BedExists(patientDTO.BedId)) patientDTO.BedId = null;
 
             var patient = await _service.CreatePatient(patientDTO);
+
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Patients");
 
             return Created($"/Patients/{patient.Id}", patient);
         }
