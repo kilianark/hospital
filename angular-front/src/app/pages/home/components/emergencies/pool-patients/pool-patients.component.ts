@@ -27,15 +27,15 @@ export class PoolPatientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRoles = this.keycloakService.getKeycloakInstance().realmAccess?.roles;
-    var hospitalNum: number = null;
+    var hospitalNum: number[] = [];
 
-    if(this.userRoles.includes('Goldenfold')) hospitalNum = 1;
-    else if (this.userRoles. includes('HospitalFaro')) hospitalNum = 2;
+    if(this.userRoles.includes('Goldenfold')) hospitalNum.push(1);
+    else if (this.userRoles. includes('HospitalFaro')) hospitalNum.push(2);
 
     this.loadPatientsData(hospitalNum);
   }
 
-  loadPatientsData(hospitalNum: number): void {
+  loadPatientsData(hospitalNum: number[]): void {
     this.patientService.getPatientData(null, null, null, null, null, null, null, "4", "6", null, null, hospitalNum).subscribe((data) => {
       this.patients = data;
     });

@@ -41,7 +41,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Username = null,
             [FromQuery] string? Worktype = null,
             [FromQuery] string? Speciality = null,
-            [FromQuery] int? Hospital = null
+            [FromQuery] int?[] Hospital = null
 
         )
         {
@@ -57,7 +57,7 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Username, d => !string.IsNullOrEmpty(Username) && d.Username.ToLower().StartsWith(Username.ToLower()));
             query = ApplyFilter(query, Worktype, d => !string.IsNullOrEmpty(Worktype) && d.Worktype.ToLower().StartsWith(Worktype.ToLower()));
             query = ApplyFilter(query, Speciality, d => !string.IsNullOrEmpty(Speciality) && d.Speciality.ToLower().StartsWith(Speciality.ToLower()));
-            query = ApplyFilter(query, Hospital, d => d.Hospital == Hospital!.Value);
+            query = ApplyFilter(query, Hospital, d => Hospital.Contains(d.Hospital));
 
 
             

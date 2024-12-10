@@ -38,14 +38,14 @@ namespace ApiHospital.Controllers
         // GET: api/Workers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Worker>>> GetWorkers(
-            [FromQuery] string? WorkerCode,
-            [FromQuery] string? Name,
-            [FromQuery] string? Surname1,
-            [FromQuery] string? Surname2,
-            [FromQuery] string? Dni,
-            [FromQuery] string? Cip,
-            [FromQuery] string? Phone,
-            [FromQuery] int? Hospital
+            [FromQuery] string? WorkerCode = null,
+            [FromQuery] string? Name = null,
+            [FromQuery] string? Surname1 = null,
+            [FromQuery] string? Surname2 = null,
+            [FromQuery] string? Dni = null,
+            [FromQuery] string? Cip = null,
+            [FromQuery] string? Phone = null,
+            [FromQuery] int? Hospital = null
         )
         {
             IQueryable<Worker> query = _context.Workers;

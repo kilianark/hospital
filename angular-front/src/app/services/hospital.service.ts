@@ -12,11 +12,11 @@ export class HospitalService {
     constructor(private http: HttpClient) { }
 
     // Método para obtener la lista de hospitales con filtros opcionales
-    getHospitals(hospitalCode?: number, hospitalName?: string): Observable<HospitalInterface[]> {
+    getHospitals(Hospital?: number, hospitalName?: string): Observable<HospitalInterface[]> {
         let params = new HttpParams();
 
-        if (hospitalCode) {
-            params = params.set('hospitalCode', hospitalCode.toString());
+        if (Hospital) {
+            params = params.set('Hospital', Hospital.toString());
         }
         if (hospitalName) {
             params = params.set('hospitalName', hospitalName);
@@ -30,8 +30,8 @@ export class HospitalService {
         return this.http.get<HospitalInterface>(`${this.apiUrl}/${id}`);
     }
 
-    getHospitalNameByCode(hospitalCode: number): Observable<string> {
-        return this.http.get<HospitalInterface>(`${this.apiUrl}/${hospitalCode}`)
+    getHospitalNameByCode(Hospital: number): Observable<string> {
+        return this.http.get<HospitalInterface>(`${this.apiUrl}/${Hospital}`)
             .pipe(
                 map(hospital => hospital.hospitalName || 'Desconocido')
             );
