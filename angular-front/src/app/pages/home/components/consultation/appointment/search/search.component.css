@@ -20,9 +20,9 @@ table{
 .credentials {
   display: grid;
   padding-top: 10px;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 33.333% 33.333% 33.333%;
   gap: 10px;
-  margin-right: 4%;
+  margin-right: 6%;
 }
 #hospiEspacio{
   display: grid;
@@ -30,9 +30,8 @@ table{
   margin-right: 4%;
 }
 #right{
-  grid-column-start: 4;
-  grid-column-end: 5 ;
-  margin-left: 6px;
+  grid-column-start: 3;
+  grid-column-end: 4 ;
 }
 mat-card-title {
   font-weight: bold;

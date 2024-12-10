@@ -17,6 +17,7 @@ import { DoctorInterface } from '../../../../../../interfaces/doctor.interface';
 import { identity } from 'rxjs';
 import { IdToStringPipe } from '../../../../../../pipe/id-to-string.pipe';
 import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
+import { HospitalInterface } from '../../../../../../interfaces/hospital.interface';
 
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -56,6 +57,7 @@ export class ManageComponent implements OnInit {
   sortField: string = 'date';
   sortDirection: SortDirection = 'asc';
 
+  hospitals: HospitalInterface[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 0;
@@ -72,6 +74,7 @@ export class ManageComponent implements OnInit {
     private spinnerService: SpinnerService,
     private patientService: PatientService,
     private doctorService: DoctorService,
+    
   ) {
     this.manageForm = this.formBuilder.group({
       patientName: [''],
