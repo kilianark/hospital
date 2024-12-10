@@ -50,7 +50,7 @@ namespace ApiHospital.Service {
 
             IQueryable<Patient> query = GetQuery();
 
-            query = ApplyFilter(query, Hospital, p => Hospital.Contains(p.Hospital));
+            query = ApplyFilter(query, PatientCode, p => p.PatientCode == PatientCode!.Value);
             query = ApplyFilter(query, Name, p => !string.IsNullOrWhiteSpace(Name) && p.Name.ToLower().StartsWith(Name.ToLower()));
             query = ApplyFilter(query, Surname1, p => !string.IsNullOrWhiteSpace(Surname1) && p.Surname1.ToLower().StartsWith(Surname1.ToLower()));
             query = ApplyFilter(query, Surname2, p => !string.IsNullOrWhiteSpace(Surname2) && p.Surname2.ToLower().StartsWith(Surname2.ToLower()));
@@ -61,6 +61,7 @@ namespace ApiHospital.Service {
             query = ApplyFilter(query, Area, p => !string.IsNullOrWhiteSpace(Area) && p.Area.ToLower().StartsWith(Area.ToLower()));
             query = ApplyFilter(query, BedId, p => p.BedId == BedId!.Value);
             query = ApplyFilter(query, Ingresados, p => Ingresados == true && p.BedId != null);
+            query = ApplyFilter(query, Hospital, p => Hospital.Contains(p.Hospital));
 
             return query;
 

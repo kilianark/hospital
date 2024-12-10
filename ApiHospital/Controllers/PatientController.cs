@@ -34,18 +34,18 @@ namespace ApiHospital.Controllers
         // GET: api/Patients
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatients(
-            [FromQuery] int? PatientCode,
-            [FromQuery] string? Name,
-            [FromQuery] string? Surname1,
-            [FromQuery] string? Surname2,
-            [FromQuery] string? Dni,
-            [FromQuery] string? Cip,
-            [FromQuery] string? Phone,
-            [FromQuery] string? Zone,
-            [FromQuery] string? Area,
-            [FromQuery] int? BedId,
-            [FromQuery] bool? Ingresados,
-            [FromQuery] int?[] Hospital
+            [FromQuery] int? PatientCode = null,
+            [FromQuery] string? Name = null,
+            [FromQuery] string? Surname1 = null,
+            [FromQuery] string? Surname2 = null,
+            [FromQuery] string? Dni = null,
+            [FromQuery] string? Cip = null,
+            [FromQuery] string? Phone = null,
+            [FromQuery] string? Zone = null,
+            [FromQuery] string? Area = null,
+            [FromQuery] int? BedId = null,
+            [FromQuery] bool? Ingresados = null,
+            [FromQuery] int?[] Hospital = null
         )
         {
             IQueryable<Patient> query = _service.GetPatients(
