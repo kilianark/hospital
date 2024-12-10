@@ -83,7 +83,8 @@ export class EditCalendarComponent implements OnInit {
   // Método para cargar los datos de la cita y actualizar el formulario
   private loadAppointmentData() {
     this.appointmentService.getAppointmentById(this.data).subscribe((appointment) => {
-      this.appointment = appointment[0]; // Suponiendo que la API devuelve un array
+      this.appointment = appointment; // Suponiendo que la API devuelve un array
+
       if (this.appointment) {
         // Asegurarse de que los valores de la cita estén en el formato adecuado
         const appointmentDate = new Date(this.appointment.appointmentDate); // Convertir a objeto Date si es necesario
@@ -91,7 +92,6 @@ export class EditCalendarComponent implements OnInit {
           date: appointmentDate,  // Fecha de la cita (en formato adecuado para el datepicker)
           doctorId: this.appointment.doctorId // ID del doctor asignado
         });
-        console.log('Cita cargada y formulario actualizado:', this.appointment);
       }
     });
   }
@@ -110,12 +110,13 @@ export class EditCalendarComponent implements OnInit {
       // Combina los datos del formulario con los datos actuales de la cita
       const updatedData: AppointmentInterface = {
         ...this.appointment,
-        ...this.editForm.value  // Se sobrescriben los campos que se han actualizado
+        appointmentDate: this.editForm.value.date,
+        doctorId:this.editForm.value.doctorId  // Se sobrescriben los campos que se han actualizado
       };
-
+      console.log(updatedData)
       this.appointmentService.updateAppointment(this.data, updatedData).subscribe((response) => {
         console.log('Appointment updated:', response);
       });
-    }
+    } 
   }
 }
