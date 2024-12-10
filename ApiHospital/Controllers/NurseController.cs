@@ -33,7 +33,7 @@ private readonly HospitalContext _context;
             [FromQuery] string? Username = null,
             [FromQuery] string? Worktype = null,
             [FromQuery] string? Speciality = null,
-            [FromQuery] int? Hospital = null
+            [FromQuery] int?[] Hospital = null
 
         )
         {
@@ -49,7 +49,7 @@ private readonly HospitalContext _context;
             query = ApplyFilter(query, Username, n => !string.IsNullOrEmpty(Username) && n.Username.ToLower().StartsWith(Username.ToLower()));
             query = ApplyFilter(query, Worktype, n => !string.IsNullOrEmpty(Worktype) && n.Worktype.ToLower().StartsWith(Worktype.ToLower()));
             query = ApplyFilter(query, Speciality, n => !string.IsNullOrEmpty(Speciality) && n.Speciality.ToLower().StartsWith(Speciality.ToLower()));
-            query = ApplyFilter(query, Hospital, n => n.Hospital == Hospital!.Value);
+            query = ApplyFilter(query, Hospital, n => Hospital.Contains(n.Hospital));
 
             return await query.ToListAsync();
         }

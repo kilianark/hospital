@@ -45,7 +45,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Dni,
             [FromQuery] string? Cip,
             [FromQuery] string? Phone,
-            [FromQuery] int? Hospital
+            [FromQuery] int?[] Hospital
         )
         {
             IQueryable<Worker> query = _context.Workers;
@@ -58,7 +58,7 @@ namespace ApiHospital.Controllers
             query = ApplyFilter(query, Dni, w => !string.IsNullOrWhiteSpace(Dni) && w.Dni.ToLower().StartsWith(Dni.ToLower()));
             query = ApplyFilter(query, Cip, w => !string.IsNullOrWhiteSpace(Cip) && w.CIP.ToLower().StartsWith(Cip.ToLower()));
             query = ApplyFilter(query, Phone, w => !string.IsNullOrWhiteSpace(Phone) && w.Phone.ToLower().StartsWith(Phone.ToLower()));
-            query = ApplyFilter(query, Hospital, w => w.Hospital == Hospital!.Value);
+            query = ApplyFilter(query, Hospital, w => Hospital.Contains(w.Hospital));
             // Mapea los nombres de hospitales a sus abreviaturas
 
             // Ejecuta la consulta y retorna el resultado

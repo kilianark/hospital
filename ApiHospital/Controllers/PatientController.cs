@@ -45,7 +45,7 @@ namespace ApiHospital.Controllers
             [FromQuery] string? Area,
             [FromQuery] int? BedId,
             [FromQuery] bool? Ingresados,
-            [FromQuery] int? Hospital
+            [FromQuery] int?[] Hospital
         )
         {
             IQueryable<Patient> query = _service.GetPatients(

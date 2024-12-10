@@ -28,13 +28,22 @@ namespace ApiHospital.Interceptors {
                     Console.WriteLine(role);
                 }
 
+                var queryString = context.Request.QueryString.ToString();
+                var updatedQueryString = queryString;
+
                 if (roles.Contains("Goldenfold")) {
-                    context.Request.QueryString = new QueryString("?" + context.Request.QueryString.ToString() + "&Hospital=1");
+                    updatedQueryString += "&Hospital=1";
                 }
                 if (roles.Contains("HospitalFaro")) {
-                    context.Request.QueryString = new QueryString("?" + context.Request.QueryString.ToString() + "&Hospital=2");
+                    updatedQueryString += "&Hospital=2";
                 }
+                if (updatedQueryString != queryString) {
+                    Console.WriteLine(updatedQueryString);
+                    context.Request.QueryString = new QueryString("?" + updatedQueryString);
+                }   
             }
+
+            
 
             await _next(context);
             
