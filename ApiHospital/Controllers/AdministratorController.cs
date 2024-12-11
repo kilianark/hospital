@@ -32,7 +32,7 @@ namespace ApiHospital.Controllers
     [FromQuery] string? Email = null,
     [FromQuery] string? Username = null,
     [FromQuery] string? Worktype = null,
-    [FromQuery] int? Hospital = null
+    [FromQuery] int?[] Hospital = null
 )
 {
     IQueryable<Administrator> query = _context.Administrators.AsNoTracking();
@@ -45,7 +45,7 @@ namespace ApiHospital.Controllers
     query = ApplyFilter(query, Email, a => !string.IsNullOrEmpty(Email) && a.Email.ToLower().StartsWith(Email.ToLower()));
     query = ApplyFilter(query, Username, a => !string.IsNullOrEmpty(Username) && a.Username.ToLower().StartsWith(Username.ToLower()));
     query = ApplyFilter(query, Worktype, a => !string.IsNullOrEmpty(Worktype) && a.Worktype.ToLower().StartsWith(Worktype.ToLower()));
-    query = ApplyFilter(query, Hospital, a => a.Hospital == Hospital!.Value);
+    query = ApplyFilter(query, Hospital, a => Hospital.Contains(a.Hospital));
     return await query.ToListAsync();
 }
 
