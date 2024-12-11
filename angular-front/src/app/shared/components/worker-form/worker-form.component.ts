@@ -24,6 +24,10 @@ import { NurseInterface } from '../../../interfaces/nurse.interface';
 import { NurseService } from '../../../services/nurse.service';
 import { AdminService } from '../../../services/administrator.service';
 import { Administrator } from '../../../interfaces/administrator.interface';
+import { Speciality } from '../../../interfaces/speciality.interface';
+import {specialities} from '../../../store/specialities.store';
+
+
 @Component({
   selector: 'app-worker-form',
   standalone: true,
@@ -35,7 +39,7 @@ import { Administrator } from '../../../interfaces/administrator.interface';
   ]
 })
 export class WorkerFormComponent implements OnInit{
-
+  public Specialities = specialities;
   @Input() isEditMode: boolean = false;
   @Input() workerCode: string;
   @Input() workerData: any = {};
@@ -94,6 +98,7 @@ export class WorkerFormComponent implements OnInit{
     this.updateFormTitle();
 
   }
+
 
   private initForm(): void {
     this.workerForm = this.fb.group({
@@ -280,6 +285,7 @@ export class WorkerFormComponent implements OnInit{
 
 
 
+
   toggleEditMode(): void {
     this.isEditable = !this.isEditable;
     this.updateFormTitle();
@@ -313,14 +319,11 @@ export class WorkerFormComponent implements OnInit{
     const dialogRef = this.dialog.open(ConfirmComponent, {});
     dialogRef.componentInstance.setMessage(message, type);
   }
-  getSpecialities(): string[] {
-    const worktype = this.workerForm.get('worktype')?.value;
-    if (worktype === 'doctor') {
-      return ['Cardiología', 'Neurología', 'Pediatría'];
-    } else if (worktype === 'nurse') {
-      return ['Cuidados Intensivos', 'Pediatría', 'Geriatría'];
-    }
-    return [];
+  getFilteredSpecialities(): Speciality[] {
+    const workType = this.workerForm.get('worktype')?.value;
+
+    // Filtra las especialidades según el tipo de trabajador
+    return specialities.filter(speciality => speciality.workerType === workType);
   }
 
 
