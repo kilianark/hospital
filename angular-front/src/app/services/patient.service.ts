@@ -152,6 +152,12 @@ export class PatientService {
   notifyPatientUpdated(patient: PatientInterface) {
     this.patientUpdatedSource.next(patient);
   }
-
+  submitTestRequest(testRequest: {
+    patientId: number;
+    testType: string;
+    testReason: string;
+  }): Observable<any> {
+    return this.http.post(`${this.url}/tests`, testRequest);
+  }
 
 }

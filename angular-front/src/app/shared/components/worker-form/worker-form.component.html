@@ -3,7 +3,7 @@
     <!-- Template para Creación -->
     <ng-container *ngIf="!isEditMode">
         <mat-card-title>{{ "Crear Trabajador" }}</mat-card-title>
-  
+
           <!-- Hospital -->
           <mat-form-field id="hospi" appearance="outline">
             <mat-label>Hospital</mat-label>
@@ -14,27 +14,27 @@
             </mat-select>
             <mat-error *ngIf="workerForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
         </mat-form-field>
-  
+
         <!-- Nombre -->
         <mat-form-field appearance="outline">
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="name" />
             <mat-error *ngIf="workerForm.get('name')?.hasError('required')">El nombre es obligatorio</mat-error>
         </mat-form-field>
-  
+
         <!-- Primer Apellido -->
         <mat-form-field appearance="outline">
             <mat-label>Primer Apellido</mat-label>
             <input matInput formControlName="surname1" />
             <mat-error *ngIf="workerForm.get('surname1')?.hasError('required')">El primer apellido es obligatorio</mat-error>
         </mat-form-field>
-  
+
         <!-- Segundo Apellido -->
         <mat-form-field appearance="outline">
             <mat-label>Segundo Apellido</mat-label>
             <input matInput formControlName="surname2" />
         </mat-form-field>
-  
+
         <!-- DNI -->
         <mat-form-field appearance="outline">
             <mat-label>DNI/NIE</mat-label>
@@ -42,7 +42,7 @@
             <mat-error *ngIf="workerForm.get('dni')?.hasError('required')">El DNI/NIE es obligatorio</mat-error>
             <mat-error *ngIf="workerForm.get('dni')?.hasError('invalidDNI')">El DNI/NIE tiene que ser válido</mat-error>
         </mat-form-field>
-  
+
         <!-- Teléfono -->
         <mat-form-field appearance="outline">
             <mat-label>Teléfono</mat-label>
@@ -54,7 +54,7 @@
               <mat-error>El teléfono debe ser válido</mat-error>
             }
         </mat-form-field>
-  
+
         <!-- Fecha de Nacimiento -->
         <mat-form-field appearance="outline">
           <mat-label>Fecha de Nacimiento</mat-label>
@@ -69,7 +69,7 @@
           <mat-error>La fecha de nacimiento no puede ser futura</mat-error>
           }
         </mat-form-field>
-  
+
         <!-- Nacionalidad -->
         <mat-form-field appearance="outline">
             <mat-label>Nacionalidad</mat-label>
@@ -80,7 +80,7 @@
             </mat-select>
             <mat-error *ngIf="workerForm.get('country')?.hasError('required')">La nacionalidad es obligatoria</mat-error>
         </mat-form-field>
-  
+
         <!-- Género -->
         <mat-form-field appearance="outline">
             <mat-label>Género</mat-label>
@@ -90,7 +90,7 @@
             </mat-select>
             <mat-error *ngIf="workerForm.get('gender')?.hasError('required')">El género es obligatorio</mat-error>
         </mat-form-field>
-  
+
         <!-- Email -->
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
@@ -98,13 +98,13 @@
             <mat-icon matSuffix>email</mat-icon>
             <mat-error *ngIf="workerForm.get('email')?.invalid">El email debe ser válido</mat-error>
         </mat-form-field>
-  
+
         <!-- Dirección -->
         <mat-form-field appearance="outline">
             <mat-label>Dirección</mat-label>
             <input matInput formControlName="address" />
         </mat-form-field>
-  
+
         <!-- Tipo de trabajo -->
         <mat-form-field appearance="outline">
           <mat-label>Rol</mat-label>
@@ -115,25 +115,29 @@
           </mat-select>
           <mat-error *ngIf="workerForm.get('worktype')?.hasError('required')">El rol es obligatorio</mat-error>
         </mat-form-field>
-  
+
               <!-- Especialidad (Depende del Rol) -->
-        <mat-form-field appearance="outline" *ngIf="workerForm.get('worktype')?.value === 'doctor' || workerForm.get('worktype')?.value === 'nurse'">
-          <mat-label>Especialidad</mat-label>
-          <mat-select formControlName="speciality">
-            <mat-option *ngFor="let speciality of getSpecialities()" [value]="speciality">
-              {{ speciality }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="workerForm.get('speciality')?.hasError('required')">La especialidad es obligatoria</mat-error>
-        </mat-form-field>
-  
-      
-  
-  
-  
-  
-  
-  
+              <mat-form-field appearance="outline" *ngIf="workerForm.get('worktype')?.value === 'doctor' || workerForm.get('worktype')?.value === 'nurse'">
+                <mat-label>Especialidad</mat-label>
+                <mat-select formControlName="speciality" required>
+                  <mat-option *ngFor="let speciality of getFilteredSpecialities()" [value]="speciality.name">
+                    {{ speciality.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="workerForm.get('speciality')?.hasError('required')">
+                  La especialidad es obligatoria
+                </mat-error>
+              </mat-form-field>
+
+
+
+
+
+
+
+
+
+
         <mat-card-actions >
             <button mat-raised-button color="primary" class="submit" type="submit" [disabled]="workerForm.invalid">
                 Registrar
@@ -148,43 +152,43 @@
             <mat-card-title style="margin-bottom: 30px;">{{ this.formTitle }}</mat-card-title>
             <div></div>
             <div></div>
-            
+
                     <mat-form-field>
                         <mat-label for="name">Nombre</mat-label>
                         <input matInput type="text" formControlName="name" id="name">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="dni">DNI/NIE</mat-label>
                         <input matInput type="text" formControlName="dni" id="dni">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="surname1">Apellido 1</mat-label>
                         <input matInput type="text" formControlName="surname1" id="surname1">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="cip">CIP</mat-label>
                         <input matInput type="text" formControlName="cip" id="cip">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="surname2">Apellido 2</mat-label>
                         <input matInput type="text" formControlName="surname2" id="surname2">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="email">Email</mat-label>
                         <input matInput type="text" formControlName="email" id="email">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="gender">Sexo</mat-label>
                         <mat-select id="gender" formControlName="gender">
@@ -192,57 +196,57 @@
                             <mat-option value="female">Mujer</mat-option>
                         </mat-select>
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="phone">Telefono</mat-label>
                         <input matInput type="tel" id="phone" formControlName="phone">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="birth">F. Nacimiento</mat-label>
                         <input matInput type="date" id="birth" formControlName="birth">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="address">Dirección</mat-label>
                         <input matInput type="text" id="address" formControlName="address">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="country">Nacionalidad</mat-label>
                         <mat-select id="country" name="country" formControlName="country">
                             <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="speciality">Tipo Trabajador</mat-label>
                         <input matInput class="readonly" type="text" id="speciality" formControlName="speciality" readonly value="Doctor - Cardiología">
-                    </mat-form-field>   
-                
-            
+                    </mat-form-field>
+
+
                     <mat-form-field>
                         <mat-label for="username">Usuario</mat-label>
                         <input matInput class="readonly" type="text" id="username" formControlName="username" readonly>
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="passw">Contraseña</mat-label>
                         <input matInput type="password" id="passw">
                     </mat-form-field>
-                
-            
+
+
                     <mat-form-field>
                         <mat-label for="validatepassw">Validar Contraseña</mat-label>
                         <input matInput type="password" id="validatepassw">
                     </mat-form-field>
-                
+
                 <input class="sumbitButton" type="submit" value="Guardar Datos">
         </ng-container>
         </form>

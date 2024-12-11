@@ -1,275 +1,191 @@
-/* Estilo general para el componente */
-.content {
+/* General Styles */
+body {
   font-family: "Inter Tight", "Segoe UI", "Apple Color Emoji", "Segoe UI Symbol";
-  overflow: hidden;
-}
-
-/* Título principal */
-legend {
-  overflow: hidden;
-  font-size: 24px;
-  text-align: left;
-  letter-spacing: 0px;
-  line-height: 31px;
-  white-space: pre-line;
-  font-weight: bold;
-  margin: 0px;
-  margin-bottom: 30px;
-  padding-left: 4%;
-}
-
-/* Estilos del formulario */
-form {
-  padding-top: 3%;
-  padding-bottom: 10px;
-}
-
-/* Estilos de los campos de entrada */
-input {
-  margin-left: 4%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-/* Estilo para la tabla y su contenedor */
-.table-wrapper {
-  padding-left: 4%;
-  width: 83vw;
-  overflow: hidden;
-  margin-top: 10px;
-  margin-bottom: -10px;
-}
-
-#reason {
-  width: 400px;
-}
-
-/* Estilo para el botón principal */
-.buttonPP {
-  padding-left: 4%;
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 2px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 30px;
-  width: 150px;
-  text-transform: uppercase;
-}
-
-/* Estilo de asignación de habitación */
-#assignRoom {
-  margin-left: 0px;
-  margin-top: 30px;
-}
-
-/* Sin márgenes adicionales */
-#noMargins {
-  margin-left: 0%;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
-/* Contenedor de asignación */
-#assignar {
-  display: flex;
-  justify-content: center;
-  margin-left: 0;
-  width: 90%;
-}
-
-/* Estilos de los controles de selección */
-.control,
-.selctArea {
-  display: grid;
-  grid-template-columns: 10vw 20vw;
-  margin-bottom: 25px;
-  padding-left: 4%;
-}
-
-.selectControl {
-  padding-left: 0%;
-  width: auto;
-}
-
-/* Estilos de contenedor */
-.container {
-  width: 90%;
-  margin: 20px auto;
-  padding: 20px;
-  margin-left: 5%;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin-top: -20px;
-  overflow: scroll;
-  margin-bottom: 10px;
-}
-
-/* Estilo de los selects */
-select {
-  padding-left: 4%;
-  padding: 5px;
-  width: 220px;
-}
-
-/* Estilo de las tablas */
-table {
-  padding-left: 4%;
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table,
-th,
-td {
-  border: 1px solid #ccc;
-}
-
-th,
-td {
-  padding: 10px;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
+  margin-left: 6.9%;
+  padding: 0;
   background-color: #f9f9f9;
 }
 
-.tbcen {
-  text-align: center;
-}
-
-#status {
-  width: 400px;
-}
-
-/* Estilos para el botón de submit */
-.submit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-sizing: border-box;
-  cursor: pointer;
-  width: 120px;
-  height: 40px;
+/* Información del paciente */
+.patient-info {
+  background-color: #f0f4f8;
+  padding: 16px;
   border-radius: 8px;
-  background-color: rgb(76, 217, 100);
+  margin: 20px auto;
+  margin-left: 40px;
+  width: 85%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.patient-info h2 {
+  font-size: 24px;
+  line-height: 31px;
+  font-weight: bold;
+  color: #333;
+}
+
+.patient-info p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Botón para ver historial */
+.view-history-btn {
+  margin-left: 4%;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 150px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
-  border: 0px;
-  margin-right: 20px;
+  transition: background-color 0.3s ease;
 }
 
-#area {
-  margin-top: -20px;
+.view-history-btn:hover {
+  background-color: #005a4f;
 }
 
-.roomselect {
-  margin-left: -70px;
+/* Formulario de pruebas diagnósticas */
+.test-form {
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px auto;
+  width: 85%;
+  margin-left: 40px;
+  margin-right: 5%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-/* Estilo de la barra de título */
-.titleForm {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+.test-form h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #00796b;
 }
 
-.transferButton {
-  align-self: flex-start;
-  margin-right: 30px;
+mat-form-field {
+  display: block;
+  width: 50%;
+  margin-left: 4%;
 }
 
-/* Media Queries para pantallas pequeñas */
+button[mat-raised-button] {
+
+  margin-left: 4%;
+  padding: 10px 20px;
+  font-size: 14px;
+  width: 150px;
+  height: 40px;
+  background-color: #00796b;
+  color: white;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #005a4f;
+}
+
+button[mat-raised-button][disabled] {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Historial médico */
+.patient-history {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 90%;
+  margin-left: 5%;
+  overflow: scroll;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.patient-history h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.patient-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patient-history th,
+.patient-history td {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.patient-history th {
+  background-color: #f2f2f2;
+}
+
+.patient-history tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.patient-history tr:hover {
+  background-color: #e0f7fa;
+}
+
+/* Adaptaciones responsivas */
 @media screen and (max-width: 786px) {
-  form {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .table-wrapper {
+  .patient-info, .test-form, .patient-history {
     width: 95%;
+    margin-left: 2.5%;
   }
 
-  #seleccionarButton {
+  mat-form-field {
+    width: 95%;
+    margin-left: 2.5%;
+  }
+
+  button[mat-raised-button] {
+    width: 100%;
     margin-left: 0;
   }
-  .control {
-    display: flex;
+
+  .view-history-btn {
     width: 100%;
-    flex-wrap: wrap;
-  }
-  th,
-  td {
-    height: 40px;
-  }
-  label {
-    padding-right: 1%;
-  }
-  #assignar {
-    width: 90%;
-  }
-  table {
-    display: flex;
-    align-items: center;
-    padding-left: 0px;
-    border-color: white;
-    left: 0px;
-  }
-  tbody {
-    display: flex;
-    flex-direction: row;
-  }
-  tr {
-    display: flex;
-    flex-direction: column;
+    margin-left: 0;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .roomselect {
-    margin-left: 0px;
+  .patient-info, .test-form, .patient-history {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
   }
 
-  .selectControl {
-    padding-left: 1%;
-  }
-  .container {
+  mat-form-field {
     width: 100%;
-    margin-left: 0%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-wrap: wrap;
+    margin-left: 0;
   }
-  .table-wrapper {
-    width: 100%;
-  }
-  #area {
-  }
-  #tabliña {
-    display: flex;
-    align-items: center;
-    padding-left: 0px;
-    border-color: white;
-    left: 0px;
-    font-size: 0.6em;
-    overflow: scroll;
-  }
-  #assignar {
-    width: 14vw;
-    height: 6vw;
+
+  table {
     font-size: 0.8em;
-    margin-left: 0px;
-    align-items: center;
+  }
+
+  th, td {
+    padding: 5px;
+  }
+
+  .view-history-btn {
+    width: 100%;
+    margin: 10px 0;
   }
 }
