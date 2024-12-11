@@ -3,7 +3,7 @@
     <form [formGroup]="manageForm">
       <mat-card-content>
         <div class="credentials">
-          <mat-card-title>{{ "Gestionar Citas" }}</mat-card-title>
+          <mat-card-title id="title">{{ "Gestionar Citas" }}</mat-card-title>
           <mat-form-field id="right" appearance="outline">
             <mat-label>Hospital:</mat-label>
             <mat-select formControlName="hospital" multiple>
@@ -64,8 +64,10 @@
             <td>{{ appointment.appointmentDate | date: 'HH:mm' }}</td>
             <td>{{ appointment.reason || '-' }}</td>
             <td>
-              <button style="margin-right: 5px;" mat-button (click)="openEditModal(appointment)">Editar</button>
-              <button style="margin-left: 5px;"mat-button (click)="deleteappointment(appointment)">Eliminar</button>
+              <button  mat-button (click)="openEditModal(appointment)">Editar</button>
+            </td>
+            <td>
+              <button mat-button (click)="deleteappointment(appointment)">Eliminar</button>
             </td>
           </tr>
         </tbody>
