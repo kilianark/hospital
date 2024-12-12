@@ -15,6 +15,7 @@ export interface WorkerInterface {
   username: string;
   workerCode: string;
   worktype: 'doctor' | 'nurse' | 'administrator';
+  speciality: string;
   hospital: number;
   zone: number;
 }

@@ -17,6 +17,8 @@ import { DoctorInterface } from '../../../../../../interfaces/doctor.interface';
 import { identity } from 'rxjs';
 import { IdToStringPipe } from '../../../../../../pipe/id-to-string.pipe';
 import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
+import { HospitalInterface } from '../../../../../../interfaces/hospital.interface';
+import { HospitalService } from '../../../../../../services/hospital.service';
 
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -56,6 +58,7 @@ export class ManageComponent implements OnInit {
   sortField: string = 'date';
   sortDirection: SortDirection = 'asc';
 
+  hospitals: HospitalInterface[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 0;
@@ -72,12 +75,15 @@ export class ManageComponent implements OnInit {
     private spinnerService: SpinnerService,
     private patientService: PatientService,
     private doctorService: DoctorService,
+    private hospitalService: HospitalService,
+    
   ) {
     this.manageForm = this.formBuilder.group({
       patientName: [''],
       doctorName: [''],
       date: [''],
       reason: [''],
+      hospital: [[], Validators.required]
     });
     this.editForm = this.formBuilder.group({
       appointmentDate: ['', [Validators.required, futureDateValidator()]],
@@ -89,6 +95,8 @@ export class ManageComponent implements OnInit {
     this.loadAppointmentsData();
     this.loadDoctorData();
     this.loadPatientsData();
+    
+    this.loadHospitalsData();
   }
 
   loadPatientsData(): void {
@@ -105,6 +113,15 @@ export class ManageComponent implements OnInit {
         this.doctors = data;
       }
     });
+  }
+  loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
+    });
+  }
+  getHospitalName(hospitalCode: number): string {
+    const hospital = this.hospitals.find(h => h.hospitalCode === hospitalCode);
+    return hospital ? hospital.hospitalName : 'Desconocido';
   }
 
   loadAppointmentsData(): void {
@@ -229,7 +246,10 @@ export class ManageComponent implements OnInit {
   searchAppointments() {
     const { patientName, doctorName, date, reason } = this.manageForm.value;
 
+    const selectedHospitals = this.manageForm.get('hospital')?.value.map(Number) || [];
+    console.log(selectedHospitals)
     let filteredAppointments = [...this.appointments];
+    let filtereddoctors = [...this.doctors];
 
     if (patientName && this.fusePatientName) {
       const results = this.fusePatientName.search(patientName).map(result => result.item);
@@ -252,6 +272,17 @@ export class ManageComponent implements OnInit {
         appointment.reason.toLowerCase().includes(reason.toLowerCase())
       );
     }
+    if (selectedHospitals.length > 0) {
+      filtereddoctors = filtereddoctors.filter(doctor => 
+        doctor.hospital == (selectedHospitals)
+      );
+    console.log(filtereddoctors  )
+      // Filter appointments based on the filtered doctors
+      filteredAppointments = filteredAppointments.filter(appointment =>
+        filtereddoctors.some(doctor => doctor.id === appointment.doctorId)
+      );
+    }
+
 
     this.allFilteredAppointments = filteredAppointments;
     console.log('Citas filtradas:', this.allFilteredAppointments);

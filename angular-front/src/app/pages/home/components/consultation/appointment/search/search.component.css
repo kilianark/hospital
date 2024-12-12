@@ -20,9 +20,9 @@ table{
 .credentials {
   display: grid;
   padding-top: 10px;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 33.333% 33.333% 33.333%;
   gap: 10px;
-  margin-right: 4%;
+  margin-right: 6%;
 }
 #hospiEspacio{
   display: grid;
@@ -30,9 +30,8 @@ table{
   margin-right: 4%;
 }
 #right{
-  grid-column-start: 4;
-  grid-column-end: 5 ;
-  margin-left: 6px;
+  grid-column-start: 3;
+  grid-column-end: 4 ;
 }
 mat-card-title {
   font-weight: bold;
@@ -160,9 +159,9 @@ td button:hover {
     display: flex;
     flex-wrap: wrap;
   }
-  th,
-  td {
-    padding: 0 15px;
+
+  .table-wrapper{
+    overflow: scroll;
   }
   .container {
     width: 90%;
@@ -170,11 +169,19 @@ td button:hover {
   #hospiEspacio{
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-template-rows: 33.333% 33.333% 33.333%;
     gap:7px;
   }
+  #title{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-bottom: 20px;
+  }
   #right{
-    grid-column-start: 2;
-    grid-column-end: 3 ;
+    grid-row-start: 2;
+    grid-row-end:3;
+    grid-column-start: 1;
+    grid-column-end: 2 ;
     margin-left: 10px;
   }
   mat-form-field {
