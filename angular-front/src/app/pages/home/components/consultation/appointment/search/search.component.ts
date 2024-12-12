@@ -76,7 +76,7 @@ export class ManageComponent implements OnInit {
     private patientService: PatientService,
     private doctorService: DoctorService,
     private hospitalService: HospitalService,
-    
+
   ) {
     this.manageForm = this.formBuilder.group({
       patientName: [''],
@@ -95,7 +95,7 @@ export class ManageComponent implements OnInit {
     this.loadAppointmentsData();
     this.loadDoctorData();
     this.loadPatientsData();
-    
+
     this.loadHospitalsData();
   }
 
@@ -244,52 +244,65 @@ export class ManageComponent implements OnInit {
   }
 
   searchAppointments() {
-    const { patientName, doctorName, date, reason } = this.manageForm.value;
+    this.isVisible = false;
 
+    const patientName = this.manageForm.get('patientName')?.value || '';
+    const doctorName = this.manageForm.get('doctorName')?.value || '';
+    const date = this.manageForm.get('date')?.value || '';
+    const reason = this.manageForm.get('reason')?.value || '';
     const selectedHospitals = this.manageForm.get('hospital')?.value.map(Number) || [];
-    console.log(selectedHospitals)
-    let filteredAppointments = [...this.appointments];
-    let filtereddoctors = [...this.doctors];
 
-    if (patientName && this.fusePatientName) {
-      const results = this.fusePatientName.search(patientName).map(result => result.item);
-      filteredAppointments = filteredAppointments.filter(appointment => results.includes(appointment));
-    }
-
-    if (doctorName && this.fuseDoctorName) {
-      const results = this.fuseDoctorName.search(doctorName).map(result => result.item);
-      filteredAppointments = filteredAppointments.filter(appointment => results.includes(appointment));
-    }
+    // Filtrado exacto
+    let exactFilteredAppointments = [...this.appointments];
 
     if (date) {
-      filteredAppointments = filteredAppointments.filter(appointment =>
-        appointment.appointmentDate === date
-      );
+      exactFilteredAppointments = exactFilteredAppointments.filter((appointment) => {
+        const appointmentDateString = new Date(appointment.appointmentDate).toISOString().split('T')[0];
+        return appointmentDateString === date; // Comparar la parte de la fecha
+      });
     }
 
     if (reason) {
-      filteredAppointments = filteredAppointments.filter(appointment =>
+      exactFilteredAppointments = exactFilteredAppointments.filter((appointment) =>
         appointment.reason.toLowerCase().includes(reason.toLowerCase())
       );
     }
+
     if (selectedHospitals.length > 0) {
-      filtereddoctors = filtereddoctors.filter(doctor => 
-        doctor.hospital == (selectedHospitals)
+      // Filtrar doctores por hospitales seleccionados
+      const filteredDoctors = this.doctors.filter((doctor) =>
+        selectedHospitals.includes(doctor.hospital)
       );
-    console.log(filtereddoctors  )
-      // Filter appointments based on the filtered doctors
-      filteredAppointments = filteredAppointments.filter(appointment =>
-        filtereddoctors.some(doctor => doctor.id === appointment.doctorId)
+
+      // Filtrar citas basándose en los doctores filtrados
+      exactFilteredAppointments = exactFilteredAppointments.filter((appointment) =>
+        filteredDoctors.some((doctor) => doctor.id === appointment.doctorId)
       );
     }
 
+    // Filtrado difuso
+    let fuzzyFilteredAppointments = [...exactFilteredAppointments];
 
-    this.allFilteredAppointments = filteredAppointments;
-    console.log('Citas filtradas:', this.allFilteredAppointments);
-    this.totalPages = Math.max(1, Math.ceil(filteredAppointments.length / this.itemsPerPage));
+    if (this.fusePatientName && patientName) {
+      const fuzzyResultsPatientName = this.fusePatientName.search(patientName);
+      fuzzyFilteredAppointments = fuzzyFilteredAppointments.filter((appointment) =>
+        fuzzyResultsPatientName.some((result) => result.item === appointment)
+      );
+    }
+
+    if (this.fuseDoctorName && doctorName) {
+      const fuzzyResultsDoctorName = this.fuseDoctorName.search(doctorName);
+      fuzzyFilteredAppointments = fuzzyFilteredAppointments.filter((appointment) =>
+        fuzzyResultsDoctorName.some((result) => result.item === appointment)
+      );
+    }
+
+    // Actualizar resultados
+    this.allFilteredAppointments = fuzzyFilteredAppointments;
+    this.totalPages = Math.ceil(this.allFilteredAppointments.length / this.itemsPerPage);
     this.generatePageNumbers();
     this.updatePagedAppointments();
-    this.isVisible = true;
+    this.isVisible = this.allFilteredAppointments.length > 0;
   }
 
   openDialog(appointmentId: number) {
@@ -362,10 +375,10 @@ export class ManageComponent implements OnInit {
 
     const appointmentDate = new Date(this.selectedAppointment.appointmentDate);
     const appointmentUTC = new Date(Date.UTC(
-      appointmentDate.getFullYear(), 
-      appointmentDate.getMonth(), 
-      appointmentDate.getDate(), 
-      appointmentDate.getHours(), 
+      appointmentDate.getFullYear(),
+      appointmentDate.getMonth(),
+      appointmentDate.getDate(),
+      appointmentDate.getHours(),
       appointmentDate.getMinutes(),
       appointmentDate.getSeconds()));
 
@@ -389,9 +402,9 @@ export class ManageComponent implements OnInit {
   saveEditedAppointment(): void {
     const appointmentDate = new Date(this.editForm.value.appointmentDate);
     const appointmentDateUTC = new Date(Date.UTC(
-      appointmentDate.getFullYear(), 
-      appointmentDate.getMonth(), 
-      appointmentDate.getDate(), 
+      appointmentDate.getFullYear(),
+      appointmentDate.getMonth(),
+      appointmentDate.getDate(),
       this.editForm.value.appointmentTime.split(":")[0],
       this.editForm.value.appointmentTime.split(":")[1]
     ));
