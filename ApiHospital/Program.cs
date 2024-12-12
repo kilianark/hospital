@@ -17,7 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy => 
     policy.AllowAnyHeader()
     .AllowAnyMethod()
-    .AllowAnyOrigin()));
+    .WithOrigins("http://localhost:4200")
+    .AllowCredentials()
+));
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

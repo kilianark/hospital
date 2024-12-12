@@ -111,7 +111,11 @@ export class SearchPatientComponent implements OnInit {
     this.loadPatientsData();
 
     this.signalRService.listenForUpdates((tableName) => {
-      if(tableName === 'Patients') this.loadPatientsData();
+      console.log('entra en signalR');
+      if(tableName === 'Patients') {
+        console.log('Si entra en if de signalR');
+        this.loadPatientsData();
+      }
     })
 
     

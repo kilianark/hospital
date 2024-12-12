@@ -8,9 +8,13 @@ export class SignalRService {
 
   private hubConnection: signalR.HubConnection;
 
+  constructor() {
+    this.startConection();
+  }
+
   public startConection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-    .withUrl('http://localhost:5124//hospitalHub')
+    .withUrl('http://localhost:5124/hospitalHub')
     .build();
 
     this.hubConnection
@@ -31,6 +35,4 @@ export class SignalRService {
       callback(tableName);
     });
   }
-
-  constructor() { }
 }
