@@ -127,6 +127,8 @@ export class SearchPatientComponent implements OnInit {
         ...patient,
         status: patient.zone
       }));
+      
+      console.log(this.patients);
 
       this.fuseName = new Fuse(this.patients, {
         keys: ['name'],
@@ -145,7 +147,12 @@ export class SearchPatientComponent implements OnInit {
 
       this.patientService.patientUpdated$.subscribe((updatedPatient: PatientInterface) => {
         this.updatePatientInList(updatedPatient);
-      })
+      });
+
+
+      this.searchPatients();
+      console.log(this.patients);
+
     });
   }
 
