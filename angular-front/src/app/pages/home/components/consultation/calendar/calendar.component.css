@@ -2,3 +2,12 @@
   margin-left: 90px;
   margin-right: 20px;
 }
+td{
+  overflow: hidden;
+}
+@media screen and (max-width: 768px) {
+  .calendar-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
