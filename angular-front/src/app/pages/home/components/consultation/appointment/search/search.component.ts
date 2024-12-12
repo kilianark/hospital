@@ -357,11 +357,18 @@ export class ManageComponent implements OnInit {
 
   saveEditedAppointment(): void {
     const appointmentDate = new Date(this.editForm.value.appointmentDate);
+    const appointmentDateUTC = new Date(Date.UTC(
+      appointmentDate.getFullYear(), 
+      appointmentDate.getMonth(), 
+      appointmentDate.getDate(), 
+      this.editForm.value.appointmentTime.split(":")[0],
+      this.editForm.value.appointmentTime.split(":")[1]
+    ));
 
     const today = new Date();
 
 
-    if (appointmentDate < today) {
+    if (appointmentDateUTC < today) {
       this.confirm('La fecha de la cita no puede ser anterior al día actual', 'warning');
       return;
     }
@@ -369,7 +376,7 @@ export class ManageComponent implements OnInit {
 
     const updatedAppointment = {
       ...this.selectedAppointment,
-      appointmentDate: this.editForm.value.appointmentDate,
+      appointmentDate: appointmentDateUTC
     };
 
     this.appointmentService.updateAppointment(updatedAppointment.id, updatedAppointment).subscribe({

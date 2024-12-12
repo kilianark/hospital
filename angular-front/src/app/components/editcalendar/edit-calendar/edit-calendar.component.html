@@ -20,6 +20,15 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Hora de la cita:</mat-label>
+      <input matInput type="time" formControlName="time" required />
+      <mat-error *ngIf="editForm.get('time')?.hasError('required')">
+        La hora de la cita es obligatoria.
+      </mat-error>
+    </mat-form-field>
+
+
     <!-- Form Actions -->
     <div class="form-actions">
       <button mat-button mat-dialog-close>Cancelar</button>

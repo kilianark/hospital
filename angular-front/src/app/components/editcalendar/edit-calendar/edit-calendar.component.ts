@@ -16,11 +16,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DoctorInterface } from '../../../interfaces/doctor.interface';
 import { DoctorService } from '../../../services/doctor.service';
 import { KeycloakService } from 'keycloak-angular';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 
 @Component({
   selector: 'app-edit-calendar',
   standalone: true,
-  imports: [MatDatepickerModule, ReactiveFormsModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule, MatFormField, SharedModule],
+  imports: [MatDatepickerModule, ReactiveFormsModule, CommonModule, MatButtonModule, MatIconModule, MatDialogModule, MatFormField, SharedModule, NgxMaterialTimepickerModule],
   templateUrl: './edit-calendar.component.html',
   styleUrls: ['./edit-calendar.component.css']
 })
@@ -51,6 +53,7 @@ export class EditCalendarComponent implements OnInit {
     // Luego inicializa el formulario
     this.editForm = this.fb.group({
       date: ['', Validators.required],
+      time: ['', Validators.required],
       doctorId: ['', Validators.required],
       reason: ['']
     });
@@ -87,10 +90,26 @@ export class EditCalendarComponent implements OnInit {
 
       if (this.appointment) {
         // Asegurarse de que los valores de la cita estén en el formato adecuado
-        const appointmentDate = new Date(this.appointment.appointmentDate); // Convertir a objeto Date si es necesario
+        const appointmentDate = new Date(this.appointment.appointmentDate);
+        const appointmentUTC = new Date(Date.UTC(
+        appointmentDate.getFullYear(), 
+        appointmentDate.getMonth(), 
+        appointmentDate.getDate(), 
+        appointmentDate.getHours(), 
+        appointmentDate.getMinutes(),
+        appointmentDate.getSeconds()));
+
+
+        const formattedDate = appointmentUTC.toISOString().split('T')[0];
+        console.log(formattedDate);
+        const dateHours = appointmentUTC.getUTCHours();
+        const dateMinutes = appointmentUTC.getUTCMinutes();
+        const dateTimeFormat = this.formatDateHours(dateHours, dateMinutes)
+
         this.editForm.patchValue({
-          date: appointmentDate,  // Fecha de la cita (en formato adecuado para el datepicker)
-          doctorId: this.appointment.doctorId // ID del doctor asignado
+          date: formattedDate,
+          time: dateTimeFormat,
+          doctorId: this.appointment.doctorId
         });
       }
     });
@@ -107,10 +126,19 @@ export class EditCalendarComponent implements OnInit {
   // Cuando el formulario se envía, actualizar la cita en el servidor
   onFormSubmit() {
     if (this.editForm.valid) {
+
+      const appointmentDate = new Date(this.editForm.value.date);
+      const appointmentDateUTC = new Date(Date.UTC(
+        appointmentDate.getFullYear(), 
+        appointmentDate.getMonth(), 
+        appointmentDate.getDate(), 
+        this.editForm.value.time.split(":")[0],
+        this.editForm.value.time.split(":")[1]
+      ));
       // Combina los datos del formulario con los datos actuales de la cita
       const updatedData: AppointmentInterface = {
         ...this.appointment,
-        appointmentDate: this.editForm.value.date,
+        appointmentDate: appointmentDateUTC,
         doctorId:this.editForm.value.doctorId  // Se sobrescriben los campos que se han actualizado
       };
       console.log(updatedData)
@@ -118,5 +146,11 @@ export class EditCalendarComponent implements OnInit {
         console.log('Appointment updated:', response);
       });
     } 
+  }
+
+  formatDateHours(hours: number, minutes: number) : string {
+    var hoursString = hours >= 10 ? hours.toString() : "0" + hours.toString();
+    var minutesString = minutes >= 10 ? minutes.toString(): "0" + minutes.toString();
+    return hoursString + ":" + minutesString
   }
 }
