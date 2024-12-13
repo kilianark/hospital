@@ -32,7 +32,7 @@ patientHistory: any;
     private route: ActivatedRoute,
     private patientService: PatientService,
     private router: Router,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder, 
     public dialog: MatDialog,
 
   ) {
