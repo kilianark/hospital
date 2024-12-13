@@ -138,6 +138,7 @@ namespace ApiHospital.Controllers
                 
             await _service.DeletePatient(patient);
 
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Patients");
 
             return NoContent();
         }
