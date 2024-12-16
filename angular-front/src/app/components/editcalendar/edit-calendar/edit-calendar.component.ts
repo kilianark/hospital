@@ -97,8 +97,12 @@ export class EditCalendarComponent implements OnInit {
         appointmentDate.getDate(), 
         appointmentDate.getHours(), 
         appointmentDate.getMinutes(),
-        appointmentDate.getSeconds()));
+        appointmentDate.getSeconds()));// Formato "MM/DD/YYYY"
+        const guion = `${appointmentUTC.getDate().toString().padStart(2, '0')}/${(appointmentUTC.getMonth() + 1).toString().padStart(2, '0')}/${appointmentUTC.getFullYear()}`;
 
+        
+        console.log(guion); // "2024-12-18"
+        
 
         const formattedDate = appointmentUTC.toISOString().split('T')[0];
         console.log(formattedDate);
@@ -107,7 +111,7 @@ export class EditCalendarComponent implements OnInit {
         const dateTimeFormat = this.formatDateHours(dateHours, dateMinutes)
 
         this.editForm.patchValue({
-          date: formattedDate,
+          date: guion,
           time: dateTimeFormat,
           doctorId: this.appointment.doctorId
         });
