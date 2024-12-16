@@ -15,7 +15,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { SpinnerService } from '../../../../../services/spinner.service';
-import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
 import { SignalRService } from '../../../../../services/signal-r.service';
 
 @Component({
