@@ -45,7 +45,6 @@ export class TransferpatientComponent implements OnInit {
   onSubmit() {
     this.patient.hospital = this.transferForm.get("hospital")?.value;
     this.patient.bedId = null;
-    console.log(this.patient.hospital);
     this.patientService.putPatientData(this.patient).subscribe(() => {});
 
     this.dialogRef.close(this.patient);
