@@ -49,6 +49,8 @@ export class EditCalendarComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
+  
+
   ngOnInit(): void {
     // Primero carga los datos de la cita
     this.loadAppointmentData();

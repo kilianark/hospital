@@ -49,7 +49,9 @@ export class ManageComponent implements OnInit {
   isEditModalOpen: boolean = false; // Estado del modal de edición
   editForm: FormGroup; // Formulario para editar citas
 
-  fusePatientName: Fuse<AppointmentInterface> | null = null;
+  fusePatientName: Fuse<PatientInterface> | null = null;
+  fusePatientSurname1: Fuse<PatientInterface> | null = null;
+  fusePatientSurname2: Fuse<PatientInterface> | null = null;
   fuseDoctorName: Fuse<AppointmentInterface> | null = null;
 
   isLoading = false;
@@ -80,7 +82,11 @@ export class ManageComponent implements OnInit {
   ) {
     this.manageForm = this.formBuilder.group({
       patientName: [''],
+      patientSurname1: [''],
+      patientSurname2: [''],
       doctorName: [''],
+      doctorSurname1: [''],
+      doctorSurname2: [''],
       date: [''],
       reason: [''],
       hospital: [[], Validators.required]
@@ -103,6 +109,11 @@ export class ManageComponent implements OnInit {
     this.patientService.getPatientData().subscribe({
       next: (data) => {
         this.patients = data;
+
+        this.fusePatientName = new Fuse(this.patients, {
+          keys: ['name'],
+          threshold: 0.3,
+        });
       }
     });
   }
@@ -132,10 +143,6 @@ export class ManageComponent implements OnInit {
         this.filteredAppointments = [...data];
         this.allFilteredAppointments = [...data];
 
-        this.fusePatientName = new Fuse(this.appointments, {
-          keys: ['patientName'],
-          threshold: 0.3,
-        });
 
         this.fuseDoctorName = new Fuse(this.appointments, {
           keys: ['doctorName'],
@@ -286,8 +293,11 @@ export class ManageComponent implements OnInit {
     if (this.fusePatientName && patientName) {
       const fuzzyResultsPatientName = this.fusePatientName.search(patientName);
       fuzzyFilteredAppointments = fuzzyFilteredAppointments.filter((appointment) =>
-        fuzzyResultsPatientName.some((result) => result.item === appointment)
+        fuzzyResultsPatientName.some((result) => result.item.id == appointment.patientId)
       );
+      console.log(this.fusePatientName);
+      console.log(fuzzyResultsPatientName);
+      console.log(patientName)
     }
 
     if (this.fuseDoctorName && doctorName) {
