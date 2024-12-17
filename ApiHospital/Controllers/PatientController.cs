@@ -1,21 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography.Xml;
-using System.Threading.Tasks;
-using ApiHospital.Data;
 using ApiHospital.Models;
-using AutoMapper;
 using hospitalDTO.DTOapi;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using ApiHospital.Service;
+using Microsoft.AspNetCore.SignalR;
+using ApiHospital.Hubs;
 
 namespace ApiHospital.Controllers
 {
@@ -25,10 +14,12 @@ namespace ApiHospital.Controllers
     {
 
         private readonly PatientService _service;
+        private readonly IHubContext<HospitalHub> _hubContext;
 
-        public PatientController(PatientService service)
+        public PatientController(PatientService service, IHubContext<HospitalHub> hubContext)
         {
             _service = service;
+            _hubContext = hubContext;
         }
 
         // GET: api/Patients
@@ -115,6 +106,8 @@ namespace ApiHospital.Controllers
 
             var patient = await _service.CreatePatient(patientDTO);
 
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Patients");
+
             return Created($"/Patients/{patient.Id}", patient);
         }
 
@@ -132,6 +125,7 @@ namespace ApiHospital.Controllers
                 
             await _service.DeletePatient(patient);
 
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Patients");
 
             return NoContent();
         }

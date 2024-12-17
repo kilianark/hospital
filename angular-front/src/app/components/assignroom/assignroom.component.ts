@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
   templateUrl: './assignroom.component.html',
   styleUrls: ['./assignroom.component.css'],
 })
-export class AssignRoom implements OnInit, OnDestroy {
+export class AssignRoom implements OnInit {
   title = 'Gestión de camas: Habitación ';
   roomId: number;
   room!: RoomInterface;
@@ -49,46 +49,31 @@ export class AssignRoom implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("pre data");
     this.roomId = this.data.roomId;
     this.patient = this.data.patient;
 
-    console.log("input del paciente:", this.patient);
-
     if (this.roomId) {
-      console.log('Id de la habitación:', this.roomId);
-
       // Cargar datos de la habitación y de las camas
       this.loadRoomData();
       this.loadPatients();
     }
   }
 
-  ngOnDestroy() {
-    console.log("PopUp destruido");
-  }
-
   loadRoomData() {
     this.roomService.getRoomById(this.roomId).subscribe((data) => {
-      console.log("Room: " + data)
       this.room = data;
     });
 
     this.bedService.getBedsByRoomId(this.roomId).subscribe((data) => {
       this.beds = data;
-      console.log('Camas obtenidas:', this.beds);
-      console.log(this.beds);
     });
   }
 
   loadPatients() {
-    this.patientService.getPatientData().subscribe(
-      (patients: PatientInterface[]) => {
+    this.patientService.getPatientData().subscribe((patients: PatientInterface[]) => {
         this.patients = patients;
         this.patientService.setPatients(patients); // Configura la lista de pacientes en el servicio
-      },
-      (error) => console.error('Error al cargar paciente:', error)
-    );
+    });
     // Verifica que las camas estén cargadas antes de llamar a `getPatientByBedId`
     if (this.beds.length === 0) {
       console.warn('No se han cargado las camas. Llama a loadBeds() primero.');
@@ -121,9 +106,6 @@ export class AssignRoom implements OnInit, OnDestroy {
       return;
     }
 
-    console.log('Asignando cama:', bedId);
-    console.log(this.room);
-
     // Actualiza el ID de la cama asignada al paciente
     this.patient.bedId = bedId;
     this.patient.area = this.room.area;
@@ -132,16 +114,8 @@ export class AssignRoom implements OnInit, OnDestroy {
 
 
     // Actualizar los datos del paciente con la nueva cama asignada
-    this.patientService.putPatientData(this.patient).subscribe(
-      () => {
-        console.log('Paciente actualizado con la cama:', bedId);
-      },
-      (error) => {
-        console.error('Error al asignar la cama al paciente:', error);
-      }
-    );
+    this.patientService.putPatientData(this.patient).subscribe(() => {});
 
-    console.log(this.patient);
     this.closeDialog();
   }
 
@@ -157,14 +131,7 @@ export class AssignRoom implements OnInit, OnDestroy {
     bed.availability = isAvailable;
 
     // Enviar la actualización al backend
-    this.bedService.putBedData(bed).subscribe(
-      () => {
-        console.log(`Cama ${bedId} actualizada a disponibilidad: ${isAvailable}`);
-      },
-      (error) => {
-        console.error('Error al actualizar la disponibilidad de la cama:', error);
-      }
-    );
+    this.bedService.putBedData(bed).subscribe(() => {});
     this.closeDialog();
   }
 

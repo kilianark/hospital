@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using ApiHospital.Data;
-using hospitalDTO.DTOapi;
-using ApiHospital.Models;
 using ApiHospital.Shared;
 using ApiHospital.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using ApiHospital.Interceptors;
+using ApiHospital.Hubs;
 
 // Descomentar el següent using NOMES si implementem el context NO amb "Mysql", sinó OracleDatabase
 // Caldrà canviar al Oracle DataBase
@@ -18,7 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy => 
     policy.AllowAnyHeader()
     .AllowAnyMethod()
-    .AllowAnyOrigin()));
+    .WithOrigins("http://localhost:4200")
+    .AllowCredentials()
+));
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -93,6 +94,7 @@ builder.Services.AddAuthentication(options =>
         }
     };
 });
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -118,5 +120,6 @@ app.UseMiddleware<HospitalQueryMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<HospitalHub>("/hospitalHub");
 
 app.Run();
