@@ -46,6 +46,8 @@ export class EditCalendarComponent implements OnInit {
     private doctorService: DoctorService
   ) { }
 
+  
+
   ngOnInit(): void {
     // Primero carga los datos de la cita
     this.loadAppointmentData();
