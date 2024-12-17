@@ -29,10 +29,6 @@ table{
   grid-template-columns: 25% 25% 25% 25%;
   margin-right: 4%;
 }
-#right{
-  grid-column-start: 3;
-  grid-column-end: 4 ;
-}
 mat-card-title {
   font-weight: bold;
   font-size: 1.5em;
@@ -172,15 +168,16 @@ td button:hover {
     gap:7px;
   }
   #right{
-    grid-column-start: 2;
-    grid-column-end: 3 ;
+    grid-column-start: 1;
+    grid-column-end: 2 ;
     margin-left: 10px;
   }
   mat-form-field {
     margin-left: 10px;
   }
-  form {
-    padding-right: 2%;
+  #title {
+    
+    margin-bottom:20px;
   }
   .credentials {
     display: grid;
