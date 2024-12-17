@@ -108,7 +108,7 @@ export class SearchWorkerComponent implements OnInit {
         console.log('Si entra en if de signalR');
         this.loadWorkersData();
       }
-    })
+    });
 
   }
 

@@ -1,7 +1,8 @@
 <div class="calendar-container" style="height: 100%">
-<full-calendar [options]="calendarOptions">
+  <button id="toggleBest" mat-button (click)="toggleWeekends()">Fin de semana</button>
+<full-calendar  [options]="calendarOptions">
     <ng-template #eventContent let-arg>
-      <b>{{arg.timeText}}</b>
+      <b (click)="openDialog(arg.event.id)">{{arg.timeText}}</b>
       <i (click)="openDialog(arg.event.id)">{{arg.event.title}}</i>
     </ng-template>
   </full-calendar>

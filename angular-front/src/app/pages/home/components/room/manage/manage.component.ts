@@ -11,6 +11,7 @@ import { ConfirmComponent } from '../../../../../components/confirm/confirm.comp
 import { Observable } from 'rxjs/internal/Observable';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { UrgencyArea } from '../../../../../enums/urgency-area.enum';
+import { SignalRService } from '../../../../../services/signal-r.service';
 
 @Component({
   selector: 'app-manage',
@@ -32,13 +33,22 @@ export class ManageComponent implements OnInit {
     private route: ActivatedRoute,
     private patientService: PatientService,
     private bedService: BedService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private signalRService: SignalRService
   ) { }
 
   ngOnInit() {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.roomId) {
       this.loadRoomData();
+
+      this.signalRService.listenForUpdates((tableName) => {
+        console.log('entra en signalR');
+        if(tableName === 'Beds') {
+          console.log('Si entra en if de signalR');
+          this.loadRoomData();
+        }
+      });
     }
   }
 

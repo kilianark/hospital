@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 import { WorkerComponent } from '../../worker/worker.component';
 import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ import { DoctorService } from '../../../../../services/doctor.service';
 import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
 import { Router } from '@angular/router';
 import { EditCalendarComponent } from '../../../../../components/editcalendar/edit-calendar/edit-calendar.component';
+import esLocale from '@fullcalendar/core/locales/es';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -31,10 +33,19 @@ export class CalendarComponent implements OnInit {
   AdoctorId!: number; // Ensure it's properly typed
   private doctor: DoctorInterface;
   calendarOptions: CalendarOptions = {
+  
+    locale: esLocale,
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     firstDay: 1,
     weekends: true,
+    headerToolbar: {
+      
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay',
+      
+    }, 
     events: [] // Initially empty
   };
 
@@ -122,5 +133,8 @@ export class CalendarComponent implements OnInit {
     });
     
   console.log(appointID)
+  }
+  toggleWeekends() {
+    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
   }
 }
