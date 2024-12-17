@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using ApiHospital.Data;
+using ApiHospital.Hubs;
 using ApiHospital.Models;
 using AutoMapper;
 using hospitalDTO.DTOapi;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiHospital.Controllers
@@ -20,11 +17,13 @@ namespace ApiHospital.Controllers
     {
         private readonly HospitalContext _context;
         private readonly IMapper _mapper;
+        private readonly IHubContext<HospitalHub> _hubContext;
 
-        public BedController(HospitalContext context, IMapper mapper)
+        public BedController(HospitalContext context, IMapper mapper, IHubContext<HospitalHub> hubContext)
         {
             _context = context;
             _mapper = mapper;
+            _hubContext = hubContext;
         }
 
         // GET: api/Beds
@@ -116,6 +115,8 @@ namespace ApiHospital.Controllers
             _context.Beds.Add(bed);
             await _context.SaveChangesAsync();
 
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Beds");
+
             return CreatedAtAction(nameof(GetBedById), new { id = bed.Id }, bed);
         }
 
@@ -131,6 +132,8 @@ namespace ApiHospital.Controllers
 
             _context.Beds.Remove(bed);
             await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Beds");
 
             return NoContent();
         }
