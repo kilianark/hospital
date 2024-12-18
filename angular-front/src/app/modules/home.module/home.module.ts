@@ -51,6 +51,5 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
   ],
-  exports: [ TranslateModule ]
 })
 export class HomeModule { }
