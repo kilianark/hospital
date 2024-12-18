@@ -11,16 +11,19 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpLoaderFactory } from "../../modules/home.module/home.module";
 import { HttpClient } from "@angular/common/http";
 import { DoctorSelectComponent } from "../components/doctor-select/doctor-select.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
         EnumToStringPipe,
         SpinnerComponent,
         IdToStringPipe,
+        DoctorSelectComponent
     ],
     imports: [
         CommonModule,
         MaterialModule,
+        FormsModule,
         ConfirmDialogComponent,
         TranslateModule.forRoot({
             loader: {
@@ -28,8 +31,7 @@ import { DoctorSelectComponent } from "../components/doctor-select/doctor-select
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient],
             },
-        }),
-        DoctorSelectComponent
+        })
     ],
     exports: [
         EnumToStringPipe,
