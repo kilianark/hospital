@@ -38,7 +38,6 @@ import { DoctorSelectComponent } from '../../shared/components/doctor-select/doc
     ReactiveFormsModule, // Necesario para usar [formGroup] y otras funcionalidades de formularios reactivos
     ConsultationRoutingModule, // Módulo de rutas
     SharedModule,
-    DoctorSelectComponent,
 
     // Angular Material Modules
     MatFormFieldModule,

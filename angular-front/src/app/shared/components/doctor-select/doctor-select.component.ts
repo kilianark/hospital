@@ -1,14 +1,12 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { SharedModule } from '../../modules/shared.module';
 import { DoctorService } from '../../../services/doctor.service';
 import { DoctorInterface } from '../../../interfaces/doctor.interface';
-import { FormGroup, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+
 
 @Component({
   selector: 'app-doctor-select',
-  standalone: true,
-  imports: [SharedModule, CommonModule, FormsModule],
+  //imports: [SharedModule, CommonModule, FormsModule],
   templateUrl: './doctor-select.component.html',
   styleUrl: './doctor-select.component.css',
   providers: [
@@ -19,7 +17,8 @@ import { CommonModule } from '@angular/common';
     }
   ]
 })
-export class DoctorSelectComponent implements OnInit {
+
+export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
 
   @Input() required: boolean = false;
 
