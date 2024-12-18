@@ -26,7 +26,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 export class CalendarComponent implements OnInit {
   title = "Calendario";
   events = []; // To hold processed calendar events
-  appointments: { date: Date; patientId: number; doctorId: number; id: number }[] = [];
+  appointments: { date: Date; patientId: number; doctorId: number; id: number; inUrgencies: boolean }[] = [];
   patients: { nombre: string; apellido: string; patientId: number }[] = [];
   workerCode!: number; // Ensure it's properly typed
   appointmentID!: number; // Ensure it's properly typed
@@ -82,6 +82,7 @@ export class CalendarComponent implements OnInit {
               patientId: appointment.patientId,
               doctorId: appointment.doctorId,
               id: appointment.id,
+              inUrgencies: appointment.inUrgencies
             }));
             // Map patients
             this.patients = patientData.map((patient) => ({
@@ -114,6 +115,16 @@ export class CalendarComponent implements OnInit {
       .map((appointment) => {
         // Find the corresponding patient
         const patient = this.patients.find((p) => p.patientId === appointment.patientId);
+        if(appointment.inUrgencies){
+          return {
+            title: patient
+              ? `${patient.nombre} ${patient.apellido}` // Use patient name if found
+              : "Unknown Patient",
+            start: appointment.date, // Ensure proper date format
+            id: appointment.id.toString(), // Include the appointment ID
+            backgroundColor: '#ff0000',
+          };
+        }
         return {
           title: patient
             ? `${patient.nombre} ${patient.apellido}` // Use patient name if found
