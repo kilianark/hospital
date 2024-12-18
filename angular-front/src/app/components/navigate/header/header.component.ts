@@ -35,12 +35,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   ],
 })
 export class HeaderComponent
-  extends SidebarComponent
   implements OnInit
 {
   doctorID : number;
   username;
-
   isMenuOpen = false;
   private routeSubscription: Subscription = new Subscription();
 
@@ -52,8 +50,6 @@ export class HeaderComponent
     private translator: TranslateService
   ) {
     translator.use('es');
-
-    super();
   }
   menu = true;
   onClick() {
