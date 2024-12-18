@@ -144,7 +144,7 @@ export class PatientService {
           // Filtrar el paciente actual si se proporciona un código
           patients = patients.filter(p => p.patientCode !== excludePatientCode);
         }
-        return patients.length > 0;  // Si queda algún paciente con ese CIP, el CIP ya existe
+        return patients.length > 0;  // Si existe algún paciente con ese CIP, el CIP ya existe
       }),
       catchError(() => of(false))  // En caso de error, retornamos que no existe para no bloquear la validación
     );
