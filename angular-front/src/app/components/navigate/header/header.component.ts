@@ -40,9 +40,6 @@ export class HeaderComponent
 {
   doctorID : number;
   username;
-  title = 'MedicaPlus';
-  nav1 = 'Urgencias';
-  nav2 = 'Consultas';
 
   isMenuOpen = false;
   private routeSubscription: Subscription = new Subscription();

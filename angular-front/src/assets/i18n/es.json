@@ -3,6 +3,11 @@
     "CONSULTATIONS": "Consultas",
     "EMERGENCIES": "Urgencias",
 
+    "NAV_ACTIONS": {
+        "MY_PROFILE": "Mi perfil",
+        "LOG_OUT": "Cerrar sesión"
+    },
+
     "SIDE_MANAGE_P": "Gestionar pacientes",
     "SIDE_MANAGE_R": "Gestionar habitaciones",
     "SIDE_MANAGE_W": "Gestionar trabajadores",
