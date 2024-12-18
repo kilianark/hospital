@@ -1,0 +1,11 @@
+<mat-form-field  appearance="outline" ngModel>
+    <mat-label>Seleccionar Médico</mat-label>
+    <mat-select [(ngModel)]="value">
+      <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+        {{ doctor.id | idToString : doctors }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf=" required ">
+      Has de seleccionar un médico
+    </mat-error>
+</mat-form-field>

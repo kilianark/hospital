@@ -10,12 +10,13 @@ import { IdToStringPipe } from "../../pipe/id-to-string.pipe";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpLoaderFactory } from "../../modules/home.module/home.module";
 import { HttpClient } from "@angular/common/http";
+import { DoctorSelectComponent } from "../components/doctor-select/doctor-select.component";
 
 @NgModule({
     declarations: [
         EnumToStringPipe,
         SpinnerComponent,
-        IdToStringPipe
+        IdToStringPipe,
     ],
     imports: [
         CommonModule,
@@ -27,13 +28,15 @@ import { HttpClient } from "@angular/common/http";
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient],
             },
-        })
+        }),
+        DoctorSelectComponent
     ],
     exports: [
         EnumToStringPipe,
         MaterialModule,
         ConfirmDialogComponent,
         SpinnerComponent,
+        DoctorSelectComponent,
         IdToStringPipe
     ]
 })

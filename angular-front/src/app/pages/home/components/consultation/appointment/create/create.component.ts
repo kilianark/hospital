@@ -28,8 +28,8 @@ export function futureDateValidator(): ValidatorFn {
 })
 export class CreateComponent implements OnInit {
   appointmentForm: FormGroup;
-  doctors: { id: number; name: string }[] = [];
   patients: { id: number; name: string }[] = [];
+  doctor: string;
 
   constructor(
     private fb: FormBuilder,
@@ -49,21 +49,11 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDoctors();
     this.loadPatients();
   }
 
   // Cargar la lista de médicos desde el servicio
-  loadDoctors(): void {
-    this.doctorService.getDoctorData().subscribe(
-      (doctors) => {
-        this.doctors = doctors.map((d) => ({ id: d.id, name: `${d.name} ${d.surname1}` }));
-      },
-      (error) => {
-        console.error('Error al cargar los médicos:', error);
-      }
-    );
-  }
+  
 
   // Cargar la lista de pacientes desde el servicio
   loadPatients(): void {
