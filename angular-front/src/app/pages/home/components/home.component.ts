@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientService } from '../../../services/patient.service';
-import { PatientInterface } from '../../../interfaces/patient.interface';
-import { KeycloakService } from 'keycloak-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-home',
@@ -12,4 +10,7 @@ import { KeycloakService } from 'keycloak-angular';
 export class HomeComponent {
   title = 'MedicaPlus';
 
+  constructor(private translator: TranslateService) {
+    this.translator.use('es');
+  }
 }

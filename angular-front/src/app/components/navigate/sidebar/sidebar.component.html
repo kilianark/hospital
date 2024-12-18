@@ -10,35 +10,35 @@
 
 <body class="sidebar" id="sidebarTS">
   <div appHasRole="general_patients" class="columna">
-    <label><b>Gestionar pacientes</b></label>
+    <label><b>{{ 'SIDE_MANAGE_P' | translate }}</b></label>
     <ul>
       <li appHasRole="create_patient">
-        <a class="submit" type="button" routerLink="/home/patient/create">Crear</a>
+        <a class="submit" type="button" routerLink="/home/patient/create">{{'SIDE_ACTIONS.CREATE' | translate}}</a>
       </li>
       <li appHasRole="search_patient">
-        <a class="submit" type="button" routerLink="/home/patient/search">Buscar</a>
+        <a class="submit" type="button" routerLink="/home/patient/search">{{'SIDE_ACTIONS.SEARCH' | translate}}</a>
       </li>
     </ul>
   </div>
   <div appHasRole="general_rooms" class="columna">
-    <label><b>Gestionar habitaciones</b></label>
+    <label><b>{{'SIDE_MANAGE_R' | translate}}</b></label>
     <ul>
       <li appHasRole="create_room">
-        <a class="submit" type="button" routerLink="/home/room/create">Crear</a>
+        <a class="submit" type="button" routerLink="/home/room/create">{{'SIDE_ACTIONS.CREATE' | translate}}</a>
       </li>
       <li appHasRole="search_room">
-        <a class="submit" type="button" routerLink="/home/room/search">Buscar</a>
+        <a class="submit" type="button" routerLink="/home/room/search">{{'SIDE_ACTIONS.SEARCH' | translate }}</a>
       </li>
     </ul>
   </div>
   <div appHasRole="general_workers" class="columna">
-    <label><b>Gestionar trabajadores</b></label>
+    <label><b>{{'SIDE_MANAGE_W' | translate}}</b></label>
     <ul>
       <li appHasRole="create_worker">
-        <a class="submit" type="button" routerLink="/home/worker/create">Crear</a>
+        <a class="submit" type="button" routerLink="/home/worker/create">{{'SIDE_ACTIONS.CREATE' | translate}}</a>
       </li>
       <li appHasRole="search_worker">
-        <a class="submit" type="button" routerLink="/home/worker/search">Buscar</a>
+        <a class="submit" type="button" routerLink="/home/worker/search">{{'SIDE_ACTIONS.SEARCH' | translate}}</a>
       </li>
     </ul>
   </div>
