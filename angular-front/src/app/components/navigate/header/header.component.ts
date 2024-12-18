@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,7 @@ import { KeycloakService } from 'keycloak-angular';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    TranslateModule
   ],
 })
 export class HeaderComponent
@@ -49,7 +51,8 @@ export class HeaderComponent
     private elRef: ElementRef,
     private renderer: Renderer2,
     private router: Router,
-    private readonly keycloak: KeycloakService
+    private readonly keycloak: KeycloakService,
+    private translator: TranslateService
   ) {
     super();
   }
