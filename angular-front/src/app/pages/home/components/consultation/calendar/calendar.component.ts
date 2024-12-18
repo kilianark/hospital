@@ -116,14 +116,16 @@ export class CalendarComponent implements OnInit {
         // Find the corresponding patient
         const patient = this.patients.find((p) => p.patientId === appointment.patientId);
         if(appointment.inUrgencies){
-          return {
+          const variable = {
             title: patient
               ? `${patient.nombre} ${patient.apellido}` // Use patient name if found
               : "Unknown Patient",
             start: appointment.date, // Ensure proper date format
             id: appointment.id.toString(), // Include the appointment ID
-            backgroundColor: '#ff0000',
+            classNames: ['custom-event-class'],
           };
+         console.log(variable)
+          return variable;
         }
         return {
           title: patient

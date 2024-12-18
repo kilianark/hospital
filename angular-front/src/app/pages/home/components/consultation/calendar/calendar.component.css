@@ -5,6 +5,11 @@
 td{
   overflow: hidden;
 }
+.custom-event-class {
+  background-color: red !important;
+  border-color: #ff0000 !important;
+  color: white !important; /* Ensure text is readable */
+}
 @media screen and (max-width: 768px) {
   .calendar-container {
     margin-left: 0px;
