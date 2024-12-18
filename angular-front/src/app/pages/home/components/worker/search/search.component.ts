@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RecordComponent } from '../../../../../components/recordpatient/record.component';
 import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { WorkerService } from '../../../../../services/worker.service';
-import { FormBuilder, FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HospitalZone } from '../../../../../enums/hospital-zones.enum';
 import { SortDirection } from '@angular/material/sort';
 import Fuse from 'fuse.js';
-import { MaterialModule } from '../../../../../shared/modules/material.module';
 import { HospitalService } from '../../../../../services/hospital.service';
 import { HospitalInterface } from '../../../../../interfaces/hospital.interface';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { SpinnerService } from '../../../../../services/spinner.service';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
-import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
+import { SignalRService } from '../../../../../services/signal-r.service';
 @Component({
   selector: 'app-search-worker',
   templateUrl: './search.component.html',
@@ -72,7 +69,8 @@ export class SearchWorkerComponent implements OnInit {
     private WorkerService: WorkerService,
     private hospitalService: HospitalService,
     private translator: TranslateService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private signalRService: SignalRService
   ) {
     this.translator.use('es');
 
@@ -102,7 +100,26 @@ export class SearchWorkerComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadHospitalsData();
+    this.loadWorkersData();
 
+    this.signalRService.listenForUpdates((tableName) => {
+      console.log('entra en signalR');
+      if(tableName === 'Workers') {
+        console.log('Si entra en if de signalR');
+        this.loadWorkersData();
+      }
+    });
+
+  }
+
+
+  loadHospitalsData(): void {
+    this.hospitalService.getHospitals().subscribe((hospitals) => {
+      this.hospitals = hospitals;
+    });
+  }
+
+  loadWorkersData() : void {
     this.WorkerService.getWorkerData().subscribe((data) => {
       // Asignar datos a workers y mapear si es necesario
       this.workers = data.map(worker => ({
@@ -133,13 +150,6 @@ export class SearchWorkerComponent implements OnInit {
       this.WorkerService.workerUpdated$.subscribe((updatedWorker: WorkerInterface) => {
         this.updateworkerInList(updatedWorker);
       });
-    });
-  }
-
-
-  loadHospitalsData(): void {
-    this.hospitalService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals;
     });
   }
 

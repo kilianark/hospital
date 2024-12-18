@@ -1,21 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Cryptography.Xml;
-using System.Threading.Tasks;
 using ApiHospital.Data;
 using ApiHospital.Models;
 using AutoMapper;
 using hospitalDTO.DTOapi;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using ApiHospital.Service;
+using Microsoft.AspNetCore.SignalR;
+using ApiHospital.Hubs;
 
 namespace ApiHospital.Controllers
 {
@@ -27,12 +19,14 @@ namespace ApiHospital.Controllers
         private readonly IMapper _mapper;
 
         private readonly WorkerService _service;
+        private readonly IHubContext<HospitalHub> _hubContext;
 
-        public WorkerController(HospitalContext context, IMapper mapper, WorkerService service)
+        public WorkerController(HospitalContext context, IMapper mapper, WorkerService service, IHubContext<HospitalHub> hubContext)
         {
             _mapper = mapper;
             _context = context;
             _service = service;
+            _hubContext = hubContext;
         }
 
         // GET: api/Workers
@@ -133,6 +127,8 @@ namespace ApiHospital.Controllers
             _context.Workers.Add(worker);
             await _context.SaveChangesAsync();
 
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Workers");
+
             return Created($"/Workers/{worker.Id}", worker);
         }
 
@@ -147,6 +143,8 @@ namespace ApiHospital.Controllers
                 
             _context.Workers.Remove(worker);
             await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Workers");
 
             return NoContent();
         }

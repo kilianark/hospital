@@ -2,7 +2,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PatientInterface } from '../../../interfaces/patient.interface';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,6 +17,7 @@ import { DoctorInterface } from '../../../interfaces/doctor.interface';
 import { DoctorService } from '../../../services/doctor.service';
 import { KeycloakService } from 'keycloak-angular';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ConfirmComponent } from '../../confirm/confirm.component';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class EditCalendarComponent implements OnInit {
   isEditable: boolean = false;
   editForm: FormGroup;
   public appointment: AppointmentInterface;
+  
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: number,
@@ -43,8 +45,11 @@ export class EditCalendarComponent implements OnInit {
     private fb: FormBuilder,
     private appointmentService: AppointmentService,
     private keycloak: KeycloakService,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    public dialog: MatDialog,
   ) { }
+
+  
 
   ngOnInit(): void {
     // Primero carga los datos de la cita
@@ -97,8 +102,12 @@ export class EditCalendarComponent implements OnInit {
         appointmentDate.getDate(), 
         appointmentDate.getHours(), 
         appointmentDate.getMinutes(),
-        appointmentDate.getSeconds()));
+        appointmentDate.getSeconds()));// Formato "MM/DD/YYYY"
+        const guion = `${appointmentUTC.getDate().toString().padStart(2, '0')}/${(appointmentUTC.getMonth() + 1).toString().padStart(2, '0')}/${appointmentUTC.getFullYear()}`;
 
+        
+        console.log(guion); // "2024-12-18"
+        
 
         const formattedDate = appointmentUTC.toISOString().split('T')[0];
         console.log(formattedDate);
@@ -107,7 +116,7 @@ export class EditCalendarComponent implements OnInit {
         const dateTimeFormat = this.formatDateHours(dateHours, dateMinutes)
 
         this.editForm.patchValue({
-          date: formattedDate,
+          date: guion,
           time: dateTimeFormat,
           doctorId: this.appointment.doctorId
         });
@@ -144,6 +153,7 @@ export class EditCalendarComponent implements OnInit {
       console.log(updatedData)
       this.appointmentService.updateAppointment(this.data, updatedData).subscribe((response) => {
         console.log('Appointment updated:', response);
+        this.confirm('Cita actualizada con éxito', 'success');
       });
     } 
   }
@@ -153,4 +163,8 @@ export class EditCalendarComponent implements OnInit {
     var minutesString = minutes >= 10 ? minutes.toString(): "0" + minutes.toString();
     return hoursString + ":" + minutesString
   }
+   confirm(message: string, type: string) {
+      const dialogRef = this.dialog.open(ConfirmComponent, {});
+      dialogRef.componentInstance.setMessage(message, type);
+    }
 }

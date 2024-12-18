@@ -3,17 +3,7 @@
     <mat-card-title>{{ "Pedir Cita" }}</mat-card-title>
     <!-- Selector de médico -->
 
-    <mat-form-field  appearance="outline">
-      <mat-label>Seleccionar Médico</mat-label>
-      <mat-select formControlName="doctorId">
-        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
-          {{ doctor.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="appointmentForm.get('doctorId')?.invalid">
-        Has de seleccionar un médico
-      </mat-error>
-    </mat-form-field>
+    <app-doctor-select formControlName = "doctorId" [(ngModel)]="doctor"></app-doctor-select>
 
     <!-- Selector de paciente -->
     <mat-form-field appearance="outline">

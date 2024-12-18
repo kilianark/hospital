@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 import { WorkerComponent } from '../../worker/worker.component';
 import { WorkerInterface } from '../../../../../interfaces/worker.interface';
 import { OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ import { DoctorService } from '../../../../../services/doctor.service';
 import { DoctorInterface } from '../../../../../interfaces/doctor.interface';
 import { Router } from '@angular/router';
 import { EditCalendarComponent } from '../../../../../components/editcalendar/edit-calendar/edit-calendar.component';
+import esLocale from '@fullcalendar/core/locales/es';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -24,17 +26,26 @@ import { EditCalendarComponent } from '../../../../../components/editcalendar/ed
 export class CalendarComponent implements OnInit {
   title = "Calendario";
   events = []; // To hold processed calendar events
-  appointments: { date: Date; patientId: number; doctorId: number; id: number }[] = [];
+  appointments: { date: Date; patientId: number; doctorId: number; id: number; inUrgencies: boolean }[] = [];
   patients: { nombre: string; apellido: string; patientId: number }[] = [];
   workerCode!: number; // Ensure it's properly typed
   appointmentID!: number; // Ensure it's properly typed
   AdoctorId!: number; // Ensure it's properly typed
   private doctor: DoctorInterface;
   calendarOptions: CalendarOptions = {
+  
+    locale: esLocale,
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     firstDay: 1,
     weekends: true,
+    headerToolbar: {
+      
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay',
+      
+    }, 
     events: [] // Initially empty
   };
 
@@ -71,6 +82,7 @@ export class CalendarComponent implements OnInit {
               patientId: appointment.patientId,
               doctorId: appointment.doctorId,
               id: appointment.id,
+              inUrgencies: appointment.inUrgencies
             }));
             // Map patients
             this.patients = patientData.map((patient) => ({
@@ -103,6 +115,16 @@ export class CalendarComponent implements OnInit {
       .map((appointment) => {
         // Find the corresponding patient
         const patient = this.patients.find((p) => p.patientId === appointment.patientId);
+        if(appointment.inUrgencies){
+          return {
+            title: patient
+              ? `${patient.nombre} ${patient.apellido}` // Use patient name if found
+              : "Unknown Patient",
+            start: appointment.date, // Ensure proper date format
+            id: appointment.id.toString(), // Include the appointment ID
+            backgroundColor: '#ff0000',
+          };
+        }
         return {
           title: patient
             ? `${patient.nombre} ${patient.apellido}` // Use patient name if found
@@ -122,5 +144,8 @@ export class CalendarComponent implements OnInit {
     });
     
   console.log(appointID)
+  }
+  toggleWeekends() {
+    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
   }
 }

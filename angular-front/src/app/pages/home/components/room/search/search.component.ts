@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../components/confirm/confirm.component';
 import { ConfirmDialogComponent } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { SpinnerService } from '../../../../../services/spinner.service';
-import SpinnerComponent from '../../../../../shared/components/spinner/spinner.component';
+import { SignalRService } from '../../../../../services/signal-r.service';
 
 @Component({
   selector: 'app-search-room',
@@ -102,7 +102,8 @@ export class SearchRoomComponent implements OnInit {
     private roomService: RoomService,
     private translator: TranslateService,
     private hospitalService: HospitalService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private signalRService: SignalRService
   ) {
     this.translator.use('es');
 
@@ -122,19 +123,32 @@ export class SearchRoomComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.roomService.getRoomData().subscribe((data) => {
-      this.rooms = data;
-      this.totalPages = Math.ceil(this.rooms.length / this.itemsPerPage);
-      this.sortRooms();
-    });
-
+    
+    this.loadRoomsData();
     this.loadHospitalsData();
+
+    this.signalRService.listenForUpdates((tableName) => {
+      console.log('entra en signalR');
+      if(tableName === 'Rooms') {
+        console.log('Si entra en if de signalR');
+        this.loadRoomsData();
+      }
+    })
+
   }
 
 
   loadHospitalsData(): void {
     this.hospitalService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
+    });
+  }
+
+  loadRoomsData(): void {
+    this.roomService.getRoomData().subscribe((data) => {
+      this.rooms = data;
+      this.totalPages = Math.ceil(this.rooms.length / this.itemsPerPage);
+      this.sortRooms();
     });
   }
 

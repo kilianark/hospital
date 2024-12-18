@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using ApiHospital.Data;
+using ApiHospital.Hubs;
 using ApiHospital.Models;
 using ApiHospital.Service;
-using AutoMapper;
 using hospitalDTO.DTOapi;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using ApiHospital.Interceptors;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ApiHospital.Controllers
 {   
@@ -23,10 +14,12 @@ namespace ApiHospital.Controllers
     public class RoomController : ControllerBase
     {
         private readonly RoomService _service;
+        private readonly IHubContext<HospitalHub> _hubContext;
 
-        public RoomController(RoomService service)
+        public RoomController(RoomService service, IHubContext<HospitalHub> hubContext)
         {
             _service = service;
+            _hubContext = hubContext;
         }
 
         // GET: api/Rooms
@@ -117,6 +110,8 @@ namespace ApiHospital.Controllers
 
             var room = await _service.CreateRoom(roomDTO);
 
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Rooms");
+
             return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, room);
         }
 
@@ -131,6 +126,9 @@ namespace ApiHospital.Controllers
             if (await _service.RoomHasBeds(room)) return BadRequest();
             
             await _service.DeleteRoom(room);
+
+            await _hubContext.Clients.All.SendAsync("TableUpdated", "Patients");
+            
             return NoContent();
         }
         // PUT: api/Room/undo/5

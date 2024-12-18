@@ -8,7 +8,7 @@ import { PatientInterface } from '../interfaces/patient.interface';
 export class IdToStringPipe implements PipeTransform {
 
   transform(value: number, data: DoctorInterface[] | PatientInterface[]): string {
-    var fullName = data.find(item => item.id == value ).name + " " + data.find(item => item.id == value ).surname1
+    var fullName = `${data.find(item => item.id == value ).name} ${data.find(item => item.id == value).surname1} ${data.find(item => item.id == value).surname2 ? data.find(item => item.id == value).surname2 : ""}`;
     return fullName;
   }
 
