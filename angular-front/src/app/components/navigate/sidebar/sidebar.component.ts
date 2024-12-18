@@ -12,5 +12,5 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   })
 
 export class SidebarComponent {
-  constructor(private translator: TranslateService) { translator.use('es'); }
+  constructor(private translator: TranslateService) { this.translator.use('es'); }
 }

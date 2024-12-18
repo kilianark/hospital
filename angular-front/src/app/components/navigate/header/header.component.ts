@@ -49,7 +49,7 @@ export class HeaderComponent
     private readonly keycloak: KeycloakService,
     private translator: TranslateService
   ) {
-    translator.use('es');
+    this.translator.use('es');
   }
   menu = true;
   onClick() {
