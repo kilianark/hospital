@@ -52,7 +52,9 @@ export class ManageComponent implements OnInit {
   fusePatientName: Fuse<PatientInterface> | null = null;
   fusePatientSurname1: Fuse<PatientInterface> | null = null;
   fusePatientSurname2: Fuse<PatientInterface> | null = null;
-  fuseDoctorName: Fuse<AppointmentInterface> | null = null;
+  fuseDoctorName: Fuse<DoctorInterface> | null = null;
+  fuseDoctorSurname1: Fuse<DoctorInterface> | null = null;
+  fuseDoctorSurname2: Fuse<DoctorInterface> | null = null;
 
   isLoading = false;
 
@@ -114,6 +116,16 @@ export class ManageComponent implements OnInit {
           keys: ['name'],
           threshold: 0.3,
         });
+
+        this.fusePatientSurname1 = new Fuse(this.patients, {
+          keys: ['surname1'],
+          threshold: 0.3,
+        });
+
+        this.fusePatientSurname2 = new Fuse(this.patients, {
+          keys: ['surname2'],
+          threshold: 0.3,
+        });
       }
     });
   }
@@ -122,6 +134,21 @@ export class ManageComponent implements OnInit {
     this.doctorService.getDoctorData().subscribe({
       next: (data) => {
         this.doctors = data;
+
+        this.fuseDoctorName = new Fuse(this.doctors, {
+          keys: ['name'],
+          threshold: 0.3,
+        });
+
+        this.fuseDoctorSurname1 = new Fuse(this.doctors, {
+          keys: ['surname1'],
+          threshold: 0.3,
+        });
+
+        this.fuseDoctorSurname2 = new Fuse(this.doctors, {
+          keys: ['surname2'],
+          threshold: 0.3,
+        });
       }
     });
   }
@@ -143,11 +170,6 @@ export class ManageComponent implements OnInit {
         this.filteredAppointments = [...data];
         this.allFilteredAppointments = [...data];
 
-
-        this.fuseDoctorName = new Fuse(this.appointments, {
-          keys: ['doctorName'],
-          threshold: 0.3,
-        });
 
         this.totalPages = Math.max(1, Math.ceil(this.appointments.length / this.itemsPerPage));
         this.generatePageNumbers();
@@ -254,7 +276,11 @@ export class ManageComponent implements OnInit {
     this.isVisible = false;
 
     const patientName = this.manageForm.get('patientName')?.value || '';
+    const patientSurname1 = this.manageForm.get('patientSurname1')?.value || '';
+    const patientSurname2 = this.manageForm.get('patientSurname2')?.value || '';
     const doctorName = this.manageForm.get('doctorName')?.value || '';
+    const doctorSurname1 = this.manageForm.get('doctorSurname1')?.value || '';
+    const doctorSurname2 = this.manageForm.get('doctorSurname2')?.value || '';
     const date = this.manageForm.get('date')?.value || '';
     const reason = this.manageForm.get('reason')?.value || '';
     const selectedHospitals = this.manageForm.get('hospital')?.value.map(Number) || [];
@@ -289,23 +315,15 @@ export class ManageComponent implements OnInit {
 
     // Filtrado difuso
     let fuzzyFilteredAppointments = [...exactFilteredAppointments];
-
-    if (this.fusePatientName && patientName) {
-      const fuzzyResultsPatientName = this.fusePatientName.search(patientName);
-      fuzzyFilteredAppointments = fuzzyFilteredAppointments.filter((appointment) =>
-        fuzzyResultsPatientName.some((result) => result.item.id == appointment.patientId)
-      );
-      console.log(this.fusePatientName);
-      console.log(fuzzyResultsPatientName);
-      console.log(patientName)
-    }
-
-    if (this.fuseDoctorName && doctorName) {
-      const fuzzyResultsDoctorName = this.fuseDoctorName.search(doctorName);
-      fuzzyFilteredAppointments = fuzzyFilteredAppointments.filter((appointment) =>
-        fuzzyResultsDoctorName.some((result) => result.item === appointment)
-      );
-    }
+    
+    console.log(patientName);
+    fuzzyFilteredAppointments = this.fuseSearchString(this.fusePatientName, patientName, fuzzyFilteredAppointments);
+    fuzzyFilteredAppointments = this.fuseSearchString(this.fusePatientSurname1, patientSurname1, fuzzyFilteredAppointments);
+    fuzzyFilteredAppointments = this.fuseSearchString(this.fusePatientSurname2, patientSurname2, fuzzyFilteredAppointments);
+    fuzzyFilteredAppointments = this.fuseSearchString(this.fuseDoctorName, doctorName, fuzzyFilteredAppointments);
+    fuzzyFilteredAppointments = this.fuseSearchString(this.fuseDoctorSurname1, doctorSurname1, fuzzyFilteredAppointments);
+    fuzzyFilteredAppointments = this.fuseSearchString(this.fuseDoctorSurname2, doctorSurname2, fuzzyFilteredAppointments);
+    
 
     // Actualizar resultados
     this.allFilteredAppointments = fuzzyFilteredAppointments;
@@ -471,5 +489,20 @@ export class ManageComponent implements OnInit {
     var hoursString = hours >= 10 ? hours.toString() : "0" + hours.toString();
     var minutesString = minutes >= 10 ? minutes.toString(): "0" + minutes.toString();
     return hoursString + ":" + minutesString
+  }
+
+  fuseSearchString(fuseSearch: Fuse<PatientInterface | DoctorInterface>, pattern: string, fuzzyFilteredAppointments: AppointmentInterface[]) {
+    console.log(pattern);
+    console.log(fuseSearch);
+    console.log(fuzzyFilteredAppointments);
+    if (fuseSearch && pattern) {
+      var fuzzyResults = fuseSearch.search(pattern);
+      fuzzyFilteredAppointments = fuzzyFilteredAppointments.filter((appointment) =>
+        fuzzyResults.some((result) => result.item.id == appointment.patientId || result.item.id == appointment.doctorId)
+      );
+      console.log("Res:" + fuzzyResults);
+    }
+
+    return fuzzyFilteredAppointments;
   }
 }
