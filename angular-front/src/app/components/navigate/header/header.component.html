@@ -29,11 +29,11 @@
     </button>
     
     <button class="headerNavs" routerLink="/home/consultation">
-        <span>{{nav2}}</span>
+        <span>{{'CONSULTATIONS' | translate }}</span>
     </button> 
         
     <button class="headerNavs" id="urgencias" routerLink="/home/emergencies">
-      <span>{{nav1}}</span>
+      <span>{{'EMERGENCIES' | translate }}</span>
     </button>
 
   </div>
@@ -58,11 +58,11 @@
     <div *ngIf="isMenuOpen" class="dropdown-menu">
       <ul>
         <li>
-          <button href="#Profile" (click)="goToProfile(doctorID)">Mi perfil</button>
+          <button href="#Profile" (click)="goToProfile(doctorID)">{{'NAV_ACTIONS.MY_PROFILE' | translate }}</button>
         </li>
         <li>
           <button href="#Logout" (click)="logout()">
-            Cerrar sesión
+            {{'NAV_ACTIONS.LOG_OUT' | translate}}
             <img
               src="/assets/logout_logo.png"
               alt="error de carga"
