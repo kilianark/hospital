@@ -43,13 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     WorkerFormComponent,
     HasRoleDirective,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule
   ],
 })
 export class HomeModule { }
