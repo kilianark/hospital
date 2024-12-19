@@ -24,7 +24,7 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
   @Input() doctorId: number = 0;
   @Input() required: boolean;
   errorStateMatcher: ErrorStateMatcher = {
-   isErrorState: () => this.val == 0 
+   isErrorState: () => this.val == 0 && this.registeredTouch
   }
 
   public doctors: DoctorInterface[] = [];
@@ -33,6 +33,7 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
   onChange: any = () => {}
   onTouched: any = () => {
   }
+  registeredTouch : boolean = false;
   val: number = this.doctorId;
 
   constructor (
@@ -72,5 +73,9 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
 
   registerOnTouched(fn: any){
     this.onTouched = fn
+  }
+
+  editTouch() {
+    if (!this.registeredTouch) this.registeredTouch = true;
   }
 }

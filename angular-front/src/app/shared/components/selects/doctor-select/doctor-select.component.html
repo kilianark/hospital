@@ -1,6 +1,6 @@
 <mat-form-field style="width: 100%; height: 100%;" appearance="outline" ngModel>
     <mat-label>Seleccionar Médico</mat-label>
-    <mat-select [(ngModel)]="val" [errorStateMatcher]="errorStateMatcher">
+    <mat-select [(ngModel)]="val" [errorStateMatcher]="errorStateMatcher" (opened)="editTouch()">
       <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
         {{ doctor.id | idToString : doctors }}
       </mat-option>
