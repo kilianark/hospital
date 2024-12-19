@@ -10,7 +10,7 @@ import { IdToStringPipe } from "../../pipe/id-to-string.pipe";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { HttpLoaderFactory } from "../../modules/home.module/home.module";
 import { HttpClient } from "@angular/common/http";
-import { DoctorSelectComponent } from "../components/doctor-select/doctor-select.component";
+import { DoctorSelectComponent } from "../components/selects/doctor-select/doctor-select.component";
 import { FormsModule } from "@angular/forms";
 
 @NgModule({

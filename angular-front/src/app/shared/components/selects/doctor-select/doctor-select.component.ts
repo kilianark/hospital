@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { DoctorService } from '../../../services/doctor.service';
-import { DoctorInterface } from '../../../interfaces/doctor.interface';
+import { DoctorService } from '../../../../services/doctor.service';
+import { DoctorInterface } from '../../../../interfaces/doctor.interface';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
