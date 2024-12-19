@@ -9,14 +9,7 @@
     </mat-form-field>
 
     <!-- Doctor Dropdown -->
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Doctor</mat-label>
-      <mat-select formControlName="doctorId">
-        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
-          {{ doctor.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-doctor-select id="doctor" formControlName = "doctorId" [required]="false" [doctorId]="doctor.id" ></app-doctor-select>
 
     <mat-form-field appearance="outline">
       <mat-label>Hora de la cita:</mat-label>

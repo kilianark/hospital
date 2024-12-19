@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormControl } from '@angular/forms';
 import { DoctorService } from '../../../../../../services/doctor.service';
 import { PatientService } from '../../../../../../services/patient.service';
 import { AppointmentService } from '../../../../../../services/appointment.service';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../../components/confirm/confirm.component';
 import { AppointmentInterface } from '../../../../../../interfaces/appointment.interface';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 // Validador personalizado para verificar que la fecha sea futura
 export function futureDateValidator(): ValidatorFn {
@@ -30,6 +31,10 @@ export class CreateComponent implements OnInit {
   appointmentForm: FormGroup;
   patients: { id: number; name: string }[] = [];
   doctor: string;
+
+  readonly errorStateMatcher: ErrorStateMatcher = {
+    isErrorState: (ctrl: FormControl) => (ctrl && ctrl.invalid)
+  }
 
   constructor(
     private fb: FormBuilder,

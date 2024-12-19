@@ -31,7 +31,6 @@ export class EditCalendarComponent implements OnInit {
   title = 'Edit Calendar';
   public patient: PatientInterface;
   public doctor: DoctorInterface;
-  public doctors: Array<{ id: number; name: string }> = [];
   public workerCode!: number; // Asegurarse de que esté correctamente tipado
   AdoctorId!: number; // Asegurarse de que esté correctamente tipado
   isEditable: boolean = false;
@@ -79,7 +78,6 @@ export class EditCalendarComponent implements OnInit {
     });
 
     // Cargar opciones de doctores
-    this.loadDoctorOptions();
   }
 
   patchFormData(appointmentData: AppointmentInterface) {
@@ -121,12 +119,7 @@ export class EditCalendarComponent implements OnInit {
   }
 
   // Cargar la lista de doctores para el dropdown
-  private loadDoctorOptions() {
-    this.doctorService.getDoctorData().subscribe((doctors) => {
-      this.doctors = doctors; // Lista de doctores para el dropdown
-      console.log('Doctores cargados:', this.doctors);
-    });
-  }
+
 
   // Cuando el formulario se envía, actualizar la cita en el servidor
   onFormSubmit() {

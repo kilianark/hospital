@@ -3,7 +3,7 @@
     <mat-card-title>{{ "Pedir Cita" }}</mat-card-title>
     <!-- Selector de médico -->
 
-    <app-doctor-select id="doctor" formControlName = "doctorId" [(ngModel)]="doctor"></app-doctor-select>
+    <app-doctor-select id="doctor" formControlName = "doctorId" [required]="true" ></app-doctor-select>
 
     <!-- Selector de paciente -->
     <mat-form-field appearance="outline">

@@ -1,7 +1,8 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { DoctorService } from '../../../services/doctor.service';
 import { DoctorInterface } from '../../../interfaces/doctor.interface';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 
 @Component({
@@ -20,13 +21,19 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
 
-  @Input() required: boolean = false;
+  @Input() doctorId: number = 0;
+  @Input() required: boolean;
+  errorStateMatcher: ErrorStateMatcher = {
+   isErrorState: () => this.val == 0 
+  }
 
   public doctors: DoctorInterface[] = [];
+  
 
   onChange: any = () => {}
-  onTouch: any = () => {}
-  val: string = "";
+  onTouched: any = () => {
+  }
+  val: number = this.doctorId;
 
   constructor (
     private doctorService: DoctorService
@@ -34,6 +41,8 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.loadDoctors();
+    this.writeValue(this.doctorId);
+    console.log(this.val)
   }
 
   loadDoctors(): void {
@@ -48,13 +57,13 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
     if( val !== undefined && this.val !== val){
     this.val = val
     this.onChange(val)
-    this.onTouch(val)
+    this.onTouched(val)
     }
    
   }
 
   writeValue(value: any){
-    this.value = value
+    this.val = value
   }
 
   registerOnChange(fn: any){
@@ -62,6 +71,6 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnTouched(fn: any){
-    this.onTouch = fn
+    this.onTouched = fn
   }
 }
