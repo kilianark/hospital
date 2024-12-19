@@ -23,7 +23,6 @@ import { HasRoleDirective } from '../../directives/has-role.directive';
 import { SharedModule } from '../../shared/modules/shared.module';
 import{FullCalendarModule} from '@fullcalendar/angular';
 import { MyPatientsComponent } from '../../pages/home/components/emergencies/my-patients/my-patients.component';
-import { DoctorSelectComponent } from '../../shared/components/selects/doctor-select/doctor-select.component';
 
 @NgModule({
   declarations: [
