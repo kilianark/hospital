@@ -76,7 +76,6 @@ mat-form-field {
 }
 
 button[mat-raised-button] {
-
   margin-left: 4%;
   padding: 10px 20px;
   font-size: 14px;
@@ -143,7 +142,9 @@ button[mat-raised-button][disabled] {
 
 /* Adaptaciones responsivas */
 @media screen and (max-width: 786px) {
-  .patient-info, .test-form, .patient-history {
+  .patient-info,
+  .test-form,
+  .patient-history {
     width: 95%;
     margin-left: 2.5%;
   }
@@ -165,7 +166,9 @@ button[mat-raised-button][disabled] {
 }
 
 @media screen and (max-width: 480px) {
-  .patient-info, .test-form, .patient-history {
+  .patient-info,
+  .test-form,
+  .patient-history {
     width: 100%;
     margin: 0;
     border-radius: 0;
@@ -188,4 +191,11 @@ button[mat-raised-button][disabled] {
     width: 100%;
     margin: 10px 0;
   }
+}
+
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }

@@ -1,11 +1,10 @@
-<head>
-  <title>Enviar a prueba diagnóstica</title>
-  <link rel="stylesheet" href="medical-episode.component.css" />
-</head>
+<title>Enviar a prueba diagnóstica</title>
+<link rel="stylesheet" href="medical-episode.component.css" />
+
 <body>
-  <!-- Información del paciente -->
-  <div class="patient-info">
-    <h2>Paciente: {{ patient.name }} {{ patient.surname1 }}</h2>
+<!-- Información del paciente -->
+<div class="patient-info">
+  <h2>Paciente: {{ patient.name }} {{ patient.surname1 }}</h2>
     <p><strong>ID:</strong> {{ patient.id }}</p>
     <p><strong>Edad:</strong> {{ calculateAge(patient.birthDate) }} años</p>
     <p><strong>Género:</strong> {{ getGenderLabel(patient.gender) }}</p>
@@ -13,22 +12,26 @@
   </div>
 
   <!-- Botón para ver el historial -->
-  <button
-    type="button"
-    mat-raised-button
-    class="view-history-btn"
-    (click)="loadPatientHistory()"
-  >
-    Ver Historial Médico
-  </button>
+  <div class="actions">
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      class="view-history-btn"
+      (click)="loadPatientHistory()"
+    >
+      Ver Historial Médico
+    </button>
+  </div>
 
+  <!-- Formulario de prueba diagnóstica -->
   <div class="test-form">
     <h3>Registrar Prueba Diagnóstica</h3>
     <form [formGroup]="testForm" (ngSubmit)="sendToUrgentAppointment()">
       <!-- Selección de tipo de prueba -->
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="form-field">
         <mat-label>Tipo de Prueba</mat-label>
-        <mat-select formControlName="testType">
+        <mat-select formControlName="testType" aria-label="Tipo de prueba">
           <mat-option
             *ngFor="let test of availableDiagnosticTests"
             [value]="test.code"
@@ -36,18 +39,33 @@
             {{ test.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="testForm.get('testType')?.hasError('required')">
+          Seleccione un tipo de prueba
+        </mat-error>
       </mat-form-field>
 
       <!-- Motivo -->
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="form-field">
         <mat-label>Motivo</mat-label>
-        <textarea matInput formControlName="testReason" rows="4"></textarea>
+        <textarea
+          matInput
+          formControlName="testReason"
+          rows="4"
+          aria-label="Motivo de la prueba"
+        ></textarea>
+        <mat-error *ngIf="testForm.get('testReason')?.hasError('required')">
+          Escriba el motivo de la prueba
+        </mat-error>
       </mat-form-field>
 
       <!-- Selección de doctor/nurse -->
-      <mat-form-field appearance="fill" *ngIf="availableWorkers.length > 0">
-        <mat-label>Seleccionar Doctor/Nurse</mat-label>
-        <mat-select formControlName="workerId">
+      <mat-form-field
+        appearance="fill"
+        class="form-field"
+        *ngIf="availableWorkers.length > 0"
+      >
+        <mat-label>Seleccionar Doctor/Infermero</mat-label>
+        <mat-select formControlName="workerId" aria-label="Doctor o nurse">
           <mat-option
             *ngFor="let worker of availableWorkers"
             [value]="worker.id"
@@ -57,20 +75,54 @@
         </mat-select>
       </mat-form-field>
 
-      <!-- Botón para enviar -->
-      <button mat-raised-button color="warn" [disabled]="testForm.invalid">
-        Enviar a cita urgente
-      </button>
+      <!-- Mensaje cuando no hay trabajadores disponibles -->
+      <p
+        *ngIf="testForm.get('testType')?.value && availableWorkers.length === 0"
+        class="no-workers-message"
+      >
+        No hay trabajadores disponibles para este tipo de prueba.
+      </p>
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="warn"
+          [disabled]="testForm.invalid"
+        >
+          Enviar a cita urgente
+        </button>
+        <button
+          mat-raised-button
+          color="basic"
+          type="button"
+          (click)="testForm.reset()"
+        >
+          Cancelar
+        </button>
+      </div>
     </form>
   </div>
 
   <!-- Historial médico -->
   <div *ngIf="isHistoryVisible" class="patient-history">
     <h3>Historial Médico de {{ patient.name }} {{ patient.surname1 }}</h3>
+
+    <!-- Buscador de historial -->
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Buscar en Historial</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="filterHistory()"
+        placeholder="Buscar por tipo de prueba o motivo"
+      />
+    </mat-form-field>
+
     <table>
       <thead>
         <tr>
-          <th>Fecha</th>
+          <th (click)="sortHistoryBy('date')">Fecha</th>
           <th>Tipo de Prueba</th>
           <th>Motivo</th>
           <th>Resultados</th>
@@ -78,17 +130,26 @@
       </thead>
       <tbody>
         <!-- Mostrar mensaje si no hay registros -->
-        <tr *ngIf="patientHistory?.length === 0">
+        <tr *ngIf="filteredHistory?.length === 0">
           <td colspan="4">No se encontraron registros de historial médico.</td>
         </tr>
+
         <!-- Mostrar registros del historial -->
-        <tr *ngFor="let entry of patientHistory">
-          <td>{{ entry.date | date : "short" }}</td>
+        <tr *ngFor="let entry of filteredHistory" [class]="entry.result ? 'completed' : 'pending'">
+          <td>{{ entry.date | date : 'short' }}</td>
           <td>{{ entry.testType }}</td>
           <td>{{ entry.reason }}</td>
-          <td>{{ entry.result || "Pendiente" }}</td>
+          <td>
+            <span *ngIf="entry.result" class="completed-icon">✔ {{ entry.result }}</span>
+            <span *ngIf="!entry.result" class="pending-icon">⏳ Pendiente</span>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Botón flotante para volver arriba -->
+  <button mat-fab color="accent" class="floating-btn" (click)="scrollToTop()">
+    ⬆
+  </button>
 </body>

@@ -23,6 +23,10 @@ export class MedicalEpisodeComponent implements OnInit {
   patientId!: number;
   patient!: PatientInterface | null;
 
+  searchTerm: string = ''; // Campo para el término de búsqueda
+  filteredHistory: any[] = []; // Lista de historial filtrado
+  sortAscending: boolean = true; // Dirección del ordenamiento
+
   isSubmitting = false;
   error: string | null = null;
   testForm: FormGroup;
@@ -89,6 +93,7 @@ export class MedicalEpisodeComponent implements OnInit {
       { date: new Date(), testType: 'Hemograma', reason: 'Control rutinario', result: 'Normal' },
       { date: new Date(), testType: 'Glucosa', reason: 'Sospecha de diabetes', result: 'Pendiente' },
     ];
+    this.filteredHistory = [...this.patientHistory]; // Copia inicial del historial
   }
 
   loadPatientData(): void {
@@ -184,5 +189,26 @@ export class MedicalEpisodeComponent implements OnInit {
     }
 
     return age;
+  }
+  filterHistory() {
+    if (this.searchTerm.trim() === '') {
+      this.filteredHistory = this.patientHistory; // Mostrar todo el historial si no hay término de búsqueda
+    } else {
+      this.filteredHistory = this.patientHistory.filter(entry =>
+        entry.testType.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        entry.reason.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+  sortHistoryBy(field: string) {
+    this.sortAscending = !this.sortAscending; // Alternar entre ascendente y descendente
+    this.filteredHistory.sort((a, b) => {
+      const aValue = new Date(a[field]).getTime();
+      const bValue = new Date(b[field]).getTime();
+      return this.sortAscending ? aValue - bValue : bValue - aValue;
+    });
+  }
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
