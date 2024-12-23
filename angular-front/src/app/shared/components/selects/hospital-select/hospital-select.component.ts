@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { HospitalService } from '../../../../services/hospital.service';
 import { HospitalInterface } from '../../../../interfaces/hospital.interface';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
@@ -9,14 +9,22 @@ import { ErrorStateMatcher } from '@angular/material/core';
   //standalone: true,
   //imports: [],
   templateUrl: './hospital-select.component.html',
-  styleUrl: './hospital-select.component.css'
+  styleUrl: './hospital-select.component.css',
+  providers:[
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => HospitalSelectComponent),
+      multi: true,
+    }
+  ]
 })
 export class HospitalSelectComponent implements OnInit, ControlValueAccessor {
+  @Input() isMultiple: boolean = false;
   @Input() isDisabled: boolean = false;
   @Input() hospitalId: number = 0;
   @Input() required: boolean;
   errorStateMatcher: ErrorStateMatcher = {
-    isErrorState: () => this.val == 0 && this.registeredTouch
+    isErrorState: () => this.val == 0 && this.registeredTouch && this.required
   }
 
   onChange: any = () => {}

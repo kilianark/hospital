@@ -6,18 +6,8 @@
   <div class="top">
 
     <form [formGroup]="patientForm">
-      <div id="hospiEspacio">
-        <mat-card-title> {{ title }}</mat-card-title>
-        <mat-form-field id="right" appearance="outline">
-          <mat-label>Hospital:</mat-label>
-          <mat-select formControlName="hospital" multiple>
-            <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
-            <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
-              {{ hospital.hospitalName }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <app-hospital-select id="hospi" formControlName="hospital" [isMultiple]="true" [required]="false" [isDisabled]="false"></app-hospital-select>
+
       <mat-card-content>
         <div class="credentials">
 
