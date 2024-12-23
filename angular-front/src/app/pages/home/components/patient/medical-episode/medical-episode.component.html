@@ -70,7 +70,7 @@
             *ngFor="let worker of availableWorkers"
             [value]="worker.id"
           >
-            {{ worker.name }} ({{ worker.worktype | titlecase }})
+            {{ worker.name }} {{ worker.surname1 }} ({{ worker.worktype | titlecase }})
           </mat-option>
         </mat-select>
       </mat-form-field>
