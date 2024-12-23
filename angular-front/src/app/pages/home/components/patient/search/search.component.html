@@ -6,6 +6,7 @@
   <div class="top">
 
     <form [formGroup]="patientForm">
+      <mat-card-title> {{ title }}</mat-card-title>
       <app-hospital-select id="hospi" formControlName="hospital" [isMultiple]="true" [required]="false" [isDisabled]="false"></app-hospital-select>
 
       <mat-card-content>

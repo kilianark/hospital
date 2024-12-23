@@ -6,15 +6,7 @@
     <div class="formHeader">
       <mat-card-title> {{ title }}</mat-card-title>
 
-      <mat-form-field appearance="outline" id="hospitalSelect">
-        <mat-label>Hospital:</mat-label>
-        <mat-select formControlName="hospital" multiple>
-          <mat-option disabled>Seleccione uno o varios hospitales</mat-option>
-          <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
-            {{ hospital.hospitalName }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <app-hospital-select id="hospi" formControlName="hospital" [required]="false" [isMultiple]="true" [isDisabled]="false"></app-hospital-select>
     </div>
 
     <mat-card-content>

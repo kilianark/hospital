@@ -274,6 +274,8 @@ export class SearchPatientComponent implements OnInit {
     const status = this.patientForm.get('status')?.value || '';
     const selectedHospitals = this.patientForm.get('hospital')?.value.map(Number) || [];
 
+    console.log(selectedHospitals)
+
 
     let exactFilteredPatients = this.patients;
 
