@@ -12,6 +12,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient } from "@angular/common/http";
 import { DoctorSelectComponent } from "../components/selects/doctor-select/doctor-select.component";
 import { FormsModule } from "@angular/forms";
+import { HospitalSelectComponent } from "../components/selects/hospital-select/hospital-select.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,7 +24,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         EnumToStringPipe,
         SpinnerComponent,
         IdToStringPipe,
-        DoctorSelectComponent
+        DoctorSelectComponent,
+        HospitalSelectComponent
     ],
     imports: [
         CommonModule,
@@ -44,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         ConfirmDialogComponent,
         SpinnerComponent,
         DoctorSelectComponent,
-        IdToStringPipe
+        IdToStringPipe,
+        HospitalSelectComponent
     ]
 })
 

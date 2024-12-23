@@ -11,15 +11,7 @@
         </mat-form-field>
 
         <!-- Hospital -->
-        <mat-form-field id="hospi" appearance="outline">
-            <mat-label>Hospital</mat-label>
-            <mat-select formControlName="hospital">
-                <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
-                    {{ hospital.hospitalName }}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="patientForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
-        </mat-form-field>
+        <app-hospital-select id="hospi" formControlName="hospital" [required]="true" [isDisabled]="false"></app-hospital-select>
 
 
         <mat-card-content>
@@ -177,15 +169,7 @@
             </button>
         </div>
         <!-- Hospital -->
-        <mat-form-field appearance="outline">
-            <mat-label>Hospital</mat-label>
-            <mat-select formControlName="hospital">
-                <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
-                    {{ hospital.hospitalName }}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="patientForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
-        </mat-form-field>
+        <app-hospital-select formControlName="hospital" [required]="true" [isDisabled]="false" ></app-hospital-select>
 
         <!-- Patient Code -->
         <mat-form-field appearance="outline">

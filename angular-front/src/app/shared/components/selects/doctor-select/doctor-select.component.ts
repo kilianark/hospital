@@ -42,7 +42,7 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.loadDoctors();
-    this.writeValue(this.doctorId);
+    if (this.doctorId != 0) this.writeValue(this.doctorId);
     console.log(this.val)
   }
 

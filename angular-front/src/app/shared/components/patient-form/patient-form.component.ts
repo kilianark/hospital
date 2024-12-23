@@ -37,8 +37,6 @@ export class PatientFormComponent implements OnInit {
   public patientForm: FormGroup;
   public formTitle: string = 'Crear Paciente';
   public countries: Country[] = countries;
-  public hospitals: HospitalInterface[] = [];
-  private defaultHospital: HospitalInterface;
   public isEditable: boolean = false;
 
   private originalPatientData: any = {}; // Propiedad auxiliar
@@ -63,7 +61,6 @@ export class PatientFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.loadHospitalsData();
     this.loadPatientData();
     this.updateFormTitle();
   }
@@ -134,29 +131,6 @@ export class PatientFormComponent implements OnInit {
   }
 
   /* Carga los hospitales disponibles */
-  private loadHospitalsData(): void {
-    this.hospitalService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals.filter(hospital => hospital.hospitalCode !== 0);
-    });
-
-    
-    //gestionar hospital del usuario
-    var hospCode = 0;
-    this.userRoles = this.keycloakService.getKeycloakInstance().realmAccess?.roles;
-
-    if(this.userRoles.includes('ADMIN')) this.patientForm.get('hospital').enable();
-    else {
-      if(this.userRoles.includes('Goldenfold')) hospCode = 1;
-      else if (this.userRoles.includes('HospitalFaro')) hospCode = 2;
-    }
-
-    if (hospCode != 0) {
-      this.hospitalService.getHospitalById(hospCode).subscribe((data) => {
-        this.defaultHospital = data;
-        this.patientForm.patchValue({ hospital: this.defaultHospital.hospitalCode })
-      })
-    }
-  }
 
   /* Restaura el formulario a los datos originales antes de editarlos */
   discardForm(): void {
