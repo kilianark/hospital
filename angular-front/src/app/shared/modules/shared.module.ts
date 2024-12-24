@@ -41,13 +41,15 @@ export function HttpLoaderFactory(http: HttpClient) {
         })
     ],
     exports: [
+        TranslateModule,
         EnumToStringPipe,
         MaterialModule,
         ConfirmDialogComponent,
         SpinnerComponent,
         DoctorSelectComponent,
         IdToStringPipe,
-        HospitalSelectComponent
+        HospitalSelectComponent,
+        
     ]
 })
 
