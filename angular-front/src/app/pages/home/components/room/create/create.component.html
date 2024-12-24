@@ -8,19 +8,8 @@
   <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-row">
       <mat-card-title id="hospitalSelect"> {{ title }}</mat-card-title>
-      <mat-form-field appearance="outline" >
-        <mat-label>Hospital</mat-label>
-        <mat-select formControlName="hospital">
-            <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
-                {{ hospital.hospitalName }}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="addRoomForm.get('hospital')?.hasError('required')">El hospital es obligatorio</mat-error>
-        <mat-error
-            *ngIf="addRoomForm.get('hospital')?.hasError('roomExists') && addRoomForm.get('hospital')?.touched">
-            Este número de habitación en este hospital ya existe.
-          </mat-error>
-      </mat-form-field>
+      <app-hospital-select id="hospi" formControlName="hospital" [required]="true" [isDisabled]="false"></app-hospital-select>
+
     </div>
     
     <mat-card-content>

@@ -30,7 +30,7 @@ export function futureDateValidator(): ValidatorFn {
 export class CreateComponent implements OnInit {
   appointmentForm: FormGroup;
   patients: { id: number; name: string }[] = [];
-  doctor: string;
+  doctor: number;
 
   readonly errorStateMatcher: ErrorStateMatcher = {
     isErrorState: (ctrl: FormControl) => (ctrl && ctrl.invalid)

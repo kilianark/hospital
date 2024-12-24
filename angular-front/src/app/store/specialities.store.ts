@@ -8,8 +8,6 @@ export var specialities: Speciality[] = [
   { name: 'Oncología', workerType: 'doctor', applicableTests: ['TUMOR_MARKERS', 'LUNG_BIOPSY', 'LIVER_BIOPSY', 'CT_SCAN'] },
   { name: 'Dermatología', workerType: 'doctor', applicableTests: ['SKIN_BIOPSY', 'ALLERGY_TEST'] },
   { name: 'Ginecología', workerType: 'doctor', applicableTests: ['PREGNANCY', 'CERVICAL_CANCER_SCREEN', 'ULTRASOUND', 'CTG'] },
-
-  // Nuevas Especialidades de Doctores
   { name: 'Hematología', workerType: 'doctor', applicableTests: ['HEMOGRAM', 'COAGULATION', 'HBA1C', 'FERRITIN', 'HYPERCOAGULABILITY_TEST'] },
   { name: 'Endocrinología', workerType: 'doctor', applicableTests: ['GLUCOSE', 'THYROID', 'HORMONAL_PROFILE', 'VITAMIN_D', 'VITAMIN_B12'] },
   { name: 'Radiología', workerType: 'doctor', applicableTests: ['CHEST_XRAY', 'CT_SCAN', 'MRI', 'ULTRASOUND', 'MAMMOGRAPHY', 'DOPPLER', 'CAROTID_ULTRASOUND'] },
@@ -25,8 +23,6 @@ export var specialities: Speciality[] = [
   { name: 'Emergencias', workerType: 'nurse', applicableTests: ['BLOOD_GAS', 'HEART_RATE_MONITOR', 'COAGULATION', 'SEPSIS_TEST'] },
   { name: 'Rehabilitación', workerType: 'nurse', applicableTests: ['PHYSIOTHERAPY_ASSESSMENT'] },
   { name: 'Salud Mental', workerType: 'nurse', applicableTests: ['PSYCHIATRIC_EVALUATION'] },
-
-  // Nuevas Especialidades de Enfermeros
   { name: 'Laboratorio Clínico', workerType: 'nurse', applicableTests: ['HEPATITIS_TEST', 'HIV_TEST', 'BLOOD_CULTURE', 'URINE_CULTURE', 'STREP_TEST', 'RAPID_FLU_TEST'] },
   { name: 'Enfermedades Infecciosas', workerType: 'nurse', applicableTests: ['TB_TEST', 'MALARIAL_TEST', 'ZIKA_TEST', 'CHIKUNGUNYA_TEST', 'SEPSIS_TEST'] },
   { name: 'Nutrición', workerType: 'nurse', applicableTests: ['VITAMIN_D', 'VITAMIN_B12', 'FERRITIN'] }

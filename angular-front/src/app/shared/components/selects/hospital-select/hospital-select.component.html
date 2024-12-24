@@ -1,6 +1,6 @@
 <mat-form-field id="hospi" appearance="outline">
     <mat-label>Hospital</mat-label>
-    <mat-select [disabled]="isDisabled" [(ngModel)]="val" [errorStateMatcher]="errorStateMatcher" (opened)="editTouch() ">
+    <mat-select [multiple]="isMultiple" [disabled]="isDisabled" [(ngModel)]="value" [errorStateMatcher]="errorStateMatcher" (opened)="editTouch() ">
         <mat-option *ngFor="let hospital of hospitals" [value]="hospital.hospitalCode">
             {{ hospital.hospitalName }}
         </mat-option>

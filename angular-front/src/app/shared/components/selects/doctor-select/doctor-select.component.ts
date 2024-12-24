@@ -24,7 +24,7 @@ export class DoctorSelectComponent implements OnInit, ControlValueAccessor {
   @Input() doctorId: number = 0;
   @Input() required: boolean;
   errorStateMatcher: ErrorStateMatcher = {
-   isErrorState: () => this.val == 0 && this.registeredTouch
+   isErrorState: () => this.val == 0 && this.registeredTouch && this.required
   }
 
   public doctors: DoctorInterface[] = [];

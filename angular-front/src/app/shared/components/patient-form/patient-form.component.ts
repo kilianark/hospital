@@ -108,7 +108,7 @@ export class PatientFormComponent implements OnInit {
       address: [''],
       gender: ['', Validators.required],
       zone: [''],
-      hospital: [{value: '', disabled: true}, Validators.required]
+      hospital: [{value: ''}, Validators.required]
     });
   }
 
