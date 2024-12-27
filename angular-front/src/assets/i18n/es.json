@@ -11,16 +11,17 @@
     "SIDE_MANAGE_P": "Gestionar pacientes",
     "SIDE_MANAGE_R": "Gestionar habitaciones",
     "SIDE_MANAGE_W": "Gestionar trabajadores",
-    "SIDE_ACTIONS": {
-        "CREATE": "Crear",
-        "SEARCH": "Buscar"
-    },
+
+    
 
     "HOME_SLOGAN": "La salud organizada es salud mejorada",
 
     "PATIENTS": "Pacientes",
     "ROOMS": "Habitaciones",
     "WORKERS": "Trabajadores",
+
+    "CREATE": "Crear",
+    "SEARCH": "Buscar",
 
 
     "HOSPITAL_ZONE": {
