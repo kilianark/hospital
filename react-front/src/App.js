@@ -1,4 +1,4 @@
-import logo from './assets/logo.svg';
+import logo from './assets/img/logo.svg';
 import './App.css';
 import Header from './app/components/navigate/header/header';
 function App() {
