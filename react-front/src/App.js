@@ -1,9 +1,10 @@
 import logo from './assets/logo.svg';
 import './App.css';
-
+import Header from './app/components/navigate/header/header';
 function App() {
   return (
     <div className="App">
+        <Header />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -17,9 +18,11 @@ function App() {
         >
           Learn React
         </a>
+        <a href="\app\components\navigate\header\header.jsx" className="fa fa-google">clickHere</a>
       </header>
     </div>
   );
 }
 
 export default App;
+
