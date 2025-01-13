@@ -10,6 +10,21 @@ td{
   border-color: #ff0000 !important;
   color: white !important; /* Ensure text is readable */
 }
+button{
+  background-color: var(--fc-button-active-bg-color);
+  border-color: var(--fc-button-active-border-color);
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 0.25em;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.4em 0.65em;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+}
 @media screen and (max-width: 768px) {
   .calendar-container {
     margin-left: 0px;

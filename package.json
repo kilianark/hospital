@@ -3,6 +3,10 @@
     "@angular/material-date-fns-adapter": "^18.2.8",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
-    "date-fns": "^4.1.0"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "date-fns": "^4.1.0",
+    "web-vitals": "^2.1.0"
   }
 }
