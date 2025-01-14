@@ -1,0 +1,61 @@
+{
+    "NAME": "MedicaPlus",
+    "CONSULTATIONS": "Consultas",
+    "EMERGENCIES": "Urgencias",
+
+    "NAV_ACTIONS": {
+        "MY_PROFILE": "Mi perfil",
+        "LOG_OUT": "Cerrar sesión"
+    },
+
+    "SIDE_MANAGE_P": "Gestionar pacientes",
+    "SIDE_MANAGE_R": "Gestionar habitaciones",
+    "SIDE_MANAGE_W": "Gestionar trabajadores",
+
+    
+
+    "HOME_SLOGAN": "La salud organizada es salud mejorada",
+
+    "PATIENTS": "Pacientes",
+    "ROOMS": "Habitaciones",
+    "WORKERS": "Trabajadores",
+
+    "CREATE": "Crear",
+    "SEARCH": "Buscar",
+
+
+    "HOSPITAL_ZONE": {
+        "1": "Inactivo",
+        "2": "Ambulatorio",
+        "3": "Hospitalizado",
+        "4": "Urgencias",
+        "5": "Quirófano"
+    },
+    "AMBULATORY_AREA": {
+        "1": "Consultas externas",
+        "2": "Hospital de día",
+        "3": "Sala de espera"
+    },
+    "HOSPITALIZED_AREA": {
+        "1": "UCI",
+        "2": "Medicina interna",
+        "3": "Pediatría",
+        "4": "Ginecología",
+        "5": "Oncología",
+        "6": "Psiquiatría",
+        "7": "Cirugía"
+    },
+    "OPERATING_AREA": {
+        "1": "Sala de operaciones",
+        "2": "Sala de reanimación",
+        "3": "Sala de espera"
+    },
+    "URGENCY_AREA": {
+        "1": "Box",
+        "2": "Box crítico",
+        "3": "Medicina interna",
+        "4": "Antención primaria",
+        "5": "Triaje",
+        "6": "Sala de espera"
+    }
+}

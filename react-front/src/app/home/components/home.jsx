@@ -1,25 +1,19 @@
 function Home() {
   return (
       <body>
-        <div class="slogan">{{'HOME_SLOGAN' | translate}}</div>
+        <div class="slogan">LA SALUD ORGANIZADA ES LA SALUD MEJORADA</div>
         <div class="grid-layout">
           <div appHasRole="general_patients">
-            <button class="patient" onclick="window.location.href='/home/patient';">
-              <img class="people" src="assets/people.png" alt="error de carga" />
+            <button class="calendar" onclick="window.location.href='/home/calendar';">
+              <img class="calendario" src="assets/calendario.png" alt="error de carga" />
             </button>
-            <p>{{'PATIENTS' | translate }}</p>
+            <p>Calendario</p>
           </div>
-          <div appHasRole="general_rooms">
-            <button class="room" onclick="window.location.href='/home/room';">
-              <img class="room" src="assets/hab.png" alt="error de carga" />
+          <div appHasRole="general_citas">
+            <button class="citas" onclick="window.location.href='/home/citas';">
+              <img class="citas" src="assets/hab.png" alt="error de carga" />
             </button>
-            <p>{{'ROOMS' | translate}}</p>
-          </div>
-          <div appHasRole="general_workers">
-            <button class="worker" onclick="window.location.href='/home/worker';">
-              <img class="worker"  src="assets/stethoscope-svgrepo-com.svg" alt="error de carga">
-            </button>
-            <p>{{'WORKERS' | translate}}</p>
+            <p>Citas</p>
           </div>
         </div>
       </body>
