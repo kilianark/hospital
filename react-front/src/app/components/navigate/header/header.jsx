@@ -12,7 +12,7 @@ function Header() {
   };
 
   return (
-    <Box sx={{ width: '100%', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+    <Box sx={{ width: '100%', justifyContent: 'center', alignItems: 'center', display: 'flex', backgroundColor:'yellow', }}>
       <div className="logo">
         <img src="https://www.pngitem.com/pimgs/m/42-428687_128-128-png-logo-hospital-icon.png" alt="" />
       </div>
