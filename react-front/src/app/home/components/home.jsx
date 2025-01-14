@@ -1,6 +1,9 @@
+import * as React from 'react';
+import './home.css';
 function Home() {
   return (
       <body>
+        <link rel="stylesheet" href="home.css" />
         <div class="slogan">LA SALUD ORGANIZADA ES LA SALUD MEJORADA</div>
         <div class="grid-layout">
           <div appHasRole="general_patients">
