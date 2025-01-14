@@ -1,8 +1,5 @@
 function Home() {
   return (
-      <head>
-        <title>Home</title>
-      </head>
       <body>
         <div class="slogan">{{'HOME_SLOGAN' | translate}}</div>
         <div class="grid-layout">
