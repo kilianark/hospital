@@ -1,0 +1,78 @@
+#mainBody {
+    margin-top: 120px;
+    margin-left: 80px;
+    position: relative;
+    background-color: lightblue;
+    color:whitesmoke
+  }
+  
+  button {
+    background-color: lightblue;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px black;
+  }
+  
+  .slogan {
+    font-size: 1.2em;
+    display: flex;
+    font-weight: bold;
+    margin-left: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .grid-layout {
+    display: flex;
+    gap: 100px; /* Espacio entre las /* Tres columnas iguales */
+    align-items: center;
+    opacity: 0.8;
+    justify-content: center;
+  }
+  
+  .grid-layout div {
+    text-align: center;
+    width: 20vw;
+    height: 20vw;
+  }
+  
+  .grid-layout button {
+    height: 100%;
+    width: 100%;
+    border-radius: 5%;
+  }
+  .grid-layout img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .grid-layout {
+      display: flex;
+      width: 100%;
+      align-content: center;
+      height: 300%;
+      justify-content: center;
+      vertical-align: middle;
+      flex-direction: column;
+    }
+  
+    .grid-layout div {
+      vertical-align: middle;
+      width: 30vw;
+      height: 30vw;
+    }
+    .slogan {
+      padding-top: 5%;
+      font-size: 1.3em;
+      margin-bottom: 10%;
+      margin-left: 0;
+      justify-content: center;
+      text-align: center;
+    }
+    body {
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+  }
+  

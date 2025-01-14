@@ -1,6 +1,10 @@
+import * as React from 'react';
+import './home.css';
+import Header from '../../components/navigate/header/header';
 function Home() {
   return (
-      <body>
+        <div id="mainBody">
+        <link rel="stylesheet" href="home.css" />
         <div class="slogan">LA SALUD ORGANIZADA ES LA SALUD MEJORADA</div>
         <div class="grid-layout">
           <div appHasRole="general_patients">
@@ -15,8 +19,8 @@ function Home() {
             </button>
             <p>Citas</p>
           </div>
-        </div>
-      </body>
+        </div></div>
+
     
   );
 }
