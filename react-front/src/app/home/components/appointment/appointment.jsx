@@ -34,3 +34,5 @@ function Appointment() {
         </body>
     );
 }
+
+export default Appointment;
