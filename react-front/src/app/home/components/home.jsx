@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './home.css';
-import Header from '../../components/navigate/header/header';
+import CalendarImg from "../../../assets/lupa.png";   
+import CitasImg from "../../../assets/hab.png";
 import Box from '@mui/material/Box';
 import Backdrop from '@mui/material/Backdrop';
 import SpeedDial from '@mui/material/SpeedDial';
