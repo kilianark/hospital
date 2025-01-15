@@ -1,3 +1,5 @@
+import AppointmentIcon from "../../../../assets/patient_create.png"
+import SearchIcon from "../../../../assets/lupa.png"
 function Appointment() {
     return (
         <div>
@@ -11,7 +13,7 @@ function Appointment() {
                     >
                         <img
                             className="patient"
-                            src="assets/patient_create.png"
+                            src={AppointmentIcon}
                             alt="error de carga"
                         />
                     </button>
@@ -25,7 +27,7 @@ function Appointment() {
                     >
                         <img 
                             className="search" 
-                            src="assets/lupa.png" 
+                            src={SearchIcon} 
                             alt="error de carga" 
                         />
                     </button>
