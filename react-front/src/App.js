@@ -12,6 +12,8 @@ function App() {
   let ComponentToRender;
   if (currentPath === "/home/citas") {
     ComponentToRender = <Appointment />;
+  } else if (currentPath === "/home/calendar") {
+    ComponentToRender = <Calendar />;
   } else {
     ComponentToRender = <Home />;
   }
