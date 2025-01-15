@@ -2,6 +2,7 @@ import './App.css';
 import Header from './app/components/navigate/header/header';
 import Home from './app/home/components/home';
 import Appointment from './app/home/components/appointment/appointment';
+import GlobalSpeedDial from './app/components/navigate/GlobalspeedDial/globalSpeedDial'; // Importa el SpeedDial
 
 function App() {
   // Detecta la URL actual
@@ -17,10 +18,16 @@ function App() {
 
   return (
     <div className="App">
+      {/* Renderiza el encabezado en todas las páginas */}
       <div className="header">
         <Header />
       </div>
+
+      {/* Renderiza el componente principal según la ruta */}
       {ComponentToRender}
+
+      {/* SpeedDial global disponible en todas las páginas */}
+      <GlobalSpeedDial />
     </div>
   );
 }

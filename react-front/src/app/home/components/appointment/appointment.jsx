@@ -1,7 +1,7 @@
 function Appointment() {
     return (
         <div>
-            <div className="title">Citas:</div>
+            
 
             <div className="grid-layout">
                 <div>
