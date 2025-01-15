@@ -9,6 +9,8 @@ import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import PersonIcon from "@mui/icons-material/Person";
 import AppsIcon from "@mui/icons-material/Apps";
+import calendarIcon from "./../../../assets/calendar-date-svgrepo-com.svg";
+import appointmentIcon from "./../../../assets/patient_create.png";
 
 function Home() {
   const actions = [
@@ -65,7 +67,7 @@ function Home() {
           >
             <img
               className="calendario"
-              src="assets/calendario.png"
+              src={calendarIcon}
               alt="error de carga"
             />
           </button>
@@ -77,7 +79,7 @@ function Home() {
             className="citas"
             onClick={() => (window.location.href = "/home/citas")}
           >
-            <img className="citas" src="assets/hab.png" alt="error de carga" />
+            <img className="citas" src={appointmentIcon} alt="error de carga" />
           </button>
           <p>Citas</p>
         </div>
