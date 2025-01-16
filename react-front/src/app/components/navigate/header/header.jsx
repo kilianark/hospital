@@ -18,7 +18,7 @@ function Header() {
         justifyContent: "center",
         alignItems: "center",
         display: "flex",
-        backgroundColor: "yellow",
+        backgroundColor: "lightblue",
       }}
     >
       <div className="logo">
