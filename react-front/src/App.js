@@ -3,9 +3,9 @@ import Header from "./app/components/navigate/header/header";
 import Home from "./app/home/components/home";
 import Calendar from "./app/home/components/patient/calendar/calendar";
 import Appointment from "./app/home/components/appointment/appointment";
-import AppointmentList from "./app/home/components/appointment/appointment_list/appointment_list"
+import AppointmentList from "./app/home/components/appointment/appointment_list/appointment_list";
 
-import GlobalSpeedDial from './app/components/navigate/GlobalspeedDial/globalSpeedDial'; // Importa el SpeedDial
+import GlobalSpeedDial from "./app/components/navigate/GlobalspeedDial/globalSpeedDial"; // Importa el SpeedDial
 
 function App() {
   // Detecta la URL actual
