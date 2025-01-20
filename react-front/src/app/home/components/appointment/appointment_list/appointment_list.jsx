@@ -1,3 +1,4 @@
+import './appointment_list.css';
 import { DataGrid } from '@mui/x-data-grid';
 
 const rows = [
