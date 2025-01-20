@@ -32,9 +32,6 @@ function App() {
 
       {/* Renderiza el componente principal según la ruta */}
       {ComponentToRender}
-
-      {/* SpeedDial global disponible en todas las páginas */}
-      <GlobalSpeedDial />
     </div>
   );
 }

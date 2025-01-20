@@ -8,7 +8,6 @@ import utc from "dayjs/plugin/utc";
 import { Button } from "@mui/material";
 
 function Calendar() {
-  // dayjs.tz.setDefault('Pacific/Auckland');
   let date = new Date();
   const [value, setValue] = React.useState(dayjs(date));
 
